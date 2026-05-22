@@ -98,7 +98,7 @@
   --space-4xl: 6rem;      /* 96px */
 
   /* --- Layout --- */
-  --container-max: 1280px;
+  --container-max: 1400px;
   --container-pad: clamp(1rem, 4vw, 2rem);
   --header-h:      90px;
 
@@ -604,8 +604,16 @@ strong {
 }
 
 /* ANPC */
+.footer__anpc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
 .footer__anpc-img {
-  max-width: 175px;
+  display: block;
+  width: 175px;
+  height: auto;
   border-radius: var(--radius-md);
   opacity: 0.9;
   transition: opacity var(--transition-fast);
@@ -636,6 +644,17 @@ strong {
   .footer__grid {
     grid-template-columns: 1fr;
     gap: var(--space-xl);
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --space-4xl: 3rem;
+    --space-3xl: 2rem;
+  }
+
+  .nav__lang span {
+    display: none;
   }
 }
 
