@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mesopotamia – Fast food cu gust autentic. Descoperă produsele noastre, locațiile din toată România și comenzile la domiciliu.">
+  <title>Mesopotamia® – Gustul care nu se uită!</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav" aria-label="Navigatie principala">
+        <a href="index.html" class="nav__logo" aria-label="Mesopotamia – pagina principala">
+          <img src="images/icons/2025-logo-mesopotamia-all-good-variante.png" alt="Mesopotamia" class="nav__logo-img">
+        </a>
+        <ul class="nav__links" id="navLinks" role="list">
+          <li><a href="index.html"      class="nav__link nav__link--active">Acasă</a></li>
+          <li><a href="meniu.html"       class="nav__link">Meniu</a></li>
+          <li><a href="restaurante.html" class="nav__link">Restaurante</a></li>
+          <li><a href="livrari.html"     class="nav__link">Livrări domiciliu</a></li>
+          <li><a href="cariera.html"     class="nav__link">Carieră</a></li>
+          <li><a href="contact.html"     class="nav__link">Contact</a></li>
+        </ul>
+        <div class="nav__actions">
+          <a href="index-en.html" class="nav__lang" aria-label="Switch to English">
+            <img src="images/icons/flag-en.png" alt="" class="nav__flag" aria-hidden="true">
+            <span>English</span>
+          </a>
+          <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- HERO SLIDER -->
+  <section class="hero" aria-label="Slider promotional">
+    <div class="hero__slider" id="heroSlider">
+
+      <a href="#" class="hero__slide is-active" role="group" aria-label="Slide 1 din 3">
+        <img src="images/hero/RoyalCheesyCover.jpg" alt="Royal Cheesy Mesopotamia" class="hero__slide-img">
+      </a>
+
+      <a href="#" class="hero__slide" role="group" aria-label="Slide 2 din 3">
+        <img src="images/hero/NutellaDay_WebSite-Cover.jpg" alt="NutellaDay Mesopotamia" class="hero__slide-img">
+      </a>
+
+      <a href="#" class="hero__slide" role="group" aria-label="Slide 3 din 3">
+        <img src="images/hero/15AniAniversary_Cover.jpg" alt="15 Ani Mesopotamia" class="hero__slide-img">
+      </a>
+
+    </div>
+
+    <button class="hero__arrow hero__arrow--prev" id="heroPrev" aria-label="Slide anterior">&#8249;</button>
+    <button class="hero__arrow hero__arrow--next" id="heroNext" aria-label="Slide următor">&#8250;</button>
+
+    <div class="hero__dots" id="heroDots" role="tablist" aria-label="Selecteaza slide">
+      <button class="hero__dot is-active" data-slide="0" aria-label="Slide 1" role="tab" aria-selected="true"></button>
+      <button class="hero__dot"           data-slide="1" aria-label="Slide 2" role="tab" aria-selected="false"></button>
+      <button class="hero__dot"           data-slide="2" aria-label="Slide 3" role="tab" aria-selected="false"></button>
+    </div>
+  </section>
+
+
+  <!-- MENIU – CATEGORII -->
+  <section class="menu" aria-labelledby="menu-title">
+    <div class="container">
+      <div class="menu__header">
+        <p class="menu__tagline">Gustul unic, care nu se uită!</p>
+        <h2 class="menu__title" id="menu-title">Descoperă varietatea de produse Mesopotamia</h2>
+      </div>
+
+      <div class="cat-grid">
+
+        <a href="meniu.html" class="cat-card reveal" data-delay="0">
+          <div class="cat-card__img-wrap">
+            <img src="images/promo/Kebab.jpg" alt="Kebab" class="cat-card__img">
+          </div>
+          <div class="cat-card__label">
+            <h3 class="cat-card__title">Kebab</h3>
+            <span class="cat-card__cta">Descoperă &#8594;</span>
+          </div>
+        </a>
+
+        <a href="meniu.html" class="cat-card reveal" data-delay="0.1">
+          <div class="cat-card__img-wrap">
+            <img src="images/promo/Pizza.jpg" alt="Pizza" class="cat-card__img">
+          </div>
+          <div class="cat-card__label">
+            <h3 class="cat-card__title">Pizza</h3>
+            <span class="cat-card__cta">Descoperă &#8594;</span>
+          </div>
+        </a>
+
+        <a href="meniu.html" class="cat-card reveal" data-delay="0.2">
+          <div class="cat-card__img-wrap">
+            <img src="images/promo/MesoCafe.jpg" alt="MesoCafe" class="cat-card__img">
+          </div>
+          <div class="cat-card__label">
+            <h3 class="cat-card__title">MesoCafe</h3>
+            <span class="cat-card__cta">Descoperă &#8594;</span>
+          </div>
+        </a>
+
+        <a href="meniu.html" class="cat-card reveal" data-delay="0.3">
+          <div class="cat-card__img-wrap">
+            <img src="images/promo/Salate.jpg" alt="Salate" class="cat-card__img">
+          </div>
+          <div class="cat-card__label">
+            <h3 class="cat-card__title">Salate</h3>
+            <span class="cat-card__cta">Descoperă &#8594;</span>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="menu__more-wrap reveal" data-delay="0.4">
+        <a href="meniu.html" class="menu__show-more">Descoperă meniul complet</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CALITATE -->
+  <section class="quality" aria-label="Standardele noastre de calitate">
+    <div class="container">
+      <div class="quality__grid">
+
+        <div class="quality__item reveal" data-delay="0">
+          <div class="quality__icon-wrapper">
+            <img src="images/icons/legume.png" alt="" class="quality__icon" aria-hidden="true">
+          </div>
+          <p class="quality__text">Legume <strong>selectate zilnic</strong></p>
+        </div>
+
+        <div class="quality__item reveal" data-delay="0.1">
+          <div class="quality__icon-wrapper">
+            <img src="images/icons/sosuri.png" alt="" class="quality__icon" aria-hidden="true">
+          </div>
+          <p class="quality__text">5 sosuri unice <strong>produse zilnic in-house</strong></p>
+        </div>
+
+        <div class="quality__item reveal" data-delay="0.2">
+          <div class="quality__icon-wrapper">
+            <img src="images/icons/olg.png" alt="" class="quality__icon" aria-hidden="true">
+          </div>
+          <p class="quality__text">7 medalii de aur <strong>calitatea OLG</strong></p>
+        </div>
+
+        <div class="quality__item reveal" data-delay="0.3">
+          <div class="quality__icon-wrapper">
+            <img src="images/icons/cartofi.png" alt="" class="quality__icon" aria-hidden="true">
+          </div>
+          <p class="quality__text">Cartofi calitatea I <strong>furnizori verificați</strong></p>
+        </div>
+
+        <div class="quality__item reveal" data-delay="0.4">
+          <div class="quality__icon-wrapper">
+            <img src="images/icons/paine.png" alt="" class="quality__icon" aria-hidden="true">
+          </div>
+          <p class="quality__text">Pâine <strong>făcută pe loc</strong></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PROMO GRID -->
+  <section class="promo" aria-label="Sectiuni promotionale">
+    <div class="container">
+      <div class="promo__grid">
+
+        <a href="restaurante.html" class="promo__card promo__card--large reveal" data-delay="0">
+          <img src="images/promo/locatii.jpg" alt="Locațiile noastre din toată România" class="promo__card-img">
+          <div class="promo__card-overlay" aria-hidden="true"></div>
+          <div class="promo__card-content">
+            <h2 class="promo__card-title">Locațiile Noastre</h2>
+            <span class="promo__card-cta">Descoperă &#8594;</span>
+          </div>
+        </a>
+
+        <div class="promo__right">
+          <a href="cariera.html" class="promo__card promo__card--wide reveal" data-delay="0.15">
+            <img src="images/promo/joburi.jpg" alt="Joburi Mesopotamia" class="promo__card-img">
+            <div class="promo__card-overlay" aria-hidden="true"></div>
+            <div class="promo__card-content">
+              <h3 class="promo__card-title">Joburi</h3>
+              <span class="promo__card-cta">Descoperă &#8594;</span>
+            </div>
+          </a>
+
+          <a href="nutritional.html" class="promo__card reveal" data-delay="0.3">
+            <img src="images/promo/valori-nutritionale.jpg" alt="Informații Nutriționale" class="promo__card-img">
+            <div class="promo__card-overlay" aria-hidden="true"></div>
+            <div class="promo__card-content">
+              <h3 class="promo__card-title">Informații Nutriționale</h3>
+              <span class="promo__card-cta">Descoperă &#8594;</span>
+            </div>
+          </a>
+
+          <a href="livrari.html" class="promo__card reveal" data-delay="0.45">
+            <img src="images/promo/deliveri.jpg" alt="Mesopotamia Delivery" class="promo__card-img">
+            <div class="promo__card-overlay" aria-hidden="true"></div>
+            <div class="promo__card-content">
+              <h3 class="promo__card-title">Delivery</h3>
+              <span class="promo__card-cta">Descoperă &#8594;</span>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Footer">
+    <div class="container">
+      <div class="footer__grid">
+
+        <div class="footer__brand">
+          <img src="images/icons/2025-logo-mesopotamia-all-good-variante.png" alt="Mesopotamia" class="footer__logo">
+          <p class="footer__tagline">Gustul care nu se uită!</p>
+          <p class="footer__company">SC SET-CORPORATION SRL J33/838/2011 RO 29084042</p>
+          <p class="footer__copy">© 2026 Mesopotamia.ro – Toate drepturile rezervate.</p>
+        </div>
+
+        <nav class="footer__nav" aria-label="Link-uri footer">
+          <ul class="footer__list">
+            <li><a href="nutritional.html" class="footer__link">Valori nutriționale</a></li>
+            <li><a href="sesizari.html"    class="footer__link">Sesizări și reclamații</a></li>
+            <li><a href="privacy.html"     class="footer__link">Politica de confidențialitate</a></li>
+            <li><a href="cookies.html"     class="footer__link">Politica fișiere Cookies</a></li>
+            <li><a href="termeni.html"     class="footer__link">Termeni și condiții</a></li>
+            <li><a href="anpc-sal.html"    class="footer__link">Autoritatea Națională pentru Protecția Consumatorilor</a></li>
+            <li><a href="contact.html"     class="footer__link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__social">
+          <p class="footer__social-title">Urmărește-ne</p>
+          <div class="footer__social-links">
+            <a href="#" class="footer__social-link" aria-label="Facebook">f</a>
+            <a href="#" class="footer__social-link" aria-label="Google+">G+</a>
+            <a href="#" class="footer__social-link" aria-label="Instagram">in</a>
+          </div>
+        </div>
+
+        <div class="footer__anpc">
+          <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener noreferrer" aria-label="ANPC">
+            <img src="images/icons/anpc.png" alt="ANPC – Soluționarea alternativă a litigiilor" class="footer__anpc-img">
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+
+</body>
+</html>

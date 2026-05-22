@@ -1,0 +1,536 @@
+/* ================================================
+   MESOPOTAMIA — index.css
+   Stiluri specifice paginii de start (index.html)
+   ================================================ */
+
+
+/* ================================================
+   1. HERO SLIDER
+   ================================================ */
+.hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1920 / 550;
+  overflow: hidden;
+  margin-top: var(--header-h);
+}
+
+/* Slider container */
+.hero__slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Slide inactiv */
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  pointer-events: none;
+}
+
+/* Slide activ */
+.hero__slide.is-active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Imaginea */
+.hero__slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Sagetile de navigare */
+.hero__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--color-white);
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  transition: all var(--transition-fast);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.hero__arrow:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.hero__arrow--prev { left: 1.5rem; }
+.hero__arrow--next { right: 1.5rem; }
+
+/* Punctele de navigare (dots) */
+.hero__dots {
+  position: absolute;
+  bottom: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-sm);
+  z-index: 10;
+}
+
+.hero__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.hero__dot.is-active {
+  background: var(--color-accent);
+  width: 28px;
+}
+
+/* Responsive hero */
+@media (max-width: 768px) {
+  .hero {
+    height: 80vh;
+    margin-top: var(--header-h);
+  }
+
+  .hero__slide-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+  }
+
+  .hero__slide-content {
+    justify-content: flex-end;
+    padding-bottom: var(--space-4xl);
+    max-width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+
+  .hero__slide-desc {
+    text-align: center;
+  }
+
+  .hero__arrow {
+    display: none;
+  }
+}
+
+
+/* ================================================
+   2. MENIU – PRODUSE
+   ================================================ */
+.menu {
+  padding-block: var(--space-4xl);
+  background-color: var(--color-surface);
+}
+
+.menu__header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.menu__tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--space-sm);
+}
+
+.menu__tagline::before,
+.menu__tagline::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 2px;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.menu__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu__title {
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  color: var(--color-white);
+}
+
+/* Grid categorii */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.cat-card {
+  position: relative;
+  height: 360px;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.cat-card.is-visible {
+  transition: opacity 0.6s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cat-card:hover {
+  transform: scale(1.015);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.cat-card__img-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.cat-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+.cat-card__label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-3xl) var(--space-xl) var(--space-xl);
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.55) 50%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.cat-card__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-white);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.cat-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.cat-card:hover .cat-card__cta {
+  background: var(--color-accent);
+  color: var(--color-black);
+  transform: translateX(3px);
+}
+
+/* Buton "Vezi toate" */
+.menu__more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-2xl);
+}
+
+.menu__show-more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 1rem 2.8rem;
+  border-radius: var(--radius-full);
+  border: none;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-normal);
+  box-shadow: 0 6px 24px rgba(176, 1, 6, 0.4);
+}
+
+.menu__show-more:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(176, 1, 6, 0.55);
+}
+
+
+/* ================================================
+   3. QUALITY BADGES
+   ================================================ */
+.quality {
+  padding-block: var(--space-3xl);
+  background-color: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.quality__grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(var(--space-xl), 4vw, var(--space-4xl));
+  flex-wrap: wrap;
+}
+
+.quality__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  text-align: center;
+  flex: 0 0 auto;
+  max-width: 140px;
+}
+
+.quality__icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal);
+}
+
+.quality__item:hover .quality__icon-wrapper {
+  border-color: var(--color-secondary);
+  background: var(--brand-green-faint);
+  transform: translateY(-3px);
+}
+
+.quality__icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.quality__text {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.quality__text strong {
+  display: block;
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .quality__grid {
+    gap: var(--space-xl);
+  }
+
+  .quality__item {
+    max-width: 110px;
+  }
+}
+
+
+/* ================================================
+   4. PROMO GRID
+   ================================================ */
+.promo {
+  padding-block: var(--space-4xl);
+  background-color: var(--color-surface);
+}
+
+.promo__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  height: 560px;
+}
+
+.promo__right {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+/* Card generic */
+.promo__card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  display: flex;
+  cursor: pointer;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.promo__card.is-visible,
+.promo__right.is-visible {
+  transition: opacity 0.6s ease, transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.promo__card:hover {
+  transform: scale(1.015);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.promo__card--large {
+  border-radius: var(--radius-lg);
+}
+
+/* Card care ocupa toata coloana din dreapta sus */
+.promo__card--wide {
+  grid-column: 1 / -1;
+}
+
+.promo__card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.promo__card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.15) 60%,
+    transparent 100%
+  );
+}
+
+.promo__card-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-lg);
+  width: 100%;
+}
+
+.promo__card-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-weight: 800;
+  color: var(--color-white);
+  text-transform: uppercase;
+  margin-bottom: var(--space-xs);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.promo__card-sub {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: var(--space-md);
+}
+
+.promo__card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  width: fit-content;
+  transition: all var(--transition-fast);
+}
+
+.promo__card:hover .promo__card-cta {
+  background: var(--color-accent);
+  color: var(--color-black);
+  transform: translateX(3px);
+}
+
+/* Responsive promo */
+@media (max-width: 900px) {
+  .promo__grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .promo__card--large {
+    height: 300px;
+  }
+
+  .promo__right {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .promo__card--wide {
+    grid-column: 1 / -1;
+    height: 200px;
+  }
+
+  .promo__right .promo__card:not(.promo__card--wide) {
+    height: 200px;
+  }
+}
+
+@media (max-width: 520px) {
+  .promo__right {
+    grid-template-columns: 1fr;
+  }
+
+  .promo__card--wide {
+    grid-column: auto;
+  }
+}
