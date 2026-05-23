@@ -152,11 +152,11 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-md);
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: var(--color-accent);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   margin-bottom: var(--space-sm);
 }
 
@@ -177,7 +177,7 @@
 }
 
 .menu__title {
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
   color: var(--color-white);
 }
 
@@ -593,7 +593,7 @@
   }
 
   .menu__title {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
   }
 
   .menu__tagline {

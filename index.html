@@ -27,13 +27,16 @@
           <li><a href="index.html"      class="nav__link nav__link--active">Acasă</a></li>
           <li><a href="meniu.html"       class="nav__link">Meniu</a></li>
           <li><a href="restaurante.html" class="nav__link">Restaurante</a></li>
-          <li><a href="livrari.html"     class="nav__link">Livrări domiciliu</a></li>
+          <li><a href="livrari.html"     class="nav__link">Livrări</a></li>
           <li><a href="cariera.html"     class="nav__link">Carieră</a></li>
           <li><a href="contact.html"     class="nav__link">Contact</a></li>
+          <li class="nav__lang-mobile"><a href="index-en.html" class="nav__link">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i> English
+          </a></li>
         </ul>
         <div class="nav__actions">
           <a href="index-en.html" class="nav__lang" aria-label="Switch to English">
-            <img src="images/icons/flag-en.png" alt="" class="nav__flag" aria-hidden="true">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
             <span>English</span>
           </a>
           <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
@@ -222,14 +225,12 @@
 
   <!-- FOOTER -->
   <footer class="footer" aria-label="Footer">
-    <div class="container">
-      <div class="footer__grid">
+<div class="container">
+
+      <div class="footer__body">
 
         <div class="footer__brand">
           <img src="images/icons/2025-logo-mesopotamia-all-good-variante.png" alt="Mesopotamia" class="footer__logo">
-          <p class="footer__tagline">Gustul care nu se uită!</p>
-          <p class="footer__company">SC SET-CORPORATION SRL J33/838/2011 RO 29084042</p>
-          <p class="footer__copy">© 2026 Mesopotamia.ro – Toate drepturile rezervate.</p>
         </div>
 
         <nav class="footer__nav" aria-label="Link-uri footer">
@@ -239,7 +240,6 @@
             <li><a href="privacy.html"     class="footer__link">Politica de confidențialitate</a></li>
             <li><a href="cookies.html"     class="footer__link">Politica fișiere Cookies</a></li>
             <li><a href="termeni.html"     class="footer__link">Termeni și condiții</a></li>
-            <li><a href="anpc-sal.html"    class="footer__link">Autoritatea Națională pentru Protecția Consumatorilor</a></li>
             <li><a href="contact.html"     class="footer__link">Contact</a></li>
           </ul>
         </nav>
@@ -247,22 +247,30 @@
         <div class="footer__social">
           <p class="footer__social-title">Urmărește-ne</p>
           <div class="footer__social-links">
-            <a href="#" class="footer__social-link" aria-label="Facebook">f</a>
-            <a href="#" class="footer__social-link" aria-label="Google+">G+</a>
-            <a href="#" class="footer__social-link" aria-label="Instagram">in</a>
+            <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
           </div>
         </div>
 
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__copy-wrap">
+          <p class="footer__copy">© 2026 Mesopotamia.ro – Toate drepturile rezervate.</p>
+          <p class="footer__company">SC SET-CORPORATION SRL J33/838/2011 RO 29084042</p>
+        </div>
         <div class="footer__anpc">
-          <a style="margin:0;line-height:1;padding:0;text-decoration:none;" href="https://anpc.ro/ce-este-sal/" target="_blank" rel="nofollow">
-            <img style="display:inline-block;border:0;width:175px;margin:5px;" src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sal.svg" alt="Solutionarea Alternativa a Litigiilor">
+          <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sal.svg" alt="Solutionarea Alternativa a Litigiilor" class="footer__anpc-img">
           </a>
-          <a style="margin:0;line-height:1;padding:0;text-decoration:none;" href="https://ec.europa.eu/consumers/odr" target="_blank" rel="nofollow">
-            <img style="display:inline-block;border:0;width:175px;margin:5px;" src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sol.svg" alt="Solutionarea Online a Litigiilor">
+          <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sol.svg" alt="Solutionarea Online a Litigiilor" class="footer__anpc-img">
           </a>
         </div>
 
       </div>
+
     </div>
   </footer>
 
