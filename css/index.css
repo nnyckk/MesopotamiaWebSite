@@ -233,7 +233,7 @@
   left: 0;
   right: 0;
   padding: var(--space-3xl) var(--space-xl) var(--space-xl);
-  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.55) 50%, transparent 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 65%, transparent 90%);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -455,12 +455,7 @@
 .promo__card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.75) 0%,
-    rgba(0, 0, 0, 0.15) 60%,
-    transparent 100%
-  );
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 65%, transparent 90%);
 }
 
 .promo__card-content {
@@ -571,7 +566,7 @@
   }
 
   .cat-card__title {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
 
   .quality__cards {
