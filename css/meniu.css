@@ -1,0 +1,352 @@
+/* ================================================
+   MESOPOTAMIA — meniu.css
+   Stiluri specifice paginii de meniu
+   ================================================ */
+
+
+/* ================================================
+   1. PAGE HERO
+   ================================================ */
+.page-hero {
+  padding-block: var(--space-3xl) var(--space-2xl);
+  margin-top: var(--header-h);
+  background: linear-gradient(135deg, #500106 0%, #B00106 50%, #500106 100%);
+  text-align: center;
+}
+
+.page-hero__tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-sm);
+}
+
+.page-hero__tagline::before,
+.page-hero__tagline::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.page-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 900;
+  color: var(--color-white);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+
+/* ================================================
+   2. LAYOUT — SIDEBAR + CONTENT
+   ================================================ */
+.meniu-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: start;
+  min-height: 60vh;
+}
+
+
+/* ================================================
+   3. SIDEBAR
+   ================================================ */
+.meniu-sidebar {
+  position: sticky;
+  top: var(--header-h);
+  height: calc(100vh - var(--header-h));
+  overflow-y: auto;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  scrollbar-width: none;
+}
+
+.meniu-sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-cat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.sidebar-cat:hover {
+  background: var(--color-surface-2);
+  border-left-color: var(--color-primary);
+}
+
+.sidebar-cat.is-active {
+  background: var(--color-surface-2);
+  border-left-color: var(--color-primary);
+}
+
+.sidebar-cat__img-wrap {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+}
+
+.sidebar-cat__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sidebar-cat__icon-wrap {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.6rem;
+  color: var(--color-accent);
+  transition: color var(--transition-fast);
+}
+
+.sidebar-cat.is-active .sidebar-cat__icon-wrap,
+.sidebar-cat:hover .sidebar-cat__icon-wrap {
+  color: var(--color-white);
+}
+
+.sidebar-cat__img--contain {
+  object-fit: contain;
+  padding: 4px;
+}
+
+.sidebar-cat__name {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.sidebar-cat:hover .sidebar-cat__name,
+.sidebar-cat.is-active .sidebar-cat__name {
+  color: var(--color-white);
+}
+
+
+/* ================================================
+   4. MENU SECTIONS
+   ================================================ */
+.meniu-content {
+  background: var(--color-bg);
+}
+
+.menu-section {
+  padding: var(--space-3xl) var(--space-2xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.menu-section__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 800;
+  color: var(--color-white);
+  text-transform: uppercase;
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-md);
+  position: relative;
+}
+
+.menu-section__title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+
+/* ================================================
+   5. PRODUCT GRID & CARDS
+   ================================================ */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.product-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.3s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  border-color: rgba(176, 1, 6, 0.45);
+}
+
+.product-card__img-wrap {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  background: var(--color-surface-2);
+}
+
+.product-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-card__img {
+  transform: scale(1.06);
+}
+
+.product-card__info {
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.product-card__name {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-white);
+  line-height: 1.3;
+}
+
+.product-card__desc {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.product-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-xs);
+}
+
+.product-card__weight {
+  font-size: 0.72rem;
+  color: var(--color-text-dim);
+  font-weight: 500;
+}
+
+.product-card__price {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-accent);
+}
+
+
+/* ================================================
+   6. RESPONSIVE
+   ================================================ */
+@media (max-width: 1024px) {
+  .meniu-layout {
+    grid-template-columns: 200px 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .meniu-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .meniu-sidebar {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .meniu-sidebar::-webkit-scrollbar { display: none; }
+
+  .meniu-sidebar nav {
+    display: flex;
+    flex-direction: row;
+    min-width: max-content;
+  }
+
+  .sidebar-cat {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    border-left: none;
+    border-bottom: 3px solid transparent;
+    min-width: 80px;
+  }
+
+  .sidebar-cat:hover,
+  .sidebar-cat.is-active {
+    border-left-color: transparent;
+    border-bottom-color: var(--color-primary);
+  }
+
+  .sidebar-cat__img-wrap {
+    width: 44px;
+    height: 44px;
+  }
+
+  .sidebar-cat__name {
+    font-size: 0.65rem;
+  }
+
+  .menu-section {
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+  }
+}
+
+@media (max-width: 420px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xs);
+  }
+
+  .product-card__name {
+    font-size: 0.7rem;
+  }
+
+  .product-card__price {
+    font-size: 0.85rem;
+  }
+}

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mesopotamia – Descoperă toate produsele noastre: Kebab, Pizza, Salate, MesoCafe, Crepes și Limonada.">
+  <title>Meniu – Mesopotamia®</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/meniu.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav" aria-label="Navigatie principala">
+        <a href="index.html" class="nav__logo" aria-label="Mesopotamia – pagina principala">
+          <img src="images/icons/2025-logo-mesopotamia-all-good-variante.png" alt="Mesopotamia" class="nav__logo-img">
+        </a>
+        <ul class="nav__links" id="navLinks" role="list">
+          <li><a href="index.html"       class="nav__link">Acasă</a></li>
+          <li><a href="meniu.html"       class="nav__link nav__link--active">Meniu</a></li>
+          <li><a href="restaurante.html" class="nav__link">Restaurante</a></li>
+          <li><a href="livrari.html"     class="nav__link">Livrări</a></li>
+          <li><a href="cariera.html"     class="nav__link">Carieră</a></li>
+          <li><a href="contact.html"     class="nav__link">Contact</a></li>
+          <li class="nav__lang-mobile"><a href="meniu-en.html" class="nav__link">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i> English
+          </a></li>
+        </ul>
+        <div class="nav__actions">
+          <a href="meniu-en.html" class="nav__lang" aria-label="Switch to English">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <span>English</span>
+          </a>
+          <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="page-hero__tagline">Tot ce iubești</p>
+      <h1 class="page-hero__title">Meniul Mesopotamia</h1>
+    </div>
+  </section>
+
+
+  <!-- MENIU LAYOUT -->
+  <div class="meniu-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="meniu-sidebar" id="meniuSidebar">
+      <nav aria-label="Categorii meniu">
+
+        <a href="#noutati" class="sidebar-cat is-active" data-section="noutati">
+          <div class="sidebar-cat__icon-wrap">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+          </div>
+          <span class="sidebar-cat__name">Noutăți</span>
+        </a>
+
+        <a href="#kebab" class="sidebar-cat" data-section="kebab">
+          <div class="sidebar-cat__img-wrap">
+            <img src="images/products/kebab/DonerKebab_600px600px.png" alt="" class="sidebar-cat__img sidebar-cat__img--contain" aria-hidden="true">
+          </div>
+          <span class="sidebar-cat__name">Kebab</span>
+        </a>
+
+        <a href="#pizza" class="sidebar-cat" data-section="pizza">
+          <div class="sidebar-cat__img-wrap">
+            <img src="images/products/pizza/mesopotamia_pizza_1000x1000.png" alt="" class="sidebar-cat__img sidebar-cat__img--contain" aria-hidden="true">
+          </div>
+          <span class="sidebar-cat__name">Pizza</span>
+        </a>
+
+        <a href="#salate" class="sidebar-cat" data-section="salate">
+          <div class="sidebar-cat__img-wrap">
+            <img src="images/products/salate/SalataKebab_600px600px.png" alt="" class="sidebar-cat__img sidebar-cat__img--contain" aria-hidden="true">
+          </div>
+          <span class="sidebar-cat__name">Salate</span>
+        </a>
+
+        <a href="#mesocafe" class="sidebar-cat" data-section="mesocafe">
+          <div class="sidebar-cat__img-wrap">
+            <img src="images/products/cafea/Cappuccino_Coffee_NoShadow_600px600px.png" alt="" class="sidebar-cat__img sidebar-cat__img--contain" aria-hidden="true">
+          </div>
+          <span class="sidebar-cat__name">MesoCafe</span>
+        </a>
+
+        <a href="#crepes" class="sidebar-cat" data-section="crepes">
+          <div class="sidebar-cat__img-wrap">
+            <img src="images/products/crepes/Nutella_Crepes_NoShadow_600px600px.png" alt="" class="sidebar-cat__img sidebar-cat__img--contain" aria-hidden="true">
+          </div>
+          <span class="sidebar-cat__name">Crepes</span>
+        </a>
+
+        <a href="#limonada" class="sidebar-cat" data-section="limonada">
+          <div class="sidebar-cat__img-wrap">
+            <img src="images/products/limonada/Cherry_Limonade_NoShadow_600px600px.png" alt="" class="sidebar-cat__img sidebar-cat__img--contain" aria-hidden="true">
+          </div>
+          <span class="sidebar-cat__name">Limonada</span>
+        </a>
+
+      </nav>
+    </aside>
+
+
+    <!-- CONTENT -->
+    <main class="meniu-content">
+
+      <!-- NOUTATI -->
+      <section class="menu-section" id="noutati" aria-labelledby="title-noutati">
+        <h2 class="menu-section__title" id="title-noutati">Noutăți</h2>
+        <div class="product-grid">
+
+          <div class="product-card reveal" data-delay="0">
+            <div class="product-card__img-wrap">
+              <img src="images/products/kebab/RoyalCheesy_600px600px.png" alt="Royal Cheesy" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Royal Cheesy</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.1">
+            <div class="product-card__img-wrap">
+              <img src="images/products/cafea/Coffee-Tonic_Coffee_NoShadow_600px600px.png" alt="Coffee Tonic" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Coffee Tonic</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.2">
+            <div class="product-card__img-wrap">
+              <img src="images/products/crepes/Ciocolata-alba-si-fistic_Crepes_NoShadow_600px600px.png" alt="Ciocolată Albă & Fistic" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Ciocolată Albă & Fistic</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- KEBAB -->
+      <section class="menu-section" id="kebab" aria-labelledby="title-kebab">
+        <h2 class="menu-section__title" id="title-kebab">Kebab</h2>
+        <div class="product-grid">
+
+          <div class="product-card reveal">
+            <div class="product-card__img-wrap">
+              <img src="images/products/kebab/DonerKebab_600px600px.png" alt="Doner Kebab" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Doner Kebab</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.05">
+            <div class="product-card__img-wrap">
+              <img src="images/products/kebab/PiattoKebab_600px600px.png" alt="Piatto Kebab" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Piatto Kebab</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.1">
+            <div class="product-card__img-wrap">
+              <img src="images/products/kebab/RollKebab_600px600px.png" alt="Roll Kebab" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Roll Kebab</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.15">
+            <div class="product-card__img-wrap">
+              <img src="images/products/kebab/RoyalCheesy_600px600px.png" alt="Royal Cheesy" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Royal Cheesy</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.2">
+            <div class="product-card__img-wrap">
+              <img src="images/products/kebab/SmartDoner_600px600px.png" alt="Smart Doner" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Smart Doner</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- PIZZA -->
+      <section class="menu-section" id="pizza" aria-labelledby="title-pizza">
+        <h2 class="menu-section__title" id="title-pizza">Pizza</h2>
+        <div class="product-grid">
+
+          <div class="product-card reveal">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/dinamita_pizza_1000x1000.png" alt="Dinamita" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Dinamita</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.05">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/family_pizza_1000x1000.png" alt="Family" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Family</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.1">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/funghi_pizza_1000x1000.png" alt="Funghi" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Funghi</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.15">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/kebab-curcan_pizza_1000x1000.png" alt="Kebab Curcan" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Kebab Curcan</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.2">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/kebab-pui_pizza_1000x1000.png" alt="Kebab Pui" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Kebab Pui</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.05">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/kinder_pizza_1000x1000.png" alt="Kinder" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Kinder</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.1">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/margherita_pizza_1000x1000.png" alt="Margherita" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Margherita</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.15">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/mesocapriciosa_pizza_1000x1000.png" alt="Meso Capriciosa" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Meso Capriciosa</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.2">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/mesopotamia_pizza_1000x1000.png" alt="Mesopotamia" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Mesopotamia</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.05">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/mexicana_pizza_1000x1000.png" alt="Mexicana" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Mexicana</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.1">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/quattro-formaggi_pizza_1000x1000.png" alt="Quattro Formaggi" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Quattro Formaggi</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.15">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/quattro-stagioni_pizza_1000x1000.png" alt="Quattro Stagioni" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Quattro Stagioni</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.2">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/sunca-si-ciuperci_pizza_1000x1000.png" alt="Șuncă și Ciuperci" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Șuncă și Ciuperci</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.05">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/sunca-si-salam_pizza_1000x1000.png" alt="Șuncă și Salam" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Șuncă și Salam</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.1">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/sunca_pizza_1000x1000.png" alt="Șuncă" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Șuncă</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.15">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/tonno-e-cipolla_pizza_1000x1000.png" alt="Tonno e Cipolla" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Tonno e Cipolla</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.2">
+            <div class="product-card__img-wrap">
+              <img src="images/products/pizza/vegetala_pizza_1000x1000.png" alt="Vegetală" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Vegetală</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- SALATE -->
+      <section class="menu-section" id="salate" aria-labelledby="title-salate">
+        <h2 class="menu-section__title" id="title-salate">Salate</h2>
+        <div class="product-grid">
+
+          <div class="product-card reveal">
+            <div class="product-card__img-wrap">
+              <img src="images/products/salate/SalataKebab_600px600px.png" alt="Salată Kebab" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Salată Kebab</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.05">
+            <div class="product-card__img-wrap">
+              <img src="images/products/salate/SalataSunca_600px600px.png" alt="Salată Șuncă" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Salată Șuncă</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.1">
+            <div class="product-card__img-wrap">
+              <img src="images/products/salate/SalataTon_600px600px.png" alt="Salată Ton" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Salată Ton</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- MESOCAFE -->
+      <section class="menu-section" id="mesocafe" aria-labelledby="title-mesocafe">
+        <h2 class="menu-section__title" id="title-mesocafe">MesoCafe</h2>
+        <div class="product-grid">
+
+          <div class="product-card reveal">
+            <div class="product-card__img-wrap">
+              <img src="images/products/cafea/Caffee-Latte_Coffee_NoShadow_600px600px.png" alt="Caffee Latte" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Caffee Latte</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- ml</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.05">
+            <div class="product-card__img-wrap">
+              <img src="images/products/cafea/Cappuccino-Flavour_Coffee_NoShadow_600px600px.png" alt="Cappuccino Flavour" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Cappuccino Flavour</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- ml</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.1">
+            <div class="product-card__img-wrap">
+              <img src="images/products/cafea/Cappuccino_Coffee_NoShadow_600px600px.png" alt="Cappuccino" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Cappuccino</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- ml</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.15">
+            <div class="product-card__img-wrap">
+              <img src="images/products/cafea/Coffee-Ice_Coffee_NoShadow_600px600px.png" alt="Coffee Ice" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Coffee Ice</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- ml</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.2">
+            <div class="product-card__img-wrap">
+              <img src="images/products/cafea/Coffee-Tonic_Coffee_NoShadow_600px600px.png" alt="Coffee Tonic" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Coffee Tonic</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- ml</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.05">
+            <div class="product-card__img-wrap">
+              <img src="images/products/cafea/Iced-Latte_Coffee_NoShadow_600px600px.png" alt="Iced Latte" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Iced Latte</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- ml</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.1">
+            <div class="product-card__img-wrap">
+              <img src="images/products/cafea/Latte-Machiato_Coffee_NoShadow_600px600px.png" alt="Latte Macchiato" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Latte Macchiato</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- ml</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.15">
+            <div class="product-card__img-wrap">
+              <img src="images/products/cafea/Viennese-Cappuccino_Coffee_NoShadow_600px600px.png" alt="Viennese Cappuccino" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Viennese Cappuccino</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- ml</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- CREPES -->
+      <section class="menu-section" id="crepes" aria-labelledby="title-crepes">
+        <h2 class="menu-section__title" id="title-crepes">Crepes</h2>
+        <div class="product-grid">
+
+          <div class="product-card reveal">
+            <div class="product-card__img-wrap">
+              <img src="images/products/crepes/Ciocolata-alba-si-fistic_Crepes_NoShadow_600px600px.png" alt="Ciocolată Albă și Fistic" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Ciocolată Albă & Fistic</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.05">
+            <div class="product-card__img-wrap">
+              <img src="images/products/crepes/Dulceata_Crepes_NoShadow_600px600px.png" alt="Dulceață" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Dulceață</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.1">
+            <div class="product-card__img-wrap">
+              <img src="images/products/crepes/Nutella_Crepes_NoShadow_600px600px.png" alt="Nutella" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Nutella</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- g</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- LIMONADA -->
+      <section class="menu-section" id="limonada" aria-labelledby="title-limonada">
+        <h2 class="menu-section__title" id="title-limonada">Limonada</h2>
+        <div class="product-grid">
+
+          <div class="product-card reveal">
+            <div class="product-card__img-wrap">
+              <img src="images/products/limonada/Cherry_Limonade_NoShadow_600px600px.png" alt="Cherry" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Cherry</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- ml</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.05">
+            <div class="product-card__img-wrap">
+              <img src="images/products/limonada/Mango_Limonade_NoShadow_600px600px.png" alt="Mango" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Mango</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- ml</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal" data-delay="0.1">
+            <div class="product-card__img-wrap">
+              <img src="images/products/limonada/Orange_Fresh_NoShadow_600px600px.png" alt="Orange Fresh" class="product-card__img">
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__name">Orange Fresh</h3>
+              <p class="product-card__desc">Ingrediente: --</p>
+              <div class="product-card__meta">
+                <span class="product-card__weight">-- ml</span>
+                <span class="product-card__price">-- lei</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Footer">
+    <div class="container">
+
+      <div class="footer__body">
+
+        <div class="footer__brand">
+          <img src="images/icons/2025-logo-mesopotamia-all-good-variante.png" alt="Mesopotamia" class="footer__logo">
+          <p class="footer__tagline">Gustul care nu se uită!</p>
+        </div>
+
+        <nav class="footer__nav" aria-label="Link-uri footer">
+          <ul class="footer__list">
+            <li><a href="nutritional.html" class="footer__link">Valori nutriționale</a></li>
+            <li><a href="sesizari.html"    class="footer__link">Sesizări și reclamații</a></li>
+            <li><a href="privacy.html"     class="footer__link">Politica de confidențialitate</a></li>
+            <li><a href="cookies.html"     class="footer__link">Politica fișiere Cookies</a></li>
+            <li><a href="termeni.html"     class="footer__link">Termeni și condiții</a></li>
+            <li><a href="contact.html"     class="footer__link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__social">
+          <p class="footer__social-title">Urmărește-ne</p>
+          <div class="footer__social-links">
+            <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__copy-wrap">
+          <p class="footer__copy">© 2026 Mesopotamia.ro – Toate drepturile rezervate.</p>
+          <p class="footer__company">SC SET-CORPORATION SRL J33/838/2011 RO 29084042</p>
+        </div>
+        <div class="footer__anpc">
+          <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sal.svg" alt="Solutionarea Alternativa a Litigiilor" class="footer__anpc-img">
+          </a>
+          <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sol.svg" alt="Solutionarea Online a Litigiilor" class="footer__anpc-img">
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/meniu.js"></script>
+
+</body>
+</html>
