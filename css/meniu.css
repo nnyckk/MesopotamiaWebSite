@@ -66,17 +66,12 @@
   align-self: flex-start;
   position: sticky;
   top: var(--header-h);
-  background: var(--color-surface);
-  border-right: 1px solid var(--color-border);
   transition: top 0.35s ease;
 }
 
 @media (min-width: 769px) {
   body.header-hidden .meniu-sidebar-track {
     top: 0;
-  }
-  body.header-hidden .meniu-sidebar {
-    max-height: 100vh;
   }
 }
 
@@ -88,6 +83,8 @@
   max-height: calc(100vh - var(--header-h));
   overflow-y: auto;
   scrollbar-width: none;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
 }
 
 .meniu-sidebar::-webkit-scrollbar {
@@ -317,7 +314,6 @@
     top: auto;
     background: none;
     border-right: none;
-    z-index: 200;
     transition: none;
   }
 
