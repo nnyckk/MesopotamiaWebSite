@@ -49,11 +49,35 @@
 /* ================================================
    2. LAYOUT — SIDEBAR + CONTENT
    ================================================ */
+.meniu-wrapper {
+  display: flex;
+}
+
 .meniu-layout {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  align-items: start;
+  flex: 1;
+  min-width: 0;
   min-height: 60vh;
+}
+
+.meniu-sidebar-track {
+  order: -1;
+  flex-shrink: 0;
+  width: 240px;
+  align-self: flex-start;
+  position: sticky;
+  top: var(--header-h);
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  transition: top 0.35s ease;
+}
+
+@media (min-width: 769px) {
+  body.header-hidden .meniu-sidebar-track {
+    top: 0;
+  }
+  body.header-hidden .meniu-sidebar {
+    max-height: 100vh;
+  }
 }
 
 
@@ -61,21 +85,9 @@
    3. SIDEBAR
    ================================================ */
 .meniu-sidebar {
-  position: sticky;
-  top: var(--header-h);
-  height: calc(100vh - var(--header-h));
+  max-height: calc(100vh - var(--header-h));
   overflow-y: auto;
-  background: var(--color-surface);
-  border-right: 1px solid var(--color-border);
   scrollbar-width: none;
-  transition: top 0.35s ease, height 0.35s ease;
-}
-
-@media (min-width: 769px) {
-  body.header-hidden .meniu-sidebar {
-    top: 0;
-    height: 100vh;
-  }
 }
 
 .meniu-sidebar::-webkit-scrollbar {
@@ -285,25 +297,34 @@
 /* ================================================
    6. RESPONSIVE
    ================================================ */
-@media (max-width: 1024px) {
-  .meniu-layout {
-    grid-template-columns: 200px 1fr;
-  }
-}
 
-@media (max-width: 768px) {
+/* Tablet + Mobile — sidebar moves to bottom bar */
+@media (max-width: 1024px) {
+  .meniu-wrapper {
+    display: block;
+  }
+
   .meniu-layout {
-    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .meniu-sidebar-track {
+    order: 0;
+    width: 100%;
+    align-self: auto;
+    position: sticky;
+    bottom: 0;
+    top: auto;
+    background: none;
+    border-right: none;
+    z-index: 200;
+    transition: none;
   }
 
   .meniu-sidebar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: auto;
+    max-height: none;
     height: auto;
-    z-index: 200;
+    width: 100%;
     background: var(--color-surface);
     border-right: none;
     border-top: 1px solid var(--color-border);
@@ -311,12 +332,13 @@
     box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
     display: flex;
     overflow-x: auto;
+    overflow-y: visible;
     scrollbar-width: none;
     transition: none;
   }
 
   .meniu-content {
-    padding-bottom: 110px;
+    padding-bottom: 0;
   }
 
   .meniu-sidebar::-webkit-scrollbar { display: none; }
@@ -324,23 +346,54 @@
   .meniu-sidebar nav {
     display: flex;
     flex-direction: row;
-    min-width: max-content;
   }
 
   .sidebar-cat {
+    flex: 0 0 100px;
     flex-direction: column;
     align-items: center;
     gap: var(--space-xs);
-    padding: var(--space-md);
+    padding: var(--space-lg) var(--space-md);
     border-left: none;
     border-bottom: 3px solid transparent;
-    min-width: 80px;
   }
 
   .sidebar-cat:hover,
   .sidebar-cat.is-active {
     border-left-color: transparent;
     border-bottom-color: var(--color-primary);
+  }
+
+  .sidebar-cat__img-wrap {
+    width: 64px;
+    height: 64px;
+  }
+
+  .sidebar-cat__icon-wrap {
+    width: 64px;
+    height: 64px;
+    font-size: 1.5rem;
+  }
+
+  .sidebar-cat__name {
+    font-size: 0.78rem;
+  }
+
+  .menu-section {
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+/* Mobile — smaller bar items */
+@media (max-width: 768px) {
+  .sidebar-cat {
+    flex: 0 0 80px;
+    padding: var(--space-md) var(--space-xs);
   }
 
   .sidebar-cat__img-wrap {
@@ -356,15 +409,6 @@
 
   .sidebar-cat__name {
     font-size: 0.65rem;
-  }
-
-  .menu-section {
-    padding: var(--space-2xl) var(--space-lg);
-  }
-
-  .product-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-lg);
   }
 }
 
