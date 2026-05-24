@@ -80,7 +80,8 @@
    3. SIDEBAR
    ================================================ */
 .meniu-sidebar {
-  max-height: calc(100vh - var(--header-h));
+  min-height: 100vh;
+  max-height: 100vh;
   overflow-y: auto;
   scrollbar-width: none;
   background: var(--color-surface);
@@ -318,6 +319,7 @@
   }
 
   .meniu-sidebar {
+    min-height: unset;
     max-height: none;
     height: auto;
     width: 100%;
