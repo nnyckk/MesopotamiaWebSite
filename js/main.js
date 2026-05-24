@@ -26,8 +26,15 @@ function initNavScroll() {
   const header = document.getElementById('header');
   if (!header) return;
 
+  let lastY = window.scrollY;
+
   function onScroll() {
-    header.classList.toggle('is-scrolled', window.scrollY > 20);
+    const y = window.scrollY;
+    header.classList.toggle('is-scrolled', y > 20);
+    const hiding = y > lastY && y > 80;
+    header.classList.toggle('is-hidden', hiding);
+    document.body.classList.toggle('header-hidden', hiding);
+    lastY = y;
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });

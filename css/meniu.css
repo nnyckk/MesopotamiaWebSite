@@ -68,6 +68,14 @@
   background: var(--color-surface);
   border-right: 1px solid var(--color-border);
   scrollbar-width: none;
+  transition: top 0.35s ease, height 0.35s ease;
+}
+
+@media (min-width: 769px) {
+  body.header-hidden .meniu-sidebar {
+    top: 0;
+    height: 100vh;
+  }
 }
 
 .meniu-sidebar::-webkit-scrollbar {
@@ -125,7 +133,6 @@
 
 .sidebar-cat__img--contain {
   object-fit: contain;
-  padding: 4px;
 }
 
 .sidebar-cat__name {
@@ -154,6 +161,10 @@
 .menu-section {
   padding: var(--space-3xl) var(--space-2xl);
   border-bottom: 1px solid var(--color-border);
+}
+
+.menu-section:last-child {
+  border-bottom: none;
 }
 
 .menu-section__title {
@@ -286,13 +297,25 @@
   }
 
   .meniu-sidebar {
-    position: static;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
     height: auto;
+    z-index: 200;
+    background: var(--color-surface);
     border-right: none;
-    border-bottom: 1px solid var(--color-border);
+    border-top: 1px solid var(--color-border);
+    border-bottom: none;
     display: flex;
     overflow-x: auto;
     scrollbar-width: none;
+    transition: none;
+  }
+
+  .meniu-content {
+    padding-bottom: 110px;
   }
 
   .meniu-sidebar::-webkit-scrollbar { display: none; }
@@ -324,6 +347,12 @@
     height: 44px;
   }
 
+  .sidebar-cat__icon-wrap {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
   .sidebar-cat__name {
     font-size: 0.65rem;
   }
@@ -334,14 +363,14 @@
 
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-sm);
+    gap: var(--space-lg);
   }
 }
 
 @media (max-width: 420px) {
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-xs);
+    gap: var(--space-md);
   }
 
   .product-card__name {

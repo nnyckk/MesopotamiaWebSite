@@ -4,7 +4,11 @@
 
   function setActive(id) {
     links.forEach(l => {
-      l.classList.toggle('is-active', l.dataset.section === id);
+      const active = l.dataset.section === id;
+      l.classList.toggle('is-active', active);
+      if (active) {
+        l.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
     });
   }
 
@@ -26,4 +30,19 @@
       window.scrollTo({ top: offset, behavior: 'smooth' });
     });
   });
+
+  /* Pe mobile: bara se opreste inainte de footer */
+  const sidebar = document.getElementById('meniuSidebar');
+  const footer  = document.querySelector('.footer');
+
+  function updateSidebarBottom() {
+    if (!sidebar || !footer || window.innerWidth > 768) return;
+    const footerTop = footer.getBoundingClientRect().top;
+    const vh = window.innerHeight;
+    sidebar.style.bottom = footerTop < vh ? (vh - footerTop) + 'px' : '0px';
+  }
+
+  window.addEventListener('scroll', updateSidebarBottom, { passive: true });
+  window.addEventListener('resize', updateSidebarBottom);
+  updateSidebarBottom();
 })();
