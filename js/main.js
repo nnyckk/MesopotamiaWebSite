@@ -102,13 +102,30 @@ function initHeroSlider() {
   const dotsWrap  = document.getElementById('heroDots');
   const btnPrev   = document.getElementById('heroPrev');
   const btnNext   = document.getElementById('heroNext');
+  const progressBar = document.getElementById('heroProgressBar');
   if (!slider) return;
 
   const slides    = Array.from(slider.querySelectorAll('.hero__slide'));
   const dots      = dotsWrap ? Array.from(dotsWrap.querySelectorAll('.hero__dot')) : [];
   let current     = 0;
   let autoTimer   = null;
-  const INTERVAL  = 5000;
+  const INTERVAL  = 7000;
+
+  function resetProgress() {
+    if (!progressBar) return;
+    progressBar.classList.remove('is-running', 'is-paused');
+    progressBar.style.cssText = '--hero-duration:' + INTERVAL + 'ms';
+    void progressBar.offsetWidth;
+    progressBar.classList.add('is-running');
+  }
+
+  function pauseProgress() {
+    if (progressBar) progressBar.classList.add('is-paused');
+  }
+
+  function resumeProgress() {
+    if (progressBar) progressBar.classList.remove('is-paused');
+  }
 
   function goTo(index) {
     slides[current].classList.remove('is-active');
@@ -118,6 +135,8 @@ function initHeroSlider() {
 
     slides[current].classList.add('is-active');
     if (dots[current]) dots[current].classList.add('is-active');
+
+    resetProgress();
   }
 
   function next() { goTo(current + 1); }
@@ -126,10 +145,12 @@ function initHeroSlider() {
   function startAuto() {
     stopAuto();
     autoTimer = setInterval(next, INTERVAL);
+    resumeProgress();
   }
 
   function stopAuto() {
     clearInterval(autoTimer);
+    pauseProgress();
   }
 
   if (btnPrev) btnPrev.addEventListener('click', function () { prev(); startAuto(); });
@@ -149,13 +170,17 @@ function initHeroSlider() {
     const diff = touchStartX - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 50) {
       diff > 0 ? next() : prev();
-      startAuto();
     }
+    startAuto();
   }, { passive: true });
 
-  /* Pauza la hover */
-  slider.addEventListener('mouseenter', stopAuto);
-  slider.addEventListener('mouseleave', startAuto);
+  /* Pauza la hover — doar mouse, nu touch */
+  slider.addEventListener('pointerenter', function (e) {
+    if (e.pointerType === 'mouse') stopAuto();
+  });
+  slider.addEventListener('pointerleave', function (e) {
+    if (e.pointerType === 'mouse') startAuto();
+  });
 
   goTo(0);
   startAuto();

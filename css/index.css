@@ -45,6 +45,31 @@
   object-position: center;
 }
 
+/* Progress bar */
+.hero__progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--color-primary);
+  z-index: 10;
+  transition: none;
+}
+
+.hero__progress-bar.is-running {
+  animation: hero-progress var(--hero-duration, 5000ms) linear forwards;
+}
+
+.hero__progress-bar.is-paused {
+  animation-play-state: paused;
+}
+
+@keyframes hero-progress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
 /* Sagetile de navigare */
 .hero__arrow {
   position: absolute;
@@ -98,7 +123,7 @@
 }
 
 .hero__dot.is-active {
-  background: var(--color-accent);
+  background: var(--color-primary);
   width: 28px;
 }
 
