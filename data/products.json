@@ -325,64 +325,181 @@
           "name": "Cartofi Prăjiți",
           "desc": "Cartofi prăjiți crocant, condimentați cu mix de condimente speciale",
           "weight": "200 g",
-          "price": "12 lei",
-          "img": "images/products/cartofi-sosuri/cartofi_600x600.png"
+          "price": "9.99 lei",
+          "img": "images/products/cartofi-sosuri/cartofi_600x600.png",
+          "ingredients": "Cartofi prăjiți 130g — produs decongelat, ulei vegetal rafinat de palmier (antioxidanți BHT – E 321, antispumant E900), sare iodată.",
+          "allergens": [],
+          "nutritional": {
+            "energy_kj": 877.13,
+            "energy_kcal": 208.78,
+            "fat": 7.78,
+            "saturated_fat": 3.37,
+            "carbs": 25.26,
+            "sugars": 3.2,
+            "fibre": 0.92,
+            "protein": 8.97,
+            "salt": 2.05
+          }
         },
         {
           "name": "Twister",
           "desc": "Cartofi spiralați crocant, prăjiți în ulei vegetal",
           "weight": "180 g",
-          "price": "14 lei",
-          "img": "images/products/cartofi-sosuri/twister_600x600.png"
+          "price": "9.99 lei",
+          "img": "images/products/cartofi-sosuri/twister_600x600.png",
+          "ingredients": "Cartofi twister 110g — cartofi (80%), topping (12%) [făină de <strong>grâu</strong>, sare, amidon modificat, condimente (piper negru, ardei iute, boia de ardei), pudră de usturoi, pudră de ceapă, agenți de afânare (E450, E500), extract de drojdie, extracte de condimente (piper negru), dextroză], uleiuri vegetale (rapiță, floarea-soarelui, în proporții variabile) (8%).",
+          "allergens": ["Cereale cu gluten (grâu)"],
+          "nutritional": {
+            "energy_kj": 1390.41,
+            "energy_kcal": 331.05,
+            "fat": 16.59,
+            "saturated_fat": 11.56,
+            "carbs": 37.69,
+            "sugars": 1.22,
+            "fibre": 2.95,
+            "protein": 6.27,
+            "salt": 1.36
+          }
         },
         {
           "name": "Cheesy Dip",
           "desc": "Sos cremos de brânză, perfect pentru dipping",
-          "weight": "50 ml",
-          "price": "5 lei",
-          "img": "images/products/cartofi-sosuri/cheesydip_600x600.png"
+          "weight": "100 g",
+          "price": "11.99 lei",
+          "img": "images/products/cartofi-sosuri/cheesydip_600x600.png",
+          "ingredients": "APĂ, CEDAR 39%, UNT, AMIDON MODIFICAT, SĂRURI DE TOPIRE (citrat de sodiu și polifosfați), SARE, OȚET DIN VIN, PROTEINE DIN <strong>LAPTE</strong>, AGENT DE ÎNGROȘARE (Gumă de xantan), CONSERVANT (Acid sorbic), COLORANȚI (Extract de ardei roșu și caroteni).",
+          "allergens": ["Lapte (lactoză)"],
+          "nutritional": {
+            "energy_kj": 807,
+            "energy_kcal": 195,
+            "fat": 16,
+            "saturated_fat": 10,
+            "carbs": 1.5,
+            "sugars": 0.5,
+            "fibre": 0,
+            "protein": 11,
+            "salt": 2.5
+          }
         },
         {
           "name": "Sos Alb",
           "desc": "Sos alb cremos cu ierburi aromate și usturoi",
-          "weight": "50 ml",
-          "price": "4 lei",
-          "img": "images/products/cartofi-sosuri/sosAlb_600x600.png"
+          "weight": "70 g",
+          "price": "4.99 lei",
+          "img": "images/products/cartofi-sosuri/sosAlb_600x600.png",
+          "ingredients": "SOS DE MAIONEZĂ (ulei rafinat de rapiță; apă; <strong>muștar</strong>: apă, boabe de muștar, oțet, zahăr, sare iodată; zahăr; oțet; amidonuri modificate; sare; acidifiant E 270; E 415; praf de <strong>ou</strong> integral; conservanți E 211 și E 202; colorant beta caroten; antioxidant E 385); DELIKAT (sare; zahăr; potențiatori de aromă E 621 și E 627; legume – morcov, ardei gras roșu, păstârnac, pudră de <strong>țelină</strong>, ceapă; arome – conțin orz (<strong>gluten</strong>), <strong>ou</strong>; extract de drojdie; verdețuri – pătrunjel, leuștean; condiment – piper, cucurmă, usturoi; carne deshidratată de găină; colorant E 101; antioxidant – extract de rozmarin); MĂRAR; IAURT NATURAL (3% grăsime); <strong>LAPTE</strong> DE VACĂ UHT 1.5% (lactoză); USTUROI (conține dioxid de sulf în mod natural).",
+          "allergens": ["Lapte (lactoză)", "Ouă", "Cereale cu gluten (orz)", "Țelină", "Muștar", "Dioxid de sulf"],
+          "nutritional": {
+            "energy_kj": 1236.86,
+            "energy_kcal": 295.42,
+            "fat": 7.7,
+            "saturated_fat": 3.4,
+            "carbs": 53.13,
+            "sugars": 3.4,
+            "fibre": 0.5,
+            "protein": 3.15,
+            "salt": 0.32
+          }
         },
         {
           "name": "Sos Chilli Harissa",
           "desc": "Sos picant harissa cu ardei chilli și condimente nordafricane",
-          "weight": "50 ml",
-          "price": "4 lei",
-          "img": "images/products/cartofi-sosuri/sosChilliHarissa_600x600.png"
+          "weight": "70 g",
+          "price": "4.99 lei",
+          "img": "images/products/cartofi-sosuri/sosChilliHarissa_600x600.png",
+          "ingredients": "SOS DE MAIONEZĂ (ulei rafinat de rapiță; apă; <strong>muștar</strong>: apă, boabe de muștar, oțet, zahăr, sare iodată; zahăr; oțet; amidonuri modificate; sare; acidifiant E 270; E 415; praf de <strong>ou</strong> integral; conservanți E 211 și E 202; colorant beta caroten; antioxidant E 385); DELIKAT (sare; zahăr; potențiatori de aromă E 621 și E 627; legume – morcov, ardei gras roșu, păstârnac, pudră de <strong>țelină</strong>, ceapă; arome – conțin orz (<strong>gluten</strong>), <strong>ou</strong>; extract de drojdie; verdețuri – pătrunjel, leuștean; condiment – piper, cucurmă, usturoi; carne deshidratată de găină; colorant E 101; antioxidant – extract de rozmarin); IAURT NATURAL (3% grăsime); <strong>LAPTE</strong> DE VACĂ UHT 1.5% (lactoză); MĂRAR; USTUROI GRANULAT; SOS SRIRACHA; CHILLI HARISSA.",
+          "allergens": ["Lapte (lactoză)", "Ouă", "Cereale cu gluten (orz)", "Țelină", "Muștar", "Dioxid de sulf"],
+          "nutritional": {
+            "energy_kj": 1186.2,
+            "energy_kcal": 283.1,
+            "fat": 7.6,
+            "saturated_fat": 3.3,
+            "carbs": 51.2,
+            "sugars": 3.2,
+            "fibre": 0.5,
+            "protein": 3.2,
+            "salt": 0.33
+          }
         },
         {
           "name": "Sos Roșu Dulce",
           "desc": "Sos roșu dulce pe bază de roșii coapte și ardei dulce",
-          "weight": "50 ml",
-          "price": "4 lei",
-          "img": "images/products/cartofi-sosuri/sosRosuDulce_600x600.png"
+          "weight": "70 g",
+          "price": "4.99 lei",
+          "img": "images/products/cartofi-sosuri/sosRosuDulce_600x600.png",
+          "ingredients": "PASTĂ DE ROȘII (roșii 98.5%, sare 1.5%), OREGANO, BUSUIOC, ZAHĂR, SARE.",
+          "allergens": [],
+          "nutritional": {
+            "energy_kj": 207.5,
+            "energy_kcal": 49.56,
+            "fat": 0.7,
+            "saturated_fat": 0.1,
+            "carbs": 9.09,
+            "sugars": 4.4,
+            "fibre": 1.8,
+            "protein": 1.5,
+            "salt": 0.72
+          }
         },
         {
           "name": "Sos Roșu Picant",
           "desc": "Sos roșu cu ardei iute, pentru cei care iubesc picantul",
-          "weight": "50 ml",
-          "price": "4 lei",
-          "img": "images/products/cartofi-sosuri/sosRosuPicant_600x600.png"
+          "weight": "70 g",
+          "price": "4.99 lei",
+          "img": "images/products/cartofi-sosuri/sosRosuPicant_600x600.png",
+          "ingredients": "PASTĂ DE ROȘII, OREGANO, BUSUIOC, ZAHĂR, SARE, HARISSA.",
+          "allergens": [],
+          "nutritional": {
+            "energy_kj": 244.19,
+            "energy_kcal": 58.28,
+            "fat": 0.7,
+            "saturated_fat": 0.1,
+            "carbs": 9.34,
+            "sugars": 5.3,
+            "fibre": 2.8,
+            "protein": 2.7,
+            "salt": 1.45
+          }
         },
         {
           "name": "Sos Roz",
           "desc": "Sos roz special, combinație de maioneză și ketchup cu ierburi",
-          "weight": "50 ml",
-          "price": "4 lei",
-          "img": "images/products/cartofi-sosuri/sosRoz_600x600.png"
+          "weight": "70 g",
+          "price": "4.99 lei",
+          "img": "images/products/cartofi-sosuri/sosRoz_600x600.png",
+          "ingredients": "SOS DE MAIONEZĂ (ulei rafinat de rapiță; apă; <strong>muștar</strong>: apă, boabe de muștar, oțet, zahăr, sare iodată; zahăr; oțet; amidonuri modificate; sare; acidifiant E 270; E 415; praf de <strong>ou</strong> integral; conservanți E 211 și E 202; colorant beta caroten; antioxidant E 385); DELIKAT (sare; zahăr; potențiatori de aromă E 621 și E 627; legume – morcov, ardei gras roșu, păstârnac, pudră de <strong>țelină</strong>, ceapă; arome – conțin orz (<strong>gluten</strong>), <strong>ou</strong>; extract de drojdie; verdețuri – pătrunjel, leuștean; condiment – piper, cucurmă, usturoi; carne deshidratată de găină; colorant E 101; antioxidant – extract de rozmarin); MĂRAR; IAURT NATURAL (3% grăsime); <strong>LAPTE</strong> DE VACĂ UHT 1.5% (lactoză); USTUROI (conține dioxid de sulf în mod natural); HARISSA.",
+          "allergens": ["Lapte (lactoză)", "Ouă", "Cereale cu gluten (orz)", "Țelină", "Muștar", "Dioxid de sulf"],
+          "nutritional": {
+            "energy_kj": 1186.2,
+            "energy_kcal": 283.1,
+            "fat": 7.6,
+            "saturated_fat": 3.3,
+            "carbs": 51.2,
+            "sugars": 3.2,
+            "fibre": 0.5,
+            "protein": 3.2,
+            "salt": 0.33
+          }
         },
         {
           "name": "Sos Usturoi",
           "desc": "Sos cremos de usturoi, preparat după rețeta tradițională Mesopotamia",
-          "weight": "50 ml",
-          "price": "4 lei",
-          "img": "images/products/cartofi-sosuri/sosUsturoi_600x600.png"
+          "weight": "70 g",
+          "price": "4.99 lei",
+          "img": "images/products/cartofi-sosuri/sosUsturoi_600x600.png",
+          "ingredients": "SOS DE MAIONEZĂ (ulei rafinat de rapiță; apă; <strong>muștar</strong>: apă, boabe de muștar, oțet, zahăr, sare iodată; zahăr; oțet; amidonuri modificate; sare; acidifiant E 270; E 415; praf de <strong>ou</strong> integral; conservanți E 211 și E 202; colorant beta caroten; antioxidant E 385); DELIKAT (sare; zahăr; potențiatori de aromă E 621 și E 627; legume – morcov, ardei gras roșu, păstârnac, pudră de <strong>țelină</strong>, ceapă; arome – conțin orz (<strong>gluten</strong>), <strong>ou</strong>; extract de drojdie; verdețuri – pătrunjel, leuștean; condiment – piper, cucurmă, usturoi; carne deshidratată de găină; colorant E 101; antioxidant – extract de rozmarin); MĂRAR; IAURT NATURAL (3% grăsime); <strong>LAPTE</strong> DE VACĂ UHT 1.5% (lactoză); USTUROI (conține dioxid de sulf în mod natural); BUSUIOC; USTUROI GRANULAT; BOIA DULCE.",
+          "allergens": ["Lapte (lactoză)", "Ouă", "Cereale cu gluten (orz)", "Țelină", "Muștar", "Dioxid de sulf"],
+          "nutritional": {
+            "energy_kj": 1236.86,
+            "energy_kcal": 295.42,
+            "fat": 7.7,
+            "saturated_fat": 3.4,
+            "carbs": 53.13,
+            "sugars": 3.4,
+            "fibre": 0.5,
+            "protein": 3.15,
+            "salt": 0.32
+          }
         }
       ]
     },

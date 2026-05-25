@@ -632,9 +632,7 @@
   }
 
   .product-modal__close {
-    top: var(--space-sm);
-    right: var(--space-sm);
-    background: var(--color-surface);
+    display: none;
   }
 }
 
@@ -748,18 +746,18 @@
   .sidebar-cat {
     flex: 1 1 0;
     min-width: 90px;
-    padding: var(--space-md) var(--space-xs);
+    padding: var(--space-sm) var(--space-xs);
   }
 
   .sidebar-cat__img-wrap {
-    width: 44px;
-    height: 44px;
+    width: 38px;
+    height: 38px;
   }
 
   .sidebar-cat__icon-wrap {
-    width: 44px;
-    height: 44px;
-    font-size: 1.1rem;
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
   }
 
   .sidebar-cat__name {
