@@ -729,6 +729,7 @@
 
   .sidebar-cat__name {
     font-size: 0.78rem;
+    text-align: center;
   }
 
   .menu-section {
@@ -741,7 +742,38 @@
   }
 }
 
-/* Mobile — smaller bar items */
+/* iPad Air / Pro — larger bar items */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .meniu-sidebar {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .meniu-sidebar nav {
+    width: max-content;
+  }
+
+  .sidebar-cat {
+    flex: 0 0 160px;
+    padding: var(--space-md) var(--space-sm);
+  }
+
+  .sidebar-cat__img-wrap {
+    width: 80px;
+    height: 80px;
+  }
+
+  .sidebar-cat__icon-wrap {
+    width: 80px;
+    height: 80px;
+    font-size: 1.8rem;
+  }
+
+  .sidebar-cat__name {
+    font-size: 0.82rem;
+  }
+}
+
+/* Mobile + iPad mini — smaller bar items */
 @media (max-width: 768px) {
   .sidebar-cat {
     flex: 1 1 0;

@@ -24,8 +24,8 @@ ready(function () {
    1. TEMA DARK / LIGHT
 ------------------------------------------------ */
 function initThemeToggle() {
-  const btn = document.getElementById('navTheme');
-  if (!btn) return;
+  const btns = document.querySelectorAll('[data-theme-toggle]');
+  if (!btns.length) return;
 
   function applyTheme(theme) {
     if (theme === 'light') {
@@ -34,17 +34,21 @@ function initThemeToggle() {
       delete document.documentElement.dataset.theme;
     }
     localStorage.setItem('theme', theme);
-    btn.querySelector('i').className = theme === 'light'
-      ? 'fa-solid fa-sun'
-      : 'fa-solid fa-moon';
+    btns.forEach(function(b) {
+      b.querySelector('i').className = theme === 'light' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      var span = b.querySelector('span');
+      if (span) span.textContent = theme === 'light' ? 'Dark Mode' : 'Light Mode';
+    });
   }
 
   const saved = localStorage.getItem('theme') || 'dark';
   applyTheme(saved);
 
-  btn.addEventListener('click', function () {
-    const isLight = document.documentElement.dataset.theme === 'light';
-    applyTheme(isLight ? 'dark' : 'light');
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function () {
+      const isLight = document.documentElement.dataset.theme === 'light';
+      applyTheme(isLight ? 'dark' : 'light');
+    });
   });
 }
 
