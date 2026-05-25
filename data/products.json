@@ -321,46 +321,39 @@
       "title": "Prăjituri",
       "products": [
         {
-          "name": "Tiramisu",
-          "desc": "Mascarpone, cafea, piscoturi, cacao pudră",
-          "weight": "150 g",
-          "price": "22 lei",
-          "img": "images/products/prajituri/Tiramisu_600px600px.png"
-        },
-        {
-          "name": "Cheesecake Căpșuni",
-          "desc": "Cremă de brânză, biscuiți, sos de căpșuni",
-          "weight": "160 g",
-          "price": "24 lei",
-          "img": "images/products/prajituri/Cheesecake_600px600px.png"
-        },
-        {
-          "name": "Brownie Ciocolată",
-          "desc": "Ciocolată neagră, unt, nucă, zahăr brun",
-          "weight": "120 g",
-          "price": "18 lei",
-          "img": "images/products/prajituri/Brownie_600px600px.png"
-        },
-        {
-          "name": "Ecler Vanilie",
-          "desc": "Aluat foietaj, cremă de vanilie, glazură ciocolată",
-          "weight": "100 g",
-          "price": "16 lei",
-          "img": "images/products/prajituri/Ecler_600px600px.png"
-        },
-        {
-          "name": "Tort Ciocolată",
-          "desc": "Blat de cacao, ganache ciocolată, frișcă",
-          "weight": "180 g",
-          "price": "28 lei",
-          "img": "images/products/prajituri/TortCiocolata_600px600px.png"
-        },
-        {
-          "name": "Croissant Unt",
-          "desc": "Aluat foietaj, unt franțuzesc, miere",
+          "name": "Croissant",
+          "desc": "Aluat foietaj, unt franțuzesc, crocant la exterior",
           "weight": "90 g",
           "price": "14 lei",
-          "img": "images/products/prajituri/Croissant_600px600px.png"
+          "img": "images/products/prajituri/coissant_600x600.png"
+        },
+        {
+          "name": "Muffin Cireșe",
+          "desc": "Muffin pufos cu cireșe proaspete și zahăr pudră",
+          "weight": "120 g",
+          "price": "16 lei",
+          "img": "images/products/prajituri/muffinCirese_600x600.png"
+        },
+        {
+          "name": "Tort Căpșuni",
+          "desc": "Blat pufos, cremă de vanilie, căpșuni proaspete",
+          "weight": "180 g",
+          "price": "26 lei",
+          "img": "images/products/prajituri/tortCapsuni_600x600.png"
+        },
+        {
+          "name": "Tort Cireșe",
+          "desc": "Blat de cacao, cremă de frișcă, cireșe",
+          "weight": "180 g",
+          "price": "26 lei",
+          "img": "images/products/prajituri/tortCirese_600x600.png"
+        },
+        {
+          "name": "Tort Mere",
+          "desc": "Blat pufos, mere caramelizate, scorțișoară",
+          "weight": "180 g",
+          "price": "24 lei",
+          "img": "images/products/prajituri/tortMere_600x600.png"
         }
       ]
     },

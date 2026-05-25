@@ -122,6 +122,129 @@
 
 
 /* ================================================
+   1b. LIGHT THEME
+   ================================================ */
+[data-theme="light"] {
+  --color-bg:        #f0e9df;
+  --color-surface:   #f7f2ec;
+  --color-surface-2: #ebe3d8;
+  --color-text:      #1a1818;
+  --color-text-muted:#5c5650;
+  --color-text-dim:  #9a9590;
+  --color-border:    rgba(0, 0, 0, 0.1);
+  --color-overlay:   rgba(0, 0, 0, 0.4);
+}
+
+/* Logo dark/light swap */
+.nav__logo--light,
+.footer__logo--light { display: none; }
+
+[data-theme="light"] .nav__logo--dark,
+[data-theme="light"] .footer__logo--dark { display: none; }
+
+[data-theme="light"] .nav__logo--light,
+[data-theme="light"] .footer__logo--light { display: block; }
+
+[data-theme="light"] .header {
+  background: rgba(240, 233, 223, 0.92);
+}
+
+[data-theme="light"] .header.is-scrolled {
+  background: rgba(240, 233, 223, 0.98);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .nav__links {
+  background: #f0e9df;
+}
+
+[data-theme="light"] .nav__link:hover {
+  color: var(--color-text);
+  background: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .nav__link--active {
+  color: var(--color-primary);
+  background: rgba(176, 1, 6, 0.08);
+}
+
+@media (max-width: 1024px) {
+  [data-theme="light"] .nav__link--active {
+    background: none;
+  }
+}
+
+[data-theme="light"] .nav__lang:hover {
+  color: var(--color-text);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .nav__hamburger span {
+  background-color: var(--color-text);
+}
+
+[data-theme="light"] .nav__hamburger:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .footer {
+  background-color: #e5dcd1;
+}
+
+/* --- Texte pe fundaluri de suprafata (index.css) --- */
+[data-theme="light"] .menu__title {
+  color: var(--color-text);
+}
+
+/* --- Texte pe fundaluri de suprafata (meniu.css) --- */
+[data-theme="light"] .menu-section__title {
+  color: var(--color-text);
+}
+
+[data-theme="light"] .product-card__name {
+  color: var(--color-text);
+}
+
+[data-theme="light"] .product-card__price {
+  color: var(--color-primary);
+}
+
+[data-theme="light"] .menu__tagline,
+[data-theme="light"] .footer__tagline {
+  color: var(--color-primary);
+}
+
+[data-theme="light"] .menu__tagline::before,
+[data-theme="light"] .menu__tagline::after {
+  background: var(--color-primary);
+}
+
+[data-theme="light"] .product-card__desc {
+  color: var(--color-text-muted);
+}
+
+[data-theme="light"] .sidebar-cat__name {
+  color: var(--color-text-muted);
+}
+
+[data-theme="light"] .sidebar-cat.is-active .sidebar-cat__name {
+  color: var(--color-white);
+}
+
+@media (hover: hover) {
+  [data-theme="light"] .sidebar-cat:hover .sidebar-cat__name {
+    color: var(--color-text);
+  }
+}
+
+/* --- Sidebar active icon ramane alb (pe fundal colorat) --- */
+[data-theme="light"] .sidebar-cat.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+
+/* ================================================
    2. RESET & BAZA
    ================================================ */
 *, *::before, *::after {
@@ -379,6 +502,33 @@ strong {
   align-items: center;
   gap: var(--space-md);
   flex-shrink: 0;
+}
+
+/* Buton tema dark/light */
+.nav__theme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: none;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.nav__theme:hover {
+  color: var(--color-white);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="light"] .nav__theme:hover {
+  color: var(--color-text);
+  border-color: rgba(0, 0, 0, 0.3);
 }
 
 .nav__lang {

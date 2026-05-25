@@ -14,9 +14,39 @@ function ready(fn) {
 ready(function () {
   initNavScroll();
   initNavHamburger();
+  initThemeToggle();
   initHeroSlider();
   initScrollReveal();
 });
+
+
+/* ------------------------------------------------
+   1. TEMA DARK / LIGHT
+------------------------------------------------ */
+function initThemeToggle() {
+  const btn = document.getElementById('navTheme');
+  if (!btn) return;
+
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      document.documentElement.dataset.theme = 'light';
+    } else {
+      delete document.documentElement.dataset.theme;
+    }
+    localStorage.setItem('theme', theme);
+    btn.querySelector('i').className = theme === 'light'
+      ? 'fa-solid fa-sun'
+      : 'fa-solid fa-moon';
+  }
+
+  const saved = localStorage.getItem('theme') || 'dark';
+  applyTheme(saved);
+
+  btn.addEventListener('click', function () {
+    const isLight = document.documentElement.dataset.theme === 'light';
+    applyTheme(isLight ? 'dark' : 'light');
+  });
+}
 
 
 /* ------------------------------------------------
