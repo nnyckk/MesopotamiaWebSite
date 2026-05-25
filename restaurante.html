@@ -103,14 +103,11 @@
         aria-label="Caută restaurant"
         autocomplete="off"
       >
-    </div>
-    <div class="rest-filters" role="group" aria-label="Filtrează după facilități">
-      <button class="rest-filter is-active" data-filter="all">Toate</button>
-      <button class="rest-filter" data-filter="mesoCafe"><i class="fa-solid fa-mug-hot"></i> Meso Cafe</button>
-      <button class="rest-filter" data-filter="mesoKids"><i class="fa-solid fa-child"></i> Meso Kids</button>
-      <button class="rest-filter" data-filter="glovo">Glovo</button>
-      <button class="rest-filter" data-filter="boltFood">Bolt Food</button>
-      <button class="rest-filter" data-filter="wolt">Wolt</button>
+      <button class="rest-filter-btn" id="restFilterBtn" aria-label="Deschide filtre">
+        <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+        <span>Filtrare</span>
+        <span class="rest-filter-count" id="restFilterCount" hidden></span>
+      </button>
     </div>
   </div>
 
@@ -202,6 +199,54 @@
 
     </div>
   </footer>
+
+  <!-- FILTER MODAL -->
+  <div class="rest-filter-overlay" id="restFilterOverlay" aria-hidden="true">
+    <div class="rest-filter-overlay__backdrop" id="restFilterBackdrop"></div>
+    <div class="rest-filter-modal" role="dialog" aria-label="Filtrare restaurante">
+      <div class="rest-filter-modal__handle"></div>
+      <div class="rest-filter-modal__header">
+        <span class="rest-filter-modal__title">Filtrare</span>
+        <button class="rest-filter-modal__close" id="restFilterClose" aria-label="Închide filtre">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="rest-filter-modal__body">
+        <p class="rest-filter-modal__section-label">Facilități</p>
+        <label class="rest-filter-check">
+          <input type="checkbox" value="mesoCafe">
+          <span class="rest-filter-check__box"></span>
+          <i class="fa-solid fa-mug-hot" aria-hidden="true"></i>
+          <span>Meso Cafe</span>
+        </label>
+        <label class="rest-filter-check">
+          <input type="checkbox" value="mesoKids">
+          <span class="rest-filter-check__box"></span>
+          <i class="fa-solid fa-child" aria-hidden="true"></i>
+          <span>Meso Kids</span>
+        </label>
+        <p class="rest-filter-modal__section-label">Livrare</p>
+        <label class="rest-filter-check">
+          <input type="checkbox" value="glovo">
+          <span class="rest-filter-check__box"></span>
+          <span>Glovo</span>
+        </label>
+        <label class="rest-filter-check">
+          <input type="checkbox" value="boltFood">
+          <span class="rest-filter-check__box"></span>
+          <span>Bolt Food</span>
+        </label>
+        <label class="rest-filter-check">
+          <input type="checkbox" value="wolt">
+          <span class="rest-filter-check__box"></span>
+          <span>Wolt</span>
+        </label>
+      </div>
+      <div class="rest-filter-modal__footer">
+        <button class="rest-filter-modal__reset" id="restFilterReset">Resetează filtrele</button>
+      </div>
+    </div>
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>

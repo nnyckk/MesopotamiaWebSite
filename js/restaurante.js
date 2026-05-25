@@ -9,14 +9,32 @@
   let activeFilters = new Set(); /* gol = toate */
   let searchQuery = '';
 
+  var BANNER_GRADIENTS = [
+    'linear-gradient(135deg, #6b0109 0%, #c4031b 100%)',
+    'linear-gradient(135deg, #0a3d6b 0%, #1565c0 100%)',
+    'linear-gradient(135deg, #1b4a1e 0%, #2e7d32 100%)',
+    'linear-gradient(135deg, #4a1a42 0%, #7b1fa2 100%)',
+    'linear-gradient(135deg, #5c2a00 0%, #bf6000 100%)',
+  ];
+
+  function getBannerStyle(id) {
+    return BANNER_GRADIENTS[(id - 1) % BANNER_GRADIENTS.length];
+  }
+
   /* ---- DOM refs ---- */
-  const listEl     = document.getElementById('restList');
-  const countEl    = document.getElementById('restCount');
-  const searchEl   = document.getElementById('restSearch');
-  const filterBtns = document.querySelectorAll('.rest-filter');
-  const tabBtns    = document.querySelectorAll('.rest-tab');
-  const panelEl    = document.getElementById('restPanel');
-  const mapWrap    = document.getElementById('restMapWrap');
+  const listEl        = document.getElementById('restList');
+  const countEl       = document.getElementById('restCount');
+  const searchEl      = document.getElementById('restSearch');
+  const tabBtns       = document.querySelectorAll('.rest-tab');
+  const panelEl       = document.getElementById('restPanel');
+  const mapWrap       = document.getElementById('restMapWrap');
+  const filterBtn     = document.getElementById('restFilterBtn');
+  const filterCount   = document.getElementById('restFilterCount');
+  const filterOverlay = document.getElementById('restFilterOverlay');
+  const filterClose   = document.getElementById('restFilterClose');
+  const filterBackdrop= document.getElementById('restFilterBackdrop');
+  const filterReset   = document.getElementById('restFilterReset');
+  const checkboxes    = filterOverlay ? filterOverlay.querySelectorAll('input[type="checkbox"]') : [];
 
   /* ================================================
      1. INIT HARTA
@@ -118,7 +136,7 @@
 
     restaurants.forEach(function (r) {
       const marker = L.marker([r.lat, r.lng], { icon: makeIcon(false) });
-      marker.bindPopup(makePopup(r), { maxWidth: 260 });
+      marker.bindPopup(makePopup(r), { maxWidth: 260, autoPan: false });
 
       marker.on('click', function () {
         setActive(r.id, false);
@@ -156,7 +174,11 @@
       if (r.delivery.wolt)      badges += '<span class="rest-badge rest-badge--wolt">Wolt</span>';
 
       card.innerHTML =
-        '<div class="rest-card__img-placeholder"><i class="fa-solid fa-store"></i></div>' +
+        '<div class="rest-card__banner">' +
+          '<div class="rest-card__img-placeholder" style="background:' + getBannerStyle(r.id) + '">' +
+            '<i class="fa-solid fa-store"></i>' +
+          '</div>' +
+        '</div>' +
         '<div class="rest-card__body">' +
           '<div class="rest-card__name">' + r.name + '</div>' +
           '<div class="rest-card__meta"><i class="fa-solid fa-location-dot"></i>' + r.city + ', ' + r.county + '</div>' +
@@ -191,8 +213,10 @@
       if (panMap) {
         const r = allRestaurants.find(function (x) { return x.id === id; });
         if (r) {
-          map.setView([r.lat, r.lng], 14, { animate: true });
-          markers[id].openPopup();
+          markerCluster.zoomToShowLayer(markers[id], function () {
+            map.setView([r.lat, r.lng], 14, { animate: true });
+            markers[id].openPopup();
+          });
         }
       }
     }
@@ -252,29 +276,71 @@
     update();
   });
 
-  function syncFilterUI() {
-    filterBtns.forEach(function (b) {
-      if (b.dataset.filter === 'all') {
-        b.classList.toggle('is-active', activeFilters.size === 0);
-      } else {
-        b.classList.toggle('is-active', activeFilters.has(b.dataset.filter));
-      }
-    });
+  /* ---- Filter modal ---- */
+  function updateFilterBadge() {
+    const n = activeFilters.size;
+    filterBtn.classList.toggle('has-filters', n > 0);
+    filterCount.hidden = n === 0;
+    filterCount.textContent = n;
   }
 
-  filterBtns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      const f = btn.dataset.filter;
-      if (f === 'all') {
-        activeFilters.clear();
-      } else {
-        if (activeFilters.has(f)) {
-          activeFilters.delete(f);
-        } else {
-          activeFilters.add(f);
-        }
+  function openFilterModal() {
+    filterOverlay.classList.add('is-open');
+    filterOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFilterModal() {
+    filterOverlay.classList.remove('is-open');
+    filterOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  filterBtn.addEventListener('click', openFilterModal);
+  filterClose.addEventListener('click', closeFilterModal);
+  filterBackdrop.addEventListener('click', closeFilterModal);
+
+  /* Swipe-down to close (mobile) */
+  const filterSheet = filterOverlay ? filterOverlay.querySelector('.rest-filter-modal') : null;
+  const filterBody  = filterOverlay ? filterOverlay.querySelector('.rest-filter-modal__body') : null;
+  if (filterSheet) {
+    let swipeStartY = 0;
+
+    filterSheet.addEventListener('touchstart', function (e) {
+      swipeStartY = e.touches[0].clientY;
+      filterSheet.style.transition = 'none';
+    }, { passive: true });
+
+    filterSheet.addEventListener('touchmove', function (e) {
+      const delta = e.touches[0].clientY - swipeStartY;
+      if (delta > 0 && (!filterBody || filterBody.scrollTop === 0)) {
+        filterSheet.style.transform = 'translateY(' + delta + 'px)';
       }
-      syncFilterUI();
+    }, { passive: true });
+
+    filterSheet.addEventListener('touchend', function (e) {
+      const delta = e.changedTouches[0].clientY - swipeStartY;
+      filterSheet.style.transform = '';
+      filterSheet.style.transition = '';
+      if (delta > 80) closeFilterModal();
+    }, { passive: true });
+  }
+
+  filterReset.addEventListener('click', function () {
+    activeFilters.clear();
+    checkboxes.forEach(function (cb) { cb.checked = false; });
+    updateFilterBadge();
+    update();
+  });
+
+  checkboxes.forEach(function (cb) {
+    cb.addEventListener('change', function () {
+      if (cb.checked) {
+        activeFilters.add(cb.value);
+      } else {
+        activeFilters.delete(cb.value);
+      }
+      updateFilterBadge();
       update();
     });
   });
