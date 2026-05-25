@@ -458,46 +458,46 @@
       "title": "Înghețată",
       "products": [
         {
-          "name": "Vanilie",
-          "desc": "Înghețată cremă de vanilie, lapte proaspăt",
-          "weight": "2 bile",
-          "price": "12 lei",
-          "img": "images/products/inghetata/Vanilie_600px600px.png"
-        },
-        {
-          "name": "Ciocolată",
-          "desc": "Înghețată ciocolată belgiana, cacao",
-          "weight": "2 bile",
-          "price": "12 lei",
-          "img": "images/products/inghetata/Ciocolata_600px600px.png"
-        },
-        {
-          "name": "Căpșuni",
-          "desc": "Înghețată căpșuni proaspete, sirop natural",
-          "weight": "2 bile",
-          "price": "12 lei",
-          "img": "images/products/inghetata/Capsuni_600px600px.png"
-        },
-        {
-          "name": "Sundae",
-          "desc": "Vanilie, sos caramel, frișcă, nuci caramelizate",
+          "name": "Sundae Căpșuni",
+          "desc": "Înghețată căpșuni, sos de fructe, frișcă",
           "weight": "300 g",
           "price": "22 lei",
-          "img": "images/products/inghetata/Sundae_600px600px.png"
+          "img": "images/products/inghetata/capsuniSundae_600x600.png"
         },
         {
-          "name": "Milkshake Vanilie",
-          "desc": "Înghețată vanilie, lapte, frișcă, sirop",
-          "weight": "400 ml",
-          "price": "20 lei",
-          "img": "images/products/inghetata/Milkshake_600px600px.png"
+          "name": "Sundae Caramel",
+          "desc": "Înghețată vanilie, sos caramel, frișcă",
+          "weight": "300 g",
+          "price": "22 lei",
+          "img": "images/products/inghetata/caramelSundae_600x600.png"
         },
         {
-          "name": "Sorbet Lămâie",
-          "desc": "Lămâie proaspătă, zahăr, mentă, apă minerală",
-          "weight": "2 bile",
-          "price": "14 lei",
-          "img": "images/products/inghetata/Sorbet_600px600px.png"
+          "name": "KitKat Caramel",
+          "desc": "Înghețată caramel cu bucăți de KitKat crocant",
+          "weight": "300 g",
+          "price": "24 lei",
+          "img": "images/products/inghetata/kitkatCaramel_600x600.png"
+        },
+        {
+          "name": "KitKat Ciocolată",
+          "desc": "Înghețată ciocolată cu bucăți de KitKat crocant",
+          "weight": "300 g",
+          "price": "24 lei",
+          "img": "images/products/inghetata/kitkatCiocolata_600x600.png"
+        },
+        {
+          "name": "Oreo Caramel",
+          "desc": "Înghețată caramel cu biscuiți Oreo sfărâmați",
+          "weight": "300 g",
+          "price": "24 lei",
+          "img": "images/products/inghetata/oreoCaramel_600x600.png"
+        },
+        {
+          "name": "Oreo Ciocolată",
+          "desc": "Înghețată ciocolată cu biscuiți Oreo sfărâmați",
+          "weight": "300 g",
+          "price": "24 lei",
+          "img": "images/products/inghetata/oreoCiocolata_600x600.png"
         }
       ]
     }
