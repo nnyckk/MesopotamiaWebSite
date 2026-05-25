@@ -105,8 +105,14 @@
 /* Responsive hero */
 @media (max-width: 768px) {
   .hero {
-    height: 80vh;
+    height: auto;
+    aspect-ratio: 4 / 5;
     margin-top: var(--header-h);
+  }
+
+  .hero__slide-img {
+    object-fit: contain;
+    object-position: center;
   }
 
   .hero__slide-overlay {
@@ -232,7 +238,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: var(--space-3xl) var(--space-xl) var(--space-xl);
+  padding: var(--space-md);
   background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 65%, transparent 90%);
   display: flex;
   flex-direction: column;
@@ -282,13 +288,13 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-sm);
-  padding: 1.2rem 4rem;
+  padding: 0.85rem 2.5rem;
   border-radius: var(--radius-full);
   border: none;
   background: var(--color-primary);
   color: var(--color-white);
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -464,7 +470,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: var(--space-lg);
+  padding: var(--space-md);
   width: 100%;
 }
 
@@ -601,11 +607,9 @@
   }
 
   .menu__show-more {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-    padding: 1rem 2rem;
-    font-size: 0.9rem;
+    width: auto;
+    padding: 0.7rem 1.8rem;
+    font-size: 0.8rem;
   }
 
   .promo__card-title {
