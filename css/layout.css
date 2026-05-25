@@ -473,7 +473,7 @@ strong {
 }
 
 .nav__logo-img {
-  height: 54px;
+  height: 44px;
   width: auto;
 }
 
@@ -681,7 +681,7 @@ strong {
 
 @media (max-width: 640px) {
   .nav__logo-img {
-    height: 36px;
+    height: 28px;
   }
 
   .nav__actions {
