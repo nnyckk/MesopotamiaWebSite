@@ -583,6 +583,8 @@
     -webkit-overflow-scrolling: touch;
     padding-bottom: 2px;
     padding-inline-end: var(--container-pad);
+    width: 100%;
+    min-width: 0;
   }
 
   .rest-filters::-webkit-scrollbar {
@@ -597,7 +599,7 @@
 /* Mobile: card full width, harta sus fixa + lista jos scrollabila */
 @media (max-width: 768px) {
   .rest-shell-wrap {
-    padding-inline: var(--space-sm);
+    overflow-x: hidden;
   }
 
   .rest-shell {
