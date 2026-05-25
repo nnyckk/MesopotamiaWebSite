@@ -588,6 +588,7 @@
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 2px;
+    padding-inline-end: var(--container-pad);
   }
 
   .rest-filters::-webkit-scrollbar {
