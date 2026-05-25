@@ -1,0 +1,322 @@
+(function () {
+  'use strict';
+
+  let allRestaurants = [];
+  let map = null;
+  let markers = {};
+  let markerCluster = null;
+  let activeId = null;
+  let activeFilters = new Set(); /* gol = toate */
+  let searchQuery = '';
+
+  /* ---- DOM refs ---- */
+  const listEl     = document.getElementById('restList');
+  const countEl    = document.getElementById('restCount');
+  const searchEl   = document.getElementById('restSearch');
+  const filterBtns = document.querySelectorAll('.rest-filter');
+  const tabBtns    = document.querySelectorAll('.rest-tab');
+  const panelEl    = document.getElementById('restPanel');
+  const mapWrap    = document.getElementById('restMapWrap');
+
+  /* ================================================
+     1. INIT HARTA
+  ================================================ */
+  function initMap() {
+    map = L.map('restMap', {
+      center: [45.9432, 24.9668],
+      zoom: 9,
+      zoomControl: false,
+      scrollWheelZoom: false,
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+    /* Lock scroll: se activează la click, se dezactivează la mouseleave */
+    const mapEl    = document.getElementById('restMap');
+    const overlayEl = document.getElementById('mapLockOverlay');
+    mapEl.addEventListener('click', function () {
+      map.scrollWheelZoom.enable();
+      mapEl.classList.add('is-unlocked');
+      if (overlayEl) overlayEl.style.pointerEvents = 'none';
+    });
+    mapEl.addEventListener('mouseleave', function () {
+      map.scrollWheelZoom.disable();
+      mapEl.classList.remove('is-unlocked');
+    });
+
+    /* Touch: pe mobil, două degete pentru drag pe hartă */
+    map.gestureHandling && map.gestureHandling.enable();
+
+    markerCluster = L.markerClusterGroup({
+      showCoverageOnHover: false,
+      maxClusterRadius: 50,
+      iconCreateFunction: function (cluster) {
+        return L.divIcon({
+          html: '<div class="rest-cluster">' + cluster.getChildCount() + '</div>',
+          className: '',
+          iconSize: [40, 40],
+          iconAnchor: [20, 20],
+        });
+      },
+    });
+    map.addLayer(markerCluster);
+  }
+
+  /* ================================================
+     2. MARKER CUSTOM
+  ================================================ */
+  function makeIcon(isActive) {
+    return L.divIcon({
+      html: '<div class="rest-marker' + (isActive ? ' is-active' : '') + '">' +
+        '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">' +
+        '<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>' +
+        '</svg></div>',
+      className: '',
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -34],
+    });
+  }
+
+  /* ================================================
+     3. POPUP CONTENT
+  ================================================ */
+  function makePopup(r) {
+    let badges = '';
+    if (r.features.mesoCafe)   badges += '<span class="rest-badge rest-badge--cafe"><i class="fa-solid fa-mug-hot"></i> Meso Cafe</span>';
+    if (r.features.mesoKids)   badges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Meso Kids</span>';
+    if (r.delivery.glovo)      badges += '<span class="rest-badge rest-badge--glovo">Glovo</span>';
+    if (r.delivery.boltFood)   badges += '<span class="rest-badge rest-badge--bolt">Bolt Food</span>';
+    if (r.delivery.wolt)       badges += '<span class="rest-badge rest-badge--wolt">Wolt</span>';
+
+    return '<div class="map-popup__name">' + r.name + '</div>' +
+      '<div class="map-popup__row"><i class="fa-solid fa-location-dot"></i>' + r.address + '</div>' +
+      '<div class="map-popup__row"><i class="fa-regular fa-clock"></i>' + r.hours + '</div>' +
+      '<div class="map-popup__row"><i class="fa-solid fa-phone"></i>' + r.phone + '</div>' +
+      (badges ? '<div class="map-popup__badges">' + badges + '</div>' : '');
+  }
+
+  /* ================================================
+     4. ADAUGĂ MARKERI
+  ================================================ */
+  function buildMarkers(restaurants) {
+    markerCluster.clearLayers();
+    markers = {};
+
+    restaurants.forEach(function (r) {
+      const marker = L.marker([r.lat, r.lng], { icon: makeIcon(false) });
+      marker.bindPopup(makePopup(r), { maxWidth: 260 });
+
+      marker.on('click', function () {
+        setActive(r.id, false);
+        scrollToCard(r.id);
+      });
+
+      markers[r.id] = marker;
+      markerCluster.addLayer(marker);
+    });
+  }
+
+  /* ================================================
+     5. RENDER LISTA
+  ================================================ */
+  function renderList(restaurants) {
+    listEl.innerHTML = '';
+    countEl.textContent = restaurants.length + ' locații';
+
+    if (!restaurants.length) {
+      listEl.innerHTML = '<div class="rest-empty"><i class="fa-solid fa-store-slash"></i><span>Nicio locație găsită.</span><span>Încearcă un alt termen de căutare.</span></div>';
+      return;
+    }
+
+    const frag = document.createDocumentFragment();
+    restaurants.forEach(function (r) {
+      const card = document.createElement('div');
+      card.className = 'rest-card' + (r.id === activeId ? ' is-active' : '');
+      card.dataset.id = r.id;
+
+      let badges = '';
+      if (r.features.mesoCafe)  badges += '<span class="rest-badge rest-badge--cafe"><i class="fa-solid fa-mug-hot"></i> Cafe</span>';
+      if (r.features.mesoKids)  badges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Kids</span>';
+      if (r.delivery.glovo)     badges += '<span class="rest-badge rest-badge--glovo">Glovo</span>';
+      if (r.delivery.boltFood)  badges += '<span class="rest-badge rest-badge--bolt">Bolt Food</span>';
+      if (r.delivery.wolt)      badges += '<span class="rest-badge rest-badge--wolt">Wolt</span>';
+
+      card.innerHTML =
+        '<div class="rest-card__img-placeholder"><i class="fa-solid fa-store"></i></div>' +
+        '<div class="rest-card__body">' +
+          '<div class="rest-card__name">' + r.name + '</div>' +
+          '<div class="rest-card__meta"><i class="fa-solid fa-location-dot"></i>' + r.city + ', ' + r.county + '</div>' +
+          '<div class="rest-card__meta"><i class="fa-regular fa-clock"></i>' + r.hours + '</div>' +
+          '<div class="rest-card__meta"><i class="fa-solid fa-phone"></i>' + r.phone + '</div>' +
+          (badges ? '<div class="rest-card__badges">' + badges + '</div>' : '') +
+        '</div>';
+
+      card.addEventListener('click', function () {
+        setActive(r.id, true);
+      });
+
+      frag.appendChild(card);
+    });
+    listEl.appendChild(frag);
+  }
+
+  /* ================================================
+     6. ACTIVE STATE
+  ================================================ */
+  function setActive(id, panMap) {
+    // Reset marker anterior
+    if (activeId && markers[activeId]) {
+      markers[activeId].setIcon(makeIcon(false));
+    }
+
+    activeId = id;
+
+    // Activează marker
+    if (markers[id]) {
+      markers[id].setIcon(makeIcon(true));
+      if (panMap) {
+        const r = allRestaurants.find(function (x) { return x.id === id; });
+        if (r) {
+          map.setView([r.lat, r.lng], 14, { animate: true });
+          markers[id].openPopup();
+        }
+      }
+    }
+
+    // Activează card
+    document.querySelectorAll('.rest-card').forEach(function (c) {
+      c.classList.toggle('is-active', Number(c.dataset.id) === id);
+    });
+  }
+
+  function scrollToCard(id) {
+    const card = listEl.querySelector('[data-id="' + id + '"]');
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* ================================================
+     7. FILTRARE
+  ================================================ */
+  function getFiltered() {
+    return allRestaurants.filter(function (r) {
+      const q = searchQuery.toLowerCase();
+      const matchSearch = !q ||
+        r.name.toLowerCase().includes(q) ||
+        r.city.toLowerCase().includes(q) ||
+        r.address.toLowerCase().includes(q) ||
+        r.county.toLowerCase().includes(q);
+
+      const matchFilter = activeFilters.size === 0 || Array.from(activeFilters).every(function (f) {
+        if (f === 'mesoCafe')  return r.features.mesoCafe;
+        if (f === 'mesoKids')  return r.features.mesoKids;
+        if (f === 'glovo')     return r.delivery.glovo;
+        if (f === 'boltFood')  return r.delivery.boltFood;
+        if (f === 'wolt')      return r.delivery.wolt;
+        return true;
+      });
+
+      return matchSearch && matchFilter;
+    });
+  }
+
+  function update() {
+    const filtered = getFiltered();
+    renderList(filtered);
+    buildMarkers(filtered);
+
+    if (filtered.length && map) {
+      const bounds = filtered.map(function (r) { return [r.lat, r.lng]; });
+      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 13 });
+    }
+  }
+
+  /* ================================================
+     8. EVENTS
+  ================================================ */
+  searchEl.addEventListener('input', function () {
+    searchQuery = searchEl.value.trim();
+    update();
+  });
+
+  function syncFilterUI() {
+    filterBtns.forEach(function (b) {
+      if (b.dataset.filter === 'all') {
+        b.classList.toggle('is-active', activeFilters.size === 0);
+      } else {
+        b.classList.toggle('is-active', activeFilters.has(b.dataset.filter));
+      }
+    });
+  }
+
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const f = btn.dataset.filter;
+      if (f === 'all') {
+        activeFilters.clear();
+      } else {
+        if (activeFilters.has(f)) {
+          activeFilters.delete(f);
+        } else {
+          activeFilters.add(f);
+        }
+      }
+      syncFilterUI();
+      update();
+    });
+  });
+
+  /* Tabs (tablet) */
+  if (tabBtns.length) {
+    tabBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        tabBtns.forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        const target = btn.dataset.tab;
+        panelEl.classList.toggle('is-visible', target === 'list');
+        mapWrap.classList.toggle('is-visible', target === 'map');
+        if (target === 'map') {
+          setTimeout(function () { map.invalidateSize(); }, 320);
+        }
+      });
+    });
+  }
+
+  /* ================================================
+     9. ÎNCĂRCARE DATE
+  ================================================ */
+  fetch('data/restaurants.json')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      allRestaurants = data.restaurants;
+      initMap();
+      update();
+
+      // Pe desktop panel + map ambele vizibile by default
+      if (window.innerWidth > 1024) {
+        panelEl.classList.add('is-visible');
+        mapWrap.classList.add('is-visible');
+      } else if (window.innerWidth > 768) {
+        // Tablet: lista vizibilă by default
+        panelEl.classList.add('is-visible');
+        const firstTab = document.querySelector('.rest-tab[data-tab="list"]');
+        if (firstTab) firstTab.classList.add('is-active');
+      } else {
+        // Mobile: ambele vizibile (harta sus, lista jos)
+        panelEl.classList.add('is-visible');
+        mapWrap.classList.add('is-visible');
+      }
+
+      setTimeout(function () { map.invalidateSize(); }, 100);
+    })
+    .catch(function (err) {
+      console.error('Eroare la încărcarea restaurantelor:', err);
+      listEl.innerHTML = '<div class="rest-empty"><i class="fa-solid fa-triangle-exclamation"></i><span>Eroare la încărcarea locațiilor.</span></div>';
+    });
+
+})();

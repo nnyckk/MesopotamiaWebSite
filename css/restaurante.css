@@ -1,0 +1,635 @@
+/* ================================================
+   MESOPOTAMIA — restaurante.css
+   ================================================ */
+
+
+/* ================================================
+   1. PAGE WRAP
+   ================================================ */
+.rest-page-wrap {
+  margin-top: var(--header-h);
+  padding-block: var(--space-xl) var(--space-3xl);
+}
+
+/* Wrapper care adauga marginile de container */
+.rest-shell-wrap {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+  padding-bottom: var(--space-xl);
+}
+
+
+/* ================================================
+   2. SHELL — big card
+   ================================================ */
+.rest-shell {
+  display: flex;
+  height: clamp(520px, calc(100vh - var(--header-h) - 220px), 720px);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+
+/* ================================================
+   3. PANOU STÂNGA — search + lista
+   ================================================ */
+.rest-panel {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+/* Search bar */
+/* Toolbar: search + filtre deasupra cardului */
+.rest-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.rest-toolbar__search {
+  position: relative;
+  width: 260px;
+  flex-shrink: 0;
+}
+
+.rest-toolbar__search i {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-dim);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.rest-toolbar__search input {
+  width: 100%;
+  padding: 0.55rem 0.85rem 0.55rem 2.3rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.rest-toolbar__search input:focus {
+  border-color: var(--color-primary);
+  background: var(--color-surface-2);
+}
+
+.rest-toolbar__search input::placeholder {
+  color: var(--color-text-dim);
+}
+
+[data-theme="light"] .rest-toolbar__search input {
+  background: #fff;
+  border-color: rgba(0,0,0,0.15);
+}
+
+/* Filtre chips */
+.rest-filters {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.rest-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 1rem;
+  height: 34px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: none;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  line-height: 1;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.rest-filter:hover {
+  color: var(--color-white);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="light"] .rest-filter:hover {
+  color: var(--color-text);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.rest-filter.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Counter */
+.rest-count {
+  padding: 0.4rem var(--space-md);
+  font-size: 0.75rem;
+  color: var(--color-text-dim);
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Lista restaurante */
+.rest-list {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.rest-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.rest-list::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
+/* Mesaj zero rezultate */
+.rest-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  height: 200px;
+  color: var(--color-text-dim);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: var(--space-xl);
+}
+
+.rest-empty i {
+  font-size: 2rem;
+  color: var(--color-border);
+}
+
+
+/* ================================================
+   4. CARD RESTAURANT
+   ================================================ */
+.rest-card {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  border-left: 3px solid transparent;
+}
+
+.rest-card:hover {
+  background: var(--color-surface-2);
+}
+
+.rest-card.is-active {
+  background: var(--color-primary-faint);
+  border-left-color: var(--color-primary);
+}
+
+.rest-card__img {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--color-surface-2);
+}
+
+.rest-card__img-placeholder {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #500106 0%, #B00106 100%);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.rest-card__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rest-card__name {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rest-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.rest-card__meta i {
+  font-size: 0.7rem;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.rest-card__badges {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.rest-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.rest-badge--cafe {
+  background: rgba(250, 189, 2, 0.15);
+  color: var(--color-accent);
+  border: 1px solid rgba(250, 189, 2, 0.3);
+}
+
+.rest-badge--kids {
+  background: rgba(14, 111, 68, 0.15);
+  color: var(--color-secondary);
+  border: 1px solid rgba(14, 111, 68, 0.3);
+}
+
+.rest-badge--glovo {
+  background: rgba(255, 160, 0, 0.15);
+  color: #e07000;
+  border: 1px solid rgba(255, 160, 0, 0.3);
+}
+
+.rest-badge--bolt {
+  background: rgba(52, 211, 153, 0.12);
+  color: #059669;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.rest-badge--wolt {
+  background: rgba(0, 157, 224, 0.12);
+  color: #0077aa;
+  border: 1px solid rgba(0, 157, 224, 0.3);
+}
+
+
+/* ================================================
+   5. HARTA
+   ================================================ */
+
+/* Overlay lock */
+.map-lock-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1000;
+  transition: opacity 0.25s ease;
+}
+
+.map-lock-hint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+/* Apare la hover pe hartă (când nu e unlocked) */
+.rest-map:hover .map-lock-hint {
+  opacity: 1;
+}
+
+/* Dispare după click */
+#restMap.is-unlocked ~ .map-lock-overlay .map-lock-hint {
+  opacity: 0 !important;
+}
+
+
+.rest-map {
+  flex: 1;
+  position: relative;
+}
+
+#restMap {
+  width: 100%;
+  height: 100%;
+}
+
+/* Zoom controls sub header */
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 400;
+}
+
+/* Suprascriere leaflet pentru dark mode */
+.leaflet-popup-content-wrapper {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-md) !important;
+}
+
+.leaflet-popup-tip {
+  background: var(--color-surface);
+}
+
+.leaflet-popup-content {
+  margin: 0.85rem 1rem !important;
+}
+
+.map-popup__name {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.map-popup__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.map-popup__row i {
+  color: var(--color-primary);
+  font-size: 0.72rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.map-popup__badges {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+/* Marker custom */
+.rest-marker {
+  width: 32px;
+  height: 32px;
+  background: var(--color-primary);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  transition: transform 0.15s ease;
+}
+
+.rest-marker.is-active {
+  background: var(--color-accent);
+  transform: scale(1.25);
+  z-index: 1000 !important;
+}
+
+.rest-marker svg {
+  width: 14px;
+  height: 14px;
+  fill: #fff;
+}
+
+
+/* ================================================
+   6. TABS (tablet — toggle lista/harta)
+   ================================================ */
+.rest-tabs {
+  display: none;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  flex-shrink: 0;
+}
+
+.rest-tab {
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.rest-tab.is-active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+
+/* ================================================
+   7. LIGHT THEME OVERRIDES
+   ================================================ */
+[data-theme="light"] .rest-panel {
+  background: var(--color-surface);
+}
+
+[data-theme="light"] .rest-search__input {
+  background: #fff;
+  border-color: rgba(0,0,0,0.15);
+}
+
+[data-theme="light"] .rest-card__name {
+  color: var(--color-text);
+}
+
+[data-theme="light"] .leaflet-popup-content-wrapper {
+  background: #fff;
+  border-color: rgba(0,0,0,0.1);
+}
+
+[data-theme="light"] .leaflet-popup-tip {
+  background: #fff;
+}
+
+[data-theme="light"] .map-popup__name {
+  color: var(--color-text);
+}
+
+[data-theme="light"] .map-popup__row {
+  color: var(--color-text-muted);
+}
+
+
+/* ================================================
+   8. RESPONSIVE
+   ================================================ */
+
+/* Tablet: card full width, tabs + un singur view vizibil */
+@media (max-width: 1024px) {
+  .rest-shell {
+    flex-direction: column;
+    height: clamp(500px, 75vh, 700px);
+  }
+
+  .rest-tabs {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .rest-panel {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    display: none;
+    flex: 1;
+  }
+
+  .rest-panel.is-visible {
+    display: flex;
+  }
+
+  .rest-map {
+    display: none;
+    flex: 1;
+  }
+
+  .rest-map.is-visible {
+    display: block;
+  }
+}
+
+/* Mobile: toolbar stacked */
+@media (max-width: 768px) {
+  .rest-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+  }
+
+  .rest-toolbar__search {
+    width: 100%;
+    flex-shrink: unset;
+    order: 1;
+  }
+
+  .rest-filters {
+    order: 0;
+  }
+
+  .rest-filters {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: var(--space-xs);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+
+  .rest-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rest-filter {
+    flex-shrink: 0;
+  }
+}
+
+/* Mobile: card full width, harta sus fixa + lista jos scrollabila */
+@media (max-width: 768px) {
+  .rest-shell-wrap {
+    padding-inline: var(--space-sm);
+  }
+
+  .rest-shell {
+    flex-direction: column;
+    height: auto;
+    border-radius: var(--radius-lg);
+  }
+
+  .rest-tabs {
+    display: none;
+  }
+
+  .rest-map {
+    display: block !important;
+    height: 40vh;
+    flex: none;
+    order: -1;
+  }
+
+  .rest-panel {
+    display: flex !important;
+    flex: none;
+    height: auto;
+    overflow: visible;
+  }
+
+  .rest-list {
+    max-height: 50vh;
+  }
+}

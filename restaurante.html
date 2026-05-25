@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mesopotamia – Găsește cel mai apropiat restaurant. Peste 100 de locații în toată România.">
+  <title>Restaurante – Mesopotamia®</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/restaurante.css">
+  <script>(function(){if(localStorage.getItem('theme')==='light')document.documentElement.dataset.theme='light';})()</script>
+
+  <style>
+    /* Cluster marker inline */
+    .rest-cluster {
+      width: 40px;
+      height: 40px;
+      background: var(--color-primary);
+      border: 2px solid #fff;
+      border-radius: 50%;
+      color: #fff;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav" aria-label="Navigatie principala">
+        <a href="index.html" class="nav__logo" aria-label="Mesopotamia – pagina principala">
+          <img src="images/icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="nav__logo-img nav__logo--dark">
+          <img src="images/icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="nav__logo-img nav__logo--light">
+        </a>
+        <ul class="nav__links" id="navLinks" role="list">
+          <li><a href="index.html"       class="nav__link">Acasă</a></li>
+          <li><a href="meniu.html"       class="nav__link">Meniu</a></li>
+          <li><a href="restaurante.html" class="nav__link nav__link--active">Restaurante</a></li>
+          <li><a href="livrari.html"     class="nav__link">Livrări</a></li>
+          <li><a href="cariera.html"     class="nav__link">Carieră</a></li>
+          <li><a href="contact.html"     class="nav__link">Contact</a></li>
+          <li class="nav__actions-mobile">
+            <button class="nav__theme" data-theme-toggle aria-label="Schimbă tema">
+              <i class="fa-solid fa-moon" aria-hidden="true"></i>
+            </button>
+            <a href="restaurante-en.html" class="nav__lang" aria-label="Switch to English">
+              <i class="fa-solid fa-globe" aria-hidden="true"></i>
+              <span>English</span>
+            </a>
+          </li>
+        </ul>
+        <div class="nav__actions">
+          <button class="nav__theme" id="navTheme" data-theme-toggle aria-label="Schimbă tema">
+            <i class="fa-solid fa-moon" aria-hidden="true"></i>
+          </button>
+          <a href="restaurante-en.html" class="nav__lang" aria-label="Switch to English">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <span>English</span>
+          </a>
+          <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- PAGE WRAP -->
+  <div class="rest-page-wrap">
+
+  <!-- SHELL: SPLIT LAYOUT -->
+  <div class="rest-shell-wrap">
+
+  <!-- BARA SEARCH + FILTRE -->
+  <div class="rest-toolbar">
+    <div class="rest-toolbar__search">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input
+        type="search"
+        id="restSearch"
+        placeholder="Găsește un restaurant..."
+        aria-label="Caută restaurant"
+        autocomplete="off"
+      >
+    </div>
+    <div class="rest-filters" role="group" aria-label="Filtrează după facilități">
+      <button class="rest-filter is-active" data-filter="all">Toate</button>
+      <button class="rest-filter" data-filter="mesoCafe"><i class="fa-solid fa-mug-hot"></i> Meso Cafe</button>
+      <button class="rest-filter" data-filter="mesoKids"><i class="fa-solid fa-child"></i> Meso Kids</button>
+      <button class="rest-filter" data-filter="glovo">Glovo</button>
+      <button class="rest-filter" data-filter="boltFood">Bolt Food</button>
+      <button class="rest-filter" data-filter="wolt">Wolt</button>
+    </div>
+  </div>
+
+  <div class="rest-shell">
+
+    <!-- TABS (tablet only) -->
+    <div class="rest-tabs" role="tablist">
+      <button class="rest-tab is-active" data-tab="list" role="tab" aria-selected="true">
+        <i class="fa-solid fa-list" aria-hidden="true"></i> Listă
+      </button>
+      <button class="rest-tab" data-tab="map" role="tab" aria-selected="false">
+        <i class="fa-solid fa-map" aria-hidden="true"></i> Hartă
+      </button>
+    </div>
+
+    <!-- PANOU STÂNGA -->
+    <aside class="rest-panel is-visible" id="restPanel" aria-label="Lista restaurante">
+
+      <!-- Counter -->
+      <p class="rest-count" id="restCount" aria-live="polite">Se încarcă...</p>
+
+      <!-- Lista -->
+      <div class="rest-list" id="restList" role="list">
+        <!-- Generat dinamic din JS -->
+      </div>
+
+    </aside>
+
+    <!-- HARTA -->
+    <div class="rest-map is-visible" id="restMapWrap">
+      <div id="restMap" aria-label="Harta restaurante Mesopotamia"></div>
+      <div class="map-lock-overlay" id="mapLockOverlay">
+        <div class="map-lock-hint">
+          <i class="fa-solid fa-hand-pointer"></i>
+          <span>Click pentru a interacționa cu harta</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.rest-shell -->
+  </div><!-- /.rest-shell-wrap -->
+  </div><!-- /.rest-page-wrap -->
+
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Footer">
+    <div class="container">
+
+      <div class="footer__body">
+        <div class="footer__brand">
+          <img src="images/icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--dark">
+          <img src="images/icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--light">
+          <p class="footer__tagline">Gustul care nu se uită!</p>
+        </div>
+        <nav class="footer__nav" aria-label="Link-uri footer">
+          <ul class="footer__list">
+            <li><a href="nutritional.html" class="footer__link">Valori nutriționale</a></li>
+            <li><a href="sesizari.html"    class="footer__link">Sesizări și reclamații</a></li>
+            <li><a href="privacy.html"     class="footer__link">Politica de confidențialitate</a></li>
+            <li><a href="cookies.html"     class="footer__link">Politica fișiere Cookies</a></li>
+            <li><a href="termeni.html"     class="footer__link">Termeni și condiții</a></li>
+            <li><a href="contact.html"     class="footer__link">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="footer__social">
+          <p class="footer__social-title">Urmărește-ne</p>
+          <div class="footer__social-links">
+            <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__copy-wrap">
+          <p class="footer__copy">© 2026 Mesopotamia.ro – Toate drepturile rezervate.</p>
+          <p class="footer__company">SC SET-CORPORATION SRL J33/838/2011 RO 29084042</p>
+        </div>
+        <div class="footer__anpc">
+          <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sal.svg" alt="Solutionarea Alternativa a Litigiilor" class="footer__anpc-img">
+          </a>
+          <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sol.svg" alt="Solutionarea Online a Litigiilor" class="footer__anpc-img">
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/restaurante.js"></script>
+
+</body>
+</html>
