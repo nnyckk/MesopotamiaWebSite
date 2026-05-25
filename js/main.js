@@ -68,9 +68,11 @@ function initNavHamburger() {
 /* ------------------------------------------------
    2. SCROLL REVEAL
 ------------------------------------------------ */
-function initScrollReveal() {
-  var elements = document.querySelectorAll('.reveal');
-  if (!elements.length || !('IntersectionObserver' in window)) {
+function initScrollReveal(root) {
+  var elements = (root || document).querySelectorAll('.reveal:not(.is-observed)');
+  if (!elements.length) return;
+
+  if (!('IntersectionObserver' in window)) {
     elements.forEach(function (el) { el.classList.add('is-visible'); });
     return;
   }
@@ -90,7 +92,10 @@ function initScrollReveal() {
     });
   }, { threshold: 0.1 });
 
-  elements.forEach(function (el) { observer.observe(el); });
+  elements.forEach(function (el) {
+    el.classList.add('is-observed');
+    observer.observe(el);
+  });
 }
 
 
@@ -99,14 +104,12 @@ function initScrollReveal() {
 ------------------------------------------------ */
 function initHeroSlider() {
   const slider    = document.getElementById('heroSlider');
-  const dotsWrap  = document.getElementById('heroDots');
   const btnPrev   = document.getElementById('heroPrev');
   const btnNext   = document.getElementById('heroNext');
   const progressBar = document.getElementById('heroProgressBar');
   if (!slider) return;
 
   const slides    = Array.from(slider.querySelectorAll('.hero__slide'));
-  const dots      = dotsWrap ? Array.from(dotsWrap.querySelectorAll('.hero__dot')) : [];
   let current     = 0;
   let autoTimer   = null;
   const INTERVAL  = 7000;
@@ -129,13 +132,8 @@ function initHeroSlider() {
 
   function goTo(index) {
     slides[current].classList.remove('is-active');
-    if (dots[current]) dots[current].classList.remove('is-active');
-
     current = (index + slides.length) % slides.length;
-
     slides[current].classList.add('is-active');
-    if (dots[current]) dots[current].classList.add('is-active');
-
     resetProgress();
   }
 
@@ -155,10 +153,6 @@ function initHeroSlider() {
 
   if (btnPrev) btnPrev.addEventListener('click', function () { prev(); startAuto(); });
   if (btnNext) btnNext.addEventListener('click', function () { next(); startAuto(); });
-
-  dots.forEach(function (dot, i) {
-    dot.addEventListener('click', function () { goTo(i); startAuto(); });
-  });
 
   /* Swipe pe mobil */
   let touchStartX = 0;

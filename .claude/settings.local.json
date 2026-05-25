@@ -6,7 +6,13 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git branch *)",
-      "Bash(git remote *)"
+      "Bash(git remote *)",
+      "Bash(git config *)",
+      "Bash(git push *)",
+      "Bash(dir \"c:\\\\Users\\\\neago\\\\Desktop\\\\MesopotamiaWebSite\\\\images\" /s /b)",
+      "Bash(git fetch *)",
+      "Bash(git pull *)",
+      "Bash(python -c ' *)"
     ]
   }
 }

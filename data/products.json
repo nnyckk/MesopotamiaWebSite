@@ -1,0 +1,505 @@
+{
+  "categories": [
+    {
+      "id": "noutati",
+      "title": "Noutăți",
+      "products": [
+        {
+          "name": "Royal Cheesy",
+          "desc": "Carne de vită, brânzeturi topite, salată, roșie, sos cheesy, lipie",
+          "weight": "360 g",
+          "price": "34 lei",
+          "img": "images/products/kebab/RoyalCheesy_600px600px.png"
+        },
+        {
+          "name": "Coffee Tonic",
+          "desc": "Espresso, apă tonică, gheață, lămâie",
+          "weight": "300 ml",
+          "price": "19 lei",
+          "img": "images/products/cafea/Coffee-Tonic_Coffee_NoShadow_600px600px.png"
+        },
+        {
+          "name": "Ciocolată Albă & Fistic",
+          "desc": "Aluat crepes, ciocolată albă, fistic măcinat, frișcă",
+          "weight": "200 g",
+          "price": "22 lei",
+          "img": "images/products/crepes/Ciocolata-alba-si-fistic_Crepes_NoShadow_600px600px.png"
+        }
+      ]
+    },
+    {
+      "id": "kebab",
+      "title": "Kebab",
+      "products": [
+        {
+          "name": "Doner Kebab",
+          "desc": "Carne de vită și miel, salată, roșie, ceapă, sos alb, lipie",
+          "weight": "350 g",
+          "price": "28 lei",
+          "img": "images/products/kebab/DonerKebab_600px600px.png"
+        },
+        {
+          "name": "Piatto Kebab",
+          "desc": "Carne de vită și miel, cartofi prăjiți, salată, roșie, sos special",
+          "weight": "400 g",
+          "price": "32 lei",
+          "img": "images/products/kebab/PiattoKebab_600px600px.png"
+        },
+        {
+          "name": "Roll Kebab",
+          "desc": "Carne de vită și miel, salată, roșie, varză, sos alb, lipie",
+          "weight": "320 g",
+          "price": "26 lei",
+          "img": "images/products/kebab/RollKebab_600px600px.png"
+        },
+        {
+          "name": "Royal Cheesy",
+          "desc": "Carne de vită, brânzeturi topite, salată, roșie, sos cheesy, lipie",
+          "weight": "360 g",
+          "price": "34 lei",
+          "img": "images/products/kebab/RoyalCheesy_600px600px.png"
+        },
+        {
+          "name": "Smart Doner",
+          "desc": "Piept de pui, salată, roșie, ceapă, sos de iaurt, lipie",
+          "weight": "300 g",
+          "price": "24 lei",
+          "img": "images/products/kebab/SmartDoner_600px600px.png"
+        }
+      ]
+    },
+    {
+      "id": "pizza",
+      "title": "Pizza",
+      "products": [
+        {
+          "name": "Dinamita",
+          "desc": "Sos roșu, mozzarella, salam picant, ardei iute, jalapeño",
+          "weight": "450 g",
+          "price": "38 lei",
+          "img": "images/products/pizza/dinamita_pizza_1000x1000.png"
+        },
+        {
+          "name": "Family",
+          "desc": "Sos roșu, mozzarella, șuncă, ciuperci, ardei gras, porumb",
+          "weight": "500 g",
+          "price": "42 lei",
+          "img": "images/products/pizza/family_pizza_1000x1000.png"
+        },
+        {
+          "name": "Funghi",
+          "desc": "Sos roșu, mozzarella, ciuperci mixte, usturoi, oregano",
+          "weight": "420 g",
+          "price": "35 lei",
+          "img": "images/products/pizza/funghi_pizza_1000x1000.png"
+        },
+        {
+          "name": "Kebab Curcan",
+          "desc": "Sos alb, mozzarella, carne curcan, ceapă, ardei gras",
+          "weight": "450 g",
+          "price": "39 lei",
+          "img": "images/products/pizza/kebab-curcan_pizza_1000x1000.png"
+        },
+        {
+          "name": "Kebab Pui",
+          "desc": "Sos alb, mozzarella, piept de pui, ceapă, roșie",
+          "weight": "440 g",
+          "price": "38 lei",
+          "img": "images/products/pizza/kebab-pui_pizza_1000x1000.png"
+        },
+        {
+          "name": "Kinder",
+          "desc": "Sos alb, mozzarella, Nutella, banane, căpșuni, frișcă",
+          "weight": "400 g",
+          "price": "36 lei",
+          "img": "images/products/pizza/kinder_pizza_1000x1000.png"
+        },
+        {
+          "name": "Margherita",
+          "desc": "Sos roșu, mozzarella, busuioc proaspăt, ulei de măsline",
+          "weight": "380 g",
+          "price": "30 lei",
+          "img": "images/products/pizza/margherita_pizza_1000x1000.png"
+        },
+        {
+          "name": "Meso Capriciosa",
+          "desc": "Sos roșu, mozzarella, șuncă, ciuperci, măsline, ardei gras",
+          "weight": "460 g",
+          "price": "40 lei",
+          "img": "images/products/pizza/mesocapriciosa_pizza_1000x1000.png"
+        },
+        {
+          "name": "Mesopotamia",
+          "desc": "Sos roșu, mozzarella, carne de vită, ardei, ceapă, sos special",
+          "weight": "470 g",
+          "price": "42 lei",
+          "img": "images/products/pizza/mesopotamia_pizza_1000x1000.png"
+        },
+        {
+          "name": "Mexicana",
+          "desc": "Sos roșu, mozzarella, carne tocată, ardei iute, fasole, nachos",
+          "weight": "460 g",
+          "price": "40 lei",
+          "img": "images/products/pizza/mexicana_pizza_1000x1000.png"
+        },
+        {
+          "name": "Quattro Formaggi",
+          "desc": "Sos alb, mozzarella, gorgonzola, parmezan, emmental",
+          "weight": "430 g",
+          "price": "40 lei",
+          "img": "images/products/pizza/quattro-formaggi_pizza_1000x1000.png"
+        },
+        {
+          "name": "Quattro Stagioni",
+          "desc": "Sos roșu, mozzarella, șuncă, ciuperci, ardei, măsline",
+          "weight": "460 g",
+          "price": "40 lei",
+          "img": "images/products/pizza/quattro-stagioni_pizza_1000x1000.png"
+        },
+        {
+          "name": "Șuncă și Ciuperci",
+          "desc": "Sos roșu, mozzarella, șuncă presată, ciuperci champignon",
+          "weight": "430 g",
+          "price": "36 lei",
+          "img": "images/products/pizza/sunca-si-ciuperci_pizza_1000x1000.png"
+        },
+        {
+          "name": "Șuncă și Salam",
+          "desc": "Sos roșu, mozzarella, șuncă presată, salam italian",
+          "weight": "430 g",
+          "price": "36 lei",
+          "img": "images/products/pizza/sunca-si-salam_pizza_1000x1000.png"
+        },
+        {
+          "name": "Șuncă",
+          "desc": "Sos roșu, mozzarella, șuncă presată, oregano",
+          "weight": "400 g",
+          "price": "32 lei",
+          "img": "images/products/pizza/sunca_pizza_1000x1000.png"
+        },
+        {
+          "name": "Tonno e Cipolla",
+          "desc": "Sos roșu, mozzarella, ton, ceapă roșie, capere",
+          "weight": "420 g",
+          "price": "38 lei",
+          "img": "images/products/pizza/tonno-e-cipolla_pizza_1000x1000.png"
+        },
+        {
+          "name": "Vegetală",
+          "desc": "Sos roșu, mozzarella, ardei gras, roșie, ciuperci, porumb",
+          "weight": "420 g",
+          "price": "34 lei",
+          "img": "images/products/pizza/vegetala_pizza_1000x1000.png"
+        }
+      ]
+    },
+    {
+      "id": "salate",
+      "title": "Salate",
+      "products": [
+        {
+          "name": "Salată Kebab",
+          "desc": "Salată verde, roșie, castraveți, ceapă, carne kebab, sos alb",
+          "weight": "300 g",
+          "price": "28 lei",
+          "img": "images/products/salate/SalataKebab_600px600px.png"
+        },
+        {
+          "name": "Salată Șuncă",
+          "desc": "Salată verde, roșie, castraveți, șuncă, smântână, ouă fierte",
+          "weight": "280 g",
+          "price": "26 lei",
+          "img": "images/products/salate/SalataSunca_600px600px.png"
+        },
+        {
+          "name": "Salată Ton",
+          "desc": "Salată verde, roșie, castraveți, ton, măsline, lămâie",
+          "weight": "280 g",
+          "price": "26 lei",
+          "img": "images/products/salate/SalataTon_600px600px.png"
+        }
+      ]
+    },
+    {
+      "id": "cartofi-sosuri",
+      "title": "Cartofi & Sosuri",
+      "products": [
+        {
+          "name": "Cartofi Prăjiți",
+          "desc": "Cartofi prăjiți crocant, condimentați cu mix de condimente speciale",
+          "weight": "200 g",
+          "price": "12 lei",
+          "img": "images/products/cartofi-sosuri/cartofi_600x600.png"
+        },
+        {
+          "name": "Twister",
+          "desc": "Cartofi spiralați crocant, prăjiți în ulei vegetal",
+          "weight": "180 g",
+          "price": "14 lei",
+          "img": "images/products/cartofi-sosuri/twister_600x600.png"
+        },
+        {
+          "name": "Cheesy Dip",
+          "desc": "Sos cremos de brânză, perfect pentru dipping",
+          "weight": "50 ml",
+          "price": "5 lei",
+          "img": "images/products/cartofi-sosuri/cheesydip_600x600.png"
+        },
+        {
+          "name": "Sos Alb",
+          "desc": "Sos alb cremos cu ierburi aromate și usturoi",
+          "weight": "50 ml",
+          "price": "4 lei",
+          "img": "images/products/cartofi-sosuri/sosAlb_600x600.png"
+        },
+        {
+          "name": "Sos Chilli Harissa",
+          "desc": "Sos picant harissa cu ardei chilli și condimente nordafricane",
+          "weight": "50 ml",
+          "price": "4 lei",
+          "img": "images/products/cartofi-sosuri/sosChilliHarissa_600x600.png"
+        },
+        {
+          "name": "Sos Roșu Dulce",
+          "desc": "Sos roșu dulce pe bază de roșii coapte și ardei dulce",
+          "weight": "50 ml",
+          "price": "4 lei",
+          "img": "images/products/cartofi-sosuri/sosRosuDulce_600x600.png"
+        },
+        {
+          "name": "Sos Roșu Picant",
+          "desc": "Sos roșu cu ardei iute, pentru cei care iubesc picantul",
+          "weight": "50 ml",
+          "price": "4 lei",
+          "img": "images/products/cartofi-sosuri/sosRosuPicant_600x600.png"
+        },
+        {
+          "name": "Sos Roz",
+          "desc": "Sos roz special, combinație de maioneză și ketchup cu ierburi",
+          "weight": "50 ml",
+          "price": "4 lei",
+          "img": "images/products/cartofi-sosuri/sosRoz_600x600.png"
+        },
+        {
+          "name": "Sos Usturoi",
+          "desc": "Sos cremos de usturoi, preparat după rețeta tradițională Mesopotamia",
+          "weight": "50 ml",
+          "price": "4 lei",
+          "img": "images/products/cartofi-sosuri/sosUsturoi_600x600.png"
+        }
+      ]
+    },
+    {
+      "id": "crepes",
+      "title": "Crepes",
+      "products": [
+        {
+          "name": "Ciocolată Albă & Fistic",
+          "desc": "Aluat crepes, ciocolată albă, fistic măcinat, frișcă",
+          "weight": "200 g",
+          "price": "22 lei",
+          "img": "images/products/crepes/Ciocolata-alba-si-fistic_Crepes_NoShadow_600px600px.png"
+        },
+        {
+          "name": "Dulceață",
+          "desc": "Aluat crepes, dulceață de căpșuni, zahăr pudră",
+          "weight": "180 g",
+          "price": "18 lei",
+          "img": "images/products/crepes/Dulceata_Crepes_NoShadow_600px600px.png"
+        },
+        {
+          "name": "Nutella",
+          "desc": "Aluat crepes, Nutella, banane, frișcă",
+          "weight": "200 g",
+          "price": "20 lei",
+          "img": "images/products/crepes/Nutella_Crepes_NoShadow_600px600px.png"
+        }
+      ]
+    },
+    {
+      "id": "prajituri",
+      "title": "Prăjituri",
+      "products": [
+        {
+          "name": "Tiramisu",
+          "desc": "Mascarpone, cafea, piscoturi, cacao pudră",
+          "weight": "150 g",
+          "price": "22 lei",
+          "img": "images/products/prajituri/Tiramisu_600px600px.png"
+        },
+        {
+          "name": "Cheesecake Căpșuni",
+          "desc": "Cremă de brânză, biscuiți, sos de căpșuni",
+          "weight": "160 g",
+          "price": "24 lei",
+          "img": "images/products/prajituri/Cheesecake_600px600px.png"
+        },
+        {
+          "name": "Brownie Ciocolată",
+          "desc": "Ciocolată neagră, unt, nucă, zahăr brun",
+          "weight": "120 g",
+          "price": "18 lei",
+          "img": "images/products/prajituri/Brownie_600px600px.png"
+        },
+        {
+          "name": "Ecler Vanilie",
+          "desc": "Aluat foietaj, cremă de vanilie, glazură ciocolată",
+          "weight": "100 g",
+          "price": "16 lei",
+          "img": "images/products/prajituri/Ecler_600px600px.png"
+        },
+        {
+          "name": "Tort Ciocolată",
+          "desc": "Blat de cacao, ganache ciocolată, frișcă",
+          "weight": "180 g",
+          "price": "28 lei",
+          "img": "images/products/prajituri/TortCiocolata_600px600px.png"
+        },
+        {
+          "name": "Croissant Unt",
+          "desc": "Aluat foietaj, unt franțuzesc, miere",
+          "weight": "90 g",
+          "price": "14 lei",
+          "img": "images/products/prajituri/Croissant_600px600px.png"
+        }
+      ]
+    },
+    {
+      "id": "cafea",
+      "title": "Cafea",
+      "products": [
+        {
+          "name": "Caffee Latte",
+          "desc": "Espresso, lapte aburit, cremă de lapte",
+          "weight": "250 ml",
+          "price": "16 lei",
+          "img": "images/products/cafea/Caffee-Latte_Coffee_NoShadow_600px600px.png"
+        },
+        {
+          "name": "Cappuccino Flavour",
+          "desc": "Espresso, lapte aburit, sirop de vanilie",
+          "weight": "250 ml",
+          "price": "17 lei",
+          "img": "images/products/cafea/Cappuccino-Flavour_Coffee_NoShadow_600px600px.png"
+        },
+        {
+          "name": "Cappuccino",
+          "desc": "Espresso, lapte aburit, spumă de lapte",
+          "weight": "200 ml",
+          "price": "14 lei",
+          "img": "images/products/cafea/Cappuccino_Coffee_NoShadow_600px600px.png"
+        },
+        {
+          "name": "Coffee Ice",
+          "desc": "Espresso, gheață, lapte, sirop de zahăr",
+          "weight": "300 ml",
+          "price": "18 lei",
+          "img": "images/products/cafea/Coffee-Ice_Coffee_NoShadow_600px600px.png"
+        },
+        {
+          "name": "Coffee Tonic",
+          "desc": "Espresso, apă tonică, gheață, lămâie",
+          "weight": "300 ml",
+          "price": "19 lei",
+          "img": "images/products/cafea/Coffee-Tonic_Coffee_NoShadow_600px600px.png"
+        },
+        {
+          "name": "Iced Latte",
+          "desc": "Espresso, lapte rece, gheață, sirop",
+          "weight": "350 ml",
+          "price": "18 lei",
+          "img": "images/products/cafea/Iced-Latte_Coffee_NoShadow_600px600px.png"
+        },
+        {
+          "name": "Latte Macchiato",
+          "desc": "Lapte aburit, espresso, spumă de lapte",
+          "weight": "300 ml",
+          "price": "17 lei",
+          "img": "images/products/cafea/Latte-Machiato_Coffee_NoShadow_600px600px.png"
+        },
+        {
+          "name": "Viennese Cappuccino",
+          "desc": "Espresso, frișcă, pudră de cacao",
+          "weight": "250 ml",
+          "price": "18 lei",
+          "img": "images/products/cafea/Viennese-Cappuccino_Coffee_NoShadow_600px600px.png"
+        }
+      ]
+    },
+    {
+      "id": "limonada",
+      "title": "Limonada & Fresh",
+      "products": [
+        {
+          "name": "Cherry",
+          "desc": "Apă, suc de cireșe, zahăr, gheață, lămâie",
+          "weight": "400 ml",
+          "price": "14 lei",
+          "img": "images/products/limonada/Cherry_Limonade_NoShadow_600px600px.png"
+        },
+        {
+          "name": "Mango",
+          "desc": "Apă, suc de mango, zahăr, gheață, mentă proaspătă",
+          "weight": "400 ml",
+          "price": "14 lei",
+          "img": "images/products/limonada/Mango_Limonade_NoShadow_600px600px.png"
+        },
+        {
+          "name": "Orange Fresh",
+          "desc": "Portocale proaspăt stoarse, gheață, zahăr",
+          "weight": "400 ml",
+          "price": "15 lei",
+          "img": "images/products/limonada/Orange_Fresh_NoShadow_600px600px.png"
+        }
+      ]
+    },
+    {
+      "id": "inghetata",
+      "title": "Înghețată",
+      "products": [
+        {
+          "name": "Vanilie",
+          "desc": "Înghețată cremă de vanilie, lapte proaspăt",
+          "weight": "2 bile",
+          "price": "12 lei",
+          "img": "images/products/inghetata/Vanilie_600px600px.png"
+        },
+        {
+          "name": "Ciocolată",
+          "desc": "Înghețată ciocolată belgiana, cacao",
+          "weight": "2 bile",
+          "price": "12 lei",
+          "img": "images/products/inghetata/Ciocolata_600px600px.png"
+        },
+        {
+          "name": "Căpșuni",
+          "desc": "Înghețată căpșuni proaspete, sirop natural",
+          "weight": "2 bile",
+          "price": "12 lei",
+          "img": "images/products/inghetata/Capsuni_600px600px.png"
+        },
+        {
+          "name": "Sundae",
+          "desc": "Vanilie, sos caramel, frișcă, nuci caramelizate",
+          "weight": "300 g",
+          "price": "22 lei",
+          "img": "images/products/inghetata/Sundae_600px600px.png"
+        },
+        {
+          "name": "Milkshake Vanilie",
+          "desc": "Înghețată vanilie, lapte, frișcă, sirop",
+          "weight": "400 ml",
+          "price": "20 lei",
+          "img": "images/products/inghetata/Milkshake_600px600px.png"
+        },
+        {
+          "name": "Sorbet Lămâie",
+          "desc": "Lămâie proaspătă, zahăr, mentă, apă minerală",
+          "weight": "2 bile",
+          "price": "14 lei",
+          "img": "images/products/inghetata/Sorbet_600px600px.png"
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,5 @@
 (function () {
   const links = document.querySelectorAll('.sidebar-cat');
-  const sections = document.querySelectorAll('.menu-section');
   let scrollingFromClick = false;
   let scrollTimer = null;
 
@@ -21,7 +20,20 @@
     });
   }, { rootMargin: '-30% 0px -60% 0px' });
 
-  sections.forEach(s => observer.observe(s));
+  document.addEventListener('products:rendered', function () {
+    document.querySelectorAll('.menu-section').forEach(s => observer.observe(s));
+
+    if (window.location.hash) {
+      const target = document.querySelector(window.location.hash);
+      if (target) {
+        setActive(target.id, true);
+        requestAnimationFrame(function () {
+          const offset = target.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: offset, behavior: 'smooth' });
+        });
+      }
+    }
+  });
 
   links.forEach(link => {
     link.addEventListener('click', e => {
