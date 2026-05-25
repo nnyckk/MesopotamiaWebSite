@@ -51,6 +51,9 @@
    ================================================ */
 .meniu-wrapper {
   display: flex;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
 }
 
 .meniu-layout {
@@ -86,15 +89,24 @@
   scrollbar-width: none;
   background: var(--color-surface);
   border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
 }
 
 .meniu-sidebar::-webkit-scrollbar {
   display: none;
 }
 
+.meniu-sidebar > nav {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .sidebar-cat {
   display: flex;
   align-items: center;
+  flex: 1;
   gap: var(--space-md);
   padding: var(--space-md) var(--space-lg);
   text-decoration: none;
@@ -153,6 +165,7 @@
   letter-spacing: 0.04em;
   color: var(--color-text-muted);
   transition: color var(--transition-fast);
+  text-align: center;
 }
 
 .sidebar-cat:hover .sidebar-cat__name,
@@ -300,6 +313,7 @@
 @media (max-width: 1024px) {
   .meniu-wrapper {
     display: block;
+    padding-inline: 0;
   }
 
   .meniu-layout {
@@ -344,10 +358,12 @@
   .meniu-sidebar nav {
     display: flex;
     flex-direction: row;
+    width: 100%;
   }
 
   .sidebar-cat {
-    flex: 0 0 100px;
+    flex: 1 1 0;
+    min-width: 88px;
     flex-direction: column;
     align-items: center;
     gap: var(--space-xs);
@@ -390,7 +406,8 @@
 /* Mobile — smaller bar items */
 @media (max-width: 768px) {
   .sidebar-cat {
-    flex: 0 0 80px;
+    flex: 1 1 0;
+    min-width: 90px;
     padding: var(--space-md) var(--space-xs);
   }
 
