@@ -37,7 +37,7 @@
     var displayWeight, displayPrice;
     if (p.variants && p.variants.length) {
       displayWeight = p.variants[0].weight;
-      displayPrice = 'De la ' + p.variants[0].price;
+      displayPrice = p.variants[0].price;
     } else {
       displayWeight = p.weight;
       displayPrice = p.price;
