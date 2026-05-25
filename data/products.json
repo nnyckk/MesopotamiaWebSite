@@ -34,16 +34,33 @@
         {
           "name": "Doner Kebab",
           "desc": "Carne de vită și miel, salată, roșie, ceapă, sos alb, lipie",
-          "weight": "350 g",
-          "price": "28 lei",
-          "img": "images/products/kebab/DonerKebab_600px600px.png"
+          "img": "images/products/kebab/DonerKebab_600px600px.png",
+          "variants": [
+            { "label": "Mic",  "weight": "250 g", "price": "22 lei" },
+            { "label": "Mare", "weight": "350 g", "price": "28 lei" }
+          ],
+          "ingredients": "Carne de vită și miel (45%), lipie de <strong>grâu</strong> (<strong>gluten</strong>), salată verde, roșie, ceapă albă, sos alb (<strong>lapte</strong>, iaurt, usturoi, sare), sare, condimente, ulei de floarea-soarelui.",
+          "allergens": ["Gluten (grâu)", "Lapte"],
+          "nutritional": {
+            "energy_kj": 890,
+            "energy_kcal": 213,
+            "fat": 9.2,
+            "saturated_fat": 3.1,
+            "carbs": 19.4,
+            "sugars": 2.3,
+            "fibre": 1.6,
+            "protein": 14.8,
+            "salt": 1.4
+          }
         },
         {
           "name": "Piatto Kebab",
           "desc": "Carne de vită și miel, cartofi prăjiți, salată, roșie, sos special",
-          "weight": "400 g",
-          "price": "32 lei",
-          "img": "images/products/kebab/PiattoKebab_600px600px.png"
+          "img": "images/products/kebab/PiattoKebab_600px600px.png",
+          "variants": [
+            { "label": "Mic",  "weight": "300 g", "price": "26 lei" },
+            { "label": "Mare", "weight": "400 g", "price": "32 lei" }
+          ]
         },
         {
           "name": "Roll Kebab",
@@ -119,7 +136,20 @@
           "desc": "Sos roșu, mozzarella, busuioc proaspăt, ulei de măsline",
           "weight": "380 g",
           "price": "30 lei",
-          "img": "images/products/pizza/margherita_pizza_1000x1000.png"
+          "img": "images/products/pizza/margherita_pizza_1000x1000.png",
+          "ingredients": "Aluat din făină de <strong>grâu</strong> (<strong>gluten</strong>), apă, drojdie, sare, sos de roșii (roșii, sare, busuioc), mozzarella (<strong>lapte</strong> pasteurizat, sare, cheag), busuioc proaspăt, ulei de măsline extravirgin.",
+          "allergens": ["Gluten (grâu)", "Lapte"],
+          "nutritional": {
+            "energy_kj": 960,
+            "energy_kcal": 229,
+            "fat": 7.8,
+            "saturated_fat": 3.9,
+            "carbs": 28.6,
+            "sugars": 3.1,
+            "fibre": 2.0,
+            "protein": 11.2,
+            "salt": 1.6
+          }
         },
         {
           "name": "Meso Capriciosa",
@@ -312,7 +342,20 @@
           "desc": "Aluat crepes, Nutella, banane, frișcă",
           "weight": "200 g",
           "price": "20 lei",
-          "img": "images/products/crepes/Nutella_Crepes_NoShadow_600px600px.png"
+          "img": "images/products/crepes/Nutella_Crepes_NoShadow_600px600px.png",
+          "ingredients": "Aluat crepes (făină de <strong>grâu</strong>, <strong>ouă</strong>, <strong>lapte</strong>, unt, sare), cremă de alune cu cacao Nutella (<strong>alune</strong>, zahăr, ulei de palmier, cacao, vanilie), banane proaspete, frișcă vegetală.",
+          "allergens": ["Gluten (grâu)", "Ouă", "Lapte", "Fructe cu coajă (alune)"],
+          "nutritional": {
+            "energy_kj": 1460,
+            "energy_kcal": 349,
+            "fat": 16.2,
+            "saturated_fat": 6.8,
+            "carbs": 43.5,
+            "sugars": 26.1,
+            "fibre": 2.2,
+            "protein": 6.4,
+            "salt": 0.3
+          }
         }
       ]
     },
@@ -380,7 +423,20 @@
           "desc": "Espresso, lapte aburit, spumă de lapte",
           "weight": "200 ml",
           "price": "14 lei",
-          "img": "images/products/cafea/Cappuccino_Coffee_NoShadow_600px600px.png"
+          "img": "images/products/cafea/Cappuccino_Coffee_NoShadow_600px600px.png",
+          "ingredients": "Cafea espresso (10%), <strong>lapte</strong> integral pasteurizat (90%), dioxid de carbon.",
+          "allergens": ["Lapte"],
+          "nutritional": {
+            "energy_kj": 188,
+            "energy_kcal": 45,
+            "fat": 1.8,
+            "saturated_fat": 1.2,
+            "carbs": 4.6,
+            "sugars": 4.5,
+            "fibre": 0,
+            "protein": 3.1,
+            "salt": 0.1
+          }
         },
         {
           "name": "Coffee Ice",

@@ -318,7 +318,308 @@
 
 
 /* ================================================
-   6. RESPONSIVE
+   6. PRODUCT MODAL
+   ================================================ */
+
+.product-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--color-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.product-modal-overlay.is-open {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  transition: opacity 0.3s ease, visibility 0s;
+}
+
+.product-modal {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.25s ease;
+}
+
+.product-modal-overlay.is-open .product-modal {
+  transform: translateY(0) scale(1);
+}
+
+.product-modal__handle {
+  display: none;
+}
+
+.product-modal__close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.product-modal__close:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+}
+
+.product-modal__img-wrap {
+  flex-shrink: 0;
+  width: 100%;
+  height: 320px;
+  background: var(--color-surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-modal__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: var(--space-sm);
+  box-sizing: border-box;
+}
+
+.product-modal__body {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+  padding: var(--space-xl) var(--space-xl);
+  padding-right: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.product-modal__header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  row-gap: var(--space-sm);
+}
+
+.product-modal__name {
+  grid-column: 1 / -1;
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+}
+
+.product-modal__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-xs);
+}
+
+.product-modal__weight {
+  font-size: 0.78rem;
+  color: var(--color-text-dim);
+  font-weight: 500;
+}
+
+.product-modal__price {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-price);
+  line-height: 1;
+}
+
+.product-modal__variants {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.modal-variant {
+  padding: var(--space-xs) var(--space-lg);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.modal-variant:hover {
+  border-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+.modal-variant.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.product-modal__section {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-lg);
+}
+
+.product-modal__section-title {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+}
+
+.product-modal__per {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--color-text-dim);
+}
+
+.product-modal__text {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.product-modal__text--bold {
+  font-weight: 600;
+}
+
+.product-modal__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.product-modal__table tr {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.product-modal__table tr:last-child {
+  border-bottom: none;
+}
+
+.product-modal__table td {
+  padding: var(--space-xs) 0;
+  color: var(--color-text-muted);
+}
+
+.product-modal__table td:last-child {
+  text-align: right;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.nutri-subrow td {
+  padding-left: var(--space-lg);
+  font-size: 0.75rem;
+  color: var(--color-text-dim);
+}
+
+.nutri-subrow td:last-child {
+  color: var(--color-text-dim);
+}
+
+.product-card {
+  cursor: pointer;
+}
+
+.product-card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .product-modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .product-modal {
+    max-height: 85vh;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    max-width: 100%;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .product-modal-overlay.is-open .product-modal {
+    transform: translateY(0);
+  }
+
+  .product-modal__handle {
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: var(--color-border);
+    border-radius: var(--radius-full);
+    margin: var(--space-sm) auto;
+    flex-shrink: 0;
+  }
+
+  .product-modal__img-wrap {
+    height: 200px;
+  }
+
+  .product-modal__body {
+    padding: var(--space-lg);
+  }
+
+  .product-modal__close {
+    top: var(--space-sm);
+    right: var(--space-sm);
+    background: var(--color-surface);
+  }
+}
+
+
+/* ================================================
+   7. RESPONSIVE
    ================================================ */
 
 /* Tablet + Mobile — sidebar moves to bottom bar */

@@ -61,6 +61,9 @@
   --color-maroon-dark:  var(--brand-maroon-dark);
   --color-maroon-light: var(--brand-maroon-light);
 
+  /* --- UI tokens (se schimba automat intre teme) --- */
+  --color-price: var(--color-accent);    /* galben dark, rosu light */
+
   /* -----------------------------------------------
      Fundal si suprafete (dark mode)
   ----------------------------------------------- */
@@ -133,6 +136,7 @@
   --color-text-dim:  #9a9590;
   --color-border:    rgba(0, 0, 0, 0.1);
   --color-overlay:   rgba(0, 0, 0, 0.4);
+  --color-price:     var(--color-primary);
 }
 
 /* Logo dark/light swap */

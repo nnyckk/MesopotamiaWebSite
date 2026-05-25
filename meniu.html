@@ -211,6 +211,55 @@
     </div>
   </footer>
 
+  <!-- PRODUCT MODAL -->
+  <div class="product-modal-overlay" id="productModal" aria-hidden="true">
+    <div class="product-modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+
+      <div class="product-modal__handle" aria-hidden="true"></div>
+
+      <button class="product-modal__close" id="modalClose" aria-label="Închide">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+
+      <div class="product-modal__img-wrap">
+        <img src="" alt="" class="product-modal__img" id="modalImg">
+      </div>
+
+      <div class="product-modal__body">
+
+        <div class="product-modal__header">
+          <h2 class="product-modal__name" id="modalName"></h2>
+          <div class="product-modal__variants" id="modalVariants"></div>
+          <div class="product-modal__meta">
+            <span class="product-modal__weight" id="modalWeight"></span>
+            <span class="product-modal__price" id="modalPrice"></span>
+          </div>
+        </div>
+
+        <div class="product-modal__section" id="modalIngredientsSection">
+          <h3 class="product-modal__section-title">Ingrediente</h3>
+          <p class="product-modal__text" id="modalIngredients"></p>
+        </div>
+
+        <div class="product-modal__section" id="modalAllergensSection">
+          <h3 class="product-modal__section-title">Alergeni</h3>
+          <p class="product-modal__text product-modal__text--bold" id="modalAllergens"></p>
+        </div>
+
+        <div class="product-modal__section" id="modalNutritionalSection">
+          <h3 class="product-modal__section-title">
+            Valori nutriționale
+            <span class="product-modal__per">per 100 g / 100 ml</span>
+          </h3>
+          <table class="product-modal__table" aria-label="Valori nutriționale per 100g">
+            <tbody id="modalNutriBody"></tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <script src="js/main.js"></script>
   <script src="js/meniu.js"></script>
   <script src="js/products.js"></script>
