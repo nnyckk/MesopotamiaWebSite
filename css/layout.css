@@ -154,8 +154,10 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-[data-theme="light"] .nav__links {
-  background: #f0e9df;
+@media (max-width: 1024px) {
+  [data-theme="light"] .nav__links {
+    background: #f0e9df;
+  }
 }
 
 [data-theme="light"] .nav__link:hover {
