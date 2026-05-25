@@ -91,7 +91,7 @@
         {
           "name": "Roll Kebab",
           "desc": "Carne de vită și miel, salată, roșie, varză, sos alb, lipie",
-          "img": "images/products/kebab/RollKebab_600px600px.png",
+          "img": "images/products/kebab/rollKebab_600x600.png",
           "variants": [
             { "label": "Mediu", "weight": "320 g", "price": "35.99 lei" },
             { "label": "Mare",  "weight": "400 g", "price": "40.99 lei" }
