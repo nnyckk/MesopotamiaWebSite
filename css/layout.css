@@ -728,7 +728,7 @@ strong {
   }
 
   .nav__hamburger {
-    margin-left: var(--space-md);
+    margin-left: 0;
   }
 }
 

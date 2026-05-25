@@ -36,21 +36,29 @@
 
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-    /* Lock scroll: se activează la click, se dezactivează la mouseleave */
-    const mapEl    = document.getElementById('restMap');
+    /* Ctrl/Cmd + scroll pentru zoom */
+    const mapEl     = document.getElementById('restMap');
     const overlayEl = document.getElementById('mapLockOverlay');
-    mapEl.addEventListener('click', function () {
-      map.scrollWheelZoom.enable();
-      mapEl.classList.add('is-unlocked');
-      if (overlayEl) overlayEl.style.pointerEvents = 'none';
-    });
-    mapEl.addEventListener('mouseleave', function () {
-      map.scrollWheelZoom.disable();
-      mapEl.classList.remove('is-unlocked');
-    });
+    const hintEl    = overlayEl ? overlayEl.querySelector('.map-lock-hint') : null;
+    let hintTimer   = null;
 
-    /* Touch: pe mobil, două degete pentru drag pe hartă */
-    map.gestureHandling && map.gestureHandling.enable();
+    function showHint() {
+      if (!hintEl) return;
+      hintEl.classList.add('is-visible');
+      clearTimeout(hintTimer);
+      hintTimer = setTimeout(function () {
+        hintEl.classList.remove('is-visible');
+      }, 1800);
+    }
+
+    mapEl.addEventListener('wheel', function (e) {
+      if (e.ctrlKey || e.metaKey) {
+        map.scrollWheelZoom.enable();
+      } else {
+        map.scrollWheelZoom.disable();
+        showHint();
+      }
+    }, { passive: true });
 
     markerCluster = L.markerClusterGroup({
       showCoverageOnHover: false,

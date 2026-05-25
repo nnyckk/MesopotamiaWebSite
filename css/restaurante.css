@@ -339,7 +339,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
   font-size: 0.85rem;
   font-weight: 600;
@@ -347,18 +347,12 @@
   border-radius: var(--radius-full);
   backdrop-filter: blur(6px);
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.2s ease;
   pointer-events: none;
 }
 
-/* Apare la hover pe hartă (când nu e unlocked) */
-.rest-map:hover .map-lock-hint {
+.map-lock-hint.is-visible {
   opacity: 1;
-}
-
-/* Dispare după click */
-#restMap.is-unlocked ~ .map-lock-overlay .map-lock-hint {
-  opacity: 0 !important;
 }
 
 
