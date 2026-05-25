@@ -7,9 +7,22 @@
         {
           "name": "Royal Cheesy",
           "desc": "Carne de vită, brânzeturi topite, salată, roșie, sos cheesy, lipie",
-          "weight": "360 g",
-          "price": "34 lei",
-          "img": "images/products/kebab/RoyalCheesy_600px600px.png"
+          "weight": "230 g",
+          "price": "19.99 lei",
+          "img": "images/products/kebab/RoyalCheesy_600px600px.png",
+          "ingredients": "Panini 70g – făină albă de <strong>grâu</strong> (<strong>gluten</strong>), sare, drojdie, ulei de floarea-soarelui / ulei de măsline; sos cheddar 50g – săruri de topire, agent de îngroșare, conservanți, coloranți, <strong>proteine din lapte</strong>; carne kebab rotisată 45g – curcan și vițel amestec (produs decongelat, <strong>proteine din soia</strong>, proteină din carne de pasăre, condimente, sare, amidon, extracte de drojdie); cartofi prăjiți 30g (produs decongelat, ulei vegetal); roșii 25g; salată verde 25g; ceapă roșie.",
+          "allergens": ["Cereale cu gluten (grâu)", "Lapte (lactoză)", "Soia", "Muștar", "Țelină"],
+          "nutritional": {
+            "energy_kj": 999,
+            "energy_kcal": 237,
+            "fat": 7.68,
+            "saturated_fat": 3.32,
+            "carbs": 31.69,
+            "sugars": 2.3,
+            "fibre": 0.98,
+            "protein": 9.88,
+            "salt": 2.03
+          }
         },
         {
           "name": "Coffee Tonic",
@@ -36,21 +49,21 @@
           "desc": "Carne de vită și miel, salată, roșie, ceapă, sos alb, lipie",
           "img": "images/products/kebab/DonerKebab_600px600px.png",
           "variants": [
-            { "label": "Mic",  "weight": "250 g", "price": "22 lei" },
-            { "label": "Mare", "weight": "350 g", "price": "28 lei" }
+            { "label": "Mediu", "weight": "300 g", "price": "35.99 lei" },
+            { "label": "Mare",  "weight": "370 g", "price": "40.99 lei" }
           ],
-          "ingredients": "Carne de vită și miel (45%), lipie de <strong>grâu</strong> (<strong>gluten</strong>), salată verde, roșie, ceapă albă, sos alb (<strong>lapte</strong>, iaurt, usturoi, sare), sare, condimente, ulei de floarea-soarelui.",
-          "allergens": ["Gluten (grâu)", "Lapte"],
+          "ingredients": "Carne kebab rotisată (curcan și vițel sau pui picant, produs decongelat), panini – făină de <strong>grâu</strong> (<strong>gluten</strong>), apă, sare iodată, drojdie, ulei de măsline (100g Mediu / 110g Mare); salată verde; roșii; ceapă roșie; pătrunjel; sos alb (<strong>lapte</strong>); sos roz (<strong>ouă</strong>, <strong>lapte</strong>); condimente (conțin <strong>muștar</strong>, <strong>țelină</strong>); <strong>proteine din soia</strong>; amidon de porumb; extract de drojdie; sare alimentară. Conține dioxid de sulf în mod natural. Sosurile conțin alergeni — a se vedea secțiunea Sosuri.",
+          "allergens": ["Cereale cu gluten (grâu)", "Lapte (lactoză)", "Ouă", "Soia", "Muștar", "Țelină", "Dioxid de sulf"],
           "nutritional": {
-            "energy_kj": 890,
-            "energy_kcal": 213,
-            "fat": 9.2,
-            "saturated_fat": 3.1,
-            "carbs": 19.4,
-            "sugars": 2.3,
-            "fibre": 1.6,
-            "protein": 14.8,
-            "salt": 1.4
+            "energy_kj": 1107,
+            "energy_kcal": 264,
+            "fat": 7.44,
+            "saturated_fat": 3.21,
+            "carbs": 35.43,
+            "sugars": 3.09,
+            "fibre": 1.68,
+            "protein": 13.08,
+            "salt": 0.63
           }
         },
         {
@@ -58,30 +71,84 @@
           "desc": "Carne de vită și miel, cartofi prăjiți, salată, roșie, sos special",
           "img": "images/products/kebab/PiattoKebab_600px600px.png",
           "variants": [
-            { "label": "Mic",  "weight": "300 g", "price": "26 lei" },
-            { "label": "Mare", "weight": "400 g", "price": "32 lei" }
-          ]
+            { "label": "Mediu", "weight": "430 g", "price": "41.99 lei" },
+            { "label": "Mare",  "weight": "540 g", "price": "47.99 lei" }
+          ],
+          "ingredients": "Carne kebab rotisată (curcan și vițel sau pui picant, produs decongelat), panini – făină de <strong>grâu</strong> (<strong>gluten</strong>), apă, sare iodată, drojdie, ulei de măsline (½ panini Mic / 1 panini Mare); cartofi prăjiți (produs decongelat, ulei vegetal de palmier, sare iodată); salată de varză (varză, ulei, oțet, sare); salată verde; roșii; ceapă roșie; pătrunjel; sos alb (<strong>lapte</strong>); sos cu aromă de lămâie; condimente (conțin <strong>muștar</strong>, <strong>țelină</strong>); <strong>proteine din soia</strong>; amidon de porumb; extract de drojdie; sare alimentară. Conține dioxid de sulf în mod natural. Sosurile conțin alergeni — a se vedea secțiunea Sosuri.",
+          "allergens": ["Cereale cu gluten (grâu)", "Lapte (lactoză)", "Ouă", "Soia", "Muștar", "Țelină", "Dioxid de sulf"],
+          "nutritional": {
+            "energy_kj": 1143,
+            "energy_kcal": 273,
+            "fat": 8.62,
+            "saturated_fat": 3.54,
+            "carbs": 38.02,
+            "sugars": 2.2,
+            "fibre": 2.53,
+            "protein": 9.56,
+            "salt": 0.48
+          }
         },
         {
           "name": "Roll Kebab",
           "desc": "Carne de vită și miel, salată, roșie, varză, sos alb, lipie",
-          "weight": "320 g",
-          "price": "26 lei",
-          "img": "images/products/kebab/RollKebab_600px600px.png"
+          "img": "images/products/kebab/RollKebab_600px600px.png",
+          "variants": [
+            { "label": "Mediu", "weight": "320 g", "price": "35.99 lei" },
+            { "label": "Mare",  "weight": "400 g", "price": "40.99 lei" }
+          ],
+          "ingredients": "Carne kebab rotisată (curcan și vițel sau pui picant, produs decongelat), lipie – făină de <strong>grâu</strong> (<strong>gluten</strong>), drojdie, zahăr, sare iodată (60g Mediu / 70g Mare); cartofi prăjiți (produs decongelat, ulei vegetal de palmier, sare); salată verde; roșii; ceapă roșie; pătrunjel; sos alb (<strong>lapte</strong>); sos usturoi (<strong>lapte</strong>, <strong>ouă</strong>); condimente (conțin <strong>muștar</strong>, <strong>țelină</strong>); <strong>proteine din soia</strong>; amidon de porumb; extract de drojdie; sare alimentară. Conține dioxid de sulf în mod natural. Sosurile conțin alergeni — a se vedea secțiunea Sosuri.",
+          "allergens": ["Cereale cu gluten (grâu)", "Lapte (lactoză)", "Ouă", "Soia", "Muștar", "Țelină", "Dioxid de sulf"],
+          "nutritional": {
+            "energy_kj": 982,
+            "energy_kcal": 235,
+            "fat": 11.42,
+            "saturated_fat": 3.98,
+            "carbs": 20.11,
+            "sugars": 1.04,
+            "fibre": 3.39,
+            "protein": 11.16,
+            "salt": 0.52
+          }
         },
         {
           "name": "Royal Cheesy",
           "desc": "Carne de vită, brânzeturi topite, salată, roșie, sos cheesy, lipie",
-          "weight": "360 g",
-          "price": "34 lei",
-          "img": "images/products/kebab/RoyalCheesy_600px600px.png"
+          "weight": "230 g",
+          "price": "19.99 lei",
+          "img": "images/products/kebab/RoyalCheesy_600px600px.png",
+          "ingredients": "Panini 70g – făină albă de <strong>grâu</strong> (<strong>gluten</strong>), sare, drojdie, ulei de floarea-soarelui / ulei de măsline; sos cheddar 50g – săruri de topire, agent de îngroșare, conservanți, coloranți, <strong>proteine din lapte</strong>; carne kebab rotisată 45g – curcan și vițel amestec (produs decongelat, <strong>proteine din soia</strong>, proteină din carne de pasăre, condimente, sare, amidon, extracte de drojdie); cartofi prăjiți 30g (produs decongelat, ulei vegetal); roșii 25g; salată verde 25g; ceapă roșie.",
+          "allergens": ["Cereale cu gluten (grâu)", "Lapte (lactoză)", "Soia", "Muștar", "Țelină"],
+          "nutritional": {
+            "energy_kj": 999,
+            "energy_kcal": 237,
+            "fat": 7.68,
+            "saturated_fat": 3.32,
+            "carbs": 31.69,
+            "sugars": 2.3,
+            "fibre": 0.98,
+            "protein": 9.88,
+            "salt": 2.03
+          }
         },
         {
           "name": "Smart Doner",
           "desc": "Piept de pui, salată, roșie, ceapă, sos de iaurt, lipie",
-          "weight": "300 g",
-          "price": "24 lei",
-          "img": "images/products/kebab/SmartDoner_600px600px.png"
+          "weight": "230 g",
+          "price": "19.99 lei",
+          "img": "images/products/kebab/SmartDoner_600px600px.png",
+          "ingredients": "Panini 70g – făină albă de <strong>grâu</strong> (<strong>gluten</strong>), sare, drojdie, ulei de floarea-soarelui / ulei de măsline; sos alb 50g (<strong>lapte</strong>, acidifiant, stabilizator, conservanți, colorant, antioxidant); carne kebab rotisată 45g – curcan și vițel amestec (produs decongelat, <strong>lapte</strong>, <strong>proteine din soia</strong>, proteină din carne de pasăre, condimente, sare, amidon, extracte de drojdie); cartofi prăjiți 30g (produs decongelat, ulei vegetal); roșii 25g; salată verde 20g; ceapă roșie. Conține dioxid de sulf în mod natural.",
+          "allergens": ["Cereale cu gluten (grâu)", "Lapte (lactoză)", "Ouă", "Soia", "Muștar", "Țelină"],
+          "nutritional": {
+            "energy_kj": 1029,
+            "energy_kcal": 244,
+            "fat": 7.91,
+            "saturated_fat": 3.42,
+            "carbs": 30.95,
+            "sugars": 2.7,
+            "fibre": 1.1,
+            "protein": 11.82,
+            "salt": 1.83
+          }
         }
       ]
     },

@@ -152,17 +152,17 @@
 [data-theme="light"] .footer__logo--light { display: block; }
 
 [data-theme="light"] .header {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(251, 251, 251, 0.92);
 }
 
 [data-theme="light"] .header.is-scrolled {
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(251, 251, 251, 0.98);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 1024px) {
   [data-theme="light"] .nav__links {
-    background: #ffffff;
+    background: #fbfbfb;
   }
 }
 
@@ -201,7 +201,7 @@
 }
 
 [data-theme="light"] .footer {
-  background-color: #ffffff;
+  background-color: #fbfbfb;
 }
 
 [data-theme="light"] .footer__link:hover {
