@@ -57,26 +57,56 @@
     /* Ctrl/Cmd + scroll pentru zoom */
     const mapEl     = document.getElementById('restMap');
     const overlayEl = document.getElementById('mapLockOverlay');
-    const hintEl    = overlayEl ? overlayEl.querySelector('.map-lock-hint') : null;
+    const hintSpan  = document.getElementById('mapScrollHint');
+    const hintIcon  = document.getElementById('mapHintIcon');
+    const isMac     = /Mac|iPhone|iPod|iPad/.test(navigator.platform);
+    if (hintSpan) hintSpan.textContent = 'Folosește ' + (isMac ? '⌘ Cmd' : 'Ctrl') + ' + Scroll pentru zoom pe hartă';
     let hintTimer   = null;
 
-    function showHint() {
-      if (!hintEl) return;
-      hintEl.classList.add('is-visible');
+    function showHint(icon, text) {
+      if (!overlayEl) return;
+      if (hintIcon) hintIcon.className = icon;
+      if (hintSpan) hintSpan.textContent = text;
+      overlayEl.classList.add('is-visible');
       clearTimeout(hintTimer);
       hintTimer = setTimeout(function () {
-        hintEl.classList.remove('is-visible');
+        overlayEl.classList.remove('is-visible');
       }, 1800);
     }
 
     mapEl.addEventListener('wheel', function (e) {
       if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
         map.scrollWheelZoom.enable();
       } else {
         map.scrollWheelZoom.disable();
-        showHint();
+        showHint(
+          'fa-solid fa-computer-mouse',
+          'Folosește ' + (isMac ? '⌘ Cmd' : 'Ctrl') + ' + Scroll pentru zoom pe hartă'
+        );
       }
-    }, { passive: true });
+    }, { passive: false });
+
+    /* Touch: 2 degete pentru drag pe mobile */
+    var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) {
+      map.dragging.disable();
+      mapEl.addEventListener('touchstart', function (e) {
+        if (e.touches.length >= 2) {
+          map.dragging.enable();
+          clearTimeout(hintTimer);
+          overlayEl && overlayEl.classList.remove('is-visible');
+        } else {
+          map.dragging.disable();
+          showHint('fa-solid fa-hand-pointer', 'Folosește 2 degete pentru a muta harta');
+        }
+      }, { passive: true });
+      mapEl.addEventListener('touchend', function (e) {
+        if (e.touches.length < 2) {
+          map.dragging.disable();
+        }
+      }, { passive: true });
+    }
 
     markerCluster = L.markerClusterGroup({
       showCoverageOnHover: false,
