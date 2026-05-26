@@ -501,7 +501,7 @@ strong {
   font-size: 1rem;
   font-family: var(--font-heading);
   font-weight: 800;
-  color: var(--color-black);
+  color: var(--color-text-muted);
   border-radius: var(--radius-sm);
   transition: color var(--transition-fast),
               background var(--transition-fast);
