@@ -12,6 +12,7 @@
   /* ---- Bottom sheet (mobile) ---- */
   var sheetEl    = document.getElementById('restPanel');
   var handleEl   = document.getElementById('restSheetHandle');
+  var closeBtn   = document.getElementById('restSheetClose');
   var sheetState = 'hidden';
 
   function isMobile() { return window.innerWidth <= 768; }
@@ -21,6 +22,12 @@
     sheetEl.classList.remove('sheet--half', 'sheet--full');
     if (state === 'half') sheetEl.classList.add('sheet--half');
     if (state === 'full') sheetEl.classList.add('sheet--full');
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function () {
+      setSheet('hidden');
+    });
   }
 
   var swipeStartY = 0;
@@ -46,7 +53,7 @@
     var delta = e.changedTouches[0].clientY - swipeStartY;
     sheetEl.style.transform = '';
     sheetEl.style.transition = '';
-    if (delta > 80) setSheet('hidden');
+    if (delta > 80) setSheet(sheetState === 'full' ? 'half' : 'hidden');
     else if (delta < -80 && sheetState === 'half') setSheet('full');
   }, { passive: true });
 
@@ -218,7 +225,7 @@
           var headerH = 90;
           var sheetH  = window.innerHeight * 0.8;
           var visibleTop    = headerH;
-          var visibleBottom = window.innerHeight - sheetH * 0.5;
+          var visibleBottom = window.innerHeight - 294;
           var desiredPinY   = visibleTop + (visibleBottom - visibleTop) * 0.5;
           var screenOffsetY = desiredPinY - window.innerHeight / 2;
           var zoom = Math.max(map.getZoom(), 14);
@@ -366,6 +373,10 @@
   /* ================================================
      8. EVENTS
   ================================================ */
+  searchEl.addEventListener('focus', function () {
+    if (isMobile()) setSheet('hidden');
+  });
+
   searchEl.addEventListener('input', function () {
     searchQuery = searchEl.value.trim();
     update();

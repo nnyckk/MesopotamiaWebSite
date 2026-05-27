@@ -788,8 +788,9 @@
   }
 }
 
-/* Handle — ascuns implicit, vizibil doar pe mobile */
-.rest-sheet-handle {
+/* Handle și close — ascunse implicit, vizibile doar pe mobile */
+.rest-sheet-handle,
+.rest-sheet-close {
   display: none;
 }
 
@@ -910,7 +911,7 @@
   }
 
   .rest-panel.sheet--half {
-    transform: translateY(50%);
+    transform: translateY(calc(100% - 306px));
   }
 
   .rest-panel.sheet--full {
@@ -920,12 +921,15 @@
   /* Handle */
   .rest-sheet-handle {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 10px 0 6px;
+    position: relative;
+    padding: 20px 16px;
     flex-shrink: 0;
     cursor: grab;
     touch-action: none;
+    border-bottom: 1px solid var(--color-border);
   }
 
   .rest-sheet-handle__bar {
@@ -934,6 +938,26 @@
     background: var(--color-border);
     border-radius: var(--radius-full);
   }
+
+  .rest-sheet-close {
+    display: flex;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+
 
   .rest-count {
     display: none;
