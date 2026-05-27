@@ -9,6 +9,7 @@
           "desc": "Carne de vită, brânzeturi topite, salată, roșie, sos cheesy, lipie",
           "weight": "230 g",
           "price": "19.99 lei",
+          "promotie": true,
           "img": "images/products/kebab/RoyalCheesy_600px600px.png",
           "ingredients": "Panini 70g – făină albă de <strong>grâu</strong> (<strong>gluten</strong>), sare, drojdie, ulei de floarea-soarelui / ulei de măsline; sos cheddar 50g – săruri de topire, agent de îngroșare, conservanți, coloranți, <strong>proteine din lapte</strong>; carne kebab rotisată 45g – curcan și vițel amestec (produs decongelat, <strong>proteine din soia</strong>, proteină din carne de pasăre, condimente, sare, amidon, extracte de drojdie); cartofi prăjiți 30g (produs decongelat, ulei vegetal); roșii 25g; salată verde 25g; ceapă roșie.",
           "allergens": ["Cereale cu gluten (grâu)", "Lapte (lactoză)", "Soia", "Muștar", "Țelină"],
@@ -29,6 +30,7 @@
           "desc": "Espresso, apă tonică, gheață, lămâie",
           "weight": "300 ml",
           "price": "19 lei",
+          "promotie": true,
           "img": "images/products/cafea/Coffee-Tonic_Coffee_NoShadow_600px600px.png"
         },
         {

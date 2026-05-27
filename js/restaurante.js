@@ -6,8 +6,49 @@
   let markers = {};
   let markerCluster = null;
   let activeId = null;
-  let activeFilters = new Set(); /* gol = toate */
+  let activeFilters = new Set();
   let searchQuery = '';
+
+  /* ---- Bottom sheet (mobile) ---- */
+  var sheetEl    = document.getElementById('restPanel');
+  var handleEl   = document.getElementById('restSheetHandle');
+  var sheetState = 'hidden';
+
+  function isMobile() { return window.innerWidth <= 768; }
+
+  function setSheet(state) {
+    sheetState = state;
+    sheetEl.classList.remove('sheet--half', 'sheet--full');
+    if (state === 'half') sheetEl.classList.add('sheet--half');
+    if (state === 'full') sheetEl.classList.add('sheet--full');
+  }
+
+  var swipeStartY = 0;
+
+  sheetEl.addEventListener('touchstart', function (e) {
+    if (!isMobile()) return;
+    swipeStartY = e.touches[0].clientY;
+    sheetEl.style.transition = 'none';
+  }, { passive: true });
+
+  sheetEl.addEventListener('touchmove', function (e) {
+    if (!isMobile()) return;
+    var delta = e.touches[0].clientY - swipeStartY;
+    var activeCard = listEl ? listEl.querySelector('.rest-card.is-active') : null;
+    var cardScrollTop = activeCard ? activeCard.scrollTop : 0;
+    if (delta > 0 && cardScrollTop === 0) {
+      sheetEl.style.transform = 'translateY(' + delta + 'px)';
+    }
+  }, { passive: true });
+
+  sheetEl.addEventListener('touchend', function (e) {
+    if (!isMobile()) return;
+    var delta = e.changedTouches[0].clientY - swipeStartY;
+    sheetEl.style.transform = '';
+    sheetEl.style.transition = '';
+    if (delta > 80) setSheet('hidden');
+    else if (delta < -80 && sheetState === 'half') setSheet('full');
+  }, { passive: true });
 
   var BANNER_GRADIENTS = [
     'linear-gradient(135deg, #6b0109 0%, #c4031b 100%)',
@@ -54,58 +95,59 @@
 
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-    /* Ctrl/Cmd + scroll pentru zoom */
     const mapEl     = document.getElementById('restMap');
     const overlayEl = document.getElementById('mapLockOverlay');
     const hintSpan  = document.getElementById('mapScrollHint');
     const hintIcon  = document.getElementById('mapHintIcon');
-    const isMac     = /Mac|iPhone|iPod|iPad/.test(navigator.platform);
-    if (hintSpan) hintSpan.textContent = 'Folosește ' + (isMac ? '⌘ Cmd' : 'Ctrl') + ' + Scroll pentru zoom pe hartă';
-    let hintTimer   = null;
 
-    function showHint(icon, text) {
-      if (!overlayEl) return;
-      if (hintIcon) hintIcon.className = icon;
-      if (hintSpan) hintSpan.textContent = text;
-      overlayEl.classList.add('is-visible');
-      clearTimeout(hintTimer);
-      hintTimer = setTimeout(function () {
-        overlayEl.classList.remove('is-visible');
-      }, 1800);
-    }
+    if (isMobile()) {
+      /* Mobile: harta fullscreen, drag și zoom libere */
+      map.dragging.enable();
+      map.scrollWheelZoom.enable();
+    } else {
+      /* Desktop: Ctrl/Cmd + scroll pentru zoom */
+      const isMac   = /Mac|iPhone|iPod|iPad/.test(navigator.platform);
+      if (hintSpan) hintSpan.textContent = 'Folosește ' + (isMac ? '⌘ Cmd' : 'Ctrl') + ' + Scroll pentru zoom pe hartă';
+      let hintTimer = null;
 
-    mapEl.addEventListener('wheel', function (e) {
-      if (e.ctrlKey || e.metaKey) {
-        e.preventDefault();
-        map.scrollWheelZoom.enable();
-      } else {
-        map.scrollWheelZoom.disable();
-        showHint(
-          'fa-solid fa-computer-mouse',
-          'Folosește ' + (isMac ? '⌘ Cmd' : 'Ctrl') + ' + Scroll pentru zoom pe hartă'
-        );
+      function showHint(icon, text) {
+        if (!overlayEl) return;
+        if (hintIcon) hintIcon.className = icon;
+        if (hintSpan) hintSpan.textContent = text;
+        overlayEl.classList.add('is-visible');
+        clearTimeout(hintTimer);
+        hintTimer = setTimeout(function () {
+          overlayEl.classList.remove('is-visible');
+        }, 1800);
       }
-    }, { passive: false });
 
-    /* Touch: 2 degete pentru drag pe mobile */
-    var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (isTouchDevice) {
-      map.dragging.disable();
-      mapEl.addEventListener('touchstart', function (e) {
-        if (e.touches.length >= 2) {
-          map.dragging.enable();
-          clearTimeout(hintTimer);
-          overlayEl && overlayEl.classList.remove('is-visible');
+      mapEl.addEventListener('wheel', function (e) {
+        if (e.ctrlKey || e.metaKey) {
+          e.preventDefault();
+          map.scrollWheelZoom.enable();
         } else {
-          map.dragging.disable();
-          showHint('fa-solid fa-hand-pointer', 'Folosește 2 degete pentru a muta harta');
+          map.scrollWheelZoom.disable();
+          showHint('fa-solid fa-computer-mouse', 'Folosește ' + (isMac ? '⌘ Cmd' : 'Ctrl') + ' + Scroll pentru zoom pe hartă');
         }
-      }, { passive: true });
-      mapEl.addEventListener('touchend', function (e) {
-        if (e.touches.length < 2) {
-          map.dragging.disable();
-        }
-      }, { passive: true });
+      }, { passive: false });
+
+      var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      if (isTouchDevice) {
+        map.dragging.disable();
+        mapEl.addEventListener('touchstart', function (e) {
+          if (e.touches.length >= 2) {
+            map.dragging.enable();
+            clearTimeout(hintTimer);
+            overlayEl && overlayEl.classList.remove('is-visible');
+          } else {
+            map.dragging.disable();
+            showHint('fa-solid fa-hand-pointer', 'Folosește 2 degete pentru a muta harta');
+          }
+        }, { passive: true });
+        mapEl.addEventListener('touchend', function (e) {
+          if (e.touches.length < 2) map.dragging.disable();
+        }, { passive: true });
+      }
     }
 
     markerCluster = L.markerClusterGroup({
@@ -171,6 +213,19 @@
       marker.on('click', function () {
         setActive(r.id, false);
         scrollToCard(r.id);
+        if (isMobile()) {
+          marker.closePopup();
+          var headerH = 90;
+          var sheetH  = window.innerHeight * 0.8;
+          var visibleTop    = headerH;
+          var visibleBottom = window.innerHeight - sheetH * 0.5;
+          var desiredPinY   = visibleTop + (visibleBottom - visibleTop) * 0.5;
+          var screenOffsetY = desiredPinY - window.innerHeight / 2;
+          var zoom = Math.max(map.getZoom(), 14);
+          var pinPx    = map.project([r.lat, r.lng], zoom);
+          var centerPx = pinPx.subtract(L.point(0, screenOffsetY));
+          map.setView(map.unproject(centerPx, zoom), zoom, { animate: true });
+        }
       });
 
       markers[r.id] = marker;
@@ -203,22 +258,29 @@
       if (r.delivery.boltFood)  badges += '<span class="rest-badge rest-badge--bolt">Bolt Food</span>';
       if (r.delivery.wolt)      badges += '<span class="rest-badge rest-badge--wolt">Wolt</span>';
 
+      var bannerContent = r.image
+        ? '<img class="rest-card__img" src="' + r.image + '" alt="' + r.name + '" loading="lazy">'
+        : '<div class="rest-card__img-placeholder" style="background:' + getBannerStyle(r.id) + '"><i class="fa-solid fa-store"></i></div>';
+
       card.innerHTML =
-        '<div class="rest-card__banner">' +
-          '<div class="rest-card__img-placeholder" style="background:' + getBannerStyle(r.id) + '">' +
-            '<i class="fa-solid fa-store"></i>' +
-          '</div>' +
+        '<div class="rest-card__sticky-header">' +
+          '<div class="rest-card__banner">' + bannerContent + '</div>' +
+          '<div class="rest-card__name">' + r.name + '</div>' +
         '</div>' +
         '<div class="rest-card__body">' +
-          '<div class="rest-card__name">' + r.name + '</div>' +
-          '<div class="rest-card__meta"><i class="fa-solid fa-location-dot"></i>' + r.city + ', ' + r.county + '</div>' +
+          '<div class="rest-card__meta"><i class="fa-solid fa-location-dot"></i>' + r.address + '</div>' +
           '<div class="rest-card__meta"><i class="fa-regular fa-clock"></i>' + r.hours + '</div>' +
-          '<div class="rest-card__meta"><i class="fa-solid fa-phone"></i>' + r.phone + '</div>' +
+          '<a class="rest-card__meta rest-card__tel" href="tel:' + r.phone.replace(/\s/g, '') + '"><i class="fa-solid fa-phone"></i>' + r.phone + '</a>' +
           (badges ? '<div class="rest-card__badges">' + badges + '</div>' : '') +
         '</div>';
 
       card.addEventListener('click', function () {
         setActive(r.id, true);
+        var rect = card.getBoundingClientRect();
+        var listRect = listEl.getBoundingClientRect();
+        if (rect.top < listRect.top || rect.bottom > listRect.bottom) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
       });
 
       frag.appendChild(card);
@@ -255,6 +317,9 @@
     document.querySelectorAll('.rest-card').forEach(function (c) {
       c.classList.toggle('is-active', Number(c.dataset.id) === id);
     });
+
+    // Pe mobile, extinde sheet-ul la click pe pin
+    if (!panMap && isMobile()) setSheet('half');
   }
 
   function scrollToCard(id) {

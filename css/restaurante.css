@@ -66,7 +66,7 @@
   align-items: stretch;
   border-radius: var(--radius-full);
   border: 1px solid var(--color-border);
-  background: rgba(24, 24, 24, 0.88);
+  background: rgba(34, 34, 34, 0.95);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   overflow: hidden;
@@ -370,8 +370,8 @@
   scrollbar-color: var(--color-border) transparent;
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
-  padding: var(--space-sm);
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
 }
 
 .rest-list::-webkit-scrollbar {
@@ -409,24 +409,26 @@
 .rest-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  border-left: 3px solid transparent;
+  border-radius: 0;
   cursor: pointer;
   transition: background var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-  border-left: 3px solid transparent;
   overflow: hidden;
   flex-shrink: 0;
 }
 
 .rest-card:hover {
   background: var(--color-surface-2);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 10px -4px rgba(0,0,0,0.35), 0 -4px 10px -4px rgba(0,0,0,0.35);
 }
 
 .rest-card.is-active {
-  background: var(--color-primary-faint);
-  border-color: var(--color-primary);
-  box-shadow: var(--shadow-md);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-primary);
+  border-left: 4px solid var(--color-primary);
+  box-shadow: 0 4px 10px -4px rgba(0,0,0,0.35), 0 -4px 10px -4px rgba(0,0,0,0.35);
 }
 
 .rest-card__banner {
@@ -445,10 +447,6 @@
   transition: transform 0.35s ease;
 }
 
-.rest-card:hover .rest-card__img {
-  transform: scale(1.05);
-}
-
 .rest-card__img-placeholder {
   width: 100%;
   height: 100%;
@@ -460,9 +458,6 @@
   transition: transform 0.35s ease;
 }
 
-.rest-card:hover .rest-card__img-placeholder {
-  transform: scale(1.05);
-}
 
 .rest-card__body {
   padding: var(--space-md);
@@ -477,6 +472,7 @@
   font-weight: 700;
   color: var(--color-text);
   line-height: 1.25;
+  padding: var(--space-sm) var(--space-md) 0;
 }
 
 .rest-card__meta {
@@ -792,16 +788,9 @@
   }
 }
 
-/* Mobile: search full width */
-@media (max-width: 768px) {
-  .rest-toolbar__search {
-    width: 100%;
-    flex-shrink: unset;
-  }
-
-  .rest-filter-btn span:not(.rest-filter-count) {
-    display: none;
-  }
+/* Handle — ascuns implicit, vizibil doar pe mobile */
+.rest-sheet-handle {
+  display: none;
 }
 
 /* Mobile: filter modal → bottom sheet (exact pattern ca meniu.html) */
@@ -838,37 +827,193 @@
   }
 }
 
-/* Mobile: card full width, harta sus fixa + lista jos scrollabila */
+/* Mobile: bottom sheet */
 @media (max-width: 768px) {
+  html, body {
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: none;
+  }
+
+  .rest-page-wrap {
+    margin-top: 0;
+    padding-block: 0;
+    height: 100svh;
+    overflow: hidden;
+  }
+
   .rest-shell-wrap {
-    overflow-x: hidden;
+    height: 100%;
+    max-width: 100%;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .rest-toolbar {
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    padding: var(--space-sm) var(--space-md);
+    pointer-events: none;
+  }
+
+  .rest-toolbar__search {
+    width: 100%;
+    pointer-events: all;
+  }
+
+  .rest-filter-btn span:not(.rest-filter-count) {
+    display: none;
   }
 
   .rest-shell {
-    flex-direction: column;
-    height: auto;
-    border-radius: var(--radius-lg);
+    height: 100%;
+    border: none;
+    border-radius: 0;
   }
 
   .rest-tabs {
     display: none;
   }
 
+  /* Harta fullscreen */
   .rest-map {
+    position: fixed !important;
+    inset: 0;
+    height: 100% !important;
+    z-index: 5;
     display: block !important;
-    height: 40vh;
-    flex: none;
-    order: -1;
   }
 
+  /* Bottom sheet */
   .rest-panel {
+    position: fixed !important;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 80vh;
+    z-index: 15;
+    background: var(--color-surface);
+    border-radius: 20px 20px 0 0;
+    border: none;
+    border-top: 1px solid var(--color-border);
+    border-left: none;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    will-change: transform;
+    overflow: hidden;
     display: flex !important;
-    flex: none;
-    height: auto;
-    overflow: visible;
+    flex-direction: column;
+  }
+
+  .rest-panel.sheet--half {
+    transform: translateY(50%);
+  }
+
+  .rest-panel.sheet--full {
+    transform: translateY(0);
+  }
+
+  /* Handle */
+  .rest-sheet-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0 6px;
+    flex-shrink: 0;
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .rest-sheet-handle__bar {
+    width: 40px;
+    height: 4px;
+    background: var(--color-border);
+    border-radius: var(--radius-full);
+  }
+
+  .rest-count {
+    display: none;
+  }
+
+  .rest-card:not(.is-active) {
+    display: none;
+  }
+
+  /* Card activ = detail view */
+  .rest-card.is-active {
+    border: none;
+    border-left: none;
+    box-shadow: none;
+    border-radius: 0;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    cursor: default;
   }
 
   .rest-list {
-    max-height: 50vh;
+    overflow: hidden;
+    max-height: unset;
+    flex: 1;
+  }
+
+  /* Sticky: poza + numele */
+  .rest-card.is-active .rest-card__sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--color-surface);
+    flex-shrink: 0;
+  }
+
+  .rest-card.is-active .rest-card__banner {
+    height: 220px;
+  }
+
+  .rest-card.is-active .rest-card__name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* Body scrollabil */
+  .rest-card.is-active .rest-card__body {
+    padding: var(--space-md);
+    gap: var(--space-md);
+  }
+
+  .rest-card.is-active .rest-card__meta {
+    font-size: 0.88rem;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .rest-card.is-active .rest-card__meta i {
+    font-size: 0.85rem;
+    width: 16px;
+    margin-top: 2px;
+  }
+
+  .rest-card__tel {
+    text-decoration: none;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .rest-card.is-active .rest-card__badges {
+    margin-top: var(--space-sm);
+    gap: 6px;
+  }
+
+  .rest-list {
+    flex: 1;
+    overflow-y: auto;
+    max-height: unset;
+    padding-bottom: env(safe-area-inset-bottom, 16px);
   }
 }

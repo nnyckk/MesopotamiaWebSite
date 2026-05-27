@@ -2,16 +2,17 @@
   "restaurants": [
     {
       "id": 1,
-      "name": "Mesopotamia Oradea – Parcul 1 Dec.",
+      "name": "Mesopotamia Oradea – Prima Shop",
       "city": "Oradea",
       "county": "Bihor",
-      "address": "Str. Parcul 1 Decembrie nr. 5, Oradea",
+      "address": "Str. Bulevardul Decebal 61A, 410219 Oradea",
       "phone": "0259 412 345",
-      "lat": 47.0722,
-      "lng": 21.9218,
+      "lat": 47.05878,
+      "lng": 21.91608,
       "hours": "Lun–Vin 10:00–22:00 | Sâm–Dum 11:00–23:00",
-      "features": { "mesoCafe": true, "mesoKids": true },
-      "delivery": { "glovo": true, "boltFood": true, "wolt": false }
+      "image": "images/restaurante/oradea-prima-shop_800x300.jpg",
+      "features": { "mesoCafe": true, "mesoKids": false },
+      "delivery": { "glovo": true, "boltFood": true, "wolt": true }
     },
     {
       "id": 2,
@@ -23,6 +24,7 @@
       "lat": 47.03610478614698,
       "lng": 21.94875255124961,
       "hours": "Lun–Dum 10:00–22:00",
+      "image": "images/restaurante/oradea-lotus-center_800x300.jpg",
       "features": { "mesoCafe": true, "mesoKids": false },
       "delivery": { "glovo": true, "boltFood": false, "wolt": false }
     },
@@ -194,6 +196,20 @@
       "hours": "Lun–Dum 10:00–22:00",
       "features": { "mesoCafe": true, "mesoKids": false },
       "delivery": { "glovo": true, "boltFood": true, "wolt": false }
+    },
+    {
+      "id": 16,
+      "name": "Mesopotamia Oradea – Vasile Alecsandri",
+      "city": "Oradea",
+      "county": "Bihor",
+      "address": "Str. Vasile Alecsandri 4, 410072 Oradea",
+      "phone": "0259 418 900",
+      "lat": 47.05441,
+      "lng": 21.92957,
+      "hours": "Lun–Dum 10:00–22:00",
+      "image": "images/restaurante/oradea-vasile-alecsandri_800x300.jpg",
+      "features": { "mesoCafe": true, "mesoKids": false },
+      "delivery": { "glovo": true, "boltFood": true, "wolt": true }
     }
   ]
 }

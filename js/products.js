@@ -45,6 +45,7 @@
     return '<div class="product-card" data-cat="' + ci + '" data-prod="' + pi + '" role="button" tabindex="0" aria-label="' + p.name + '">' +
       '<div class="product-card__img-wrap">' +
       '<img src="' + p.img + '" alt="' + p.name + '" class="product-card__img" loading="lazy">' +
+      (p.promotie ? '<span class="product-card__promo-tag">PROMOȚIE</span>' : '') +
       '</div>' +
       '<div class="product-card__info">' +
       '<h3 class="product-card__name">' + p.name + '</h3>' +
