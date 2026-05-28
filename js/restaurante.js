@@ -31,10 +31,34 @@
   }
 
   var swipeStartY = 0;
+  var swipeBaseY  = 0;
+  var peekHeight  = 325;
+
+  function updatePeekHeight() {
+    var handleH   = handleEl ? handleEl.offsetHeight : 0;
+    var listPadT  = listEl   ? parseInt(getComputedStyle(listEl).paddingTop) || 0 : 0;
+    var sticky    = sheetEl.querySelector('.rest-card.is-active .rest-card__sticky-header');
+    var stickyH   = sticky ? sticky.offsetHeight : 0;
+    var body      = sheetEl.querySelector('.rest-card.is-active .rest-card__body');
+    var bodyPadT  = body ? parseInt(getComputedStyle(body).paddingTop) || 0 : 0;
+    var firstMeta = sheetEl.querySelector('.rest-card.is-active .rest-card__meta');
+    var metaH     = firstMeta ? firstMeta.offsetHeight : 0;
+    peekHeight    = handleH + listPadT + stickyH + bodyPadT + metaH;
+    sheetEl.style.setProperty('--sheet-peek',  'calc(100% - ' + peekHeight + 'px)');
+    sheetEl.style.setProperty('--peek-height', peekHeight + 'px');
+  }
+
+  function getBaseTranslatePx() {
+    var h = sheetEl.offsetHeight;
+    if (sheetState === 'half') return h - peekHeight;
+    if (sheetState === 'full') return 0;
+    return h;
+  }
 
   sheetEl.addEventListener('touchstart', function (e) {
     if (!isMobile()) return;
     swipeStartY = e.touches[0].clientY;
+    swipeBaseY  = getBaseTranslatePx();
     sheetEl.style.transition = 'none';
   }, { passive: true });
 
@@ -43,9 +67,10 @@
     var delta = e.touches[0].clientY - swipeStartY;
     var activeCard = listEl ? listEl.querySelector('.rest-card.is-active') : null;
     var cardScrollTop = activeCard ? activeCard.scrollTop : 0;
-    if (delta > 0 && cardScrollTop === 0) {
-      sheetEl.style.transform = 'translateY(' + delta + 'px)';
-    }
+    if (cardScrollTop > 0) return;
+    var newY = swipeBaseY + delta;
+    newY = Math.max(0, newY);
+    sheetEl.style.transform = 'translateY(' + newY + 'px)';
   }, { passive: true });
 
   sheetEl.addEventListener('touchend', function (e) {
@@ -241,7 +266,78 @@
   }
 
   /* ================================================
-     5. RENDER LISTA
+     5. STATUS PROGRAM
+  ================================================ */
+  var DAY_MAP = { 'Lun': 1, 'Mar': 2, 'Mie': 3, 'Joi': 4, 'Vin': 5, 'Sâm': 6, 'Dum': 0 };
+
+  function getStatus(hoursStr) {
+    var now     = new Date();
+    var today   = now.getDay();
+    var nowMin  = now.getHours() * 60 + now.getMinutes();
+
+    var segments = hoursStr.split('|').map(function (s) { return s.trim(); });
+
+    for (var i = 0; i < segments.length; i++) {
+      var m = segments[i].match(/^(\w+)(?:[–\-](\w+))?\s+(\d{1,2}):(\d{2})[–\-](\d{1,2}):(\d{2})$/);
+      if (!m) continue;
+
+      var dStart = DAY_MAP[m[1]];
+      var dEnd   = m[2] ? DAY_MAP[m[2]] : dStart;
+      if (dStart === undefined || dEnd === undefined) continue;
+
+      var days = [];
+      var d = dStart;
+      for (var k = 0; k < 8; k++) {
+        days.push(d);
+        if (d === dEnd) break;
+        d = (d + 1) % 7;
+      }
+      if (days.indexOf(today) === -1) continue;
+
+      var openMin  = parseInt(m[3]) * 60 + parseInt(m[4]);
+      var closeMin = parseInt(m[5]) * 60 + parseInt(m[6]);
+
+      if (nowMin >= openMin && nowMin < closeMin) {
+        if (closeMin - nowMin <= 30) return { cls: 'closing-soon', label: 'Închide în curând' };
+        return { cls: 'open', label: 'Deschis' };
+      }
+      if (nowMin < openMin && openMin - nowMin <= 30) return { cls: 'opening-soon', label: 'Deschide în curând' };
+    }
+
+    return { cls: 'closed', label: 'Închis' };
+  }
+
+  function renderHours(hoursStr) {
+    var segments = hoursStr.split('|').map(function (s) { return s.trim(); });
+    var status   = getStatus(hoursStr);
+    var today    = new Date().getDay();
+    var badge    = '<span class="rest-status rest-status--' + status.cls + '">' + status.label + '</span>';
+
+    var lines = segments.map(function (seg) {
+      var m = seg.match(/^(\w+)(?:[–\-](\w+))?\s+/);
+      var isToday = false;
+      if (m) {
+        var dStart = DAY_MAP[m[1]], dEnd = m[2] ? DAY_MAP[m[2]] : dStart;
+        if (dStart !== undefined && dEnd !== undefined) {
+          var d = dStart;
+          for (var k = 0; k < 8; k++) {
+            if (d === today) { isToday = true; break; }
+            if (d === dEnd) break;
+            d = (d + 1) % 7;
+          }
+        }
+      }
+      return '<span class="rest-card__hours-line">' + seg + (isToday ? badge : '') + '</span>';
+    });
+
+    return '<div class="rest-card__meta rest-card__hours">' +
+      '<i class="fa-regular fa-clock"></i>' +
+      '<span class="rest-card__hours-lines">' + lines.join('') + '</span>' +
+    '</div>';
+  }
+
+  /* ================================================
+     6. RENDER LISTA
   ================================================ */
   function renderList(restaurants) {
     listEl.innerHTML = '';
@@ -258,16 +354,20 @@
       card.className = 'rest-card' + (r.id === activeId ? ' is-active' : '');
       card.dataset.id = r.id;
 
-      let badges = '';
-      if (r.features.mesoCafe)  badges += '<span class="rest-badge rest-badge--cafe"><i class="fa-solid fa-mug-hot"></i> Cafe</span>';
-      if (r.features.mesoKids)  badges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Kids</span>';
-      if (r.delivery.glovo)     badges += '<span class="rest-badge rest-badge--glovo">Glovo</span>';
-      if (r.delivery.boltFood)  badges += '<span class="rest-badge rest-badge--bolt">Bolt Food</span>';
-      if (r.delivery.wolt)      badges += '<span class="rest-badge rest-badge--wolt">Wolt</span>';
+      let featureBadges = '';
+      if (r.features.mesoCafe) featureBadges += '<span class="rest-badge rest-badge--cafe"><i class="fa-solid fa-mug-hot"></i> Meso Cafe</span>';
+      if (r.features.mesoKids) featureBadges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Meso Kids</span>';
+
+      let deliveryBadges = '';
+      if (r.delivery.glovo)    deliveryBadges += '<span class="rest-badge rest-badge--glovo">Glovo</span>';
+      if (r.delivery.boltFood) deliveryBadges += '<span class="rest-badge rest-badge--bolt">Bolt Food</span>';
+      if (r.delivery.wolt)     deliveryBadges += '<span class="rest-badge rest-badge--wolt">Wolt</span>';
 
       var bannerContent = r.image
         ? '<img class="rest-card__img" src="' + r.image + '" alt="' + r.name + '" loading="lazy">'
         : '<div class="rest-card__img-placeholder" style="background:' + getBannerStyle(r.id) + '"><i class="fa-solid fa-store"></i></div>';
+
+      var mapsUrl = 'https://maps.google.com/?q=' + encodeURIComponent(r.address);
 
       card.innerHTML =
         '<div class="rest-card__sticky-header">' +
@@ -275,13 +375,18 @@
           '<div class="rest-card__name">' + r.name + '</div>' +
         '</div>' +
         '<div class="rest-card__body">' +
-          '<div class="rest-card__meta"><i class="fa-solid fa-location-dot"></i>' + r.address + '</div>' +
-          '<div class="rest-card__meta"><i class="fa-regular fa-clock"></i>' + r.hours + '</div>' +
+          renderHours(r.hours) +
+          '<a class="rest-card__meta rest-card__address" href="' + mapsUrl + '" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i>' + r.address + '</a>' +
           '<a class="rest-card__meta rest-card__tel" href="tel:' + r.phone.replace(/\s/g, '') + '"><i class="fa-solid fa-phone"></i>' + r.phone + '</a>' +
-          (badges ? '<div class="rest-card__badges">' + badges + '</div>' : '') +
+          (r.email ? '<a class="rest-card__meta rest-card__email" href="mailto:' + r.email + '"><i class="fa-regular fa-envelope"></i>' + r.email + '</a>' : '') +
+          (featureBadges || deliveryBadges ? '<div class="rest-card__badge-groups">' +
+            (featureBadges ? '<div class="rest-card__badge-row"><span class="rest-card__badge-label">Facilități</span><div class="rest-card__badge-wrap">' + featureBadges + '</div></div>' : '') +
+            (deliveryBadges ? '<div class="rest-card__badge-row"><span class="rest-card__badge-label">Livrare</span><div class="rest-card__badge-wrap">' + deliveryBadges + '</div></div>' : '') +
+          '</div>' : '') +
         '</div>';
 
-      card.addEventListener('click', function () {
+      card.addEventListener('click', function (e) {
+        if (e.target.closest('a')) return;
         setActive(r.id, true);
         var rect = card.getBoundingClientRect();
         var listRect = listEl.getBoundingClientRect();
@@ -326,7 +431,10 @@
     });
 
     // Pe mobile, extinde sheet-ul la click pe pin
-    if (!panMap && isMobile()) setSheet('half');
+    if (!panMap && isMobile()) {
+      updatePeekHeight();
+      setSheet('half');
+    }
   }
 
   function scrollToCard(id) {

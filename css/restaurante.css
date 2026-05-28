@@ -3,6 +3,11 @@
    ================================================ */
 
 
+/* Header rămâne mereu vizibil pe această pagină */
+.header.is-hidden {
+  transform: none;
+}
+
 /* ================================================
    1. PAGE WRAP
    ================================================ */
@@ -498,6 +503,40 @@
   margin-top: 4px;
 }
 
+.rest-card__badge-groups {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-sm);
+}
+
+.rest-card__badge-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--space-sm) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.rest-card__badge-row:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.rest-card__badge-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.rest-card__badge-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-dim);
+}
+
 .rest-badge {
   display: inline-flex;
   align-items: center;
@@ -544,7 +583,60 @@
 
 
 /* ================================================
-   5. HARTA
+   5. STATUS PROGRAM
+   ================================================ */
+.rest-card__hours-lines {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  gap: 3px;
+}
+
+.rest-card__hours-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.rest-card__hours-line .rest-status {
+  margin-left: auto;
+}
+
+.rest-status {
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.rest-status--open {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.rest-status--closing-soon,
+.rest-status--opening-soon {
+  background: rgba(250, 189, 2, 0.12);
+  color: var(--color-accent-dark);
+  border: 1px solid rgba(250, 189, 2, 0.3);
+}
+
+.rest-status--closed {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--color-primary);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+
+/* ================================================
+   6. HARTA
    ================================================ */
 
 /* Overlay lock */
@@ -828,6 +920,13 @@
   }
 }
 
+/* Mobile: fara popup Leaflet, info sunt in bottom sheet */
+@media (max-width: 768px) {
+  .leaflet-popup {
+    display: none !important;
+  }
+}
+
 /* Mobile: bottom sheet */
 @media (max-width: 768px) {
   html, body {
@@ -895,7 +994,7 @@
     left: 0;
     right: 0;
     width: 100%;
-    height: 80vh;
+    height: calc(100svh - var(--header-h) - 4.5rem);
     z-index: 15;
     background: var(--color-surface);
     border-radius: 20px 20px 0 0;
@@ -911,11 +1010,29 @@
   }
 
   .rest-panel.sheet--half {
-    transform: translateY(calc(100% - 306px));
+    transform: translateY(var(--sheet-peek, calc(100% - 325px)));
   }
 
   .rest-panel.sheet--full {
     transform: translateY(0);
+  }
+
+  .rest-panel::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 56px;
+    top: calc(var(--peek-height, 325px) - 56px);
+    background: linear-gradient(to bottom, transparent, var(--color-surface));
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .rest-panel.sheet--half::after {
+    opacity: 1;
   }
 
   /* Handle */
@@ -983,6 +1100,7 @@
     overflow: hidden;
     max-height: unset;
     flex: 1;
+    padding: 0;
   }
 
   /* Sticky: poza + numele */
@@ -999,39 +1117,75 @@
   }
 
   .rest-card.is-active .rest-card__name {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 800;
-    padding: var(--space-sm) var(--space-md);
-    border-bottom: 1px solid var(--color-border);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    padding: var(--space-md);
+    border-bottom: none;
   }
 
   /* Body scrollabil */
   .rest-card.is-active .rest-card__body {
-    padding: var(--space-md);
-    gap: var(--space-md);
+    padding: 0 var(--space-md) var(--space-xl);
+    gap: 0;
   }
 
   .rest-card.is-active .rest-card__meta {
-    font-size: 0.88rem;
-    gap: 10px;
-    align-items: flex-start;
+    font-size: 0.95rem;
+    gap: var(--space-sm);
+    align-items: center;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+
+  .rest-card.is-active .rest-card__meta:last-of-type {
+    border-bottom: none;
   }
 
   .rest-card.is-active .rest-card__meta i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
     font-size: 0.85rem;
-    width: 16px;
-    margin-top: 2px;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-primary);
+    margin-top: 0;
   }
 
-  .rest-card__tel {
+  .rest-card.is-active .rest-card__tel,
+  .rest-card.is-active .rest-card__address,
+  .rest-card.is-active .rest-card__email {
     text-decoration: none;
     color: var(--color-primary);
-    font-weight: 600;
+    font-weight: 500;
   }
 
-  .rest-card.is-active .rest-card__badges {
-    margin-top: var(--space-sm);
-    gap: 6px;
+  .rest-card.is-active .rest-card__tel i,
+  .rest-card.is-active .rest-card__address i,
+  .rest-card.is-active .rest-card__email i {
+    color: var(--color-primary);
+  }
+
+  .rest-card.is-active .rest-card__badge-groups {
+    margin-top: var(--space-md);
+    gap: var(--space-sm);
+  }
+
+  .rest-card.is-active .rest-card__badge-label {
+    font-size: 0.7rem;
+    min-width: 58px;
+  }
+
+  .rest-card.is-active .rest-badge {
+    padding: 0.3rem 0.75rem;
+    font-size: 0.72rem;
   }
 
   .rest-list {
