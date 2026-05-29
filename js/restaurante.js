@@ -511,10 +511,7 @@
   /* ================================================
      9. FILTRARE + CĂUTARE
   ================================================ */
-  /*
-   * Returnează lista filtrată după search și filtrele active.
-   * Când locația e activă, sortează după distanță față de user.
-   */
+  /* Returnează lista filtrată după textul de search și filtrele active. */
   function getFiltered() {
     var results = allRestaurants.filter(function (r) {
       const q           = searchQuery.toLowerCase();
@@ -536,13 +533,6 @@
       return matchSearch && matchFilter;
     });
 
-    if (userLocation) {
-      results.sort(function (a, b) {
-        return haversineDistance(userLocation.lat, userLocation.lng, a.lat, a.lng) -
-               haversineDistance(userLocation.lat, userLocation.lng, b.lat, b.lng);
-      });
-    }
-
     return results;
   }
 
@@ -561,17 +551,6 @@
   /* ================================================
      10. LOCAȚIE
   ================================================ */
-
-  /* Calculează distanța în km între două coordonate (formula Haversine). */
-  function haversineDistance(lat1, lng1, lat2, lng2) {
-    var R  = 6371;
-    var dL = (lat2 - lat1) * Math.PI / 180;
-    var dG = (lng2 - lng1) * Math.PI / 180;
-    var a  = Math.sin(dL / 2) * Math.sin(dL / 2) +
-             Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-             Math.sin(dG / 2) * Math.sin(dG / 2);
-    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  }
 
   /*
    * Activează sau dezactivează modul "lângă mine".
