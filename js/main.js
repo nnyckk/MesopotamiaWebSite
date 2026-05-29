@@ -14,14 +14,61 @@ function ready(fn) {
 ready(function () {
   initNavScroll();
   initNavHamburger();
+  initBottomNav();
+  initSidebarOffset();
   initThemeToggle();
   initHeroSlider();
   initScrollReveal();
 });
 
+/*
+ * Pe mobile/tablet: mută sidebar-ul între page-hero și wrapper (sticky funcționează corect).
+ * Pe desktop: readuce sidebar-ul înăuntrul wrapper-ului ca flex child.
+ * Setează scroll-margin-top pe secțiuni după ce produsele sunt randate asincron.
+ */
+function initSidebarOffset() {
+  var track   = document.querySelector('.meniu-sidebar-track');
+  var wrapper = document.querySelector('.meniu-wrapper');
+  if (!track || !wrapper) return;
+
+  var headerEl = document.querySelector('.header');
+  var movedOut = false;
+
+  function updateScrollMargins() {
+    if (window.innerWidth > 1024) return;
+    var total = (headerEl ? headerEl.offsetHeight : 60) + track.offsetHeight;
+    document.querySelectorAll('.menu-section').forEach(function (s) {
+      s.style.scrollMarginTop = total + 'px';
+    });
+  }
+
+  function applyOffset() {
+    if (window.innerWidth <= 1024) {
+      if (!movedOut) {
+        wrapper.parentNode.insertBefore(track, wrapper);
+        movedOut = true;
+      }
+      updateScrollMargins();
+    } else {
+      if (movedOut) {
+        wrapper.insertBefore(track, wrapper.querySelector('.meniu-layout'));
+        movedOut = false;
+      }
+      document.querySelectorAll('.menu-section').forEach(function (s) {
+        s.style.scrollMarginTop = '';
+      });
+    }
+  }
+
+  applyOffset();
+  window.addEventListener('resize', applyOffset);
+  // Secțiunile sunt randate asincron — aplică scroll-margin-top după render
+  document.addEventListener('products:rendered', updateScrollMargins);
+}
+
 
 /* ------------------------------------------------
-   1. TEMA DARK / LIGHT
+   2. TEMA DARK / LIGHT
 ------------------------------------------------ */
 function initThemeToggle() {
   const btns = document.querySelectorAll('[data-theme-toggle]');
@@ -60,15 +107,9 @@ function initNavScroll() {
   const header = document.getElementById('header');
   if (!header) return;
 
-  let lastY = window.scrollY;
-
   function onScroll() {
     const y = window.scrollY;
     header.classList.toggle('is-scrolled', y > 20);
-    const hiding = y > lastY && y > 80;
-    header.classList.toggle('is-hidden', hiding);
-    document.body.classList.toggle('header-hidden', hiding);
-    lastY = y;
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -96,6 +137,32 @@ function initNavHamburger() {
       document.body.style.overflow = '';
     });
   });
+}
+
+function initBottomNav() {
+  var nav     = document.getElementById('navBottom');
+  var links   = document.getElementById('navLinks');
+  var hamburger = document.getElementById('navHamburger');
+  if (!nav) return;
+
+  /* Marcheaza tab-ul activ dupa URL */
+  var page = window.location.pathname.split('/').pop() || 'index.html';
+  nav.querySelectorAll('a.nav-bottom__item').forEach(function (item) {
+    if (item.getAttribute('href') === page) item.classList.add('is-active');
+  });
+
+  /* Butonul More deschide overlay-ul de navigare */
+  var moreBtn = document.getElementById('navBottomMore');
+  if (moreBtn && links) {
+    moreBtn.addEventListener('click', function () {
+      var open = links.classList.toggle('is-open');
+      if (hamburger) {
+        hamburger.classList.toggle('is-open', open);
+        hamburger.setAttribute('aria-expanded', open);
+      }
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+  }
 }
 
 

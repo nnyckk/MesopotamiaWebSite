@@ -27,6 +27,8 @@
     sheetEl.classList.remove('sheet--half', 'sheet--full');
     if (state === 'half') sheetEl.classList.add('sheet--half');
     if (state === 'full') sheetEl.classList.add('sheet--full');
+    var navEl = document.getElementById('navBottom');
+    if (navEl) navEl.classList.toggle('has-sheet', state !== 'hidden');
   }
 
   if (closeBtn) {
@@ -50,9 +52,17 @@
     var stickyH   = sticky ? sticky.offsetHeight : 0;
     var body      = sheetEl.querySelector('.rest-card.is-active .rest-card__body');
     var bodyPadT  = body ? parseInt(getComputedStyle(body).paddingTop) || 0 : 0;
-    var firstMeta = sheetEl.querySelector('.rest-card.is-active .rest-card__meta');
-    var metaH     = firstMeta ? firstMeta.offsetHeight : 0;
-    peekHeight    = handleH + listPadT + stickyH + bodyPadT + metaH;
+    var allMeta   = sheetEl.querySelectorAll('.rest-card.is-active .rest-card__meta');
+    var metaH     = allMeta.length > 0 ? allMeta[0].offsetHeight : 0;
+    var meta2H    = allMeta.length > 1 ? Math.round(allMeta[1].offsetHeight * 0.45) : 30;
+    peekHeight    = handleH + listPadT + stickyH + bodyPadT + metaH + meta2H;
+    if (!sticky && isMobile()) {
+      var countEl   = document.getElementById('restCount');
+      var countH    = countEl ? countEl.offsetHeight : 0;
+      var firstCard = listEl  ? listEl.querySelector('.rest-card') : null;
+      var cardPeek  = firstCard ? Math.round(firstCard.offsetHeight * 0.35) : 80;
+      peekHeight   += countH + cardPeek;
+    }
     sheetEl.style.setProperty('--sheet-peek',  'calc(100% - ' + peekHeight + 'px)');
     sheetEl.style.setProperty('--peek-height', peekHeight + 'px');
   }
@@ -128,14 +138,15 @@
   var toastTimer = null;
 
   /* Afișează un mesaj toast care dispare automat după `duration` ms. */
-  function showToast(message, duration) {
+  function showToast(message, duration, type) {
     var el = document.getElementById('restToast');
     if (!el) return;
     clearTimeout(toastTimer);
     el.textContent = message;
+    el.classList.toggle('is-error', type === 'error');
     el.classList.add('is-visible');
     toastTimer = setTimeout(function () {
-      el.classList.remove('is-visible');
+      el.classList.remove('is-visible', 'is-error');
     }, duration || 3000);
   }
 
@@ -299,7 +310,9 @@
    */
   function panToPin(lat, lng) {
     var headerH       = (document.querySelector('.header') || { offsetHeight: 60 }).offsetHeight;
-    var visibleBottom = window.innerHeight - peekHeight;
+    var navEl         = document.getElementById('navBottom');
+    var navH          = navEl ? navEl.offsetHeight : 0;
+    var visibleBottom = window.innerHeight - navH - peekHeight;
     var desiredPinY   = headerH + (visibleBottom - headerH) * 0.5;
     var screenOffsetY = desiredPinY - window.innerHeight / 2;
     var zoom          = Math.max(map.getZoom(), 14);
@@ -569,7 +582,7 @@
     }
 
     if (!navigator.geolocation) {
-      showToast('Browserul tău nu suportă localizarea.');
+      showToast('Browserul tău nu suportă localizarea.', 3000, 'error');
       return;
     }
 
@@ -598,7 +611,7 @@
       },
       function () {
         allBtns.forEach(function (b) { if (b) b.classList.remove('is-loading'); });
-        showToast('Nu s-a putut obține locația. Verifică permisiunile.');
+        showToast('Nu s-a putut obține locația. Verifică permisiunile.', 3000, 'error');
       },
       { timeout: 8000 }
     );

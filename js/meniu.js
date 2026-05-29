@@ -13,6 +13,14 @@
     });
   }
 
+  function getScrollOffset() {
+    const headerH = (document.querySelector('.header') || { offsetHeight: 0 }).offsetHeight;
+    const trackH  = window.innerWidth <= 1024
+      ? ((document.querySelector('.meniu-sidebar-track') || { offsetHeight: 0 }).offsetHeight)
+      : 0;
+    return headerH + trackH;
+  }
+
   const observer = new IntersectionObserver(entries => {
     if (scrollingFromClick) return;
     entries.forEach(entry => {
@@ -28,7 +36,7 @@
       if (target) {
         setActive(target.id, true);
         requestAnimationFrame(function () {
-          const offset = target.getBoundingClientRect().top + window.scrollY - 80;
+          const offset = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
           window.scrollTo({ top: offset, behavior: 'smooth' });
         });
       }
@@ -44,7 +52,7 @@
       scrollingFromClick = true;
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(() => { scrollingFromClick = false; }, 800);
-      const offset = target.getBoundingClientRect().top + window.scrollY - 80;
+      const offset = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
       window.scrollTo({ top: offset, behavior: 'smooth' });
     });
   });

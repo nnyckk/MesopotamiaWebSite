@@ -9,7 +9,7 @@
    ================================================ */
 .page-hero {
   padding-block: var(--space-3xl) var(--space-2xl);
-  margin-top: var(--header-h);
+  margin-top: var(--header-h); /* overridden by JS on mobile */
   background: linear-gradient(135deg, #500106 0%, #B00106 50%, #500106 100%);
   text-align: center;
 }
@@ -63,7 +63,6 @@
 }
 
 .meniu-sidebar-track {
-  order: -1;
   flex-shrink: 0;
   width: 240px;
   align-self: flex-start;
@@ -72,11 +71,6 @@
   transition: top 0.35s ease;
 }
 
-@media (min-width: 769px) {
-  body.header-hidden .meniu-sidebar-track {
-    top: 0;
-  }
-}
 
 
 /* ================================================
@@ -244,10 +238,12 @@
   transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.3s ease;
 }
 
-.product-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
-  border-color: rgba(176, 1, 6, 0.45);
+@media (hover: hover) {
+  .product-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+    border-color: rgba(176, 1, 6, 0.45);
+  }
 }
 
 .product-card__img-wrap {
@@ -284,8 +280,10 @@
   transition: transform 0.4s ease;
 }
 
-.product-card:hover .product-card__img {
-  transform: scale(1.06);
+@media (hover: hover) {
+  .product-card:hover .product-card__img {
+    transform: scale(1.06);
+  }
 }
 
 .product-card__info {
@@ -342,23 +340,22 @@
 .product-modal-overlay {
   position: fixed;
   inset: 0;
-  z-index: 1000;
-  background: var(--color-overlay);
+  z-index: 999;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--space-lg);
   visibility: hidden;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease, visibility 0s 0.3s;
+  transition: background 0.3s ease, visibility 0s 0.3s;
 }
 
 .product-modal-overlay.is-open {
   visibility: visible;
   pointer-events: auto;
-  opacity: 1;
-  transition: opacity 0.3s ease, visibility 0s;
+  background: var(--color-overlay);
+  transition: background 0.3s ease, visibility 0s;
 }
 
 .product-modal {
@@ -403,10 +400,12 @@
   transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.product-modal__close:hover {
-  background: var(--color-primary);
-  color: var(--color-white);
-  border-color: var(--color-primary);
+@media (hover: hover) {
+  .product-modal__close:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+  }
 }
 
 .product-modal__img-wrap {
@@ -500,9 +499,11 @@
   transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.modal-variant:hover {
-  border-color: var(--color-primary);
-  color: var(--color-text);
+@media (hover: hover) {
+  .modal-variant:hover {
+    border-color: var(--color-primary);
+    color: var(--color-text);
+  }
 }
 
 .modal-variant.is-active {
@@ -526,8 +527,10 @@
   transition: color var(--transition-fast);
 }
 
-.product-modal__nutri-link:hover {
-  color: var(--color-primary);
+@media (hover: hover) {
+  .product-modal__nutri-link:hover {
+    color: var(--color-primary);
+  }
 }
 
 .product-modal__section {
@@ -614,11 +617,12 @@
 @media (max-width: 640px) {
   .product-modal-overlay {
     padding: 0;
+    padding-bottom: calc(var(--nav-bottom-h) + env(safe-area-inset-bottom, 0px));
     align-items: flex-end;
   }
 
   .product-modal {
-    max-height: 88vh;
+    max-height: calc(88vh - var(--nav-bottom-h) - env(safe-area-inset-bottom, 0px));
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
     max-width: 100%;
     transform: translateY(100%);
@@ -657,10 +661,11 @@
    7. RESPONSIVE
    ================================================ */
 
-/* Tablet + Mobile — sidebar moves to bottom bar */
+/* Tablet + Mobile — sidebar moves to top bar */
 @media (max-width: 1024px) {
   .meniu-wrapper {
-    display: block;
+    display: flex;
+    flex-direction: column;
     padding-inline: 0;
   }
 
@@ -669,12 +674,10 @@
   }
 
   .meniu-sidebar-track {
-    order: 0;
     width: 100%;
-    align-self: auto;
     position: sticky;
-    bottom: 0;
-    top: auto;
+    top: var(--header-h);
+    z-index: 100;
     background: none;
     border-right: none;
     transition: none;
@@ -687,9 +690,9 @@
     width: 100%;
     background: var(--color-surface);
     border-right: none;
-    border-top: 1px solid var(--color-border);
-    border-bottom: none;
-    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
+    border-top: none;
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     display: flex;
     overflow-x: auto;
     overflow-y: visible;
