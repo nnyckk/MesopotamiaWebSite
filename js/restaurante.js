@@ -9,6 +9,8 @@
   let activeId       = null;
   let activeFilters  = new Set();
   let searchQuery    = '';
+  let userLocation   = null; // { lat, lng } când locația e activă
+  let userMarker     = null; // marker Leaflet pentru "Tu ești aici"
 
   /* ── Bottom sheet ───────────────────────────────────────── */
   var sheetEl    = document.getElementById('restPanel');
@@ -118,6 +120,21 @@
   /* Returnează un gradient CSS ciclic bazat pe id-ul restaurantului. */
   function getBannerStyle(id) {
     return BANNER_GRADIENTS[(id - 1) % BANNER_GRADIENTS.length];
+  }
+
+  /* ── Toast ──────────────────────────────────────────────── */
+  var toastTimer = null;
+
+  /* Afișează un mesaj toast care dispare automat după `duration` ms. */
+  function showToast(message, duration) {
+    var el = document.getElementById('restToast');
+    if (!el) return;
+    clearTimeout(toastTimer);
+    el.textContent = message;
+    el.classList.add('is-visible');
+    toastTimer = setTimeout(function () {
+      el.classList.remove('is-visible');
+    }, duration || 3000);
   }
 
   /* ── DOM refs ───────────────────────────────────────────── */
@@ -243,14 +260,26 @@
   /* ================================================
      3. POPUP HARTĂ
   ================================================ */
+  /*
+   * Returnează HTML pentru un badge de livrare.
+   * Dacă valoarea e un URL string, badge-ul devine link către acea platformă.
+   */
+  function deliveryBadge(value, cls, label) {
+    if (!value) return '';
+    const badge = '<span class="rest-badge rest-badge--' + cls + '">' + label + '</span>';
+    return typeof value === 'string'
+      ? '<a href="' + value + '" target="_blank" rel="noopener" class="rest-badge-link">' + badge + '</a>'
+      : badge;
+  }
+
   /* Generează HTML-ul pentru popup-ul Leaflet al unui restaurant. */
   function makePopup(r) {
     let badges = '';
     if (r.features.mesoCafe) badges += '<span class="rest-badge rest-badge--cafe"><i class="fa-solid fa-mug-hot"></i> Meso Cafe</span>';
     if (r.features.mesoKids) badges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Meso Kids</span>';
-    if (r.delivery.glovo)    badges += '<span class="rest-badge rest-badge--glovo">Glovo</span>';
-    if (r.delivery.boltFood) badges += '<span class="rest-badge rest-badge--bolt">Bolt Food</span>';
-    if (r.delivery.wolt)     badges += '<span class="rest-badge rest-badge--wolt">Wolt</span>';
+    badges += deliveryBadge(r.delivery.glovo,    'glovo', 'Glovo');
+    badges += deliveryBadge(r.delivery.boltFood, 'bolt',  'Bolt Food');
+    badges += deliveryBadge(r.delivery.wolt,     'wolt',  'Wolt');
 
     return '<div class="map-popup__name">' + r.name + '</div>' +
       '<div class="map-popup__row"><i class="fa-solid fa-location-dot"></i>' + r.address + '</div>' +
@@ -386,9 +415,15 @@
       if (r.features.mesoKids) featureBadges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Meso Kids</span>';
 
       let deliveryBadges = '';
-      if (r.delivery.glovo)    deliveryBadges += '<span class="rest-badge rest-badge--glovo">Glovo</span>';
-      if (r.delivery.boltFood) deliveryBadges += '<span class="rest-badge rest-badge--bolt">Bolt Food</span>';
-      if (r.delivery.wolt)     deliveryBadges += '<span class="rest-badge rest-badge--wolt">Wolt</span>';
+      deliveryBadges += deliveryBadge(r.delivery.glovo,    'glovo', 'Glovo');
+      deliveryBadges += deliveryBadge(r.delivery.boltFood, 'bolt',  'Bolt Food');
+      deliveryBadges += deliveryBadge(r.delivery.wolt,     'wolt',  'Wolt');
+
+      var distanceBadge = userLocation
+        ? '<span class="rest-card__distance"><i class="fa-solid fa-location-crosshairs"></i>' +
+          formatDistance(haversineDistance(userLocation.lat, userLocation.lng, r.lat, r.lng)) +
+          '</span>'
+        : '';
 
       var bannerContent = r.image
         ? '<img class="rest-card__img" src="' + r.image + '" alt="' + r.name + '" loading="lazy">'
@@ -399,7 +434,7 @@
       card.innerHTML =
         '<div class="rest-card__sticky-header">' +
           '<div class="rest-card__banner">' + bannerContent + '</div>' +
-          '<div class="rest-card__name">' + r.name + '</div>' +
+          '<div class="rest-card__name">' + r.name + distanceBadge + '</div>' +
         '</div>' +
         '<div class="rest-card__body">' +
           renderHours(r.hours) +
@@ -482,9 +517,12 @@
   /* ================================================
      9. FILTRARE + CĂUTARE
   ================================================ */
-  /* Returnează lista filtrată după textul de search și filtrele active. */
+  /*
+   * Returnează lista filtrată după search și filtrele active.
+   * Când locația e activă, sortează după distanță față de user.
+   */
   function getFiltered() {
-    return allRestaurants.filter(function (r) {
+    var results = allRestaurants.filter(function (r) {
       const q           = searchQuery.toLowerCase();
       const matchSearch = !q ||
         r.name.toLowerCase().includes(q)    ||
@@ -503,6 +541,15 @@
 
       return matchSearch && matchFilter;
     });
+
+    if (userLocation) {
+      results.sort(function (a, b) {
+        return haversineDistance(userLocation.lat, userLocation.lng, a.lat, a.lng) -
+               haversineDistance(userLocation.lat, userLocation.lng, b.lat, b.lng);
+      });
+    }
+
+    return results;
   }
 
   /* Rerenderează lista și markerii, apoi ajustează bounds hărții. */
@@ -518,7 +565,85 @@
   }
 
   /* ================================================
-     10. EVENTS
+     10. LOCAȚIE
+  ================================================ */
+
+  /* Calculează distanța în km între două coordonate (formula Haversine). */
+  function haversineDistance(lat1, lng1, lat2, lng2) {
+    var R  = 6371;
+    var dL = (lat2 - lat1) * Math.PI / 180;
+    var dG = (lng2 - lng1) * Math.PI / 180;
+    var a  = Math.sin(dL / 2) * Math.sin(dL / 2) +
+             Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+             Math.sin(dG / 2) * Math.sin(dG / 2);
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
+
+  /* Formatează distanța: sub 1 km → "850 m", altfel → "3.2 km". */
+  function formatDistance(km) {
+    return km < 1
+      ? Math.round(km * 1000) + ' m'
+      : km.toFixed(1) + ' km';
+  }
+
+  /*
+   * Activează sau dezactivează modul "lângă mine".
+   * Dacă locația e deja activă, o resetează. Altfel solicită permisiunea.
+   */
+  function toggleLocation() {
+    var btn = document.getElementById('restLocationBtn');
+
+    if (userLocation) {
+      // Reset
+      userLocation = null;
+      if (userMarker) { map.removeLayer(userMarker); userMarker = null; }
+      btn.classList.remove('is-active', 'is-loading');
+      update();
+      return;
+    }
+
+    if (!navigator.geolocation) {
+      showToast('Browserul tău nu suportă localizarea.');
+      return;
+    }
+
+    btn.classList.add('is-loading');
+
+    navigator.geolocation.getCurrentPosition(
+      function (pos) {
+        userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        btn.classList.remove('is-loading');
+        btn.classList.add('is-active');
+
+        // Marker "Tu ești aici"
+        if (userMarker) map.removeLayer(userMarker);
+        userMarker = L.marker([userLocation.lat, userLocation.lng], {
+          icon: L.divIcon({
+            html: '<div class="rest-user-marker"><i class="fa-solid fa-circle-dot"></i></div>',
+            className: '',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16],
+          }),
+          zIndexOffset: 1000,
+        }).addTo(map);
+
+        update();
+
+        // Ajustează harta să includă locația userului
+        var bounds = allRestaurants.map(function (r) { return [r.lat, r.lng]; });
+        bounds.push([userLocation.lat, userLocation.lng]);
+        map.fitBounds(bounds, { padding: [10, 10], maxZoom: 13 });
+      },
+      function () {
+        btn.classList.remove('is-loading');
+        showToast('Nu s-a putut obține locația. Verifică permisiunile.');
+      },
+      { timeout: 8000 }
+    );
+  }
+
+  /* ================================================
+     11. EVENTS
   ================================================ */
   searchEl.addEventListener('focus', function () {
     if (isMobile()) setSheet('hidden');
@@ -615,8 +740,11 @@
     });
   }
 
+  var locationBtn = document.getElementById('restLocationBtn');
+  if (locationBtn) locationBtn.addEventListener('click', toggleLocation);
+
   /* ================================================
-     11. ÎNCĂRCARE DATE
+     12. ÎNCĂRCARE DATE
   ================================================ */
   fetch('data/restaurants.json')
     .then(function (r) { return r.json(); })
