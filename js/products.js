@@ -146,7 +146,7 @@
   function openModal(p) {
     var overlay = document.getElementById('productModal');
 
-    document.getElementById('modalImg').src = p.img;
+    document.getElementById('modalImg').src = p.imgModal || p.img;
     document.getElementById('modalImg').alt = p.name;
     document.getElementById('modalName').textContent = p.name;
 

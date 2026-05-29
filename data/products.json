@@ -72,6 +72,7 @@
           "name": "Piatto Kebab",
           "desc": "Carne de vită și miel, cartofi prăjiți, salată, roșie, sos special",
           "img": "images/products/kebab/PiattoKebab_600px600px.png",
+          "imgModal": "images/products/kebab/imgModal/PiattoKebab-imgModal_800px400px.png",
           "variants": [
             { "label": "Mediu", "weight": "430 g", "price": "41.99 lei" },
             { "label": "Mare",  "weight": "540 g", "price": "47.99 lei" }
