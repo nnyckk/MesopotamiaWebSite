@@ -27,7 +27,7 @@
       "lng": 21.94875255124961,
       "hours": "Lun–Dum 10:00–22:00",
       "image": "images/restaurante/oradea-lotus-center_800x300.jpg",
-      "features": { "mesoCafe": true, "mesoKids": false },
+      "features": { "mesoCafe": true, "mesoKids": true },
       "delivery": { "glovo": true, "boltFood": false, "wolt": false }
     },
     {
@@ -82,7 +82,7 @@
       "email": "timisoara@mesopotamia.ro",
       "lat": 45.7521,
       "lng": 21.2401,
-      "hours": "Lun–Vin 10:00–22:00 | Sâm–Dum 10:00–23:00",
+      "hours": "Lun–Vin 10:00–10:40 | Sâm–Dum 10:00–23:00",
       "features": { "mesoCafe": true, "mesoKids": true },
       "delivery": { "glovo": true, "boltFood": true, "wolt": false }
     },
