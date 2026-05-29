@@ -722,8 +722,12 @@ strong {
 }
 
 @media (max-width: 640px) {
+  :root {
+    --header-h: 60px;
+  }
+
   .nav__logo-img {
-    height: 28px;
+    height: 26px;
   }
 
   .nav__actions {

@@ -33,6 +33,7 @@
   var swipeStartY = 0;
   var swipeBaseY  = 0;
   var peekHeight  = 325;
+  var gestureType = null; // 'sheet' | 'card' | null
 
   function updatePeekHeight() {
     var handleH   = handleEl ? handleEl.offsetHeight : 0;
@@ -60,6 +61,7 @@
     swipeStartY = e.touches[0].clientY;
     swipeBaseY  = getBaseTranslatePx();
     sheetEl.style.transition = 'none';
+    gestureType = null;
   }, { passive: true });
 
   sheetEl.addEventListener('touchmove', function (e) {
@@ -67,19 +69,34 @@
     var delta = e.touches[0].clientY - swipeStartY;
     var activeCard = listEl ? listEl.querySelector('.rest-card.is-active') : null;
     var cardScrollTop = activeCard ? activeCard.scrollTop : 0;
-    if (cardScrollTop > 0) return;
+
+    if (gestureType === null) {
+      if (sheetState === 'half') {
+        // Sheet la half: orice swipe = gest pe sheet
+        gestureType = 'sheet';
+      } else if (Math.abs(delta) > 3) {
+        // Sheet la full: swipe jos din top → collapsează, altfel scroll card
+        gestureType = (delta > 0 && cardScrollTop === 0) ? 'sheet' : 'card';
+      }
+    }
+
+    if (gestureType !== 'sheet') return;
+
+    e.preventDefault();
     var newY = swipeBaseY + delta;
     newY = Math.max(0, newY);
     sheetEl.style.transform = 'translateY(' + newY + 'px)';
-  }, { passive: true });
+  }, { passive: false });
 
   sheetEl.addEventListener('touchend', function (e) {
     if (!isMobile()) return;
     var delta = e.changedTouches[0].clientY - swipeStartY;
     sheetEl.style.transform = '';
     sheetEl.style.transition = '';
-    if (delta > 80) setSheet(sheetState === 'full' ? 'half' : 'hidden');
-    else if (delta < -80 && sheetState === 'half') setSheet('full');
+    if (gestureType === 'sheet') {
+      if (delta > 80) setSheet(sheetState === 'full' ? 'half' : 'hidden');
+      else if (delta < -80 && sheetState === 'half') setSheet('full');
+    }
   }, { passive: true });
 
   var BANNER_GRADIENTS = [
@@ -310,29 +327,15 @@
   function renderHours(hoursStr) {
     var segments = hoursStr.split('|').map(function (s) { return s.trim(); });
     var status   = getStatus(hoursStr);
-    var today    = new Date().getDay();
     var badge    = '<span class="rest-status rest-status--' + status.cls + '">' + status.label + '</span>';
 
     var lines = segments.map(function (seg) {
-      var m = seg.match(/^(\w+)(?:[–\-](\w+))?\s+/);
-      var isToday = false;
-      if (m) {
-        var dStart = DAY_MAP[m[1]], dEnd = m[2] ? DAY_MAP[m[2]] : dStart;
-        if (dStart !== undefined && dEnd !== undefined) {
-          var d = dStart;
-          for (var k = 0; k < 8; k++) {
-            if (d === today) { isToday = true; break; }
-            if (d === dEnd) break;
-            d = (d + 1) % 7;
-          }
-        }
-      }
-      return '<span class="rest-card__hours-line">' + seg + (isToday ? badge : '') + '</span>';
+      return '<span class="rest-card__hours-line">' + seg + '</span>';
     });
 
     return '<div class="rest-card__meta rest-card__hours">' +
       '<i class="fa-regular fa-clock"></i>' +
-      '<span class="rest-card__hours-lines">' + lines.join('') + '</span>' +
+      '<span class="rest-card__hours-lines">' + lines.join('') + badge + '</span>' +
     '</div>';
   }
 
@@ -387,7 +390,7 @@
 
       card.addEventListener('click', function (e) {
         if (e.target.closest('a')) return;
-        setActive(r.id, true);
+        setActive(r.id, isMobile() && sheetState === 'half');
         var rect = card.getBoundingClientRect();
         var listRect = listEl.getBoundingClientRect();
         if (rect.top < listRect.top || rect.bottom > listRect.bottom) {
@@ -418,8 +421,19 @@
         const r = allRestaurants.find(function (x) { return x.id === id; });
         if (r) {
           markerCluster.zoomToShowLayer(markers[id], function () {
-            map.setView([r.lat, r.lng], 14, { animate: true });
-            markers[id].openPopup();
+            if (isMobile()) {
+              var headerH     = (document.querySelector('.header') || {offsetHeight: 60}).offsetHeight;
+              var visibleBottom = window.innerHeight - peekHeight;
+              var desiredPinY   = headerH + (visibleBottom - headerH) * 0.5;
+              var screenOffsetY = desiredPinY - window.innerHeight / 2;
+              var zoom      = Math.max(map.getZoom(), 14);
+              var pinPx     = map.project([r.lat, r.lng], zoom);
+              var centerPx  = pinPx.subtract(L.point(0, screenOffsetY));
+              map.setView(map.unproject(centerPx, zoom), zoom, { animate: true });
+            } else {
+              map.setView([r.lat, r.lng], 14, { animate: true });
+              markers[id].openPopup();
+            }
           });
         }
       }
@@ -474,7 +488,7 @@
 
     if (filtered.length && map) {
       const bounds = filtered.map(function (r) { return [r.lat, r.lng]; });
-      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 13 });
+      map.fitBounds(bounds, { padding: [10, 10], maxZoom: 13 });
     }
   }
 
