@@ -71,6 +71,7 @@
     swipeStartY = e.touches[0].clientY;
     swipeBaseY  = getBaseTranslatePx();
     sheetEl.style.transition = 'none';
+    sheetEl.classList.add('is-swiping');
     gestureType = null;
   }, { passive: true });
 
@@ -102,6 +103,7 @@
     var delta = e.changedTouches[0].clientY - swipeStartY;
     sheetEl.style.transform = '';
     sheetEl.style.transition = '';
+    sheetEl.classList.remove('is-swiping');
     if (gestureType === 'sheet') {
       if (delta > 80)                            setSheet(sheetState === 'full' ? 'half' : 'hidden');
       else if (delta < -80 && sheetState === 'half') setSheet('full');
@@ -323,6 +325,8 @@
         scrollToCard(r.id);
         if (isMobile()) {
           marker.closePopup();
+          updatePeekHeight();
+          setSheet('half');
           panToPin(r.lat, r.lng);
         }
       });
@@ -494,12 +498,6 @@
     document.querySelectorAll('.rest-card').forEach(function (c) {
       c.classList.toggle('is-active', Number(c.dataset.id) === id);
     });
-
-    // Click pe pin (panMap=false) → extinde sheet-ul la half pe mobile
-    if (!panMap && isMobile()) {
-      updatePeekHeight();
-      setSheet('half');
-    }
   }
 
   /* Scroll-ează lista până la cardul cu id-ul dat (desktop/tablet). */

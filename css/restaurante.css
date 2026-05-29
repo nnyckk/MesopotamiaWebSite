@@ -1153,6 +1153,11 @@
     opacity: 1;
   }
 
+  .rest-panel.is-swiping::after {
+    opacity: 0;
+    transition: none;
+  }
+
   /* Handle */
   .rest-sheet-handle {
     display: flex;
