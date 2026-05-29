@@ -92,10 +92,12 @@
   cursor: pointer;
 }
 
-.hero__arrow:hover {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  transform: translateY(-50%) scale(1.08);
+@media (hover: hover) {
+  .hero__arrow:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    transform: translateY(-50%) scale(1.08);
+  }
 }
 
 .hero__arrow--prev { left: 1.5rem; }
@@ -194,9 +196,11 @@
   transition: opacity 0.6s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.cat-card:hover {
-  transform: scale(1.015);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+@media (hover: hover) {
+  .cat-card:hover {
+    transform: scale(1.015);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
 }
 
 .cat-card__img-wrap {
@@ -250,10 +254,12 @@
   transition: all var(--transition-fast);
 }
 
-.cat-card:hover .cat-card__cta {
-  background: var(--color-accent);
-  color: var(--color-black);
-  transform: translateX(3px);
+@media (hover: hover) {
+  .cat-card:hover .cat-card__cta {
+    background: var(--color-accent);
+    color: var(--color-black);
+    transform: translateX(3px);
+  }
 }
 
 /* Buton "Vezi toate" */
@@ -282,9 +288,11 @@
   transition: all var(--transition-normal);
 }
 
-.menu__show-more:hover {
-  background: var(--color-primary-dark);
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .menu__show-more:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+  }
 }
 
 
@@ -352,9 +360,11 @@
   transition: opacity 0.6s ease, transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
-.quality__card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+@media (hover: hover) {
+  .quality__card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
 }
 
 .quality__card-img {
@@ -414,9 +424,11 @@
   transition: opacity 0.6s ease, transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.promo__card:hover {
-  transform: scale(1.015);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+@media (hover: hover) {
+  .promo__card:hover {
+    transform: scale(1.015);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
 }
 
 .promo__card--large {
@@ -479,10 +491,12 @@
   transition: all var(--transition-fast);
 }
 
-.promo__card:hover .promo__card-cta {
-  background: var(--color-accent);
-  color: var(--color-black);
-  transform: translateX(3px);
+@media (hover: hover) {
+  .promo__card:hover .promo__card-cta {
+    background: var(--color-accent);
+    color: var(--color-black);
+    transform: translateX(3px);
+  }
 }
 
 /* Responsive promo */
