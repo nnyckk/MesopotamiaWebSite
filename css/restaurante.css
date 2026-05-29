@@ -100,7 +100,7 @@
   border: none;
   background: transparent;
   color: var(--color-text);
-  font-size: 0.95rem;
+  font-size: 16px; /* sub 16px → iOS face zoom automat */
   outline: none;
 }
 
@@ -164,83 +164,89 @@
 /* ================================================
    BUTON LOCAȚIE
    ================================================ */
-.rest-location-btn {
-  flex-shrink: 0;
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-border);
-  background: rgba(34, 34, 34, 0.95);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  color: var(--color-text-muted);
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  flex-shrink: 0;
-}
 
-[data-theme="light"] .rest-location-btn {
-  background: rgba(251, 251, 251, 0.92);
+/* Stare activă în toolbar (desktop/tablet) */
+.rest-location-btn.is-active {
+  color: var(--color-accent);
 }
 
 @media (hover: hover) {
-  .rest-location-btn:hover {
-    border-color: var(--color-accent);
+  .rest-location-btn:hover { color: var(--color-accent); }
+  .rest-location-btn-map:hover {
     color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+  [data-theme="light"] .rest-location-btn-map:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
   }
 }
 
-.rest-location-btn.is-active {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-  background: rgba(250, 189, 2, 0.1);
+/* Buton floating în hartă — vizibil doar pe mobile */
+.rest-location-btn-map {
+  display: none;
 }
 
-/* Spinner când se încarcă locația */
-.rest-location-btn.is-loading i {
-  animation: rest-spin 0.8s linear infinite;
+@media (max-width: 768px) {
+  /* Ascunde butonul din toolbar și zoom controls */
+  .rest-location-btn { display: none !important; }
+  .leaflet-control-zoom { display: none !important; }
+
+  /* Buton floating bottom-right, în root stacking context ca și search bar */
+  .rest-location-btn-map {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 1.5rem;
+    right: 0.75rem;
+    z-index: 8;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: rgba(34, 34, 34, 0.95);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .rest-location-btn-map.is-active {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  [data-theme="light"] .rest-location-btn-map {
+    background: rgba(251, 251, 251, 0.92);
+    border-color: rgba(0, 0, 0, 0.15);
+    color: var(--color-text-muted);
+  }
+
+  [data-theme="light"] .rest-location-btn-map.is-active {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
 }
 
-@keyframes rest-spin {
-  to { transform: rotate(360deg); }
-}
 
-/* Badge distanță pe card */
-.rest-card__distance {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  font-family: var(--font-heading);
-  color: var(--color-accent);
-  background: rgba(250, 189, 2, 0.12);
-  border: 1px solid rgba(250, 189, 2, 0.25);
-  border-radius: var(--radius-full);
-  padding: 0.1rem 0.45rem;
-  margin-left: 0.4rem;
-  vertical-align: middle;
-  white-space: nowrap;
-}
 
-.rest-card__distance i {
-  font-size: 0.6rem;
-}
-
-/* Marker "Tu ești aici" */
+/* Marker "Tu ești aici" — cerc albastru cu icon om */
 .rest-user-marker {
   width: 32px;
   height: 32px;
+  background: #3b82f6;
+  border: 2px solid #fff;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #3b82f6;
-  font-size: 1.4rem;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  color: #fff;
+  font-size: 0.85rem;
 }
 
 /* Toast notificare */

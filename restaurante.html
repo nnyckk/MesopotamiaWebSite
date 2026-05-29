@@ -110,10 +110,10 @@
         <span>Filtrare</span>
         <span class="rest-filter-count" id="restFilterCount" hidden></span>
       </button>
+      <button class="rest-filter-btn rest-location-btn" id="restLocationBtn" aria-label="Restaurante lângă mine">
+        <i class="fa-solid fa-location-crosshairs"></i>
+      </button>
     </div>
-    <button class="rest-location-btn" id="restLocationBtn" aria-label="Restaurante lângă mine">
-      <i class="fa-solid fa-location-crosshairs"></i>
-    </button>
   </div>
 
   <div id="restToast" class="rest-toast" aria-live="polite"></div>
@@ -150,6 +150,11 @@
       </div>
 
     </aside>
+
+    <!-- Buton locație floating (mobile) -->
+    <button class="rest-location-btn-map" id="restLocationBtnMap" aria-label="Restaurante lângă mine">
+      <i class="fa-solid fa-location-crosshairs"></i>
+    </button>
 
     <!-- HARTA -->
     <div class="rest-map is-visible" id="restMapWrap">

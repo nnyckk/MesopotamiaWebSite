@@ -419,12 +419,6 @@
       deliveryBadges += deliveryBadge(r.delivery.boltFood, 'bolt',  'Bolt Food');
       deliveryBadges += deliveryBadge(r.delivery.wolt,     'wolt',  'Wolt');
 
-      var distanceBadge = userLocation
-        ? '<span class="rest-card__distance"><i class="fa-solid fa-location-crosshairs"></i>' +
-          formatDistance(haversineDistance(userLocation.lat, userLocation.lng, r.lat, r.lng)) +
-          '</span>'
-        : '';
-
       var bannerContent = r.image
         ? '<img class="rest-card__img" src="' + r.image + '" alt="' + r.name + '" loading="lazy">'
         : '<div class="rest-card__img-placeholder" style="background:' + getBannerStyle(r.id) + '"><i class="fa-solid fa-store"></i></div>';
@@ -434,7 +428,7 @@
       card.innerHTML =
         '<div class="rest-card__sticky-header">' +
           '<div class="rest-card__banner">' + bannerContent + '</div>' +
-          '<div class="rest-card__name">' + r.name + distanceBadge + '</div>' +
+          '<div class="rest-card__name">' + r.name + '</div>' +
         '</div>' +
         '<div class="rest-card__body">' +
           renderHours(r.hours) +
@@ -558,7 +552,7 @@
     renderList(filtered);
     buildMarkers(filtered);
 
-    if (filtered.length && map) {
+    if (filtered.length && map && !userLocation) {
       const bounds = filtered.map(function (r) { return [r.lat, r.lng]; });
       map.fitBounds(bounds, { padding: [10, 10], maxZoom: 13 });
     }
@@ -579,13 +573,6 @@
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
-  /* Formatează distanța: sub 1 km → "850 m", altfel → "3.2 km". */
-  function formatDistance(km) {
-    return km < 1
-      ? Math.round(km * 1000) + ' m'
-      : km.toFixed(1) + ' km';
-  }
-
   /*
    * Activează sau dezactivează modul "lângă mine".
    * Dacă locația e deja activă, o resetează. Altfel solicită permisiunea.
@@ -593,11 +580,13 @@
   function toggleLocation() {
     var btn = document.getElementById('restLocationBtn');
 
+    var allBtns = [document.getElementById('restLocationBtn'), document.getElementById('restLocationBtnMap')];
+
     if (userLocation) {
       // Reset
       userLocation = null;
       if (userMarker) { map.removeLayer(userMarker); userMarker = null; }
-      btn.classList.remove('is-active', 'is-loading');
+      allBtns.forEach(function (b) { if (b) b.classList.remove('is-active'); });
       update();
       return;
     }
@@ -612,14 +601,14 @@
     navigator.geolocation.getCurrentPosition(
       function (pos) {
         userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-        btn.classList.remove('is-loading');
-        btn.classList.add('is-active');
+        allBtns.forEach(function (b) { if (b) b.classList.remove('is-loading'); });
+        allBtns.forEach(function (b) { if (b) b.classList.add('is-active'); });
 
         // Marker "Tu ești aici"
         if (userMarker) map.removeLayer(userMarker);
         userMarker = L.marker([userLocation.lat, userLocation.lng], {
           icon: L.divIcon({
-            html: '<div class="rest-user-marker"><i class="fa-solid fa-circle-dot"></i></div>',
+            html: '<div class="rest-user-marker"><i class="fa-solid fa-person"></i></div>',
             className: '',
             iconSize: [32, 32],
             iconAnchor: [16, 16],
@@ -628,14 +617,10 @@
         }).addTo(map);
 
         update();
-
-        // Ajustează harta să includă locația userului
-        var bounds = allRestaurants.map(function (r) { return [r.lat, r.lng]; });
-        bounds.push([userLocation.lat, userLocation.lng]);
-        map.fitBounds(bounds, { padding: [10, 10], maxZoom: 13 });
+        map.setView([userLocation.lat, userLocation.lng], 13, { animate: true });
       },
       function () {
-        btn.classList.remove('is-loading');
+        allBtns.forEach(function (b) { if (b) b.classList.remove('is-loading'); });
         showToast('Nu s-a putut obține locația. Verifică permisiunile.');
       },
       { timeout: 8000 }
@@ -740,8 +725,10 @@
     });
   }
 
-  var locationBtn = document.getElementById('restLocationBtn');
-  if (locationBtn) locationBtn.addEventListener('click', toggleLocation);
+  var locationBtn    = document.getElementById('restLocationBtn');
+  var locationBtnMap = document.getElementById('restLocationBtnMap');
+  if (locationBtn)    locationBtn.addEventListener('click', toggleLocation);
+  if (locationBtnMap) locationBtnMap.addEventListener('click', toggleLocation);
 
   /* ================================================
      12. ÎNCĂRCARE DATE
