@@ -1,22 +1,25 @@
 (function () {
   'use strict';
 
+  /* ── State global ───────────────────────────────────────── */
   let allRestaurants = [];
-  let map = null;
-  let markers = {};
-  let markerCluster = null;
-  let activeId = null;
-  let activeFilters = new Set();
-  let searchQuery = '';
+  let map            = null;
+  let markers        = {};
+  let markerCluster  = null;
+  let activeId       = null;
+  let activeFilters  = new Set();
+  let searchQuery    = '';
 
-  /* ---- Bottom sheet (mobile) ---- */
+  /* ── Bottom sheet ───────────────────────────────────────── */
   var sheetEl    = document.getElementById('restPanel');
   var handleEl   = document.getElementById('restSheetHandle');
   var closeBtn   = document.getElementById('restSheetClose');
-  var sheetState = 'hidden';
+  var sheetState = 'hidden'; // 'hidden' | 'half' | 'full'
 
+  /* Returnează true dacă viewport-ul e mobil (≤ 768px). */
   function isMobile() { return window.innerWidth <= 768; }
 
+  /* Schimbă starea bottom sheet-ului și aplică clasa CSS corespunzătoare. */
   function setSheet(state) {
     sheetState = state;
     sheetEl.classList.remove('sheet--half', 'sheet--full');
@@ -25,16 +28,19 @@
   }
 
   if (closeBtn) {
-    closeBtn.addEventListener('click', function () {
-      setSheet('hidden');
-    });
+    closeBtn.addEventListener('click', function () { setSheet('hidden'); });
   }
 
+  /* ── Swipe state ────────────────────────────────────────── */
   var swipeStartY = 0;
   var swipeBaseY  = 0;
   var peekHeight  = 325;
   var gestureType = null; // 'sheet' | 'card' | null
 
+  /*
+   * Recalculează înălțimea vizibilă a sheet-ului în starea "half"
+   * măsurând elementele reale din DOM și setează variabilele CSS aferente.
+   */
   function updatePeekHeight() {
     var handleH   = handleEl ? handleEl.offsetHeight : 0;
     var listPadT  = listEl   ? parseInt(getComputedStyle(listEl).paddingTop) || 0 : 0;
@@ -49,6 +55,7 @@
     sheetEl.style.setProperty('--peek-height', peekHeight + 'px');
   }
 
+  /* Returnează offsetul translateY curent al sheet-ului în pixeli. */
   function getBaseTranslatePx() {
     var h = sheetEl.offsetHeight;
     if (sheetState === 'half') return h - peekHeight;
@@ -56,6 +63,7 @@
     return h;
   }
 
+  /* ── Touch handlers pentru bottom sheet ─────────────────── */
   sheetEl.addEventListener('touchstart', function (e) {
     if (!isMobile()) return;
     swipeStartY = e.touches[0].clientY;
@@ -66,25 +74,24 @@
 
   sheetEl.addEventListener('touchmove', function (e) {
     if (!isMobile()) return;
-    var delta = e.touches[0].clientY - swipeStartY;
-    var activeCard = listEl ? listEl.querySelector('.rest-card.is-active') : null;
+    var delta         = e.touches[0].clientY - swipeStartY;
+    var activeCard    = listEl ? listEl.querySelector('.rest-card.is-active') : null;
     var cardScrollTop = activeCard ? activeCard.scrollTop : 0;
 
+    // Determină tipul gestului o singură dată per touch-sequence
     if (gestureType === null) {
       if (sheetState === 'half') {
-        // Sheet la half: orice swipe = gest pe sheet
-        gestureType = 'sheet';
+        gestureType = 'sheet'; // half: orice swipe expandează/închide sheet-ul
       } else if (Math.abs(delta) > 3) {
-        // Sheet la full: swipe jos din top → collapsează, altfel scroll card
+        // full: swipe jos din vârf = colapsare; altfel = scroll card
         gestureType = (delta > 0 && cardScrollTop === 0) ? 'sheet' : 'card';
       }
     }
 
     if (gestureType !== 'sheet') return;
 
-    e.preventDefault();
-    var newY = swipeBaseY + delta;
-    newY = Math.max(0, newY);
+    e.preventDefault(); // blochează scroll nativ cât timp mutăm sheet-ul
+    var newY = Math.max(0, swipeBaseY + delta);
     sheetEl.style.transform = 'translateY(' + newY + 'px)';
   }, { passive: false });
 
@@ -94,11 +101,12 @@
     sheetEl.style.transform = '';
     sheetEl.style.transition = '';
     if (gestureType === 'sheet') {
-      if (delta > 80) setSheet(sheetState === 'full' ? 'half' : 'hidden');
+      if (delta > 80)                            setSheet(sheetState === 'full' ? 'half' : 'hidden');
       else if (delta < -80 && sheetState === 'half') setSheet('full');
     }
   }, { passive: true });
 
+  /* ── Gradiente fallback pentru bannere fără imagine ─────── */
   var BANNER_GRADIENTS = [
     'linear-gradient(135deg, #6b0109 0%, #c4031b 100%)',
     'linear-gradient(135deg, #0a3d6b 0%, #1565c0 100%)',
@@ -107,28 +115,29 @@
     'linear-gradient(135deg, #5c2a00 0%, #bf6000 100%)',
   ];
 
+  /* Returnează un gradient CSS ciclic bazat pe id-ul restaurantului. */
   function getBannerStyle(id) {
     return BANNER_GRADIENTS[(id - 1) % BANNER_GRADIENTS.length];
   }
 
-  /* ---- DOM refs ---- */
-  const listEl        = document.getElementById('restList');
-  const countEl       = document.getElementById('restCount');
-  const searchEl      = document.getElementById('restSearch');
-  const tabBtns       = document.querySelectorAll('.rest-tab');
-  const panelEl       = document.getElementById('restPanel');
-  const mapWrap       = document.getElementById('restMapWrap');
-  const filterBtn     = document.getElementById('restFilterBtn');
-  const filterCount   = document.getElementById('restFilterCount');
-  const filterOverlay = document.getElementById('restFilterOverlay');
-  const filterClose   = document.getElementById('restFilterClose');
-  const filterBackdrop= document.getElementById('restFilterBackdrop');
-  const filterReset   = document.getElementById('restFilterReset');
-  const checkboxes    = filterOverlay ? filterOverlay.querySelectorAll('input[type="checkbox"]') : [];
+  /* ── DOM refs ───────────────────────────────────────────── */
+  const listEl         = document.getElementById('restList');
+  const countEl        = document.getElementById('restCount');
+  const searchEl       = document.getElementById('restSearch');
+  const tabBtns        = document.querySelectorAll('.rest-tab');
+  const mapWrap        = document.getElementById('restMapWrap');
+  const filterBtn      = document.getElementById('restFilterBtn');
+  const filterCount    = document.getElementById('restFilterCount');
+  const filterOverlay  = document.getElementById('restFilterOverlay');
+  const filterClose    = document.getElementById('restFilterClose');
+  const filterBackdrop = document.getElementById('restFilterBackdrop');
+  const filterReset    = document.getElementById('restFilterReset');
+  const checkboxes     = filterOverlay ? filterOverlay.querySelectorAll('input[type="checkbox"]') : [];
 
   /* ================================================
-     1. INIT HARTA
+     1. INIT HARTĂ
   ================================================ */
+  /* Inițializează harta Leaflet cu tile-uri OSM, cluster de markeri și control zoom. */
   function initMap() {
     map = L.map('restMap', {
       center: [45.9432, 24.9668],
@@ -150,15 +159,15 @@
     const hintIcon  = document.getElementById('mapHintIcon');
 
     if (isMobile()) {
-      /* Mobile: harta fullscreen, drag și zoom libere */
       map.dragging.enable();
       map.scrollWheelZoom.enable();
     } else {
-      /* Desktop: Ctrl/Cmd + scroll pentru zoom */
-      const isMac   = /Mac|iPhone|iPod|iPad/.test(navigator.platform);
+      /* Desktop: Ctrl/Cmd + scroll pentru zoom, 2 degete pe touch */
+      const isMac = /Mac|iPhone|iPod|iPad/.test(navigator.platform);
       if (hintSpan) hintSpan.textContent = 'Folosește ' + (isMac ? '⌘ Cmd' : 'Ctrl') + ' + Scroll pentru zoom pe hartă';
       let hintTimer = null;
 
+      /* Afișează overlay-ul de hint și îl ascunde automat după 1.8s. */
       function showHint(icon, text) {
         if (!overlayEl) return;
         if (hintIcon) hintIcon.className = icon;
@@ -217,6 +226,7 @@
   /* ================================================
      2. MARKER CUSTOM
   ================================================ */
+  /* Creează un icon Leaflet custom (pin SVG) în stare activă sau inactivă. */
   function makeIcon(isActive) {
     return L.divIcon({
       html: '<div class="rest-marker' + (isActive ? ' is-active' : '') + '">' +
@@ -231,15 +241,16 @@
   }
 
   /* ================================================
-     3. POPUP CONTENT
+     3. POPUP HARTĂ
   ================================================ */
+  /* Generează HTML-ul pentru popup-ul Leaflet al unui restaurant. */
   function makePopup(r) {
     let badges = '';
-    if (r.features.mesoCafe)   badges += '<span class="rest-badge rest-badge--cafe"><i class="fa-solid fa-mug-hot"></i> Meso Cafe</span>';
-    if (r.features.mesoKids)   badges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Meso Kids</span>';
-    if (r.delivery.glovo)      badges += '<span class="rest-badge rest-badge--glovo">Glovo</span>';
-    if (r.delivery.boltFood)   badges += '<span class="rest-badge rest-badge--bolt">Bolt Food</span>';
-    if (r.delivery.wolt)       badges += '<span class="rest-badge rest-badge--wolt">Wolt</span>';
+    if (r.features.mesoCafe) badges += '<span class="rest-badge rest-badge--cafe"><i class="fa-solid fa-mug-hot"></i> Meso Cafe</span>';
+    if (r.features.mesoKids) badges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Meso Kids</span>';
+    if (r.delivery.glovo)    badges += '<span class="rest-badge rest-badge--glovo">Glovo</span>';
+    if (r.delivery.boltFood) badges += '<span class="rest-badge rest-badge--bolt">Bolt Food</span>';
+    if (r.delivery.wolt)     badges += '<span class="rest-badge rest-badge--wolt">Wolt</span>';
 
     return '<div class="map-popup__name">' + r.name + '</div>' +
       '<div class="map-popup__row"><i class="fa-solid fa-location-dot"></i>' + r.address + '</div>' +
@@ -249,8 +260,27 @@
   }
 
   /* ================================================
-     4. ADAUGĂ MARKERI
+     4. CENTRARE HARTĂ PE PIN (MOBILE)
   ================================================ */
+  /*
+   * Centrează harta pe coordonatele date, ținând cont de zona vizibilă:
+   * header (sus) și bottom sheet (jos). Utilizat exclusiv pe mobile.
+   */
+  function panToPin(lat, lng) {
+    var headerH       = (document.querySelector('.header') || { offsetHeight: 60 }).offsetHeight;
+    var visibleBottom = window.innerHeight - peekHeight;
+    var desiredPinY   = headerH + (visibleBottom - headerH) * 0.5;
+    var screenOffsetY = desiredPinY - window.innerHeight / 2;
+    var zoom          = Math.max(map.getZoom(), 14);
+    var pinPx         = map.project([lat, lng], zoom);
+    var centerPx      = pinPx.subtract(L.point(0, screenOffsetY));
+    map.setView(map.unproject(centerPx, zoom), zoom, { animate: true });
+  }
+
+  /* ================================================
+     5. MARKERI
+  ================================================ */
+  /* Șterge toți markerii și îi reconstruiește din lista filtrată de restaurante. */
   function buildMarkers(restaurants) {
     markerCluster.clearLayers();
     markers = {};
@@ -264,16 +294,7 @@
         scrollToCard(r.id);
         if (isMobile()) {
           marker.closePopup();
-          var headerH = 90;
-          var sheetH  = window.innerHeight * 0.8;
-          var visibleTop    = headerH;
-          var visibleBottom = window.innerHeight - 294;
-          var desiredPinY   = visibleTop + (visibleBottom - visibleTop) * 0.5;
-          var screenOffsetY = desiredPinY - window.innerHeight / 2;
-          var zoom = Math.max(map.getZoom(), 14);
-          var pinPx    = map.project([r.lat, r.lng], zoom);
-          var centerPx = pinPx.subtract(L.point(0, screenOffsetY));
-          map.setView(map.unproject(centerPx, zoom), zoom, { animate: true });
+          panToPin(r.lat, r.lng);
         }
       });
 
@@ -283,15 +304,18 @@
   }
 
   /* ================================================
-     5. STATUS PROGRAM
+     6. STATUS PROGRAM
   ================================================ */
   var DAY_MAP = { 'Lun': 1, 'Mar': 2, 'Mie': 3, 'Joi': 4, 'Vin': 5, 'Sâm': 6, 'Dum': 0 };
 
+  /*
+   * Parsează string-ul de ore (ex: "Lun–Vin 10:00–22:00 | Sâm–Dum 10:00–23:00")
+   * și returnează statusul curent: { cls, label }.
+   */
   function getStatus(hoursStr) {
-    var now     = new Date();
-    var today   = now.getDay();
-    var nowMin  = now.getHours() * 60 + now.getMinutes();
-
+    var now      = new Date();
+    var today    = now.getDay();
+    var nowMin   = now.getHours() * 60 + now.getMinutes();
     var segments = hoursStr.split('|').map(function (s) { return s.trim(); });
 
     for (var i = 0; i < segments.length; i++) {
@@ -324,15 +348,14 @@
     return { cls: 'closed', label: 'Închis' };
   }
 
+  /* Generează HTML-ul pentru rândul de ore al unui card, cu badge de status la final. */
   function renderHours(hoursStr) {
     var segments = hoursStr.split('|').map(function (s) { return s.trim(); });
     var status   = getStatus(hoursStr);
     var badge    = '<span class="rest-status rest-status--' + status.cls + '">' + status.label + '</span>';
-
-    var lines = segments.map(function (seg) {
+    var lines    = segments.map(function (seg) {
       return '<span class="rest-card__hours-line">' + seg + '</span>';
     });
-
     return '<div class="rest-card__meta rest-card__hours">' +
       '<i class="fa-regular fa-clock"></i>' +
       '<span class="rest-card__hours-lines">' + lines.join('') + badge + '</span>' +
@@ -340,8 +363,9 @@
   }
 
   /* ================================================
-     6. RENDER LISTA
+     7. RENDER LISTĂ
   ================================================ */
+  /* Randează lista de carduri în DOM folosind DocumentFragment pentru performanță. */
   function renderList(restaurants) {
     listEl.innerHTML = '';
     countEl.textContent = restaurants.length + ' locații';
@@ -382,16 +406,19 @@
           '<a class="rest-card__meta rest-card__address" href="' + mapsUrl + '" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i>' + r.address + '</a>' +
           '<a class="rest-card__meta rest-card__tel" href="tel:' + r.phone.replace(/\s/g, '') + '"><i class="fa-solid fa-phone"></i>' + r.phone + '</a>' +
           (r.email ? '<a class="rest-card__meta rest-card__email" href="mailto:' + r.email + '"><i class="fa-regular fa-envelope"></i>' + r.email + '</a>' : '') +
-          (featureBadges || deliveryBadges ? '<div class="rest-card__badge-groups">' +
-            (featureBadges ? '<div class="rest-card__badge-row"><span class="rest-card__badge-label">Facilități</span><div class="rest-card__badge-wrap">' + featureBadges + '</div></div>' : '') +
-            (deliveryBadges ? '<div class="rest-card__badge-row"><span class="rest-card__badge-label">Livrare</span><div class="rest-card__badge-wrap">' + deliveryBadges + '</div></div>' : '') +
-          '</div>' : '') +
+          (featureBadges || deliveryBadges
+            ? '<div class="rest-card__badge-groups">' +
+                (featureBadges ? '<div class="rest-card__badge-row"><span class="rest-card__badge-label">Facilități</span><div class="rest-card__badge-wrap">' + featureBadges + '</div></div>' : '') +
+                (deliveryBadges ? '<div class="rest-card__badge-row"><span class="rest-card__badge-label">Livrare</span><div class="rest-card__badge-wrap">' + deliveryBadges + '</div></div>' : '') +
+              '</div>'
+            : '') +
         '</div>';
 
       card.addEventListener('click', function (e) {
         if (e.target.closest('a')) return;
+        // Centrează harta pe pin doar când sheet-ul e pe jumătate deschis
         setActive(r.id, isMobile() && sheetState === 'half');
-        var rect = card.getBoundingClientRect();
+        var rect     = card.getBoundingClientRect();
         var listRect = listEl.getBoundingClientRect();
         if (rect.top < listRect.top || rect.bottom > listRect.bottom) {
           card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -404,17 +431,20 @@
   }
 
   /* ================================================
-     6. ACTIVE STATE
+     8. ACTIVE STATE
   ================================================ */
+  /*
+   * Setează restaurantul activ: actualizează markerul pe hartă, cardul din listă
+   * și starea bottom sheet-ului.
+   * panMap=true → centrează harta pe pin (când sheet e half și se dă click pe card).
+   */
   function setActive(id, panMap) {
-    // Reset marker anterior
     if (activeId && markers[activeId]) {
       markers[activeId].setIcon(makeIcon(false));
     }
 
     activeId = id;
 
-    // Activează marker
     if (markers[id]) {
       markers[id].setIcon(makeIcon(true));
       if (panMap) {
@@ -422,14 +452,7 @@
         if (r) {
           markerCluster.zoomToShowLayer(markers[id], function () {
             if (isMobile()) {
-              var headerH     = (document.querySelector('.header') || {offsetHeight: 60}).offsetHeight;
-              var visibleBottom = window.innerHeight - peekHeight;
-              var desiredPinY   = headerH + (visibleBottom - headerH) * 0.5;
-              var screenOffsetY = desiredPinY - window.innerHeight / 2;
-              var zoom      = Math.max(map.getZoom(), 14);
-              var pinPx     = map.project([r.lat, r.lng], zoom);
-              var centerPx  = pinPx.subtract(L.point(0, screenOffsetY));
-              map.setView(map.unproject(centerPx, zoom), zoom, { animate: true });
+              panToPin(r.lat, r.lng);
             } else {
               map.setView([r.lat, r.lng], 14, { animate: true });
               markers[id].openPopup();
@@ -439,32 +462,33 @@
       }
     }
 
-    // Activează card
     document.querySelectorAll('.rest-card').forEach(function (c) {
       c.classList.toggle('is-active', Number(c.dataset.id) === id);
     });
 
-    // Pe mobile, extinde sheet-ul la click pe pin
+    // Click pe pin (panMap=false) → extinde sheet-ul la half pe mobile
     if (!panMap && isMobile()) {
       updatePeekHeight();
       setSheet('half');
     }
   }
 
+  /* Scroll-ează lista până la cardul cu id-ul dat (desktop/tablet). */
   function scrollToCard(id) {
     const card = listEl.querySelector('[data-id="' + id + '"]');
     if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
   /* ================================================
-     7. FILTRARE
+     9. FILTRARE + CĂUTARE
   ================================================ */
+  /* Returnează lista filtrată după textul de search și filtrele active. */
   function getFiltered() {
     return allRestaurants.filter(function (r) {
-      const q = searchQuery.toLowerCase();
+      const q           = searchQuery.toLowerCase();
       const matchSearch = !q ||
-        r.name.toLowerCase().includes(q) ||
-        r.city.toLowerCase().includes(q) ||
+        r.name.toLowerCase().includes(q)    ||
+        r.city.toLowerCase().includes(q)    ||
         r.address.toLowerCase().includes(q) ||
         r.county.toLowerCase().includes(q);
 
@@ -481,6 +505,7 @@
     });
   }
 
+  /* Rerenderează lista și markerii, apoi ajustează bounds hărții. */
   function update() {
     const filtered = getFiltered();
     renderList(filtered);
@@ -493,7 +518,7 @@
   }
 
   /* ================================================
-     8. EVENTS
+     10. EVENTS
   ================================================ */
   searchEl.addEventListener('focus', function () {
     if (isMobile()) setSheet('hidden');
@@ -504,20 +529,24 @@
     update();
   });
 
-  /* ---- Filter modal ---- */
+  /* ── Filter modal ───────────────────────────────────────── */
+
+  /* Actualizează badge-ul numeric de pe butonul de filtrare. */
   function updateFilterBadge() {
     const n = activeFilters.size;
     filterBtn.classList.toggle('has-filters', n > 0);
-    filterCount.hidden = n === 0;
+    filterCount.hidden     = n === 0;
     filterCount.textContent = n;
   }
 
+  /* Deschide modalul/sheet-ul de filtrare. */
   function openFilterModal() {
     filterOverlay.classList.add('is-open');
     filterOverlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
 
+  /* Închide modalul/sheet-ul de filtrare. */
   function closeFilterModal() {
     filterOverlay.classList.remove('is-open');
     filterOverlay.setAttribute('aria-hidden', 'true');
@@ -528,7 +557,7 @@
   filterClose.addEventListener('click', closeFilterModal);
   filterBackdrop.addEventListener('click', closeFilterModal);
 
-  /* Swipe-down to close (mobile) */
+  /* Swipe-down pentru a închide filter sheet pe mobile */
   const filterSheet = filterOverlay ? filterOverlay.querySelector('.rest-filter-modal') : null;
   const filterBody  = filterOverlay ? filterOverlay.querySelector('.rest-filter-modal__body') : null;
   if (filterSheet) {
@@ -563,24 +592,21 @@
 
   checkboxes.forEach(function (cb) {
     cb.addEventListener('change', function () {
-      if (cb.checked) {
-        activeFilters.add(cb.value);
-      } else {
-        activeFilters.delete(cb.value);
-      }
+      if (cb.checked) activeFilters.add(cb.value);
+      else            activeFilters.delete(cb.value);
       updateFilterBadge();
       update();
     });
   });
 
-  /* Tabs (tablet) */
+  /* Tabs (tablet) — comută vizibilitatea între panoul cu lista și hartă */
   if (tabBtns.length) {
     tabBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         tabBtns.forEach(function (b) { b.classList.remove('is-active'); });
         btn.classList.add('is-active');
         const target = btn.dataset.tab;
-        panelEl.classList.toggle('is-visible', target === 'list');
+        sheetEl.classList.toggle('is-visible', target === 'list');
         mapWrap.classList.toggle('is-visible', target === 'map');
         if (target === 'map') {
           setTimeout(function () { map.invalidateSize(); }, 320);
@@ -590,7 +616,7 @@
   }
 
   /* ================================================
-     9. ÎNCĂRCARE DATE
+     11. ÎNCĂRCARE DATE
   ================================================ */
   fetch('data/restaurants.json')
     .then(function (r) { return r.json(); })
@@ -599,18 +625,18 @@
       initMap();
       update();
 
-      // Pe desktop panel + map ambele vizibile by default
       if (window.innerWidth > 1024) {
-        panelEl.classList.add('is-visible');
+        // Desktop: panou stânga + hartă vizibile simultan
+        sheetEl.classList.add('is-visible');
         mapWrap.classList.add('is-visible');
       } else if (window.innerWidth > 768) {
-        // Tablet: lista vizibilă by default
-        panelEl.classList.add('is-visible');
+        // Tablet: lista vizibilă by default, harta la tab switch
+        sheetEl.classList.add('is-visible');
         const firstTab = document.querySelector('.rest-tab[data-tab="list"]');
         if (firstTab) firstTab.classList.add('is-active');
       } else {
-        // Mobile: ambele vizibile (harta sus, lista jos)
-        panelEl.classList.add('is-visible');
+        // Mobile: harta fullscreen + bottom sheet
+        sheetEl.classList.add('is-visible');
         mapWrap.classList.add('is-visible');
       }
 
