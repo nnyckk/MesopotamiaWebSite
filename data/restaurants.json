@@ -12,7 +12,7 @@
       "lng": 21.91608,
       "hours": "Lun–Vin 10:00–22:00 | Sâm–Dum 11:00–23:00",
       "image": "images/restaurante/oradea-prima-shop_800x300.jpg",
-      "features": { "mesoCafe": true, "mesoKids": false },
+      "features": { "mesoCafe": true, "mesoKids": false, "terasa": true },
       "delivery": { "glovo": "https://glovoapp.com/ro/ro/oradea/stores/mesopotamia-ord", "boltFood": "https://boltfood.ro/", "wolt": "https://wolt.com/" }
     },
     {
@@ -27,7 +27,7 @@
       "lng": 21.94875255124961,
       "hours": "Lun–Dum 10:00–22:00",
       "image": "images/restaurante/oradea-lotus-center_800x300.jpg",
-      "features": { "mesoCafe": true, "mesoKids": true },
+      "features": { "mesoCafe": true, "mesoKids": true, "terasa": false },
       "delivery": { "glovo": true, "boltFood": false, "wolt": false }
     },
     {
@@ -41,7 +41,7 @@
       "lat": 46.7712,
       "lng": 23.5886,
       "hours": "Lun–Vin 10:00–22:00 | Sâm–Dum 11:00–23:00",
-      "features": { "mesoCafe": true, "mesoKids": true },
+      "features": { "mesoCafe": true, "mesoKids": true, "terasa": true },
       "delivery": { "glovo": true, "boltFood": true, "wolt": true }
     },
     {
@@ -55,7 +55,7 @@
       "lat": 46.7489,
       "lng": 23.6012,
       "hours": "Lun–Dum 10:00–22:00",
-      "features": { "mesoCafe": false, "mesoKids": false },
+      "features": { "mesoCafe": false, "mesoKids": false, "terasa": false },
       "delivery": { "glovo": true, "boltFood": true, "wolt": true }
     },
     {
@@ -69,7 +69,7 @@
       "lat": 45.7489,
       "lng": 21.2087,
       "hours": "Lun–Dum 10:00–22:00",
-      "features": { "mesoCafe": true, "mesoKids": false },
+      "features": { "mesoCafe": true, "mesoKids": false, "terasa": false },
       "delivery": { "glovo": true, "boltFood": true, "wolt": true }
     },
     {
@@ -83,7 +83,7 @@
       "lat": 45.7521,
       "lng": 21.2401,
       "hours": "Lun–Vin 10:00–22:00 | Sâm–Dum 10:00–23:00",
-      "features": { "mesoCafe": true, "mesoKids": true },
+      "features": { "mesoCafe": true, "mesoKids": true, "terasa": false },
       "delivery": { "glovo": true, "boltFood": true, "wolt": false }
     },
     {
@@ -97,7 +97,7 @@
       "lat": 44.4268,
       "lng": 26.1485,
       "hours": "Lun–Dum 10:00–22:00",
-      "features": { "mesoCafe": true, "mesoKids": true },
+      "features": { "mesoCafe": true, "mesoKids": true, "terasa": false },
       "delivery": { "glovo": true, "boltFood": true, "wolt": true }
     },
     {
@@ -111,7 +111,7 @@
       "lat": 44.4301,
       "lng": 26.0548,
       "hours": "Lun–Dum 10:00–22:00",
-      "features": { "mesoCafe": true, "mesoKids": false },
+      "features": { "mesoCafe": true, "mesoKids": false, "terasa": false },
       "delivery": { "glovo": true, "boltFood": true, "wolt": true }
     },
     {
@@ -125,7 +125,7 @@
       "lat": 45.6312,
       "lng": 25.6124,
       "hours": "Lun–Dum 10:00–22:00",
-      "features": { "mesoCafe": true, "mesoKids": true },
+      "features": { "mesoCafe": true, "mesoKids": true, "terasa": true },
       "delivery": { "glovo": true, "boltFood": true, "wolt": false }
     },
     {
@@ -139,7 +139,7 @@
       "lat": 45.6417,
       "lng": 25.5899,
       "hours": "Lun–Vin 10:00–22:00 | Sâm–Dum 10:00–23:00",
-      "features": { "mesoCafe": false, "mesoKids": false },
+      "features": { "mesoCafe": false, "mesoKids": false, "terasa": false },
       "delivery": { "glovo": false, "boltFood": true, "wolt": false }
     },
     {
@@ -153,7 +153,7 @@
       "lat": 47.1589,
       "lng": 27.5874,
       "hours": "Lun–Dum 10:00–22:00",
-      "features": { "mesoCafe": true, "mesoKids": true },
+      "features": { "mesoCafe": true, "mesoKids": true, "terasa": false },
       "delivery": { "glovo": true, "boltFood": true, "wolt": true }
     },
     {
@@ -167,7 +167,7 @@
       "lat": 47.1712,
       "lng": 27.5700,
       "hours": "Lun–Vin 10:00–21:00 | Sâm–Dum 11:00–22:00",
-      "features": { "mesoCafe": false, "mesoKids": false },
+      "features": { "mesoCafe": false, "mesoKids": false, "terasa": false },
       "delivery": { "glovo": true, "boltFood": false, "wolt": false }
     },
     {
@@ -181,7 +181,7 @@
       "lat": 45.7983,
       "lng": 24.1256,
       "hours": "Lun–Dum 10:00–22:00",
-      "features": { "mesoCafe": true, "mesoKids": false },
+      "features": { "mesoCafe": true, "mesoKids": false, "terasa": false },
       "delivery": { "glovo": true, "boltFood": true, "wolt": false }
     },
     {
@@ -195,7 +195,7 @@
       "lat": 46.1866,
       "lng": 21.3123,
       "hours": "Lun–Dum 10:00–22:00",
-      "features": { "mesoCafe": true, "mesoKids": true },
+      "features": { "mesoCafe": true, "mesoKids": true, "terasa": true },
       "delivery": { "glovo": true, "boltFood": false, "wolt": false }
     },
     {
@@ -209,7 +209,7 @@
       "lat": 44.1598,
       "lng": 28.6348,
       "hours": "Lun–Dum 10:00–22:00",
-      "features": { "mesoCafe": true, "mesoKids": false },
+      "features": { "mesoCafe": true, "mesoKids": false, "terasa": false },
       "delivery": { "glovo": true, "boltFood": true, "wolt": false }
     },
     {
@@ -224,7 +224,217 @@
       "lng": 21.92957,
       "hours": "Lun–Dum 10:00–22:00",
       "image": "images/restaurante/oradea-vasile-alecsandri_800x300.jpg",
-      "features": { "mesoCafe": true, "mesoKids": false },
+      "features": { "mesoCafe": true, "mesoKids": false, "terasa": false },
+      "delivery": { "glovo": true, "boltFood": true, "wolt": true }
+    },
+    {
+      "id": 17,
+      "name": "Mesopotamia Cluj – Vivo",
+      "city": "Cluj-Napoca",
+      "county": "Cluj",
+      "address": "Str. Fabricii de Zahăr nr. 97, Cluj-Napoca",
+      "phone": "0264 407 100",
+      "email": "cluj@mesopotamia.ro",
+      "lat": 46.7801,
+      "lng": 23.5512,
+      "hours": "Lun–Dum 10:00–22:00",
+      "features": { "mesoCafe": true, "mesoKids": true, "terasa": false },
+      "delivery": { "glovo": true, "boltFood": true, "wolt": true }
+    },
+    {
+      "id": 18,
+      "name": "Mesopotamia Craiova – Electroputere",
+      "city": "Craiova",
+      "county": "Dolj",
+      "address": "Calea București nr. 32, Craiova",
+      "phone": "0251 412 300",
+      "email": "craiova@mesopotamia.ro",
+      "lat": 44.3302,
+      "lng": 23.8014,
+      "hours": "Lun–Dum 10:00–22:00",
+      "features": { "mesoCafe": true, "mesoKids": false, "terasa": true },
+      "delivery": { "glovo": true, "boltFood": true, "wolt": false }
+    },
+    {
+      "id": 19,
+      "name": "Mesopotamia Galați – Dunărea",
+      "city": "Galați",
+      "county": "Galați",
+      "address": "Str. Brăilei nr. 153, Galați",
+      "phone": "0236 311 200",
+      "email": "galati@mesopotamia.ro",
+      "lat": 45.4353,
+      "lng": 28.0490,
+      "hours": "Lun–Vin 10:00–22:00 | Sâm–Dum 11:00–23:00",
+      "features": { "mesoCafe": false, "mesoKids": false, "terasa": false },
+      "delivery": { "glovo": true, "boltFood": false, "wolt": false }
+    },
+    {
+      "id": 20,
+      "name": "Mesopotamia Ploiești – AFI",
+      "city": "Ploiești",
+      "county": "Prahova",
+      "address": "Str. Mimiului nr. 1, Ploiești",
+      "phone": "0244 521 100",
+      "email": "ploiesti@mesopotamia.ro",
+      "lat": 44.9431,
+      "lng": 26.0201,
+      "hours": "Lun–Dum 10:00–22:00",
+      "features": { "mesoCafe": true, "mesoKids": true, "terasa": false },
+      "delivery": { "glovo": true, "boltFood": true, "wolt": false }
+    },
+    {
+      "id": 21,
+      "name": "Mesopotamia Bacău – Arena Mall",
+      "city": "Bacău",
+      "county": "Bacău",
+      "address": "Calea Mărășești nr. 1, Bacău",
+      "phone": "0234 571 400",
+      "email": "bacau@mesopotamia.ro",
+      "lat": 46.5671,
+      "lng": 26.9148,
+      "hours": "Lun–Dum 10:00–22:00",
+      "features": { "mesoCafe": true, "mesoKids": false, "terasa": false },
+      "delivery": { "glovo": true, "boltFood": true, "wolt": false }
+    },
+    {
+      "id": 22,
+      "name": "Mesopotamia Pitești – Trivale",
+      "city": "Pitești",
+      "county": "Argeș",
+      "address": "Str. Exercițiu nr. 6, Pitești",
+      "phone": "0248 612 200",
+      "email": "pitesti@mesopotamia.ro",
+      "lat": 44.8614,
+      "lng": 24.8512,
+      "hours": "Lun–Dum 10:00–22:00",
+      "features": { "mesoCafe": false, "mesoKids": true, "terasa": false },
+      "delivery": { "glovo": true, "boltFood": false, "wolt": false }
+    },
+    {
+      "id": 23,
+      "name": "Mesopotamia Baia Mare – Centru",
+      "city": "Baia Mare",
+      "county": "Maramureș",
+      "address": "Str. Victoriei nr. 84, Baia Mare",
+      "phone": "0262 218 500",
+      "email": "baiamare@mesopotamia.ro",
+      "lat": 47.6567,
+      "lng": 23.5694,
+      "hours": "Lun–Vin 10:00–22:00 | Sâm–Dum 11:00–23:00",
+      "features": { "mesoCafe": true, "mesoKids": false, "terasa": false },
+      "delivery": { "glovo": true, "boltFood": true, "wolt": false }
+    },
+    {
+      "id": 24,
+      "name": "Mesopotamia Suceava – Shopping City",
+      "city": "Suceava",
+      "county": "Suceava",
+      "address": "Str. Prigoriei nr. 3, Suceava",
+      "phone": "0230 522 300",
+      "email": "suceava@mesopotamia.ro",
+      "lat": 47.6512,
+      "lng": 26.2701,
+      "hours": "Lun–Dum 10:00–22:00",
+      "features": { "mesoCafe": true, "mesoKids": true, "terasa": false },
+      "delivery": { "glovo": true, "boltFood": true, "wolt": false }
+    },
+    {
+      "id": 25,
+      "name": "Mesopotamia Târgu Mureș – Plaza",
+      "city": "Târgu Mureș",
+      "county": "Mureș",
+      "address": "Str. Gheorghe Doja nr. 237, Târgu Mureș",
+      "phone": "0265 268 400",
+      "email": "targu-mures@mesopotamia.ro",
+      "lat": 46.5412,
+      "lng": 24.5823,
+      "hours": "Lun–Dum 10:00–22:00",
+      "features": { "mesoCafe": true, "mesoKids": false, "terasa": false },
+      "delivery": { "glovo": true, "boltFood": false, "wolt": false }
+    },
+    {
+      "id": 26,
+      "name": "Mesopotamia Alba Iulia – Centru",
+      "city": "Alba Iulia",
+      "county": "Alba",
+      "address": "Bd. Revoluției 1989 nr. 58, Alba Iulia",
+      "phone": "0258 812 100",
+      "email": "albaiulia@mesopotamia.ro",
+      "lat": 46.0697,
+      "lng": 23.5804,
+      "hours": "Lun–Vin 10:00–21:00 | Sâm–Dum 11:00–22:00",
+      "features": { "mesoCafe": false, "mesoKids": false, "terasa": false },
+      "delivery": { "glovo": false, "boltFood": true, "wolt": false }
+    },
+    {
+      "id": 27,
+      "name": "Mesopotamia Râmnicu Vâlcea – Mercur",
+      "city": "Râmnicu Vâlcea",
+      "county": "Vâlcea",
+      "address": "Calea lui Traian nr. 147, Râmnicu Vâlcea",
+      "phone": "0250 731 200",
+      "email": "ramnicu-valcea@mesopotamia.ro",
+      "lat": 45.1058,
+      "lng": 24.3712,
+      "hours": "Lun–Dum 10:00–22:00",
+      "features": { "mesoCafe": false, "mesoKids": false, "terasa": false },
+      "delivery": { "glovo": true, "boltFood": false, "wolt": false }
+    },
+    {
+      "id": 28,
+      "name": "Mesopotamia Buzău – Grand",
+      "city": "Buzău",
+      "county": "Buzău",
+      "address": "Bd. Unirii nr. 234, Buzău",
+      "phone": "0238 712 300",
+      "email": "buzau@mesopotamia.ro",
+      "lat": 45.1512,
+      "lng": 26.8234,
+      "hours": "Lun–Dum 10:00–22:00",
+      "features": { "mesoCafe": true, "mesoKids": false, "terasa": true },
+      "delivery": { "glovo": true, "boltFood": true, "wolt": false }
+    },
+    {
+      "id": 29,
+      "name": "Mesopotamia Focșani – Centru",
+      "city": "Focșani",
+      "county": "Vrancea",
+      "address": "Bd. Independenței nr. 10, Focșani",
+      "phone": "0237 221 400",
+      "email": "focsani@mesopotamia.ro",
+      "lat": 45.6952,
+      "lng": 27.1868,
+      "hours": "Lun–Vin 10:00–21:00 | Sâm–Dum 11:00–22:00",
+      "features": { "mesoCafe": false, "mesoKids": false, "terasa": false },
+      "delivery": { "glovo": false, "boltFood": true, "wolt": false }
+    },
+    {
+      "id": 30,
+      "name": "Mesopotamia Deva – Centru",
+      "city": "Deva",
+      "county": "Hunedoara",
+      "address": "Str. 1 Decembrie nr. 16, Deva",
+      "phone": "0254 211 300",
+      "email": "deva@mesopotamia.ro",
+      "lat": 45.8801,
+      "lng": 22.9112,
+      "hours": "Lun–Vin 10:00–21:00 | Sâm–Dum 11:00–22:00",
+      "features": { "mesoCafe": false, "mesoKids": false, "terasa": true },
+      "delivery": { "glovo": false, "boltFood": false, "wolt": false }
+    },
+    {
+      "id": 31,
+      "name": "Mesopotamia București – Sun Plaza",
+      "city": "București",
+      "county": "Ilfov",
+      "address": "Calea Văcărești nr. 391, București",
+      "phone": "021 306 9100",
+      "email": "bucuresti@mesopotamia.ro",
+      "lat": 44.4012,
+      "lng": 26.1034,
+      "hours": "Lun–Dum 10:00–22:00",
+      "features": { "mesoCafe": true, "mesoKids": true, "terasa": false },
       "delivery": { "glovo": true, "boltFood": true, "wolt": true }
     }
   ]

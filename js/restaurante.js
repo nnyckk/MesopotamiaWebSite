@@ -290,6 +290,7 @@
     let badges = '';
     if (r.features.mesoCafe) badges += '<span class="rest-badge rest-badge--cafe"><i class="fa-solid fa-mug-hot"></i> Meso Cafe</span>';
     if (r.features.mesoKids) badges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Meso Kids</span>';
+    if (r.features.terasa)   badges += '<span class="rest-badge rest-badge--terasa"><i class="fa-solid fa-umbrella-beach"></i> Terasă</span>';
     badges += deliveryBadge(r.delivery.glovo,    'glovo', 'Glovo');
     badges += deliveryBadge(r.delivery.boltFood, 'bolt',  'Bolt Food');
     badges += deliveryBadge(r.delivery.wolt,     'wolt',  'Wolt');
@@ -430,6 +431,7 @@
       let featureBadges = '';
       if (r.features.mesoCafe) featureBadges += '<span class="rest-badge rest-badge--cafe"><i class="fa-solid fa-mug-hot"></i> Meso Cafe</span>';
       if (r.features.mesoKids) featureBadges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Meso Kids</span>';
+      if (r.features.terasa)   featureBadges += '<span class="rest-badge rest-badge--terasa"><i class="fa-solid fa-umbrella-beach"></i> Terasă</span>';
 
       let deliveryBadges = '';
       deliveryBadges += deliveryBadge(r.delivery.glovo,    'glovo', 'Glovo');
@@ -522,19 +524,26 @@
   /* ================================================
      9. FILTRARE + CĂUTARE
   ================================================ */
+  function normalize(str) {
+    return str.toLowerCase()
+      .replace(/[ăâ]/g, 'a')
+      .replace(/[î]/g,  'i')
+      .replace(/[șş]/g, 's')
+      .replace(/[țţ]/g, 't');
+  }
+
   /* Returnează lista filtrată după textul de search și filtrele active. */
   function getFiltered() {
     var results = allRestaurants.filter(function (r) {
-      const q           = searchQuery.toLowerCase();
+      const q           = normalize(searchQuery);
       const matchSearch = !q ||
-        r.name.toLowerCase().includes(q)    ||
-        r.city.toLowerCase().includes(q)    ||
-        r.address.toLowerCase().includes(q) ||
-        r.county.toLowerCase().includes(q);
+        normalize(r.name).includes(q) ||
+        normalize(r.city).includes(q);
 
       const matchFilter = activeFilters.size === 0 || Array.from(activeFilters).every(function (f) {
         if (f === 'mesoCafe')  return r.features.mesoCafe;
         if (f === 'mesoKids')  return r.features.mesoKids;
+        if (f === 'terasa')    return r.features.terasa;
         if (f === 'glovo')     return r.delivery.glovo;
         if (f === 'boltFood')  return r.delivery.boltFood;
         if (f === 'wolt')      return r.delivery.wolt;

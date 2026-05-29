@@ -93,14 +93,19 @@
   }
 
   function initSwipeToDismiss(overlay) {
-    var modal = overlay.querySelector('.product-modal');
-    var body  = overlay.querySelector('.product-modal__body');
+    var modal   = overlay.querySelector('.product-modal');
+    var body    = overlay.querySelector('.product-modal__body');
+    var imgWrap = overlay.querySelector('.product-modal__img-wrap');
+    var handle  = overlay.querySelector('.product-modal__handle');
     var startY = 0;
     var currentY = 0;
     var dragging = false;
+    var fromTop = false;
 
     modal.addEventListener('touchstart', function (e) {
-      if (body.scrollTop > 0) return;
+      var t = e.target;
+      fromTop = imgWrap.contains(t) || (handle && handle.contains(t));
+      if (!fromTop && body.scrollTop > 0) return;
       startY = e.touches[0].clientY;
       currentY = startY;
       dragging = true;
