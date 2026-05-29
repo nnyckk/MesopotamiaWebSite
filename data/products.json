@@ -161,51 +161,72 @@
         {
           "name": "Dinamita",
           "desc": "Sos roșu, mozzarella, salam picant, ardei iute, jalapeño",
-          "weight": "450 g",
-          "price": "38 lei",
-          "img": "images/products/pizza/dinamita_pizza_1000x1000.png"
+          "img": "images/products/pizza/dinamita_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Family",
           "desc": "Sos roșu, mozzarella, șuncă, ciuperci, ardei gras, porumb",
-          "weight": "500 g",
-          "price": "42 lei",
-          "img": "images/products/pizza/family_pizza_1000x1000.png"
+          "img": "images/products/pizza/family_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Funghi",
           "desc": "Sos roșu, mozzarella, ciuperci mixte, usturoi, oregano",
-          "weight": "420 g",
-          "price": "35 lei",
-          "img": "images/products/pizza/funghi_pizza_1000x1000.png"
+          "img": "images/products/pizza/funghi_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Kebab Curcan",
           "desc": "Sos alb, mozzarella, carne curcan, ceapă, ardei gras",
-          "weight": "450 g",
-          "price": "39 lei",
-          "img": "images/products/pizza/kebab-curcan_pizza_1000x1000.png"
+          "img": "images/products/pizza/kebab-curcan_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Kebab Pui",
           "desc": "Sos alb, mozzarella, piept de pui, ceapă, roșie",
-          "weight": "440 g",
-          "price": "38 lei",
-          "img": "images/products/pizza/kebab-pui_pizza_1000x1000.png"
+          "img": "images/products/pizza/kebab-pui_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Kinder",
           "desc": "Sos alb, mozzarella, Nutella, banane, căpșuni, frișcă",
-          "weight": "400 g",
-          "price": "36 lei",
-          "img": "images/products/pizza/kinder_pizza_1000x1000.png"
+          "img": "images/products/pizza/kinder_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Margherita",
           "desc": "Sos roșu, mozzarella, busuioc proaspăt, ulei de măsline",
-          "weight": "380 g",
-          "price": "30 lei",
           "img": "images/products/pizza/margherita_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ],
           "ingredients": "Aluat din făină de <strong>grâu</strong> (<strong>gluten</strong>), apă, drojdie, sare, sos de roșii (roșii, sare, busuioc), mozzarella (<strong>lapte</strong> pasteurizat, sare, cheag), busuioc proaspăt, ulei de măsline extravirgin.",
           "allergens": ["Gluten (grâu)", "Lapte"],
           "nutritional": {
@@ -223,72 +244,102 @@
         {
           "name": "Meso Capriciosa",
           "desc": "Sos roșu, mozzarella, șuncă, ciuperci, măsline, ardei gras",
-          "weight": "460 g",
-          "price": "40 lei",
-          "img": "images/products/pizza/mesocapriciosa_pizza_1000x1000.png"
+          "img": "images/products/pizza/mesocapriciosa_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Mesopotamia",
           "desc": "Sos roșu, mozzarella, carne de vită, ardei, ceapă, sos special",
-          "weight": "470 g",
-          "price": "42 lei",
-          "img": "images/products/pizza/mesopotamia_pizza_1000x1000.png"
+          "img": "images/products/pizza/mesopotamia_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Mexicana",
           "desc": "Sos roșu, mozzarella, carne tocată, ardei iute, fasole, nachos",
-          "weight": "460 g",
-          "price": "40 lei",
-          "img": "images/products/pizza/mexicana_pizza_1000x1000.png"
+          "img": "images/products/pizza/mexicana_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Quattro Formaggi",
           "desc": "Sos alb, mozzarella, gorgonzola, parmezan, emmental",
-          "weight": "430 g",
-          "price": "40 lei",
-          "img": "images/products/pizza/quattro-formaggi_pizza_1000x1000.png"
+          "img": "images/products/pizza/quattro-formaggi_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Quattro Stagioni",
           "desc": "Sos roșu, mozzarella, șuncă, ciuperci, ardei, măsline",
-          "weight": "460 g",
-          "price": "40 lei",
-          "img": "images/products/pizza/quattro-stagioni_pizza_1000x1000.png"
+          "img": "images/products/pizza/quattro-stagioni_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Șuncă și Ciuperci",
           "desc": "Sos roșu, mozzarella, șuncă presată, ciuperci champignon",
-          "weight": "430 g",
-          "price": "36 lei",
-          "img": "images/products/pizza/sunca-si-ciuperci_pizza_1000x1000.png"
+          "img": "images/products/pizza/sunca-si-ciuperci_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Șuncă și Salam",
           "desc": "Sos roșu, mozzarella, șuncă presată, salam italian",
-          "weight": "430 g",
-          "price": "36 lei",
-          "img": "images/products/pizza/sunca-si-salam_pizza_1000x1000.png"
+          "img": "images/products/pizza/sunca-si-salam_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Șuncă",
           "desc": "Sos roșu, mozzarella, șuncă presată, oregano",
-          "weight": "400 g",
-          "price": "32 lei",
-          "img": "images/products/pizza/sunca_pizza_1000x1000.png"
+          "img": "images/products/pizza/sunca_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Tonno e Cipolla",
           "desc": "Sos roșu, mozzarella, ton, ceapă roșie, capere",
-          "weight": "420 g",
-          "price": "38 lei",
-          "img": "images/products/pizza/tonno-e-cipolla_pizza_1000x1000.png"
+          "img": "images/products/pizza/tonno-e-cipolla_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         },
         {
           "name": "Vegetală",
           "desc": "Sos roșu, mozzarella, ardei gras, roșie, ciuperci, porumb",
-          "weight": "420 g",
-          "price": "34 lei",
-          "img": "images/products/pizza/vegetala_pizza_1000x1000.png"
+          "img": "images/products/pizza/vegetala_pizza_1000x1000.png",
+          "variants": [
+            { "label": "Mică",   "weight": "300 g",  "price": "35.99 lei" },
+            { "label": "Medie",  "weight": "500 g",  "price": "45.99 lei" },
+            { "label": "Family", "weight": "1000 g", "price": "70.99 lei" }
+          ]
         }
       ]
     },

@@ -214,6 +214,17 @@
     overlay.classList.add('is-open');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+
+    var modalBody = overlay.querySelector('.product-modal__body');
+    if (modalBody) {
+      modalBody.scrollTop = 0;
+      overlay.classList.remove('is-scrolled');
+      modalBody._scrollHandler = function () {
+        overlay.classList.toggle('is-scrolled', modalBody.scrollTop > 4);
+      };
+      modalBody.addEventListener('scroll', modalBody._scrollHandler);
+    }
+
     setTimeout(function () { document.getElementById('modalClose').focus(); }, 50);
   }
 
@@ -231,9 +242,14 @@
 
   function closeModal() {
     var overlay = document.getElementById('productModal');
-    overlay.classList.remove('is-open');
+    overlay.classList.remove('is-open', 'is-scrolled');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    var modalBody = overlay.querySelector('.product-modal__body');
+    if (modalBody && modalBody._scrollHandler) {
+      modalBody.removeEventListener('scroll', modalBody._scrollHandler);
+      modalBody._scrollHandler = null;
+    }
   }
 
 })();
