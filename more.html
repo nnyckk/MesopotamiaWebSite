@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <title>Mai mult – Mesopotamia®</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <script>(function(){if(localStorage.getItem('theme')==='light')document.documentElement.dataset.theme='light';})()</script>
+</head>
+<body class="page-more">
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav" aria-label="Navigatie principala">
+        <a href="index.html" class="nav__logo" aria-label="Mesopotamia – pagina principala">
+          <img src="images/icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="nav__logo-img nav__logo--dark">
+          <img src="images/icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="nav__logo-img nav__logo--light">
+        </a>
+        <ul class="nav__links" id="navLinks" role="list">
+          <li><a href="index.html"       class="nav__link">Acasă</a></li>
+          <li><a href="meniu.html"       class="nav__link">Meniu</a></li>
+          <li><a href="restaurante.html" class="nav__link">Locații</a></li>
+          <li><a href="contact.html"     class="nav__link">Contact</a></li>
+          <li class="nav__actions-mobile">
+            <button class="nav__theme" data-theme-toggle aria-label="Schimbă tema">
+              <i class="fa-solid fa-moon" aria-hidden="true"></i>
+            </button>
+            <a href="index-en.html" class="nav__lang" aria-label="Switch to English">
+              <i class="fa-solid fa-globe" aria-hidden="true"></i>
+              <span>English</span>
+            </a>
+          </li>
+        </ul>
+        <div class="nav__actions">
+          <button class="nav__theme" id="navTheme" data-theme-toggle aria-label="Schimbă tema">
+            <i class="fa-solid fa-moon" aria-hidden="true"></i>
+          </button>
+          <a href="index-en.html" class="nav__lang" aria-label="Switch to English">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <span>English</span>
+          </a>
+          <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONȚINUT -->
+  <main class="more-page" aria-label="Mai mult">
+
+    <!-- Tema + Limbă -->
+    <div class="more-page__pills">
+      <a href="index-en.html" class="more-page__pill">
+        <i class="fa-solid fa-globe"></i>
+        <span>English</span>
+      </a>
+      <button class="more-page__pill" data-theme-toggle aria-label="Schimbă tema">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+
+    <!-- Linkuri principale -->
+    <div class="more-page__section">
+      <a href="despre-noi.html" class="more-page__item">
+        <span>Despre noi</span>
+        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+      </a>
+      <a href="cariera.html" class="more-page__item">
+        <span>Carieră</span>
+        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+      </a>
+    </div>
+
+    <!-- Social -->
+    <div class="footer__social more-page__social-wrap">
+      <p class="footer__social-title">Urmărește-ne</p>
+      <div class="footer__social-links">
+        <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+    </div>
+
+    <!-- Legal -->
+    <div class="more-page__section">
+      <a href="https://www.mesopotamia.ro/wp-content/uploads/2026/02/2026-mesopotamia-valorinutritionale.pdf" target="_blank" rel="noopener" class="more-page__item more-page__item--legal">
+        <span>Valori nutriționale</span>
+        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+      </a>
+      <a href="sesizari.html" class="more-page__item more-page__item--legal">
+        <span>Sesizări și reclamații</span>
+        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+      </a>
+      <a href="privacy.html" class="more-page__item more-page__item--legal">
+        <span>Politica de confidențialitate</span>
+        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+      </a>
+      <a href="cookies.html" class="more-page__item more-page__item--legal">
+        <span>Politica Cookies</span>
+        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+      </a>
+      <a href="termeni.html" class="more-page__item more-page__item--legal">
+        <span>Termeni și condiții</span>
+        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+      </a>
+      <a href="https://anpc.ro/" target="_blank" rel="noopener nofollow" class="more-page__item more-page__item--legal">
+        <span>Autoritatea Națională pentru Protecția Consumatorilor</span>
+        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+      </a>
+    </div>
+
+    <!-- Bottom -->
+    <div class="more-page__bottom">
+      <div class="more-page__anpc">
+        <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="nofollow">
+          <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sal.svg" alt="Solutionarea Alternativa a Litigiilor" class="more-page__anpc-img">
+        </a>
+        <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="nofollow">
+          <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sol.svg" alt="Solutionarea Online a Litigiilor" class="more-page__anpc-img">
+        </a>
+      </div>
+      <p class="more-page__copy">© 2026 Mesopotamia.ro – Toate drepturile rezervate.</p>
+      <p class="more-page__copy">SC SET-CORPORATION SRL J33/838/2011 RO 29084042</p>
+    </div>
+
+  </main>
+
+  <script src="js/main.js"></script>
+
+  <nav class="nav-bottom" id="navBottom" aria-label="Navigare principală">
+    <a href="index.html"       class="nav-bottom__item"><i class="fa-solid fa-house"></i><span>Acasă</span></a>
+    <a href="meniu.html"       class="nav-bottom__item"><i class="fa-solid fa-utensils"></i><span>Meniu</span></a>
+    <a href="restaurante.html" class="nav-bottom__item"><i class="fa-solid fa-location-dot"></i><span>Locații</span></a>
+    <a href="contact.html"     class="nav-bottom__item"><i class="fa-regular fa-envelope"></i><span>Contact</span></a>
+    <a href="more.html"        class="nav-bottom__item is-active"><i class="fa-solid fa-ellipsis"></i><span>Mai mult</span></a>
+  </nav>
+
+</body>
+</html>

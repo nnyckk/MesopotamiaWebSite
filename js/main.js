@@ -140,9 +140,7 @@ function initNavHamburger() {
 }
 
 function initBottomNav() {
-  var nav     = document.getElementById('navBottom');
-  var links   = document.getElementById('navLinks');
-  var hamburger = document.getElementById('navHamburger');
+  var nav = document.getElementById('navBottom');
   if (!nav) return;
 
   /* Marcheaza tab-ul activ dupa URL */
@@ -150,19 +148,6 @@ function initBottomNav() {
   nav.querySelectorAll('a.nav-bottom__item').forEach(function (item) {
     if (item.getAttribute('href') === page) item.classList.add('is-active');
   });
-
-  /* Butonul More deschide overlay-ul de navigare */
-  var moreBtn = document.getElementById('navBottomMore');
-  if (moreBtn && links) {
-    moreBtn.addEventListener('click', function () {
-      var open = links.classList.toggle('is-open');
-      if (hamburger) {
-        hamburger.classList.toggle('is-open', open);
-        hamburger.setAttribute('aria-expanded', open);
-      }
-      document.body.style.overflow = open ? 'hidden' : '';
-    });
-  }
 }
 
 
