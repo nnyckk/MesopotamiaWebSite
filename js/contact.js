@@ -16,7 +16,7 @@
   };
 
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  var MAX_MB_DEFAULT = 8;
+  var MAX_MB_DEFAULT = 5;
 
   function init() {
     var overlay = document.getElementById('contactModal');
