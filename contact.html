@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="description" content="Contact Mesopotamia – trimite o sesizare, o reclamație, solicită o factură sau scrie-ne un mesaj.">
+  <title>Contact – Mesopotamia®</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/contact.css">
+  <script>(function(){if(localStorage.getItem('theme')==='light')document.documentElement.dataset.theme='light';})()</script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav" aria-label="Navigatie principala">
+        <a href="index.html" class="nav__logo" aria-label="Mesopotamia – pagina principala">
+          <img src="images/icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="nav__logo-img nav__logo--dark">
+          <img src="images/icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="nav__logo-img nav__logo--light">
+        </a>
+        <ul class="nav__links" id="navLinks" role="list">
+          <li><a href="index.html"       class="nav__link">Acasă</a></li>
+          <li><a href="meniu.html"       class="nav__link">Meniu</a></li>
+          <li><a href="restaurante.html" class="nav__link">Locații</a></li>
+          <li><a href="contact.html"     class="nav__link nav__link--active">Contact</a></li>
+          <li class="nav__actions-mobile">
+            <button class="nav__theme" data-theme-toggle aria-label="Schimbă tema">
+              <i class="fa-solid fa-moon" aria-hidden="true"></i>
+            </button>
+            <a href="contact-en.html" class="nav__lang" aria-label="Switch to English">
+              <i class="fa-solid fa-globe" aria-hidden="true"></i>
+              <span>English</span>
+            </a>
+          </li>
+        </ul>
+        <div class="nav__actions">
+          <button class="nav__theme" id="navTheme" data-theme-toggle aria-label="Schimbă tema">
+            <i class="fa-solid fa-moon" aria-hidden="true"></i>
+          </button>
+          <a href="contact-en.html" class="nav__lang" aria-label="Switch to English">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <span>English</span>
+          </a>
+          <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="page-hero__tagline">Suntem aici pentru tine</p>
+      <h1 class="page-hero__title">Te putem ajuta?</h1>
+      <p class="page-hero__subtitle">
+        Alege tipul de solicitare potrivit și completează formularul. Te vom contacta cât mai rapid.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- CARDS -->
+  <main class="contact-section" aria-label="Tipuri de solicitări">
+    <div class="container">
+      <div class="contact-grid">
+
+        <button type="button" class="contact-card" data-form="sesizari">
+          <span class="contact-card__icon"><i class="fa-solid fa-comment-dots" aria-hidden="true"></i></span>
+          <span class="contact-card__title">Sugestii și Reclamații</span>
+          <span class="contact-card__desc">Spune-ne cum ne putem îmbunătăți</span>
+          <i class="fa-solid fa-chevron-right contact-card__arrow" aria-hidden="true"></i>
+        </button>
+
+        <button type="button" class="contact-card" data-form="contact">
+          <span class="contact-card__icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
+          <span class="contact-card__title">Formular Contact</span>
+          <span class="contact-card__desc">Ai o întrebare? Scrie-ne</span>
+          <i class="fa-solid fa-chevron-right contact-card__arrow" aria-hidden="true"></i>
+        </button>
+
+        <button type="button" class="contact-card" data-form="factura">
+          <span class="contact-card__icon"><i class="fa-solid fa-file-invoice" aria-hidden="true"></i></span>
+          <span class="contact-card__title">Solicitare Factură</span>
+          <span class="contact-card__desc">Cere factura pentru comanda ta</span>
+          <i class="fa-solid fa-chevron-right contact-card__arrow" aria-hidden="true"></i>
+        </button>
+
+        <button type="button" class="contact-card" data-form="delivery">
+          <span class="contact-card__icon"><i class="fa-solid fa-truck" aria-hidden="true"></i></span>
+          <span class="contact-card__title">Probleme Delivery</span>
+          <span class="contact-card__desc">Glovo, Bolt, Wolt</span>
+          <i class="fa-solid fa-chevron-right contact-card__arrow" aria-hidden="true"></i>
+        </button>
+
+        <button type="button" class="contact-card" data-form="cariera">
+          <span class="contact-card__icon"><i class="fa-solid fa-briefcase" aria-hidden="true"></i></span>
+          <span class="contact-card__title">Carieră Meso</span>
+          <span class="contact-card__desc">Alătură-te echipei Mesopotamia</span>
+          <i class="fa-solid fa-chevron-right contact-card__arrow" aria-hidden="true"></i>
+        </button>
+
+      </div>
+    </div>
+  </main>
+
+
+  <!-- CONTACT MODAL (single shell, panels swapped via JS) -->
+  <div class="contact-modal-overlay" id="contactModal" aria-hidden="true">
+    <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+
+      <div class="contact-modal__handle" aria-hidden="true"></div>
+
+      <button class="contact-modal__close" id="contactModalClose" aria-label="Închide">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+
+      <div class="contact-modal__header">
+        <h2 class="contact-modal__title" id="contactModalTitle"></h2>
+      </div>
+
+      <div class="contact-modal__body" id="contactModalBody">
+
+        <!-- ===== Panel: Sugestii și Reclamații ===== -->
+        <div class="contact-form-panel" data-panel="sesizari" hidden>
+          <p class="contact-form__intro">
+            Dacă ai întâmpinat o problemă sau ai o sugestie, completează formularul de mai jos.
+            Orice reclamație, sesizare sau recomandare este analizată cu atenție.
+          </p>
+          <form class="contact-form" action="#" method="POST" novalidate>
+            <div class="contact-form__row">
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="ses-nume">Nume</label>
+                <input class="contact-input" type="text" id="ses-nume" name="nume" required>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+              </div>
+            </div>
+            <div class="contact-form__row contact-form__row--2">
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="ses-email">E-mail</label>
+                <input class="contact-input" type="email" id="ses-email" name="email" required>
+                <span class="contact-field__error">Introdu o adresă de e-mail validă.</span>
+              </div>
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="ses-telefon">Telefon</label>
+                <input class="contact-input" type="tel" id="ses-telefon" name="telefon" required>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+              </div>
+            </div>
+            <div class="contact-form__row contact-form__row--2">
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="ses-oras">Oraș</label>
+                <input class="contact-input" type="text" id="ses-oras" name="oras" required>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+              </div>
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="ses-locatie">Locația Restaurantului</label>
+                <input class="contact-input" type="text" id="ses-locatie" name="locatie" required>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+              </div>
+            </div>
+            <div class="contact-form__row">
+              <div class="contact-field">
+                <label class="contact-field__label" for="ses-ziua">Ziua/Ora</label>
+                <input class="contact-input" type="text" id="ses-ziua" name="ziua_ora" placeholder="ex: 12.06.2026, ora 14:00">
+              </div>
+            </div>
+            <div class="contact-form__row">
+              <div class="contact-field">
+                <label class="contact-field__label" for="ses-mesaj">Descrie situația sau problema apărută</label>
+                <textarea class="contact-textarea" id="ses-mesaj" name="mesaj" rows="4"></textarea>
+              </div>
+            </div>
+            <div class="contact-form__row">
+              <label class="contact-file">
+                <span class="contact-field__label">Încarcă fișiere</span>
+                <input type="file" name="fisier" accept="image/*,.pdf" data-maxmb="8" hidden>
+                <span class="contact-file__zone">
+                  <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
+                  <span>Trage și plasează <strong>sau alege fișiere</strong></span>
+                  <span class="contact-file__hint">maxim 8MB</span>
+                </span>
+                <span class="contact-file__list"></span>
+              </label>
+            </div>
+            <label class="contact-consent">
+              <input type="checkbox" name="consent" required>
+              <span class="contact-consent__box" aria-hidden="true"></span>
+              <span class="contact-consent__text">
+                Am citit și sunt de acord cu
+                <a href="privacy.html" target="_blank">politica de confidențialitate</a>,
+                <a href="termeni.html" target="_blank">Termeni și condiții</a>,
+                <a href="cookies.html" target="_blank">Politica Cookies</a>.
+              </span>
+            </label>
+            <span class="contact-field__error contact-consent__error">Trebuie să accepți pentru a continua.</span>
+            <div class="contact-form__actions">
+              <button type="submit" class="btn btn--primary">Trimite</button>
+            </div>
+          </form>
+          <div class="contact-form__success" hidden>
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            <p>Mulțumim! Mesajul tău a fost trimis. Te vom contacta cât mai curând.</p>
+          </div>
+        </div>
+
+        <!-- ===== Panel: Formular Contact ===== -->
+        <div class="contact-form-panel" data-panel="contact" hidden>
+          <p class="contact-form__intro">
+            Folosește acest formular pentru întrebări, propuneri de colaborare sau orice mesaj
+            legat de serviciile și activitatea firmei.
+          </p>
+          <form class="contact-form" action="#" method="POST" novalidate>
+            <div class="contact-form__row">
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="con-nume">Nume</label>
+                <input class="contact-input" type="text" id="con-nume" name="nume" required>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+              </div>
+            </div>
+            <div class="contact-form__row contact-form__row--2">
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="con-email">Email</label>
+                <input class="contact-input" type="email" id="con-email" name="email" required>
+                <span class="contact-field__error">Introdu o adresă de e-mail validă.</span>
+              </div>
+              <div class="contact-field">
+                <label class="contact-field__label" for="con-telefon">Telefon</label>
+                <input class="contact-input" type="tel" id="con-telefon" name="telefon">
+              </div>
+            </div>
+            <div class="contact-form__row">
+              <div class="contact-field">
+                <label class="contact-field__label" for="con-subiect">Subiect</label>
+                <input class="contact-input" type="text" id="con-subiect" name="subiect">
+              </div>
+            </div>
+            <div class="contact-form__row">
+              <div class="contact-field">
+                <label class="contact-field__label" for="con-mesaj">Mesaj</label>
+                <textarea class="contact-textarea" id="con-mesaj" name="mesaj" rows="5"></textarea>
+              </div>
+            </div>
+            <label class="contact-consent">
+              <input type="checkbox" name="consent" required>
+              <span class="contact-consent__box" aria-hidden="true"></span>
+              <span class="contact-consent__text">
+                Am citit și sunt de acord cu
+                <a href="privacy.html" target="_blank">politica de confidențialitate</a>,
+                <a href="termeni.html" target="_blank">Termeni și condiții</a>,
+                <a href="cookies.html" target="_blank">Politica Cookies</a>.
+              </span>
+            </label>
+            <span class="contact-field__error contact-consent__error">Trebuie să accepți pentru a continua.</span>
+            <div class="contact-form__actions">
+              <button type="submit" class="btn btn--primary">Trimite</button>
+            </div>
+          </form>
+          <div class="contact-form__success" hidden>
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            <p>Mulțumim! Mesajul tău a fost trimis. Îți vom răspunde în cel mai scurt timp.</p>
+          </div>
+        </div>
+
+        <!-- ===== Panel: Solicitare Factură ===== -->
+        <div class="contact-form-panel" data-panel="factura" hidden>
+          <p class="contact-form__intro">
+            Completează datele companiei și încarcă o fotografie a bonului fiscal. Echipa noastră
+            contabilă va procesa solicitarea și îți va trimite factura.
+          </p>
+          <form class="contact-form" action="#" method="POST" novalidate>
+            <div class="contact-form__row">
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="fac-nume">Nume</label>
+                <input class="contact-input" type="text" id="fac-nume" name="nume" required>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+              </div>
+            </div>
+            <div class="contact-form__row contact-form__row--2">
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="fac-email">E-mail</label>
+                <input class="contact-input" type="email" id="fac-email" name="email" required>
+                <span class="contact-field__error">Introdu o adresă de e-mail validă.</span>
+              </div>
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="fac-telefon">Telefon</label>
+                <input class="contact-input" type="tel" id="fac-telefon" name="telefon" required>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+              </div>
+            </div>
+            <div class="contact-form__row contact-form__row--2">
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="fac-oras">Oraș</label>
+                <input class="contact-input" type="text" id="fac-oras" name="oras" required>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+              </div>
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="fac-locatie">Locația Restaurantului</label>
+                <input class="contact-input" type="text" id="fac-locatie" name="locatie" required>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+              </div>
+            </div>
+            <div class="contact-form__row contact-form__row--2">
+              <div class="contact-field">
+                <label class="contact-field__label" for="fac-ziua">Ziua/Ora</label>
+                <input class="contact-input" type="text" id="fac-ziua" name="ziua_ora" placeholder="ex: 12.06.2026, ora 14:00">
+              </div>
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="fac-cif">Cif firmă</label>
+                <input class="contact-input" type="text" id="fac-cif" name="cif" required>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+              </div>
+            </div>
+            <div class="contact-form__row">
+              <div class="contact-field">
+                <label class="contact-field__label is-required" for="fac-adresa">Adresă Firmă</label>
+                <input class="contact-input" type="text" id="fac-adresa" name="adresa_firma" required>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+              </div>
+            </div>
+            <div class="contact-form__row">
+              <div class="contact-field">
+                <label class="contact-field__label" for="fac-mesaj">Descrie situația</label>
+                <textarea class="contact-textarea" id="fac-mesaj" name="mesaj" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="contact-form__row">
+              <label class="contact-file">
+                <span class="contact-field__label is-required">Poză bon fiscal</span>
+                <input type="file" name="bon_fiscal" accept="image/*" data-maxmb="8" data-required="true" hidden>
+                <span class="contact-file__zone">
+                  <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
+                  <span>Trage și plasează <strong>sau alege fișiere</strong></span>
+                  <span class="contact-file__hint">maxim 8MB</span>
+                </span>
+                <span class="contact-file__list"></span>
+                <span class="contact-field__error contact-file__error">Te rugăm să încarci poza bonului fiscal.</span>
+              </label>
+            </div>
+            <label class="contact-consent">
+              <input type="checkbox" name="consent" required>
+              <span class="contact-consent__box" aria-hidden="true"></span>
+              <span class="contact-consent__text">
+                Am citit și sunt de acord cu
+                <a href="privacy.html" target="_blank">politica de confidențialitate</a>,
+                <a href="termeni.html" target="_blank">Termeni și condiții</a>,
+                <a href="cookies.html" target="_blank">Politica Cookies</a>.
+              </span>
+            </label>
+            <span class="contact-field__error contact-consent__error">Trebuie să accepți pentru a continua.</span>
+            <div class="contact-form__actions">
+              <button type="submit" class="btn btn--primary">Trimite</button>
+            </div>
+          </form>
+          <div class="contact-form__success" hidden>
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            <p>Mulțumim! Solicitarea de factură a fost trimisă. O vei primi în cel mai scurt timp.</p>
+          </div>
+        </div>
+
+        <!-- ===== Panel: Probleme Delivery (info) ===== -->
+        <div class="contact-form-panel" data-panel="delivery" hidden>
+          <div class="contact-info">
+            <p>
+              Dacă ai întâmpinat probleme cu livrarea sau cu o comandă efectuată prin aplicațiile
+              Glovo, Bolt sau Wolt, te rugăm să transmiți sesizarea direct prin platforma folosită.
+            </p>
+            <p>
+              Aceste servicii gestionează integral procesul de livrare, iar noi nu avem acces la
+              detaliile comenzii și, din acest motiv, nu putem interveni sau oferi suport pentru
+              astfel de situații.
+            </p>
+            <p>Îți mulțumim pentru înțelegere și pentru că urmezi procedura corectă de raportare.</p>
+            <div class="contact-info__links">
+              <a href="https://glovoapp.com" target="_blank" rel="noopener" class="contact-info__link">
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>Glovo</span>
+              </a>
+              <a href="https://food.bolt.eu" target="_blank" rel="noopener" class="contact-info__link">
+                <i class="fa-solid fa-bolt" aria-hidden="true"></i><span>Bolt Food</span>
+              </a>
+              <a href="https://wolt.com" target="_blank" rel="noopener" class="contact-info__link">
+                <i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Wolt</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Panel: Carieră Meso (info) ===== -->
+        <div class="contact-form-panel" data-panel="cariera" hidden>
+          <div class="contact-info">
+            <p>
+              Dacă dorești să trimiți un CV sau să depui o cerere de angajare, te rugăm să accesezi
+              pagina noastră de Carieră. Acolo vei găsi un formular dedicat procesului de recrutare,
+              unde poți încărca documentele necesare și completa toate informațiile relevante.
+            </p>
+            <p>
+              Pentru o procesare corectă și rapidă, te rugăm să folosești exclusiv formularul din
+              secțiunea de Carieră.
+            </p>
+            <p>Îți mulțumim pentru interesul acordat și pentru înțelegere!</p>
+            <div class="contact-info__links">
+              <a href="cariera.html" class="btn btn--primary">
+                <i class="fa-solid fa-briefcase" aria-hidden="true"></i> Mergi la Carieră
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Footer">
+    <div class="container">
+
+      <div class="footer__body">
+
+        <div class="footer__brand">
+          <img src="images/icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--dark">
+          <img src="images/icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--light">
+          <p class="footer__tagline">Gustul care nu se uită!</p>
+        </div>
+
+        <nav class="footer__nav" aria-label="Link-uri footer">
+          <ul class="footer__list">
+            <li><a href="nutritional.html" class="footer__link">Valori nutriționale</a></li>
+            <li><a href="sesizari.html"    class="footer__link">Sesizări și reclamații</a></li>
+            <li><a href="privacy.html"     class="footer__link">Politica de confidențialitate</a></li>
+            <li><a href="cookies.html"     class="footer__link">Politica fișiere Cookies</a></li>
+            <li><a href="termeni.html"     class="footer__link">Termeni și condiții</a></li>
+            <li><a href="contact.html"     class="footer__link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__social">
+          <p class="footer__social-title">Urmărește-ne</p>
+          <div class="footer__social-links">
+            <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__copy-wrap">
+          <p class="footer__copy">© 2026 Mesopotamia.ro – Toate drepturile rezervate.</p>
+          <p class="footer__company">SC SET-CORPORATION SRL J33/838/2011 RO 29084042</p>
+        </div>
+        <div class="footer__anpc">
+          <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sal.svg" alt="Solutionarea Alternativa a Litigiilor" class="footer__anpc-img">
+          </a>
+          <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sol.svg" alt="Solutionarea Online a Litigiilor" class="footer__anpc-img">
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/contact.js"></script>
+
+  <nav class="nav-bottom" id="navBottom" aria-label="Navigare principală">
+    <a href="index.html"       class="nav-bottom__item"><i class="fa-solid fa-house"></i><span>Acasă</span></a>
+    <a href="meniu.html"       class="nav-bottom__item"><i class="fa-solid fa-utensils"></i><span>Meniu</span></a>
+    <a href="restaurante.html" class="nav-bottom__item"><i class="fa-solid fa-location-dot"></i><span>Locații</span></a>
+    <a href="contact.html"     class="nav-bottom__item"><i class="fa-regular fa-envelope"></i><span>Contact</span></a>
+    <a href="more.html"        class="nav-bottom__item"><i class="fa-solid fa-ellipsis"></i><span>Mai mult</span></a>
+  </nav>
+
+</body>
+</html>
