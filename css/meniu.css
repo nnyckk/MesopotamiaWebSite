@@ -638,7 +638,7 @@
   }
 
   .product-modal {
-    max-height: calc(100svh - var(--header-h) - 1rem - var(--nav-bottom-h) - env(safe-area-inset-bottom, 0px));
+    max-height: calc(100dvh - var(--header-h) - 1rem - var(--nav-bottom-h) - env(safe-area-inset-bottom, 0px));
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
     max-width: 100%;
     transform: translateY(100%);
