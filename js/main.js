@@ -148,6 +148,26 @@ function initBottomNav() {
   nav.querySelectorAll('a.nav-bottom__item').forEach(function (item) {
     if (item.getAttribute('href') === page) item.classList.add('is-active');
   });
+
+  /* Ascunde bara cand apare tastatura (altfel urca deasupra ei pe Android) */
+  if (window.visualViewport) {
+    var vv = window.visualViewport;
+    var baseH = vv.height;
+    vv.addEventListener('resize', function () {
+      /* daca viewportul s-a micsorat semnificativ => tastatura deschisa */
+      var keyboardOpen = vv.height < baseH - 120;
+      nav.classList.toggle('is-hidden', keyboardOpen);
+      if (!keyboardOpen) baseH = vv.height;
+    });
+  } else {
+    /* Fallback: focus/blur pe campuri text */
+    document.addEventListener('focusin', function (e) {
+      if (e.target.matches('input, textarea, select')) nav.classList.add('is-hidden');
+    });
+    document.addEventListener('focusout', function () {
+      nav.classList.remove('is-hidden');
+    });
+  }
 }
 
 

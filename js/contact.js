@@ -28,6 +28,7 @@
     var closeBtn  = document.getElementById('contactModalClose');
     var panels    = overlay.querySelectorAll('.contact-form-panel');
     var lastTrigger = null;
+    var savedScrollY = 0;
 
     /* ---- Open from cards ---- */
     document.querySelectorAll('.contact-card').forEach(function (card) {
@@ -93,6 +94,13 @@
       overlay.classList.add('is-open');
       overlay.classList.remove('is-scrolled');
       overlay.setAttribute('aria-hidden', 'false');
+      /* Blocheaza scroll-ul de fundal (fix pt. iOS, unde overflow:hidden nu e suficient) */
+      savedScrollY = window.scrollY || window.pageYOffset || 0;
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + savedScrollY + 'px';
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
       body.scrollTop = 0;
 
@@ -102,7 +110,14 @@
     function closeModal() {
       overlay.classList.remove('is-open', 'is-scrolled');
       overlay.setAttribute('aria-hidden', 'true');
+      /* Restaureaza body-ul si pozitia de scroll */
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
       document.body.style.overflow = '';
+      window.scrollTo(0, savedScrollY);
       if (lastTrigger) {
         lastTrigger.focus();
         lastTrigger = null;
@@ -292,9 +307,15 @@
     if (btn) { btn.disabled = true; btn.textContent = 'Se trimite...'; }
     if (errBox) errBox.hidden = true;
 
+    /* Web3Forms (plan gratuit) nu acceptă atașamente — excludem fișierele */
+    var data = new FormData(form);
+    form.querySelectorAll('input[type="file"]').forEach(function (input) {
+      if (input.name) data.delete(input.name);
+    });
+
     fetch(form.action, {
       method: 'POST',
-      body: new FormData(form),
+      body: data,
       headers: { 'Accept': 'application/json' }
     })
       .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })

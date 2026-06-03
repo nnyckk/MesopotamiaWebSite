@@ -1343,6 +1343,12 @@ strong {
     box-shadow: 0 -12px 24px 8px var(--color-surface);
   }
 
+  .nav-bottom.is-hidden {
+    transform: translateY(100%);
+    transition: transform 0.2s ease;
+    pointer-events: none;
+  }
+
   .nav-bottom__item {
     flex: 1 1 0;
     min-width: 0;
