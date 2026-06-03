@@ -140,7 +140,10 @@
             Dacă ai întâmpinat o problemă sau ai o sugestie, completează formularul de mai jos.
             Orice reclamație, sesizare sau recomandare este analizată cu atenție.
           </p>
-          <form class="contact-form" action="#" method="POST" novalidate>
+          <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+            <input type="hidden" name="access_key" value="fd678a10-e714-48d2-a684-920d8a63ed3d">
+            <input type="hidden" name="subject" value="Sesizare sau Reclamare nouă – Mesopotamia">
+            <input type="checkbox" name="botcheck" class="contact-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="contact-form__row">
               <div class="contact-field">
                 <label class="contact-field__label is-required" for="ses-nume">Nume</label>
@@ -155,9 +158,8 @@
                 <span class="contact-field__error">Introdu o adresă de e-mail validă.</span>
               </div>
               <div class="contact-field">
-                <label class="contact-field__label is-required" for="ses-telefon">Telefon</label>
-                <input class="contact-input" type="tel" id="ses-telefon" name="telefon" required>
-                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+                <label class="contact-field__label" for="ses-telefon">Telefon</label>
+                <input class="contact-input" type="tel" id="ses-telefon" name="telefon">
               </div>
             </div>
             <div class="contact-form__row contact-form__row--2">
@@ -180,8 +182,9 @@
             </div>
             <div class="contact-form__row">
               <div class="contact-field">
-                <label class="contact-field__label" for="ses-mesaj">Descrie situația sau problema apărută</label>
-                <textarea class="contact-textarea" id="ses-mesaj" name="mesaj" rows="4"></textarea>
+                <label class="contact-field__label is-required" for="ses-mesaj">Descrie situația sau problema apărută</label>
+                <textarea class="contact-textarea" id="ses-mesaj" name="mesaj" rows="4" required></textarea>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
               </div>
             </div>
             <div class="contact-form__row">
@@ -199,7 +202,7 @@
             <label class="contact-consent">
               <input type="checkbox" name="consent" required>
               <span class="contact-consent__box" aria-hidden="true"></span>
-              <span class="contact-consent__text">
+              <span class="contact-consent__text is-required">
                 Am citit și sunt de acord cu
                 <a href="privacy.html" target="_blank">politica de confidențialitate</a>,
                 <a href="termeni.html" target="_blank">Termeni și condiții</a>,
@@ -207,14 +210,18 @@
               </span>
             </label>
             <span class="contact-field__error contact-consent__error">Trebuie să accepți pentru a continua.</span>
+            <p class="contact-form__neterror" hidden>
+              <i class="fa-solid fa-circle-exclamation"></i>
+              A apărut o eroare la trimitere. Te rugăm să încerci din nou.
+            </p>
+            <p class="contact-form__success" hidden>
+              <i class="fa-solid fa-circle-check"></i>
+              Mulțumim! Mesajul tău a fost trimis. Te vom contacta cât mai curând.
+            </p>
             <div class="contact-form__actions">
               <button type="submit" class="btn btn--primary">Trimite</button>
             </div>
           </form>
-          <div class="contact-form__success" hidden>
-            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-            <p>Mulțumim! Mesajul tău a fost trimis. Te vom contacta cât mai curând.</p>
-          </div>
         </div>
 
         <!-- ===== Panel: Formular Contact ===== -->
@@ -223,7 +230,10 @@
             Folosește acest formular pentru întrebări, propuneri de colaborare sau orice mesaj
             legat de serviciile și activitatea firmei.
           </p>
-          <form class="contact-form" action="#" method="POST" novalidate>
+          <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+            <input type="hidden" name="access_key" value="fd678a10-e714-48d2-a684-920d8a63ed3d">
+            <input type="hidden" name="subject" value="Mesaj contact – Mesopotamia">
+            <input type="checkbox" name="botcheck" class="contact-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="contact-form__row">
               <div class="contact-field">
                 <label class="contact-field__label is-required" for="con-nume">Nume</label>
@@ -244,20 +254,22 @@
             </div>
             <div class="contact-form__row">
               <div class="contact-field">
-                <label class="contact-field__label" for="con-subiect">Subiect</label>
-                <input class="contact-input" type="text" id="con-subiect" name="subiect">
+                <label class="contact-field__label is-required" for="con-subiect">Subiect</label>
+                <input class="contact-input" type="text" id="con-subiect" name="subiect" required>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
               </div>
             </div>
             <div class="contact-form__row">
               <div class="contact-field">
-                <label class="contact-field__label" for="con-mesaj">Mesaj</label>
-                <textarea class="contact-textarea" id="con-mesaj" name="mesaj" rows="5"></textarea>
+                <label class="contact-field__label is-required" for="con-mesaj">Mesaj</label>
+                <textarea class="contact-textarea" id="con-mesaj" name="mesaj" rows="5" required></textarea>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
               </div>
             </div>
             <label class="contact-consent">
               <input type="checkbox" name="consent" required>
               <span class="contact-consent__box" aria-hidden="true"></span>
-              <span class="contact-consent__text">
+              <span class="contact-consent__text is-required">
                 Am citit și sunt de acord cu
                 <a href="privacy.html" target="_blank">politica de confidențialitate</a>,
                 <a href="termeni.html" target="_blank">Termeni și condiții</a>,
@@ -265,14 +277,18 @@
               </span>
             </label>
             <span class="contact-field__error contact-consent__error">Trebuie să accepți pentru a continua.</span>
+            <p class="contact-form__neterror" hidden>
+              <i class="fa-solid fa-circle-exclamation"></i>
+              A apărut o eroare la trimitere. Te rugăm să încerci din nou.
+            </p>
+            <p class="contact-form__success" hidden>
+              <i class="fa-solid fa-circle-check"></i>
+              Mulțumim! Mesajul tău a fost trimis.
+            </p>
             <div class="contact-form__actions">
               <button type="submit" class="btn btn--primary">Trimite</button>
             </div>
           </form>
-          <div class="contact-form__success" hidden>
-            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-            <p>Mulțumim! Mesajul tău a fost trimis. Îți vom răspunde în cel mai scurt timp.</p>
-          </div>
         </div>
 
         <!-- ===== Panel: Solicitare Factură ===== -->
@@ -281,7 +297,10 @@
             Completează datele companiei și încarcă o fotografie a bonului fiscal. Echipa noastră
             contabilă va procesa solicitarea și îți va trimite factura.
           </p>
-          <form class="contact-form" action="#" method="POST" novalidate>
+          <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+            <input type="hidden" name="access_key" value="fd678a10-e714-48d2-a684-920d8a63ed3d">
+            <input type="hidden" name="subject" value="Solicitare factură – Mesopotamia">
+            <input type="checkbox" name="botcheck" class="contact-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="contact-form__row">
               <div class="contact-field">
                 <label class="contact-field__label is-required" for="fac-nume">Nume</label>
@@ -315,8 +334,9 @@
             </div>
             <div class="contact-form__row contact-form__row--2">
               <div class="contact-field">
-                <label class="contact-field__label" for="fac-ziua">Ziua/Ora</label>
-                <input class="contact-input" type="text" id="fac-ziua" name="ziua_ora" placeholder="ex: 12.06.2026, ora 14:00">
+                <label class="contact-field__label is-required" for="fac-ziua">Ziua/Ora</label>
+                <input class="contact-input" type="text" id="fac-ziua" name="ziua_ora" placeholder="ex: 12.06.2026, ora 14:00" required>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
               </div>
               <div class="contact-field">
                 <label class="contact-field__label is-required" for="fac-cif">Cif firmă</label>
@@ -333,8 +353,9 @@
             </div>
             <div class="contact-form__row">
               <div class="contact-field">
-                <label class="contact-field__label" for="fac-mesaj">Descrie situația</label>
-                <textarea class="contact-textarea" id="fac-mesaj" name="mesaj" rows="3"></textarea>
+                <label class="contact-field__label is-required" for="fac-mesaj">Descrie situația</label>
+                <textarea class="contact-textarea" id="fac-mesaj" name="mesaj" rows="3" required></textarea>
+                <span class="contact-field__error">Acest câmp este obligatoriu.</span>
               </div>
             </div>
             <div class="contact-form__row">
@@ -353,7 +374,7 @@
             <label class="contact-consent">
               <input type="checkbox" name="consent" required>
               <span class="contact-consent__box" aria-hidden="true"></span>
-              <span class="contact-consent__text">
+              <span class="contact-consent__text is-required">
                 Am citit și sunt de acord cu
                 <a href="privacy.html" target="_blank">politica de confidențialitate</a>,
                 <a href="termeni.html" target="_blank">Termeni și condiții</a>,
@@ -361,14 +382,18 @@
               </span>
             </label>
             <span class="contact-field__error contact-consent__error">Trebuie să accepți pentru a continua.</span>
+            <p class="contact-form__neterror" hidden>
+              <i class="fa-solid fa-circle-exclamation"></i>
+              A apărut o eroare la trimitere. Te rugăm să încerci din nou.
+            </p>
+            <p class="contact-form__success" hidden>
+              <i class="fa-solid fa-circle-check"></i>
+              Mulțumim! Solicitarea de factură a fost trimisă. O vei primi în cel mai scurt timp.
+            </p>
             <div class="contact-form__actions">
               <button type="submit" class="btn btn--primary">Trimite</button>
             </div>
           </form>
-          <div class="contact-form__success" hidden>
-            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-            <p>Mulțumim! Solicitarea de factură a fost trimisă. O vei primi în cel mai scurt timp.</p>
-          </div>
         </div>
 
         <!-- ===== Panel: Probleme Delivery (info) ===== -->

@@ -137,6 +137,10 @@
         l.classList.remove('is-active');
         l.innerHTML = '';
       });
+      var neterr = panel.querySelector('.contact-form__neterror');
+      if (neterr) neterr.hidden = true;
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = false; btn.textContent = 'Trimite'; }
     }
     if (success) success.hidden = true;
   }
@@ -269,19 +273,54 @@
       });
     });
 
-    /* ---- Submit ---- */
+    /* ---- Submit (trimitere reală către Web3Forms) ---- */
     overlay.querySelectorAll('.contact-form').forEach(function (form) {
       form.addEventListener('submit', function (e) {
-        e.preventDefault(); // TODO: scoate când conectezi backend (Formspree/Web3Forms)
-        if (validateForm(form)) {
-          var panel = form.closest('.contact-form-panel');
-          /* TODO backend: fetch(form.action, { method:'POST', body:new FormData(form) }) */
-          form.hidden = true;
-          var success = panel.querySelector('.contact-form__success');
-          if (success) success.hidden = false;
-        }
+        e.preventDefault();
+        if (!validateForm(form)) return;
+        sendForm(form);
       });
     });
+  }
+
+  function sendForm(form) {
+    var panel  = form.closest('.contact-form-panel');
+    var btn    = form.querySelector('button[type="submit"]');
+    var errBox = panel.querySelector('.contact-form__neterror');
+    var btnTxt = btn ? btn.textContent : '';
+
+    if (btn) { btn.disabled = true; btn.textContent = 'Se trimite...'; }
+    if (errBox) errBox.hidden = true;
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+      .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+      .then(function (r) {
+        if (r.ok && r.data.success) {
+          form.reset();
+          if (btn) { btn.disabled = false; btn.textContent = btnTxt; }
+          panel.querySelectorAll('.contact-file__list.is-active').forEach(function (l) {
+            l.classList.remove('is-active');
+            l.innerHTML = '';
+          });
+          var success = form.querySelector('.contact-form__success');
+          if (success) success.hidden = false;
+        } else {
+          showNetError(panel, btn, btnTxt);
+        }
+      })
+      .catch(function () {
+        showNetError(panel, btn, btnTxt);
+      });
+  }
+
+  function showNetError(panel, btn, btnTxt) {
+    if (btn) { btn.disabled = false; btn.textContent = btnTxt; }
+    var errBox = panel.querySelector('.contact-form__neterror');
+    if (errBox) errBox.hidden = false;
   }
 
   function validateForm(form) {
