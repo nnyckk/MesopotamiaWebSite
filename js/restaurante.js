@@ -29,6 +29,18 @@
     if (state === 'full') sheetEl.classList.add('sheet--full');
     var navEl = document.getElementById('navBottom');
     if (navEl) navEl.classList.toggle('has-sheet', state !== 'hidden');
+    if (state === 'hidden') clearActive();
+  }
+
+  /* Dezactivează restaurantul activ: pinul redevine normal, cardul își pierde is-active. */
+  function clearActive() {
+    if (activeId && markers[activeId]) {
+      setMarkerActive(markers[activeId], false);
+    }
+    activeId = null;
+    document.querySelectorAll('.rest-card.is-active').forEach(function (c) {
+      c.classList.remove('is-active');
+    });
   }
 
   if (closeBtn) {
@@ -486,15 +498,24 @@
    * și starea bottom sheet-ului.
    * panMap=true → centrează harta pe pin (când sheet e half și se dă click pe card).
    */
+  /* Comută clasa is-active pe elementul DOM al markerului (păstrează nodul
+     ca să se vadă tranziția CSS, în loc să recreeze iconul cu setIcon). */
+  function setMarkerActive(marker, active) {
+    if (!marker) return;
+    var el = marker.getElement();
+    var dot = el && el.querySelector('.rest-marker');
+    if (dot) dot.classList.toggle('is-active', active);
+  }
+
   function setActive(id, panMap) {
     if (activeId && markers[activeId]) {
-      markers[activeId].setIcon(makeIcon(false));
+      setMarkerActive(markers[activeId], false);
     }
 
     activeId = id;
 
     if (markers[id]) {
-      markers[id].setIcon(makeIcon(true));
+      setMarkerActive(markers[id], true);
       if (panMap) {
         const r = allRestaurants.find(function (x) { return x.id === id; });
         if (r) {
