@@ -105,6 +105,38 @@
   color: var(--color-text-dim);
 }
 
+/* Ascunde X-ul nativ al input[type=search] (Chrome/Safari/Edge) */
+.rest-toolbar__search input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Buton X propriu pentru golirea căutării */
+.rest-search-clear {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  align-self: stretch;
+  background: none;
+  border: none;
+  color: var(--color-text-dim);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.rest-search-clear[hidden] {
+  display: none;
+}
+
+@media (hover: hover) {
+  .rest-search-clear:hover {
+    color: var(--color-primary);
+  }
+}
+
 [data-theme="light"] .rest-toolbar__search {
   background: rgba(251, 251, 251, 0.92);
   backdrop-filter: blur(14px);
@@ -642,6 +674,29 @@
   text-align: center;
 }
 
+/* Adresa = link de direcții, cu iconiță-indiciu la dreapta */
+.rest-card__address {
+  align-items: center;
+}
+
+.rest-card__address > span {
+  flex: 1;
+  min-width: 0;
+}
+
+.rest-card__address-go {
+  flex-shrink: 0;
+  color: var(--color-secondary) !important;
+  font-size: 0.85rem !important;
+  transition: transform var(--transition-fast);
+}
+
+@media (hover: hover) {
+  .rest-card__address:hover .rest-card__address-go {
+    transform: translateX(2px);
+  }
+}
+
 
 .rest-card__badge-groups {
   display: flex;
@@ -929,6 +984,26 @@
   fill: #fff;
 }
 
+/* Cluster — roșu, shade tot mai închis cu densitatea (câte locații conține) */
+.rest-cluster {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.rest-cluster--sm { background: var(--color-primary-light); }
+.rest-cluster--md { background: var(--color-primary); }
+.rest-cluster--lg { background: var(--color-primary-dark); }
+
 
 /* ================================================
    6. TABS (tablet — toggle lista/harta)
@@ -1132,7 +1207,7 @@
     left: 0;
     right: 0;
     width: 100%;
-    height: calc(100dvh - var(--header-h) - 4.5rem);
+    height: calc(100dvh - var(--sheet-top, calc(var(--header-h) + 4.5rem)));
     z-index: 999;
     background: var(--color-surface);
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;

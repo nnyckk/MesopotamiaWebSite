@@ -17,7 +17,8 @@
       "Bash(gh run *)",
       "Bash(git rm *)",
       "Bash(curl -s \"https://api.github.com/repos/nnyckk/MesopotamiaWebSite/actions/runs?per_page=3\")",
-      "Bash(python -c \"import sys,json; runs=json.load\\(sys.stdin\\)['workflow_runs']; [print\\(r['name'], '|', r['conclusion'], '|', r['id']\\) for r in runs]\")"
+      "Bash(python -c \"import sys,json; runs=json.load\\(sys.stdin\\)['workflow_runs']; [print\\(r['name'], '|', r['conclusion'], '|', r['id']\\) for r in runs]\")",
+      "Bash(node --check js/contact.js)"
     ]
   }
 }

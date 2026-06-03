@@ -69,7 +69,6 @@
     var meta2H    = allMeta.length > 1 ? Math.round(allMeta[1].offsetHeight * 0.45) : 30;
     peekHeight    = handleH + listPadT + stickyH + bodyPadT + metaH + meta2H;
     if (!sticky && isMobile()) {
-      var countEl   = document.getElementById('restCount');
       var countH    = countEl ? countEl.offsetHeight : 0;
       var firstCard = listEl  ? listEl.querySelector('.rest-card') : null;
       var cardPeek  = firstCard ? Math.round(firstCard.offsetHeight * 0.35) : 80;
@@ -77,6 +76,18 @@
     }
     sheetEl.style.setProperty('--sheet-peek',  'calc(100% - ' + peekHeight + 'px)');
     sheetEl.style.setProperty('--peek-height', peekHeight + 'px');
+
+    // Offset de sus pentru starea full: marginea de jos a searchbar + gap egal cu
+    // distanța searchbar↔header (padding-top toolbar). Astfel spațiul de sub searchbar
+    // până la panoul full e identic cu cel de deasupra searchbar-ului.
+    if (isMobile()) {
+      var toolbar = document.querySelector('.rest-toolbar');
+      if (toolbar) {
+        var tb  = toolbar.getBoundingClientRect();
+        var gap = parseInt(getComputedStyle(toolbar).paddingTop) || 8;
+        sheetEl.style.setProperty('--sheet-top', (tb.bottom + gap) + 'px');
+      }
+    }
   }
 
   /* Returnează offsetul translateY curent al sheet-ului în pixeli. */
@@ -254,11 +265,15 @@
       showCoverageOnHover: false,
       maxClusterRadius: 50,
       iconCreateFunction: function (cluster) {
+        var count = cluster.getChildCount();
+        // Densitate → culoare + mărime: puține (verde) / medii (galben) / multe (roșu)
+        var level = count < 5 ? 'sm' : (count < 15 ? 'md' : 'lg');
+        var size  = count < 5 ? 38  : (count < 15 ? 46  : 54);
         return L.divIcon({
-          html: '<div class="rest-cluster">' + cluster.getChildCount() + '</div>',
+          html: '<div class="rest-cluster rest-cluster--' + level + '">' + count + '</div>',
           className: '',
-          iconSize: [40, 40],
-          iconAnchor: [20, 20],
+          iconSize: [size, size],
+          iconAnchor: [size / 2, size / 2],
         });
       },
     });
@@ -268,10 +283,11 @@
   /* ================================================
      2. MARKER CUSTOM
   ================================================ */
-  /* Creează un icon Leaflet custom (pin SVG) în stare activă sau inactivă. */
-  function makeIcon(isActive) {
+  /* Creează un icon Leaflet custom (pin SVG). Pornește mereu inactiv;
+     activarea se face ulterior prin setMarkerActive (toggle de clasă). */
+  function makeIcon() {
     return L.divIcon({
-      html: '<div class="rest-marker' + (isActive ? ' is-active' : '') + '">' +
+      html: '<div class="rest-marker">' +
         '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">' +
         '<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>' +
         '</svg></div>',
@@ -343,10 +359,18 @@
     markers = {};
 
     restaurants.forEach(function (r) {
-      const marker = L.marker([r.lat, r.lng], { icon: makeIcon(false) });
+      const marker = L.marker([r.lat, r.lng], { icon: makeIcon() });
       marker.bindPopup(makePopup(r), { maxWidth: 260, autoPan: false });
 
       marker.on('click', function () {
+        // Dacă restaurantul nu e în lista curentă (filtrat de search), golește
+        // search-ul ca să apară cardul lui — altfel sheet-ul ar fi gol.
+        if (searchQuery && !matchesSearch(r)) {
+          searchEl.value = '';
+          searchQuery = '';
+          updateSearchClear();
+          update();
+        }
         setActive(r.id, false);
         scrollToCard(r.id);
         if (isMobile()) {
@@ -454,7 +478,8 @@
         ? '<img class="rest-card__img" src="' + r.image + '" alt="' + r.name + '" loading="lazy">'
         : '<div class="rest-card__img-placeholder" style="background:' + getBannerStyle(r.id) + '"><i class="fa-solid fa-store"></i></div>';
 
-      var mapsUrl = 'https://maps.google.com/?q=' + encodeURIComponent(r.address);
+      var dirUrl  = 'https://www.google.com/maps/dir/?api=1&destination=' +
+        (r.lat != null && r.lng != null ? r.lat + ',' + r.lng : encodeURIComponent(r.address));
 
       card.innerHTML =
         '<div class="rest-card__sticky-header">' +
@@ -463,7 +488,7 @@
         '</div>' +
         '<div class="rest-card__body">' +
           renderHours(r.hours) +
-          '<a class="rest-card__meta rest-card__address" href="' + mapsUrl + '" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i>' + r.address + '</a>' +
+          '<a class="rest-card__meta rest-card__address" href="' + dirUrl + '" target="_blank" rel="noopener" aria-label="Direcții către ' + r.name + ' – ' + r.address + '"><i class="fa-solid fa-location-dot"></i><span>' + r.address + '</span><i class="fa-solid fa-diamond-turn-right rest-card__address-go" aria-hidden="true"></i></a>' +
           '<a class="rest-card__meta rest-card__tel" href="tel:' + r.phone.replace(/\s/g, '') + '"><i class="fa-solid fa-phone"></i>' + r.phone + '</a>' +
           (r.email ? '<a class="rest-card__meta rest-card__email" href="mailto:' + r.email + '"><i class="fa-regular fa-envelope"></i>' + r.email + '</a>' : '') +
           (featureBadges || deliveryBadges
@@ -493,11 +518,6 @@
   /* ================================================
      8. ACTIVE STATE
   ================================================ */
-  /*
-   * Setează restaurantul activ: actualizează markerul pe hartă, cardul din listă
-   * și starea bottom sheet-ului.
-   * panMap=true → centrează harta pe pin (când sheet e half și se dă click pe card).
-   */
   /* Comută clasa is-active pe elementul DOM al markerului (păstrează nodul
      ca să se vadă tranziția CSS, în loc să recreeze iconul cu setIcon). */
   function setMarkerActive(marker, active) {
@@ -507,6 +527,11 @@
     if (dot) dot.classList.toggle('is-active', active);
   }
 
+  /*
+   * Setează restaurantul activ: actualizează markerul pe hartă, cardul din listă
+   * și starea bottom sheet-ului.
+   * panMap=true → centrează harta pe pin (când sheet e half și se dă click pe card).
+   */
   function setActive(id, panMap) {
     if (activeId && markers[activeId]) {
       setMarkerActive(markers[activeId], false);
@@ -553,45 +578,70 @@
       .replace(/[țţ]/g, 't');
   }
 
-  /* Returnează lista filtrată după textul de search și filtrele active. */
-  function getFiltered() {
-    var results = allRestaurants.filter(function (r) {
-      const q           = normalize(searchQuery);
-      const matchSearch = !q ||
-        normalize(r.name).includes(q) ||
-        normalize(r.city).includes(q);
-
-      const matchFilter = activeFilters.size === 0 || Array.from(activeFilters).every(function (f) {
-        if (f === 'mesoCafe')  return r.features.mesoCafe;
-        if (f === 'mesoKids')  return r.features.mesoKids;
-        if (f === 'terasa')    return r.features.terasa;
-        if (f === 'glovo')     return r.delivery.glovo;
-        if (f === 'boltFood')  return r.delivery.boltFood;
-        if (f === 'wolt')      return r.delivery.wolt;
-        return true;
-      });
-
-      return matchSearch && matchFilter;
+  /* True dacă restaurantul trece de filtrele active (checkbox-uri). */
+  function matchesFilters(r) {
+    return activeFilters.size === 0 || Array.from(activeFilters).every(function (f) {
+      if (f === 'openNow')   { var cls = getStatus(r.hours).cls; return cls === 'open' || cls === 'closing-soon'; }
+      if (f === 'mesoCafe')  return r.features.mesoCafe;
+      if (f === 'mesoKids')  return r.features.mesoKids;
+      if (f === 'terasa')    return r.features.terasa;
+      if (f === 'glovo')     return r.delivery.glovo;
+      if (f === 'boltFood')  return r.delivery.boltFood;
+      if (f === 'wolt')      return r.delivery.wolt;
+      return true;
     });
+  }
 
-    return results;
+  /* True dacă restaurantul se potrivește textului de căutare. */
+  function matchesSearch(r) {
+    const q = normalize(searchQuery);
+    return !q || normalize(r.name).includes(q) || normalize(r.city).includes(q);
+  }
+
+  /* Lista (filtre + search) — ce se afișează în panoul cu carduri. */
+  function getListResults() {
+    return allRestaurants.filter(function (r) {
+      return matchesFilters(r) && matchesSearch(r);
+    });
+  }
+
+  /* Harta (doar filtre) — search-ul nu ascunde pinii, doar mută harta pe
+     rezultate. Astfel locațiile din jur rămân vizibile când cauți un oraș. */
+  function getMapResults() {
+    return allRestaurants.filter(matchesFilters);
   }
 
   /* Rerenderează lista și markerii, apoi ajustează bounds hărții. */
   function update() {
-    const filtered = getFiltered();
-    renderList(filtered);
-    buildMarkers(filtered);
+    const listResults = getListResults();
+    const mapResults  = getMapResults();
 
-    if (filtered.length && map && !userLocation) {
-      const bounds = filtered.map(function (r) { return [r.lat, r.lng]; });
-      map.fitBounds(bounds, { padding: [10, 10], maxZoom: 13 });
+    renderList(listResults);
+    buildMarkers(mapResults);
+
+    if (map && !userLocation) {
+      // Zoom pe rezultatele căutate dacă există; altfel pe tot ce e pe hartă.
+      const focusList = listResults.length ? listResults : mapResults;
+      if (focusList.length) {
+        const bounds = focusList.map(function (r) { return [r.lat, r.lng]; });
+        map.fitBounds(bounds, { padding: [10, 10], maxZoom: 13 });
+      }
     }
   }
 
   /* ================================================
      10. LOCAȚIE
   ================================================ */
+
+  /* Dezactivează modul "lângă mine": șterge markerul, state-ul și starea
+     activă de pe butoane. NU re-randează (apelantul decide când). */
+  function clearLocation() {
+    if (!userLocation) return;
+    userLocation = null;
+    if (userMarker) { map.removeLayer(userMarker); userMarker = null; }
+    [document.getElementById('restLocationBtn'), document.getElementById('restLocationBtnMap')]
+      .forEach(function (b) { if (b) b.classList.remove('is-active'); });
+  }
 
   /*
    * Activează sau dezactivează modul "lângă mine".
@@ -603,10 +653,7 @@
     var allBtns = [document.getElementById('restLocationBtn'), document.getElementById('restLocationBtnMap')];
 
     if (userLocation) {
-      // Reset
-      userLocation = null;
-      if (userMarker) { map.removeLayer(userMarker); userMarker = null; }
-      allBtns.forEach(function (b) { if (b) b.classList.remove('is-active'); });
+      clearLocation();
       update();
       return;
     }
@@ -654,10 +701,31 @@
     if (isMobile()) setSheet('hidden');
   });
 
+  var searchClearBtn = document.getElementById('restSearchClear');
+
+  /* Arată butonul X doar când există text în câmpul de căutare. */
+  function updateSearchClear() {
+    if (searchClearBtn) searchClearBtn.hidden = searchEl.value.length === 0;
+  }
+
   searchEl.addEventListener('input', function () {
     searchQuery = searchEl.value.trim();
+    // Căutarea oprește modul "lângă mine": altfel harta ar rămâne pe locația ta,
+    // nu pe rezultatele căutate.
+    if (searchQuery && userLocation) clearLocation();
+    updateSearchClear();
     update();
   });
+
+  if (searchClearBtn) {
+    searchClearBtn.addEventListener('click', function () {
+      searchEl.value = '';
+      searchQuery = '';
+      updateSearchClear();
+      update();
+      searchEl.focus();
+    });
+  }
 
   /* ── Filter modal ───────────────────────────────────────── */
 
@@ -750,6 +818,15 @@
   if (locationBtn)    locationBtn.addEventListener('click', toggleLocation);
   if (locationBtnMap) locationBtnMap.addEventListener('click', toggleLocation);
 
+  /* Recalculează înălțimile dinamice la resize / rotire ecran. */
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      if (isMobile()) updatePeekHeight();
+    }, 150);
+  });
+
   /* ================================================
      12. ÎNCĂRCARE DATE
   ================================================ */
@@ -774,6 +851,10 @@
         sheetEl.classList.add('is-visible');
         mapWrap.classList.add('is-visible');
       }
+
+      // Calculează înălțimile dinamice (--sheet-top / --sheet-peek) din DOM-ul real,
+      // ca să nu se folosească valorile fallback hardcodate din CSS.
+      updatePeekHeight();
 
       setTimeout(function () { map.invalidateSize(); }, 100);
     })
