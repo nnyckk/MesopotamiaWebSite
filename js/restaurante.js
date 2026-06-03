@@ -265,15 +265,11 @@
       showCoverageOnHover: false,
       maxClusterRadius: 50,
       iconCreateFunction: function (cluster) {
-        var count = cluster.getChildCount();
-        // Densitate → culoare + mărime: puține (verde) / medii (galben) / multe (roșu)
-        var level = count < 5 ? 'sm' : (count < 15 ? 'md' : 'lg');
-        var size  = count < 5 ? 38  : (count < 15 ? 46  : 54);
         return L.divIcon({
-          html: '<div class="rest-cluster rest-cluster--' + level + '">' + count + '</div>',
+          html: '<div class="rest-cluster">' + cluster.getChildCount() + '</div>',
           className: '',
-          iconSize: [size, size],
-          iconAnchor: [size / 2, size / 2],
+          iconSize: [40, 40],
+          iconAnchor: [20, 20],
         });
       },
     });

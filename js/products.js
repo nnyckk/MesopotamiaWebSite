@@ -4,6 +4,17 @@
 
   var _categories = [];
 
+  /* Escapează text pentru inserare sigură în HTML (previne ruperea
+     markup-ului dacă un nume/descriere conține <, >, ", & sau '). */
+  function esc(str) {
+    return String(str == null ? '' : str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   fetch('data/products.json')
     .then(function (r) { return r.json(); })
     .then(function (data) {
@@ -27,8 +38,8 @@
       return renderCard(p, ci, pi);
     }).join('');
 
-    return '<section class="menu-section" id="' + cat.id + '" aria-labelledby="title-' + cat.id + '">' +
-      '<h2 class="menu-section__title" id="title-' + cat.id + '">' + cat.title + '</h2>' +
+    return '<section class="menu-section" id="' + esc(cat.id) + '" aria-labelledby="title-' + esc(cat.id) + '">' +
+      '<h2 class="menu-section__title" id="title-' + esc(cat.id) + '">' + esc(cat.title) + '</h2>' +
       '<div class="product-grid">' + products + '</div>' +
       '</section>';
   }
@@ -42,17 +53,17 @@
       displayWeight = p.weight;
       displayPrice = p.price;
     }
-    return '<div class="product-card" data-cat="' + ci + '" data-prod="' + pi + '" role="button" tabindex="0" aria-label="' + p.name + '">' +
+    return '<div class="product-card" data-cat="' + ci + '" data-prod="' + pi + '" role="button" tabindex="0" aria-label="' + esc(p.name) + '">' +
       '<div class="product-card__img-wrap">' +
-      '<img src="' + p.img + '" alt="' + p.name + '" class="product-card__img" loading="lazy">' +
+      '<img src="' + esc(p.img) + '" alt="' + esc(p.name) + '" class="product-card__img" loading="lazy">' +
       (p.promotie ? '<span class="product-card__promo-tag">PROMOȚIE</span>' : '') +
       '</div>' +
       '<div class="product-card__info">' +
-      '<h3 class="product-card__name">' + p.name + '</h3>' +
-      '<p class="product-card__desc">' + p.desc + '</p>' +
+      '<h3 class="product-card__name">' + esc(p.name) + '</h3>' +
+      '<p class="product-card__desc">' + esc(p.desc) + '</p>' +
       '<div class="product-card__meta">' +
-      '<span class="product-card__weight">' + displayWeight + '</span>' +
-      '<span class="product-card__price">' + displayPrice + '</span>' +
+      '<span class="product-card__weight">' + esc(displayWeight) + '</span>' +
+      '<span class="product-card__price">' + esc(displayPrice) + '</span>' +
       '</div>' +
       '</div>' +
       '</div>';
@@ -61,8 +72,21 @@
 
   /* ---- Modal ---- */
 
+  /* Referințe DOM ale modalului, cache-uite o singură dată la init. */
+  var M = {};
+
+  function cacheModalRefs() {
+    [
+      'productModal', 'modalImg', 'modalName', 'modalVariants', 'modalWeight',
+      'modalPrice', 'modalIngredientsSection', 'modalIngredients',
+      'modalAllergensSection', 'modalAllergens', 'modalNutritionalSection',
+      'modalNutriBody', 'modalClose'
+    ].forEach(function (id) { M[id] = document.getElementById(id); });
+  }
+
   function initModal() {
-    var overlay = document.getElementById('productModal');
+    cacheModalRefs();
+    var overlay = M.productModal;
     if (!overlay) return;
 
     main.addEventListener('click', function (e) {
@@ -83,7 +107,7 @@
       if (e.target === overlay) closeModal();
     });
 
-    document.getElementById('modalClose').addEventListener('click', closeModal);
+    M.modalClose.addEventListener('click', closeModal);
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
@@ -149,52 +173,49 @@
   }
 
   function openModal(p) {
-    var overlay = document.getElementById('productModal');
+    var overlay = M.productModal;
 
-    document.getElementById('modalImg').src = p.imgModal || p.img;
-    document.getElementById('modalImg').alt = p.name;
-    document.getElementById('modalName').textContent = p.name;
+    M.modalImg.src = p.imgModal || p.img;
+    M.modalImg.alt = p.name;
+    M.modalName.textContent = p.name;
 
-    var varSection = document.getElementById('modalVariants');
+    var varSection = M.modalVariants;
     if (p.variants && p.variants.length) {
       varSection.innerHTML = p.variants.map(function (v, i) {
-        return '<button class="modal-variant' + (i === 0 ? ' is-active' : '') + '" data-weight="' + v.weight + '" data-price="' + v.price + '">' + v.label + '</button>';
+        return '<button class="modal-variant' + (i === 0 ? ' is-active' : '') + '" data-weight="' + esc(v.weight) + '" data-price="' + esc(v.price) + '">' + esc(v.label) + '</button>';
       }).join('');
       varSection.hidden = false;
       varSection.querySelectorAll('.modal-variant').forEach(function (btn) {
         btn.addEventListener('click', function () {
           varSection.querySelectorAll('.modal-variant').forEach(function (b) { b.classList.remove('is-active'); });
           btn.classList.add('is-active');
-          document.getElementById('modalWeight').textContent = btn.dataset.weight;
-          document.getElementById('modalPrice').textContent = btn.dataset.price;
+          M.modalWeight.textContent = btn.dataset.weight;
+          M.modalPrice.textContent = btn.dataset.price;
         });
       });
-      document.getElementById('modalWeight').textContent = p.variants[0].weight;
-      document.getElementById('modalPrice').textContent = p.variants[0].price;
+      M.modalWeight.textContent = p.variants[0].weight;
+      M.modalPrice.textContent = p.variants[0].price;
     } else {
       varSection.hidden = true;
       varSection.innerHTML = '';
-      document.getElementById('modalWeight').textContent = p.weight || '';
-      document.getElementById('modalPrice').textContent = p.price || '';
+      M.modalWeight.textContent = p.weight || '';
+      M.modalPrice.textContent = p.price || '';
     }
 
-    var ingSection = document.getElementById('modalIngredientsSection');
     if (p.ingredients) {
-      document.getElementById('modalIngredients').innerHTML = p.ingredients;
-      ingSection.hidden = false;
+      M.modalIngredients.innerHTML = p.ingredients;
+      M.modalIngredientsSection.hidden = false;
     } else {
-      ingSection.hidden = true;
+      M.modalIngredientsSection.hidden = true;
     }
 
-    var algSection = document.getElementById('modalAllergensSection');
     if (p.allergens && p.allergens.length) {
-      document.getElementById('modalAllergens').textContent = p.allergens.join(', ');
-      algSection.hidden = false;
+      M.modalAllergens.textContent = p.allergens.join(', ');
+      M.modalAllergensSection.hidden = false;
     } else {
-      algSection.hidden = true;
+      M.modalAllergensSection.hidden = true;
     }
 
-    var nutSection = document.getElementById('modalNutritionalSection');
     var n = p.nutritional;
     if (n) {
       var rows = [
@@ -207,13 +228,13 @@
         { label: 'Proteine', value: fmt(n.protein, 'g'), sub: false },
         { label: 'Sare', value: fmt(n.salt, 'g'), sub: false }
       ];
-      document.getElementById('modalNutriBody').innerHTML = rows.map(function (r) {
+      M.modalNutriBody.innerHTML = rows.map(function (r) {
         return '<tr' + (r.sub ? ' class="nutri-subrow"' : '') + '>' +
           '<td>' + r.label + '</td><td>' + r.value + '</td></tr>';
       }).join('');
-      nutSection.hidden = false;
+      M.modalNutritionalSection.hidden = false;
     } else {
-      nutSection.hidden = true;
+      M.modalNutritionalSection.hidden = true;
     }
 
     overlay.classList.add('is-open');
@@ -230,7 +251,7 @@
       modalBody.addEventListener('scroll', modalBody._scrollHandler);
     }
 
-    setTimeout(function () { document.getElementById('modalClose').focus(); }, 50);
+    setTimeout(function () { M.modalClose.focus(); }, 50);
   }
 
   function buildEnergy(n) {
@@ -246,7 +267,7 @@
   }
 
   function closeModal() {
-    var overlay = document.getElementById('productModal');
+    var overlay = M.productModal;
     overlay.classList.remove('is-open', 'is-scrolled');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
