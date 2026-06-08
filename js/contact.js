@@ -124,6 +124,12 @@
       }
     }
 
+    /* ---- Deschide automat un formular din ?form=... (ex. link din more.html) ---- */
+    var requested = new URLSearchParams(window.location.search).get('form');
+    if (requested && TITLES[requested]) {
+      openModal(requested, null);
+    }
+
     initSwipeToDismiss(overlay, modal, body, closeModal);
     initForms(overlay);
   }
