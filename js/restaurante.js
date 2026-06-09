@@ -21,6 +21,9 @@
   /* Returnează true dacă viewport-ul e mobil (≤ 768px). */
   function isMobile() { return window.innerWidth <= 768; }
 
+  /* Returnează true dacă viewport-ul e desktop (> 1024px). */
+  function isDesktop() { return window.innerWidth > 1024; }
+
   /* Schimbă starea bottom sheet-ului și aplică clasa CSS corespunzătoare. */
   function setSheet(state) {
     sheetState = state;
@@ -179,6 +182,9 @@
   const searchEl       = document.getElementById('restSearch');
   const tabBtns        = document.querySelectorAll('.rest-tab');
   const mapWrap        = document.getElementById('restMapWrap');
+  const shellEl        = document.querySelector('.rest-shell');
+  const detailEl       = document.getElementById('restDetail');
+  const viewToggleBtns = document.querySelectorAll('.rest-viewtoggle__btn');
   const filterBtn      = document.getElementById('restFilterBtn');
   const filterCount    = document.getElementById('restFilterCount');
   const filterOverlay  = document.getElementById('restFilterOverlay');
@@ -367,8 +373,10 @@
           updateSearchClear();
           update();
         }
-        setActive(r.id, false);
+        // Desktop mod Hartă: centrează pe pin + arată cardul în panoul de detaliu.
+        setActive(r.id, isDesktop());
         scrollToCard(r.id);
+        if (isDesktop()) marker.closePopup();
         if (isMobile()) {
           marker.closePopup();
           updatePeekHeight();
@@ -444,6 +452,44 @@
   /* ================================================
      7. RENDER LISTĂ
   ================================================ */
+  /* Construiește HTML-ul interior al unui card de restaurant (reutilizat de listă
+     și de panoul de detaliu desktop). */
+  function buildCardHTML(r) {
+    let featureBadges = '';
+    if (r.features.mesoCafe) featureBadges += '<span class="rest-badge rest-badge--cafe"><i class="fa-solid fa-mug-hot"></i> Meso Cafe</span>';
+    if (r.features.mesoKids) featureBadges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Meso Kids</span>';
+    if (r.features.terasa)   featureBadges += '<span class="rest-badge rest-badge--terasa"><i class="fa-solid fa-umbrella-beach"></i> Terasă</span>';
+
+    let deliveryBadges = '';
+    deliveryBadges += deliveryBadge(r.delivery.glovo,    'glovo', 'Glovo');
+    deliveryBadges += deliveryBadge(r.delivery.boltFood, 'bolt',  'Bolt Food');
+    deliveryBadges += deliveryBadge(r.delivery.wolt,     'wolt',  'Wolt');
+
+    var bannerContent = r.image
+      ? '<img class="rest-card__img" src="' + r.image + '" alt="' + r.name + '" loading="lazy">'
+      : '<div class="rest-card__img-placeholder" style="background:' + getBannerStyle(r.id) + '"><i class="fa-solid fa-store"></i></div>';
+
+    var dirUrl  = 'https://www.google.com/maps/dir/?api=1&destination=' +
+      (r.lat != null && r.lng != null ? r.lat + ',' + r.lng : encodeURIComponent(r.address));
+
+    return '<div class="rest-card__sticky-header">' +
+        '<div class="rest-card__banner">' + bannerContent + '</div>' +
+        '<div class="rest-card__name">' + r.name + '</div>' +
+      '</div>' +
+      '<div class="rest-card__body">' +
+        renderHours(r.hours) +
+        '<a class="rest-card__meta rest-card__address" href="' + dirUrl + '" target="_blank" rel="noopener" aria-label="Direcții către ' + r.name + ' – ' + r.address + '"><i class="fa-solid fa-location-dot"></i><span>' + r.address + '</span><i class="fa-solid fa-diamond-turn-right rest-card__address-go" aria-hidden="true"></i></a>' +
+        '<a class="rest-card__meta rest-card__tel" href="tel:' + r.phone.replace(/\s/g, '') + '"><i class="fa-solid fa-phone"></i>' + r.phone + '</a>' +
+        (r.email ? '<a class="rest-card__meta rest-card__email" href="mailto:' + r.email + '"><i class="fa-regular fa-envelope"></i>' + r.email + '</a>' : '') +
+        (featureBadges || deliveryBadges
+          ? '<div class="rest-card__badge-groups">' +
+              (featureBadges ? '<div class="rest-card__badge-row"><span class="rest-card__badge-label">Facilități</span><div class="rest-card__badge-wrap">' + featureBadges + '</div></div>' : '') +
+              (deliveryBadges ? '<div class="rest-card__badge-row"><span class="rest-card__badge-label">Livrare</span><div class="rest-card__badge-wrap">' + deliveryBadges + '</div></div>' : '') +
+            '</div>'
+          : '') +
+      '</div>';
+  }
+
   /* Randează lista de carduri în DOM folosind DocumentFragment pentru performanță. */
   function renderList(restaurants) {
     listEl.innerHTML = '';
@@ -460,40 +506,7 @@
       card.className = 'rest-card' + (r.id === activeId ? ' is-active' : '');
       card.dataset.id = r.id;
 
-      let featureBadges = '';
-      if (r.features.mesoCafe) featureBadges += '<span class="rest-badge rest-badge--cafe"><i class="fa-solid fa-mug-hot"></i> Meso Cafe</span>';
-      if (r.features.mesoKids) featureBadges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Meso Kids</span>';
-      if (r.features.terasa)   featureBadges += '<span class="rest-badge rest-badge--terasa"><i class="fa-solid fa-umbrella-beach"></i> Terasă</span>';
-
-      let deliveryBadges = '';
-      deliveryBadges += deliveryBadge(r.delivery.glovo,    'glovo', 'Glovo');
-      deliveryBadges += deliveryBadge(r.delivery.boltFood, 'bolt',  'Bolt Food');
-      deliveryBadges += deliveryBadge(r.delivery.wolt,     'wolt',  'Wolt');
-
-      var bannerContent = r.image
-        ? '<img class="rest-card__img" src="' + r.image + '" alt="' + r.name + '" loading="lazy">'
-        : '<div class="rest-card__img-placeholder" style="background:' + getBannerStyle(r.id) + '"><i class="fa-solid fa-store"></i></div>';
-
-      var dirUrl  = 'https://www.google.com/maps/dir/?api=1&destination=' +
-        (r.lat != null && r.lng != null ? r.lat + ',' + r.lng : encodeURIComponent(r.address));
-
-      card.innerHTML =
-        '<div class="rest-card__sticky-header">' +
-          '<div class="rest-card__banner">' + bannerContent + '</div>' +
-          '<div class="rest-card__name">' + r.name + '</div>' +
-        '</div>' +
-        '<div class="rest-card__body">' +
-          renderHours(r.hours) +
-          '<a class="rest-card__meta rest-card__address" href="' + dirUrl + '" target="_blank" rel="noopener" aria-label="Direcții către ' + r.name + ' – ' + r.address + '"><i class="fa-solid fa-location-dot"></i><span>' + r.address + '</span><i class="fa-solid fa-diamond-turn-right rest-card__address-go" aria-hidden="true"></i></a>' +
-          '<a class="rest-card__meta rest-card__tel" href="tel:' + r.phone.replace(/\s/g, '') + '"><i class="fa-solid fa-phone"></i>' + r.phone + '</a>' +
-          (r.email ? '<a class="rest-card__meta rest-card__email" href="mailto:' + r.email + '"><i class="fa-regular fa-envelope"></i>' + r.email + '</a>' : '') +
-          (featureBadges || deliveryBadges
-            ? '<div class="rest-card__badge-groups">' +
-                (featureBadges ? '<div class="rest-card__badge-row"><span class="rest-card__badge-label">Facilități</span><div class="rest-card__badge-wrap">' + featureBadges + '</div></div>' : '') +
-                (deliveryBadges ? '<div class="rest-card__badge-row"><span class="rest-card__badge-label">Livrare</span><div class="rest-card__badge-wrap">' + deliveryBadges + '</div></div>' : '') +
-              '</div>'
-            : '') +
-        '</div>';
+      card.innerHTML = buildCardHTML(r);
 
       card.addEventListener('click', function (e) {
         if (e.target.closest('a')) return;
@@ -509,6 +522,27 @@
       frag.appendChild(card);
     });
     listEl.appendChild(frag);
+  }
+
+  /* Randează cardul unui restaurant în panoul de detaliu desktop (mod Hartă).
+     Cu r === null afișează placeholderul „Alege o locație". */
+  function renderDetail(r) {
+    if (!detailEl) return;
+    if (!r) {
+      detailEl.innerHTML =
+        '<div class="rest-detail__placeholder">' +
+          '<i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>' +
+          '<span>Alege o locație de pe hartă</span>' +
+          '<span class="rest-detail__placeholder-hint">Apasă pe un pin ca să vezi detaliile restaurantului.</span>' +
+        '</div>';
+      return;
+    }
+    const card = document.createElement('div');
+    card.className = 'rest-card is-active';
+    card.dataset.id = r.id;
+    card.innerHTML = buildCardHTML(r);
+    detailEl.innerHTML = '';
+    detailEl.appendChild(card);
   }
 
   /* ================================================
@@ -541,11 +575,15 @@
         const r = allRestaurants.find(function (x) { return x.id === id; });
         if (r) {
           markerCluster.zoomToShowLayer(markers[id], function () {
+            // Pinul tocmai a fost scos din cluster și randat → re-aplică starea activă
+            // (getElement() era null cât timp pinul era ascuns/clusterizat).
+            setMarkerActive(markers[id], true);
             if (isMobile()) {
               panToPin(r.lat, r.lng);
             } else {
               map.setView([r.lat, r.lng], 14, { animate: true });
-              markers[id].openPopup();
+              // Desktop: detaliile apar în panou, nu în popup.
+              if (!isDesktop()) markers[id].openPopup();
             }
           });
         }
@@ -555,6 +593,12 @@
     document.querySelectorAll('.rest-card').forEach(function (c) {
       c.classList.toggle('is-active', Number(c.dataset.id) === id);
     });
+
+    // Desktop: umple panoul de detaliu cu restaurantul activ.
+    if (isDesktop()) {
+      const r = allRestaurants.find(function (x) { return x.id === id; });
+      if (r) renderDetail(r);
+    }
   }
 
   /* Scroll-ează lista până la cardul cu id-ul dat (desktop/tablet). */
@@ -809,6 +853,32 @@
     });
   }
 
+  /* Comutator Hartă / Listă (desktop) — schimbă data-view pe shell. */
+  if (viewToggleBtns.length && shellEl) {
+    viewToggleBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const view = btn.dataset.view;
+        if (shellEl.dataset.view === view) return;
+        viewToggleBtns.forEach(function (b) {
+          var on = b === btn;
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        shellEl.dataset.view = view;
+        if (view === 'map') {
+          // Harta a fost ascunsă în mod Listă → recalculează dimensiunea,
+          // apoi centrează pe restaurantul selectat din listă (dacă există).
+          setTimeout(function () {
+            map.invalidateSize();
+            if (activeId != null && markers[activeId]) {
+              setActive(activeId, true);
+            }
+          }, 320);
+        }
+      });
+    });
+  }
+
   var locationBtn    = document.getElementById('restLocationBtn');
   var locationBtnMap = document.getElementById('restLocationBtnMap');
   if (locationBtn)    locationBtn.addEventListener('click', toggleLocation);
@@ -834,9 +904,11 @@
       update();
 
       if (window.innerWidth > 1024) {
-        // Desktop: panou stânga + hartă vizibile simultan
+        // Desktop: panou stânga + hartă vizibile simultan; mod Hartă implicit
         sheetEl.classList.add('is-visible');
         mapWrap.classList.add('is-visible');
+        if (shellEl) shellEl.dataset.view = 'map';
+        renderDetail(null); // placeholder „Alege o locație"
       } else if (window.innerWidth > 768) {
         // Tablet: lista vizibilă by default, harta la tab switch
         sheetEl.classList.add('is-visible');

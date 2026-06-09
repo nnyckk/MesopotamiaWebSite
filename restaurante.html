@@ -19,9 +19,9 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
 
-  <link rel="stylesheet" href="css/layout.css?v=2">
-  <link rel="stylesheet" href="css/restaurante.css?v=2">
-  <script>(function(){if(localStorage.getItem('theme')==='light')document.documentElement.dataset.theme='light';})()</script>
+  <link rel="stylesheet" href="css/layout.css?v=3">
+  <link rel="stylesheet" href="css/restaurante.css?v=3">
+  <script>(function(){if(localStorage.getItem('theme')!=='dark')document.documentElement.dataset.theme='light';})()</script>
 
   <style>
     /* Cluster marker inline */
@@ -95,6 +95,7 @@
 
   <!-- BARA SEARCH + FILTRE -->
   <div class="rest-toolbar">
+    <p class="rest-count" id="restCount" aria-live="polite">Se încarcă...</p>
     <div class="rest-toolbar__search">
       <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
       <input
@@ -112,15 +113,26 @@
         <span>Filtrare</span>
         <span class="rest-filter-count" id="restFilterCount" hidden></span>
       </button>
-      <button class="rest-filter-btn rest-location-btn" id="restLocationBtn" aria-label="Restaurante lângă mine">
-        <i class="fa-solid fa-location-dot"></i>
+    </div>
+
+    <button class="rest-location-btn" id="restLocationBtn" aria-label="Restaurante lângă mine">
+      <i class="fa-solid fa-person"></i>
+    </button>
+
+    <!-- Comutator Hartă / Listă (desktop only) -->
+    <div class="rest-viewtoggle" role="tablist" aria-label="Mod afișare">
+      <button class="rest-viewtoggle__btn is-active" data-view="map" role="tab" aria-selected="true">
+        <i class="fa-solid fa-map" aria-hidden="true"></i><span>Hartă</span>
+      </button>
+      <button class="rest-viewtoggle__btn" data-view="list" role="tab" aria-selected="false">
+        <i class="fa-solid fa-list" aria-hidden="true"></i><span>Listă</span>
       </button>
     </div>
   </div>
 
   <div id="restToast" class="rest-toast" aria-live="polite"></div>
 
-  <div class="rest-shell">
+  <div class="rest-shell" data-view="map">
 
     <!-- TABS (tablet only) -->
     <div class="rest-tabs" role="tablist">
@@ -143,12 +155,18 @@
         </button>
       </div>
 
-      <!-- Counter -->
-      <p class="rest-count" id="restCount" aria-live="polite">Se încarcă...</p>
-
       <!-- Lista -->
       <div class="rest-list" id="restList" role="list">
         <!-- Generat dinamic din JS -->
+      </div>
+
+      <!-- Panou detaliu (desktop, mod Hartă) -->
+      <div class="rest-detail" id="restDetail" aria-live="polite">
+        <div class="rest-detail__placeholder">
+          <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+          <span>Alege o locație de pe hartă</span>
+          <span class="rest-detail__placeholder-hint">Apasă pe un pin ca să vezi detaliile restaurantului.</span>
+        </div>
       </div>
 
     </aside>
@@ -289,8 +307,8 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <script src="js/main.js?v=2"></script>
-  <script src="js/restaurante.js?v=2"></script>
+  <script src="js/main.js?v=3"></script>
+  <script src="js/restaurante.js?v=3"></script>
 
   <nav class="nav-bottom" id="navBottom" aria-label="Navigare principală">
     <a href="index.html"      class="nav-bottom__item"><i class="fa-solid fa-house"></i><span>Acasă</span></a>

@@ -88,7 +88,7 @@ function initThemeToggle() {
     });
   }
 
-  const saved = localStorage.getItem('theme') || 'dark';
+  const saved = localStorage.getItem('theme') || 'light';
   applyTheme(saved);
 
   btns.forEach(function(btn) {
