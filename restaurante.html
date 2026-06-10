@@ -19,8 +19,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
 
-  <link rel="stylesheet" href="css/layout.css?v=5">
-  <link rel="stylesheet" href="css/restaurante.css?v=5">
+  <link rel="stylesheet" href="css/layout.css?v=6">
+  <link rel="stylesheet" href="css/restaurante.css?v=6">
   <script>(function(){if(localStorage.getItem('theme')!=='dark')document.documentElement.dataset.theme='light';})()</script>
 
   <style>
@@ -134,16 +134,6 @@
 
   <div class="rest-shell" data-view="map">
 
-    <!-- TABS (tablet only) -->
-    <div class="rest-tabs" role="tablist">
-      <button class="rest-tab is-active" data-tab="list" role="tab" aria-selected="true">
-        <i class="fa-solid fa-list" aria-hidden="true"></i> Listă
-      </button>
-      <button class="rest-tab" data-tab="map" role="tab" aria-selected="false">
-        <i class="fa-solid fa-map" aria-hidden="true"></i> Hartă
-      </button>
-    </div>
-
     <!-- PANOU STÂNGA -->
     <aside class="rest-panel is-visible" id="restPanel" aria-label="Lista restaurante">
 
@@ -170,6 +160,9 @@
       </div>
 
     </aside>
+
+    <!-- Backdrop pentru modalul centrat de pe tabletă (frate după panel pt. selectorul ~) -->
+    <div class="rest-tablet-backdrop" id="restTabletBackdrop" aria-hidden="true"></div>
 
     <!-- Buton locație floating (mobile) -->
     <button class="rest-location-btn-map" id="restLocationBtnMap" aria-label="Restaurante lângă mine">
@@ -307,8 +300,8 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <script src="js/main.js?v=5"></script>
-  <script src="js/restaurante.js?v=5"></script>
+  <script src="js/main.js?v=6"></script>
+  <script src="js/restaurante.js?v=6"></script>
 
   <nav class="nav-bottom" id="navBottom" aria-label="Navigare principală">
     <a href="index.html"      class="nav-bottom__item"><i class="fa-solid fa-house"></i><span>Acasă</span></a>

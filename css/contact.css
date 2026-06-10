@@ -196,12 +196,25 @@
   flex-direction: column;
   overflow: hidden;
   position: relative;
+  opacity: 0;
   transform: translateY(16px) scale(0.97);
-  transition: transform 0.25s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .contact-modal-overlay.is-open .contact-modal {
+  opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+/* Tabletă cu nav-bottom (641–899px): modalul centrat ține cont de bara de jos */
+@media (min-width: 641px) and (max-width: 899px) {
+  .contact-modal-overlay {
+    padding-bottom: calc(var(--nav-bottom-h) + var(--space-lg) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .contact-modal {
+    max-height: calc(100vh - var(--header-h) - var(--space-2xl) - var(--nav-bottom-h) - env(safe-area-inset-bottom, 0px));
+  }
 }
 
 .contact-modal__handle {

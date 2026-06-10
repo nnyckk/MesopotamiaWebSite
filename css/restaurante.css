@@ -241,7 +241,7 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 899px) {
   /* Ascunde butonul din toolbar și zoom controls */
   .rest-location-btn { display: none !important; }
   .leaflet-control-zoom { display: none !important; }
@@ -973,78 +973,10 @@
 
 
 /* ================================================
-   6. TABS (tablet — toggle lista/harta)
-   ================================================ */
-.rest-tabs {
-  display: none;
-  border-bottom: 1px solid var(--color-border);
-  background: var(--color-surface);
-  flex-shrink: 0;
-}
-
-.rest-tab {
-  flex: 1;
-  padding: var(--space-sm) var(--space-md);
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  color: var(--color-text-muted);
-  font-family: var(--font-heading);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-xs);
-}
-
-.rest-tab.is-active {
-  color: var(--color-primary);
-  border-bottom-color: var(--color-primary);
-}
-
-
-/* ================================================
    9. RESPONSIVE
    ================================================ */
 
 /* Tablet: card full width, tabs + un singur view vizibil */
-@media (max-width: 1024px) {
-  .rest-shell {
-    flex-direction: column;
-    height: clamp(500px, 75vh, 700px);
-  }
-
-  .rest-tabs {
-    display: flex;
-    flex-shrink: 0;
-  }
-
-  .rest-panel {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid var(--color-border);
-    display: none;
-    flex: 1;
-  }
-
-  .rest-panel.is-visible {
-    display: flex;
-  }
-
-  .rest-map {
-    display: none;
-    flex: 1;
-  }
-
-  .rest-map.is-visible {
-    display: block;
-  }
-}
 
 /* Handle și close — ascunse implicit, vizibile doar pe mobile */
 .rest-sheet-handle,
@@ -1052,8 +984,13 @@
   display: none;
 }
 
+/* Backdrop modal tabletă — ascuns implicit, activat doar pe tabletă */
+.rest-tablet-backdrop {
+  display: none;
+}
+
 /* Mobile: filter modal → bottom sheet (exact pattern ca meniu.html) */
-@media (max-width: 640px) {
+@media (max-width: 899px) {
   .rest-filter-overlay {
     padding: 0;
     padding-bottom: calc(var(--nav-bottom-h) + env(safe-area-inset-bottom, 0px));
@@ -1089,7 +1026,7 @@
 
 
 /* Mobile: bottom sheet */
-@media (max-width: 768px) {
+@media (max-width: 899px) {
   html, body {
     overflow: hidden;
     overscroll-behavior: none;
@@ -1135,9 +1072,6 @@
     border-radius: 0;
   }
 
-  .rest-tabs {
-    display: none;
-  }
 
   /* Harta fullscreen */
   .rest-map {
@@ -1176,6 +1110,74 @@
 
   .rest-panel.sheet--full {
     transform: translateY(0);
+  }
+
+  /* Tabletă (641–899px): cardul devine MODAL CENTRAT, nu bottom-sheet.
+     Fundal întunecat + card centrat, apare prin scale/opacity. Fără swipe. */
+  @media (min-width: 641px) {
+    .rest-panel {
+      top: 50%;
+      bottom: auto;
+      left: 50%;
+      right: auto;
+      width: calc(100% - 2 * var(--space-xl));
+      max-width: 480px;
+      height: auto;
+      max-height: calc(100dvh - var(--header-h) - var(--nav-bottom-h) - 2 * var(--space-xl) - env(safe-area-inset-bottom, 0px));
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-lg);
+      /* Centrare constantă; animăm doar opacitatea (fade simplu, fără scale) */
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0s 0.25s;
+    }
+
+    /* Stările half/full devin „deschis" (modalul nu are half pe tabletă).
+       Transform explicit ca să bată regula mobile .sheet--full { translateY }. */
+    .rest-panel.sheet--half,
+    .rest-panel.sheet--full {
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.25s ease;
+    }
+
+    /* Handle-ul de swipe nu are sens pe tabletă */
+    .rest-sheet-handle__bar {
+      display: none;
+    }
+
+    /* Modalul se strânge la conținut; scroll doar dacă depășește max-height */
+    .rest-panel .rest-list {
+      flex: 0 1 auto;
+      overflow-y: auto;
+      padding-bottom: 0;
+    }
+
+    .rest-panel .rest-card.is-active {
+      height: auto;
+      overflow: visible;
+    }
+
+    /* Backdrop întunecat din spatele modalului */
+    .rest-tablet-backdrop {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+      background: var(--color-overlay);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .rest-panel.sheet--half ~ .rest-tablet-backdrop,
+    .rest-panel.sheet--full ~ .rest-tablet-backdrop {
+      opacity: 1;
+      pointer-events: auto;
+    }
   }
 
 
@@ -1372,7 +1374,7 @@
   display: none;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 900px) {
 
   /* Butonul de locație trăiește pe hartă (ca pe mobile), nu în toolbar */
   .rest-location-btn {
@@ -1524,6 +1526,22 @@
     background: transparent;
     box-shadow: none;
     overflow: hidden;
+    animation: rest-detail-in 0.25s ease both;
+  }
+
+  @keyframes rest-detail-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Fade-out la deselectare (clasă pusă de JS înainte de a goli panoul) */
+  .rest-detail.is-leaving .rest-card {
+    animation: rest-detail-out 0.2s ease both;
+  }
+
+  @keyframes rest-detail-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
   }
 
   /* Poza rămâne fixă sus; doar zona de jos derulează */

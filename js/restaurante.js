@@ -18,11 +18,17 @@
   var closeBtn   = document.getElementById('restSheetClose');
   var sheetState = 'hidden'; // 'hidden' | 'half' | 'full'
 
-  /* Returnează true dacă viewport-ul e mobil (≤ 768px). */
-  function isMobile() { return window.innerWidth <= 768; }
+  /* Sub 900px = mobile (hartă full + card peste hartă); de la 900px = desktop
+     (hartă/listă + panou). Mobile se împarte în telefon (sheet cu swipe) și
+     tabletă (modal centrat, fără swipe). */
+  function isMobile() { return window.innerWidth < 900; }
+  function isDesktop() { return window.innerWidth >= 900; }
 
-  /* Returnează true dacă viewport-ul e desktop (> 1024px). */
-  function isDesktop() { return window.innerWidth > 1024; }
+  /* Telefon: bottom-sheet cu swipe (sub 641px). */
+  function isPhone() { return window.innerWidth < 641; }
+
+  /* Tabletă: modal centrat, fără swipe (641–899px). */
+  function isTablet() { return window.innerWidth >= 641 && window.innerWidth < 900; }
 
   /* Schimbă starea bottom sheet-ului și aplică clasa CSS corespunzătoare. */
   function setSheet(state) {
@@ -31,8 +37,17 @@
     if (state === 'half') sheetEl.classList.add('sheet--half');
     if (state === 'full') sheetEl.classList.add('sheet--full');
     var navEl = document.getElementById('navBottom');
-    if (navEl) navEl.classList.toggle('has-sheet', state !== 'hidden');
-    if (state === 'hidden') clearActive();
+    // Umbra has-sheet doar pe telefon (sheet lipit de nav); pe tabletă e modal centrat.
+    if (navEl) navEl.classList.toggle('has-sheet', state !== 'hidden' && isPhone());
+    if (state === 'hidden') {
+      // Pe tabletă, lasă cardul vizibil pe durata fade-out-ului, apoi curăță
+      // (altfel cardul devine display:none instant și modalul „se strânge").
+      if (isTablet()) {
+        setTimeout(clearActive, 250);
+      } else {
+        clearActive();
+      }
+    }
   }
 
   /* Dezactivează restaurantul activ: pinul redevine normal, cardul își pierde is-active. */
@@ -50,6 +65,14 @@
 
   if (closeBtn) {
     closeBtn.addEventListener('click', function () { setSheet('hidden'); });
+  }
+
+  /* Tabletă: click pe fundalul întunecat (overlay) închide modalul. */
+  var tabletBackdrop = document.getElementById('restTabletBackdrop');
+  if (tabletBackdrop) {
+    tabletBackdrop.addEventListener('click', function () {
+      if (isTablet()) setSheet('hidden');
+    });
   }
 
   /* ── Swipe state ────────────────────────────────────────── */
@@ -105,7 +128,7 @@
 
   /* ── Touch handlers pentru bottom sheet ─────────────────── */
   sheetEl.addEventListener('touchstart', function (e) {
-    if (!isMobile()) return;
+    if (!isPhone()) return; // swipe doar pe telefon; tabletă = modal centrat
     swipeStartY = e.touches[0].clientY;
     swipeBaseY  = getBaseTranslatePx();
     sheetEl.style.transition = 'none';
@@ -114,7 +137,7 @@
   }, { passive: true });
 
   sheetEl.addEventListener('touchmove', function (e) {
-    if (!isMobile()) return;
+    if (!isPhone()) return;
     var delta         = e.touches[0].clientY - swipeStartY;
     var activeCard    = listEl ? listEl.querySelector('.rest-card.is-active') : null;
     var cardScrollTop = activeCard ? activeCard.scrollTop : 0;
@@ -137,7 +160,7 @@
   }, { passive: false });
 
   sheetEl.addEventListener('touchend', function (e) {
-    if (!isMobile()) return;
+    if (!isPhone()) return;
     var delta = e.changedTouches[0].clientY - swipeStartY;
     sheetEl.style.transform = '';
     sheetEl.style.transition = '';
@@ -182,7 +205,6 @@
   const listEl         = document.getElementById('restList');
   const countEl        = document.getElementById('restCount');
   const searchEl       = document.getElementById('restSearch');
-  const tabBtns        = document.querySelectorAll('.rest-tab');
   const mapWrap        = document.getElementById('restMapWrap');
   const shellEl        = document.querySelector('.rest-shell');
   const detailEl       = document.getElementById('restDetail');
@@ -364,10 +386,13 @@
         // Desktop mod Hartă: centrează pe pin + arată cardul în panoul de detaliu.
         setActive(r.id, isDesktop());
         scrollToCard(r.id);
-        if (isMobile()) {
+        if (isPhone()) {
           updatePeekHeight();
           setSheet('half');
           panToPin(r.lat, r.lng);
+        } else if (isTablet()) {
+          // Tabletă: modal centrat complet, fără swipe.
+          setSheet('full');
         }
       });
 
@@ -517,24 +542,38 @@
 
   /* Randează cardul unui restaurant în panoul de detaliu desktop (mod Hartă).
      Cu r === null afișează placeholderul „Alege o locație". */
+  /* Construiește HTML-ul placeholderului „Alege o locație" (după mod). */
+  function detailPlaceholderHTML() {
+    var listMode = shellEl && shellEl.dataset.view === 'list';
+    var icon  = listMode ? 'fa-store' : 'fa-map-location-dot';
+    var title = listMode ? 'Alege un restaurant' : 'Alege o locație de pe hartă';
+    var hint  = listMode
+      ? 'Apasă pe un card ca să vezi detaliile restaurantului.'
+      : 'Apasă pe un pin ca să vezi detaliile restaurantului.';
+    return '<div class="rest-detail__placeholder">' +
+      '<i class="fa-solid ' + icon + '" aria-hidden="true"></i>' +
+      '<span>' + title + '</span>' +
+      '<span class="rest-detail__placeholder-hint">' + hint + '</span>' +
+    '</div>';
+  }
+
   function renderDetail(r) {
     if (!detailEl) return;
     if (!r) {
-      // Placeholder diferit în funcție de mod (hartă vs listă).
-      var listMode = shellEl && shellEl.dataset.view === 'list';
-      var icon  = listMode ? 'fa-store' : 'fa-map-location-dot';
-      var title = listMode ? 'Alege un restaurant' : 'Alege o locație de pe hartă';
-      var hint  = listMode
-        ? 'Apasă pe un card ca să vezi detaliile restaurantului.'
-        : 'Apasă pe un pin ca să vezi detaliile restaurantului.';
-      detailEl.innerHTML =
-        '<div class="rest-detail__placeholder">' +
-          '<i class="fa-solid ' + icon + '" aria-hidden="true"></i>' +
-          '<span>' + title + '</span>' +
-          '<span class="rest-detail__placeholder-hint">' + hint + '</span>' +
-        '</div>';
+      // Deselectare: dacă există un card, fade-out înainte de placeholder.
+      var existing = detailEl.querySelector('.rest-card');
+      if (existing) {
+        detailEl.classList.add('is-leaving');
+        setTimeout(function () {
+          detailEl.classList.remove('is-leaving');
+          detailEl.innerHTML = detailPlaceholderHTML();
+        }, 200);
+      } else {
+        detailEl.innerHTML = detailPlaceholderHTML();
+      }
       return;
     }
+    detailEl.classList.remove('is-leaving'); // anulează un fade-out în curs
     const card = document.createElement('div');
     card.className = 'rest-card is-active';
     card.dataset.id = r.id;
@@ -884,22 +923,6 @@
     });
   });
 
-  /* Tabs (tablet) — comută vizibilitatea între panoul cu lista și hartă */
-  if (tabBtns.length) {
-    tabBtns.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        tabBtns.forEach(function (b) { b.classList.remove('is-active'); });
-        btn.classList.add('is-active');
-        const target = btn.dataset.tab;
-        sheetEl.classList.toggle('is-visible', target === 'list');
-        mapWrap.classList.toggle('is-visible', target === 'map');
-        if (target === 'map') {
-          setTimeout(function () { map.invalidateSize(); }, 320);
-        }
-      });
-    });
-  }
-
   /* Comutator Hartă / Listă (desktop) — schimbă data-view pe shell. */
   if (viewToggleBtns.length && shellEl) {
     viewToggleBtns.forEach(function (btn) {
@@ -966,22 +989,14 @@
       initMap();
       update();
 
-      if (window.innerWidth > 1024) {
-        // Desktop: panou stânga + hartă vizibile simultan; mod Hartă implicit
-        sheetEl.classList.add('is-visible');
-        mapWrap.classList.add('is-visible');
+      sheetEl.classList.add('is-visible');
+      mapWrap.classList.add('is-visible');
+      if (isDesktop()) {
+        // Desktop: panou + hartă simultan; mod Hartă implicit
         if (shellEl) shellEl.dataset.view = 'map';
         renderDetail(null); // placeholder „Alege o locație"
-      } else if (window.innerWidth > 768) {
-        // Tablet: lista vizibilă by default, harta la tab switch
-        sheetEl.classList.add('is-visible');
-        const firstTab = document.querySelector('.rest-tab[data-tab="list"]');
-        if (firstTab) firstTab.classList.add('is-active');
-      } else {
-        // Mobile: harta fullscreen + bottom sheet
-        sheetEl.classList.add('is-visible');
-        mapWrap.classList.add('is-visible');
       }
+      // Mobile (<900px): harta fullscreen + bottom sheet (clasele de mai sus)
 
       // Calculează înălțimile dinamice (--sheet-top / --sheet-peek) din DOM-ul real,
       // ca să nu se folosească valorile fallback hardcodate din CSS.

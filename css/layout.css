@@ -161,7 +161,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 899px) {
   [data-theme="light"] .nav__links {
     background: #fbfbfb;
   }
@@ -179,7 +179,7 @@
   background: rgba(176, 1, 6, 0.08);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 899px) {
   [data-theme="light"] .nav__link--active {
     background: none;
   }
@@ -668,7 +668,7 @@ strong {
 }
 
 /* Responsive nav */
-@media (max-width: 1024px) {
+@media (max-width: 899px) {
   .nav__actions .nav__lang {
     display: none;
   }
@@ -738,12 +738,6 @@ strong {
     background: none;
   }
 
-  .nav__hamburger {
-    display: flex;
-    position: relative;
-    z-index: 1001;
-  }
-
   .nav__lang-mobile .nav__link {
     font-size: 1rem;
     font-weight: 600;
@@ -756,27 +750,9 @@ strong {
     --header-h: 64px;
   }
 
-  .nav {
-    position: relative;
-    justify-content: center;
-  }
-
-  .nav__logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
   .nav__actions {
     margin-left: auto;
-  }
-
-  .nav__actions {
     gap: var(--space-sm);
-  }
-
-  .nav__hamburger {
-    margin-left: 0;
   }
 }
 
@@ -936,7 +912,7 @@ strong {
 }
 
 /* Responsive footer */
-@media (max-width: 768px) {
+@media (max-width: 899px) {
   .footer__body {
     flex-direction: column;
     align-items: center;
@@ -1172,7 +1148,19 @@ strong {
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 899px) {
+  /* Logo centrat pe mijloc sub 900px */
+  .nav {
+    position: relative;
+    justify-content: center;
+  }
+
+  .nav__logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .nav__logo-img {
     height: auto;
     width: 260px;

@@ -370,12 +370,25 @@
   flex-direction: column;
   overflow: hidden;
   position: relative;
+  opacity: 0;
   transform: translateY(16px) scale(0.97);
-  transition: transform 0.25s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .product-modal-overlay.is-open .product-modal {
+  opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+/* Tabletă cu nav-bottom (641–899px): modalul centrat ține cont de bara de jos */
+@media (min-width: 641px) and (max-width: 899px) {
+  .product-modal-overlay {
+    padding-bottom: calc(var(--nav-bottom-h) + var(--space-lg) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .product-modal {
+    max-height: calc(100vh - var(--header-h) - var(--space-2xl) - var(--nav-bottom-h) - env(safe-area-inset-bottom, 0px));
+  }
 }
 
 .product-modal__handle {
@@ -768,13 +781,13 @@
   }
 
   .product-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-lg);
   }
 }
 
-/* iPad Air / Pro — larger bar items */
-@media (min-width: 769px) and (max-width: 1024px) {
+/* Tablete (iPad mini, Air, Pro portrait) — item-uri medii, consistente */
+@media (min-width: 641px) and (max-width: 1024px) {
   .meniu-sidebar {
     -webkit-overflow-scrolling: touch;
   }
@@ -784,28 +797,35 @@
   }
 
   .sidebar-cat {
-    flex: 0 0 160px;
+    flex: 0 0 120px;
     padding: var(--space-md) var(--space-sm);
   }
 
   .sidebar-cat__img-wrap {
-    width: 80px;
-    height: 80px;
+    width: 56px;
+    height: 56px;
   }
 
   .sidebar-cat__icon-wrap {
-    width: 80px;
-    height: 80px;
-    font-size: 1.8rem;
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
   }
 
   .sidebar-cat__name {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
   }
 }
 
-/* Mobile + iPad mini — smaller bar items */
+/* iPad mini și mai mic — grila pe 2 coloane */
 @media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Telefoane — bara de categorii cu item-uri mici */
+@media (max-width: 640px) {
   .sidebar-cat {
     flex: 1 1 0;
     min-width: 90px;
