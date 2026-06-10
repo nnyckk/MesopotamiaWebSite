@@ -44,6 +44,8 @@
     document.querySelectorAll('.rest-card.is-active').forEach(function (c) {
       c.classList.remove('is-active');
     });
+    // Desktop: revino la placeholderul „Alege o locație".
+    if (isDesktop()) renderDetail(null);
   }
 
   if (closeBtn) {
@@ -296,12 +298,11 @@
       className: '',
       iconSize: [32, 32],
       iconAnchor: [16, 32],
-      popupAnchor: [0, -34],
     });
   }
 
   /* ================================================
-     3. POPUP HARTĂ
+     3. BADGE LIVRARE
   ================================================ */
   /*
    * Returnează HTML pentru un badge de livrare.
@@ -313,23 +314,6 @@
     return typeof value === 'string'
       ? '<a href="' + value + '" target="_blank" rel="noopener" class="rest-badge-link">' + badge + '</a>'
       : badge;
-  }
-
-  /* Generează HTML-ul pentru popup-ul Leaflet al unui restaurant. */
-  function makePopup(r) {
-    let badges = '';
-    if (r.features.mesoCafe) badges += '<span class="rest-badge rest-badge--cafe"><i class="fa-solid fa-mug-hot"></i> Meso Cafe</span>';
-    if (r.features.mesoKids) badges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Meso Kids</span>';
-    if (r.features.terasa)   badges += '<span class="rest-badge rest-badge--terasa"><i class="fa-solid fa-umbrella-beach"></i> Terasă</span>';
-    badges += deliveryBadge(r.delivery.glovo,    'glovo', 'Glovo');
-    badges += deliveryBadge(r.delivery.boltFood, 'bolt',  'Bolt Food');
-    badges += deliveryBadge(r.delivery.wolt,     'wolt',  'Wolt');
-
-    return '<div class="map-popup__name">' + r.name + '</div>' +
-      '<div class="map-popup__row"><i class="fa-solid fa-location-dot"></i>' + r.address + '</div>' +
-      '<div class="map-popup__row"><i class="fa-regular fa-clock"></i>' + r.hours + '</div>' +
-      '<div class="map-popup__row"><i class="fa-solid fa-phone"></i>' + r.phone + '</div>' +
-      (badges ? '<div class="map-popup__badges">' + badges + '</div>' : '');
   }
 
   /* ================================================
@@ -362,9 +346,13 @@
 
     restaurants.forEach(function (r) {
       const marker = L.marker([r.lat, r.lng], { icon: makeIcon() });
-      marker.bindPopup(makePopup(r), { maxWidth: 260, autoPan: false });
 
       marker.on('click', function () {
+        // Desktop: re-click pe pinul activ îl deselectează (revine la placeholder).
+        if (isDesktop() && activeId === r.id) {
+          clearActive();
+          return;
+        }
         // Dacă restaurantul nu e în lista curentă (filtrat de search), golește
         // search-ul ca să apară cardul lui — altfel sheet-ul ar fi gol.
         if (searchQuery && !matchesSearch(r)) {
@@ -376,9 +364,7 @@
         // Desktop mod Hartă: centrează pe pin + arată cardul în panoul de detaliu.
         setActive(r.id, isDesktop());
         scrollToCard(r.id);
-        if (isDesktop()) marker.closePopup();
         if (isMobile()) {
-          marker.closePopup();
           updatePeekHeight();
           setSheet('half');
           panToPin(r.lat, r.lng);
@@ -510,6 +496,11 @@
 
       card.addEventListener('click', function (e) {
         if (e.target.closest('a')) return;
+        // Desktop (mod Listă): re-click pe cardul selectat îl deselectează.
+        if (isDesktop() && activeId === r.id) {
+          clearActive();
+          return;
+        }
         // Centrează harta pe pin doar când sheet-ul e pe jumătate deschis
         setActive(r.id, isMobile() && sheetState === 'half');
         var rect     = card.getBoundingClientRect();
@@ -529,11 +520,18 @@
   function renderDetail(r) {
     if (!detailEl) return;
     if (!r) {
+      // Placeholder diferit în funcție de mod (hartă vs listă).
+      var listMode = shellEl && shellEl.dataset.view === 'list';
+      var icon  = listMode ? 'fa-store' : 'fa-map-location-dot';
+      var title = listMode ? 'Alege un restaurant' : 'Alege o locație de pe hartă';
+      var hint  = listMode
+        ? 'Apasă pe un card ca să vezi detaliile restaurantului.'
+        : 'Apasă pe un pin ca să vezi detaliile restaurantului.';
       detailEl.innerHTML =
         '<div class="rest-detail__placeholder">' +
-          '<i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>' +
-          '<span>Alege o locație de pe hartă</span>' +
-          '<span class="rest-detail__placeholder-hint">Apasă pe un pin ca să vezi detaliile restaurantului.</span>' +
+          '<i class="fa-solid ' + icon + '" aria-hidden="true"></i>' +
+          '<span>' + title + '</span>' +
+          '<span class="rest-detail__placeholder-hint">' + hint + '</span>' +
         '</div>';
       return;
     }
@@ -541,8 +539,43 @@
     card.className = 'rest-card is-active';
     card.dataset.id = r.id;
     card.innerHTML = buildCardHTML(r);
+
+    // Desktop: poza rămâne fixă sus, restul (titlu + info) într-o zonă scrollabilă
+    // cu scrollbar propriu — ca la modalul de produs din meniu.
+    var banner = card.querySelector('.rest-card__banner');
+    var name   = card.querySelector('.rest-card__name');
+    var body   = card.querySelector('.rest-card__body');
+    if (banner && name && body) {
+      var scroller = document.createElement('div');
+      scroller.className = 'rest-detail__scroll';
+      scroller.appendChild(name);
+      scroller.appendChild(body);
+      // Buton de închidere (deselectare) peste poză
+      var closeDetail = document.createElement('button');
+      closeDetail.className = 'rest-detail__close';
+      closeDetail.setAttribute('aria-label', 'Închide');
+      closeDetail.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+      closeDetail.addEventListener('click', clearActive);
+      card.innerHTML = '';
+      card.appendChild(banner);
+      card.appendChild(closeDetail);
+      card.appendChild(scroller);
+    }
+
     detailEl.innerHTML = '';
     detailEl.appendChild(card);
+    var scroller2 = card.querySelector('.rest-detail__scroll');
+    if (scroller2) scroller2.scrollTop = 0;
+    updateDetailScrolled();
+  }
+
+  /* Marchează panoul de detaliu cu .is-scrolled doar dacă zona de sub poză
+     are conținut scrollabil și a fost derulată (controlează umbra sub poză). */
+  function updateDetailScrolled() {
+    if (!detailEl) return;
+    var sc = detailEl.querySelector('.rest-detail__scroll');
+    var scrolled = sc && (sc.scrollHeight - sc.clientHeight > 4) && sc.scrollTop > 4;
+    detailEl.classList.toggle('is-scrolled', !!scrolled);
   }
 
   /* ================================================
@@ -581,9 +614,8 @@
             if (isMobile()) {
               panToPin(r.lat, r.lng);
             } else {
-              map.setView([r.lat, r.lng], 14, { animate: true });
-              // Desktop: detaliile apar în panou, nu în popup.
-              if (!isDesktop()) markers[id].openPopup();
+              // Zoom mai aproape pe desktop ca pinul să iasă din cluster și să fie izolat.
+              map.setView([r.lat, r.lng], 16, { animate: true });
             }
           });
         }
@@ -655,6 +687,16 @@
   function update() {
     const listResults = getListResults();
     const mapResults  = getMapResults();
+
+    // Dacă restaurantul activ nu mai trece filtrele, deselectează-l ca să nu
+    // rămână un card gol în sheet (mobile) / panou (desktop).
+    if (activeId != null && !mapResults.some(function (r) { return r.id === activeId; })) {
+      if (isMobile()) {
+        setSheet('hidden'); // setSheet('hidden') apelează clearActive()
+      } else {
+        clearActive();
+      }
+    }
 
     renderList(listResults);
     buildMarkers(mapResults);
@@ -874,10 +916,28 @@
               setActive(activeId, true);
             }
           }, 320);
+        } else {
+          // Mod Listă: sincronizează panoul de detaliu cu selecția curentă.
+          var ar = activeId != null
+            ? allRestaurants.find(function (x) { return x.id === activeId; })
+            : null;
+          renderDetail(ar || null);
         }
       });
     });
   }
+
+  /* Umbra de sub poză apare la scroll-ul zonei de info (capture, scroll nu face bubble) */
+  if (detailEl) {
+    detailEl.addEventListener('scroll', updateDetailScrolled, true);
+  }
+
+  /* Escape deselectează restaurantul activ (desktop) */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && isDesktop() && activeId != null) {
+      clearActive();
+    }
+  });
 
   var locationBtn    = document.getElementById('restLocationBtn');
   var locationBtnMap = document.getElementById('restLocationBtnMap');

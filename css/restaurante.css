@@ -485,11 +485,6 @@
 }
 
 .rest-filter-check input:checked ~ .rest-filter-check__box {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-}
-
-[data-theme="light"] .rest-filter-check input:checked ~ .rest-filter-check__box {
   background: var(--color-primary);
   border-color: var(--color-primary);
 }
@@ -499,7 +494,7 @@
   display: block;
   width: 5px;
   height: 9px;
-  border: 2px solid #000;
+  border: 2px solid #fff;
   border-top: none;
   border-left: none;
   transform: rotate(45deg) translate(-1px, -1px);
@@ -930,55 +925,6 @@
   z-index: 600;
 }
 
-/* Suprascriere leaflet pentru dark mode */
-.leaflet-popup-content-wrapper {
-  background: var(--color-surface);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-md);
-  border-radius: var(--radius-md) !important;
-}
-
-.leaflet-popup-tip {
-  background: var(--color-surface);
-}
-
-.leaflet-popup-content {
-  margin: 0.85rem 1rem !important;
-}
-
-.map-popup__name {
-  font-family: var(--font-heading);
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 4px;
-}
-
-.map-popup__row {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-  font-size: 0.78rem;
-  color: var(--color-text-muted);
-  margin-top: 4px;
-  line-height: 1.4;
-}
-
-.map-popup__row i {
-  color: var(--color-primary);
-  font-size: 0.72rem;
-  margin-top: 2px;
-  flex-shrink: 0;
-}
-
-.map-popup__badges {
-  display: flex;
-  gap: 4px;
-  margin-top: 8px;
-  flex-wrap: wrap;
-}
-
 /* Marker custom */
 .rest-marker {
   width: 32px;
@@ -1063,19 +1009,6 @@
 
 
 /* ================================================
-   7. LIGHT THEME OVERRIDES
-   ================================================ */
-[data-theme="light"] .leaflet-popup-content-wrapper {
-  background: #fff;
-  border-color: rgba(0,0,0,0.1);
-}
-
-[data-theme="light"] .leaflet-popup-tip {
-  background: #fff;
-}
-
-
-/* ================================================
    9. RESPONSIVE
    ================================================ */
 
@@ -1154,12 +1087,6 @@
   }
 }
 
-/* Mobile: fara popup Leaflet, info sunt in bottom sheet */
-@media (max-width: 768px) {
-  .leaflet-popup {
-    display: none !important;
-  }
-}
 
 /* Mobile: bottom sheet */
 @media (max-width: 768px) {
@@ -1476,8 +1403,16 @@
     font-size: 1.55rem;
     cursor: pointer;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
-    transition: color var(--transition-fast), border-color var(--transition-fast);
+    transition: color var(--transition-fast), border-color var(--transition-fast),
+                background var(--transition-fast);
   }
+
+  @media (hover: hover) {
+    .rest-shell[data-view="map"] .rest-location-btn-map:hover {
+      color: #3b82f6;
+    }
+  }
+
 
   .rest-shell[data-view="map"] .rest-location-btn-map span {
     font-family: var(--font-heading);
@@ -1541,7 +1476,7 @@
     flex-direction: column;
     flex: 1;
     min-height: 0;
-    overflow-y: auto;
+    overflow: hidden;
   }
 
   /* Placeholder „Alege o locație" */
@@ -1578,89 +1513,205 @@
 
   /* Cardul din panoul de detaliu: ocupă tot panoul, stil mărit */
   .rest-detail .rest-card {
+    position: relative;
     cursor: default;
-    flex: 1;
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-height: 0;
     border: none;
     border-radius: 0;
     background: transparent;
     box-shadow: none;
+    overflow: hidden;
   }
 
+  /* Poza rămâne fixă sus; doar zona de jos derulează */
   .rest-detail .rest-card__banner {
-    height: 220px;
     flex-shrink: 0;
+    height: 220px;
+    box-shadow: 0 6px 14px -8px transparent;
+    transition: box-shadow var(--transition-fast);
+    z-index: 2;
+  }
+
+  /* Buton de deselectare peste poză (colț dreapta-sus) */
+  .rest-detail__close {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    z-index: 3;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast);
+  }
+
+  @media (hover: hover) {
+    .rest-detail__close:hover {
+      background: #fff;
+      color: var(--color-primary);
+    }
+  }
+
+  /* Umbra sub poză apare doar când zona de info e derulată */
+  .rest-detail.is-scrolled .rest-card__banner {
+    box-shadow: 0 6px 14px -8px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Zona scrollabilă (titlu + info) — scrollbar doar aici, subțire */
+  .rest-detail__scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+
+  .rest-detail__scroll::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .rest-detail__scroll::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 2px;
   }
 
   .rest-detail .rest-card__name {
     font-size: 1.4rem;
     font-weight: 800;
-    padding: var(--space-lg) var(--space-lg) 0;
+    padding: var(--space-lg) var(--space-lg) var(--space-sm);
   }
 
   .rest-detail .rest-card__body {
-    flex: 1;
-    padding: var(--space-md) var(--space-lg) var(--space-lg);
-    gap: var(--space-sm);
+    padding: 0 var(--space-lg) var(--space-lg);
+    gap: 0;
   }
 
-  .rest-detail .rest-card__meta {
-    font-size: 0.95rem;
-    padding: var(--space-xs) 0;
-  }
-
-  .rest-detail .rest-card__meta i {
+  .rest-detail .rest-card__meta,
+  .rest-shell[data-view="list"] .rest-card__meta {
     font-size: 0.9rem;
-    width: 16px;
+    line-height: 1.35;
+    gap: var(--space-sm);
+    align-items: center;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
   }
 
-  .rest-detail .rest-card__badge-label {
-    font-size: 0.78rem;
+  /* Textul din rândul de adresă, centrat vertical lângă iconițe */
+  .rest-detail .rest-card__address,
+  .rest-shell[data-view="list"] .rest-card__address {
+    align-items: center;
   }
 
-  .rest-detail .rest-badge {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.7rem;
+  .rest-detail .rest-card__address > span,
+  .rest-shell[data-view="list"] .rest-card__address > span {
+    align-self: center;
   }
 
-  .rest-detail .rest-card__badge-groups {
+  .rest-detail .rest-card__meta:last-of-type,
+  .rest-shell[data-view="list"] .rest-card__meta:last-of-type {
+    border-bottom: none;
+  }
+
+  .rest-detail .rest-card__hours,
+  .rest-shell[data-view="list"] .rest-card__hours {
+    align-items: flex-start;
+  }
+
+  /* Iconițe în pătrat, ca pe mobile (inclusiv săgeata de direcții) */
+  .rest-detail .rest-card__meta i,
+  .rest-shell[data-view="list"] .rest-card__meta i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    font-size: 0.8rem;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-accent);
+    margin-top: 0;
+  }
+
+  [data-theme="light"] .rest-detail .rest-card__meta i:not(.rest-card__address-go),
+  [data-theme="light"] .rest-shell[data-view="list"] .rest-card__meta i:not(.rest-card__address-go) {
+    color: var(--color-primary);
+  }
+
+  .rest-detail .rest-card__badge-label,
+  .rest-shell[data-view="list"] .rest-card__badge-label {
+    font-size: 0.72rem;
+  }
+
+  .rest-detail .rest-badge,
+  .rest-shell[data-view="list"] .rest-badge {
+    font-size: 0.72rem;
+    padding: 0.28rem 0.65rem;
+  }
+
+  .rest-detail .rest-card__badge-groups,
+  .rest-shell[data-view="list"] .rest-card__badge-groups {
     margin-top: var(--space-sm);
     gap: var(--space-md);
   }
 
-  /* ── Mod LISTĂ: harta ascunsă, panou full-width, carduri în grilă ── */
+  /* ── Mod LISTĂ: detaliu stânga (ca la hartă) + grilă carduri compacte dreapta ── */
   .rest-shell[data-view="list"] .rest-map {
     display: none;
   }
 
-  .rest-shell[data-view="list"] .rest-detail {
-    display: none;
-  }
-
+  /* Panoul stâng devine container orizontal: detaliu + grilă */
   .rest-shell[data-view="list"] .rest-panel {
     position: static;
+    flex-direction: row;
     width: 100%;
     border-right: none;
     overflow: hidden;
   }
 
+  /* Detaliu = coloana stângă (ca la hartă) */
+  .rest-shell[data-view="list"] .rest-detail {
+    order: 0;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    flex-shrink: 0;
+    min-height: 0;
+    border-right: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  /* Grila de carduri compacte = coloana dreaptă (în locul hărții) */
   .rest-shell[data-view="list"] .rest-list {
+    order: 1;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: max-content;
-    column-gap: var(--space-xl);
-    row-gap: var(--space-xl);
+    column-gap: var(--space-lg);
+    row-gap: var(--space-lg);
     align-content: start;
-    align-items: stretch;
+    align-items: start;
     flex: 1;
     min-height: 0;
     overflow-y: auto;
-    padding: var(--space-xl);
+    padding: var(--space-lg);
   }
 
-  /* În grilă, cardurile devin tăblițe distincte cu flux vertical normal */
-  .rest-shell[data-view="list"] .rest-card {
+  /* Cardurile compacte din GRILĂ (poză + nume + status + ore).
+     Selectorul .rest-list le ține separate de cardul din panoul de detaliu. */
+  .rest-shell[data-view="list"] .rest-list .rest-card {
     position: static;
     transform: none;
     display: flex;
@@ -1668,44 +1719,65 @@
     height: auto;
     min-height: 0;
     max-height: none;
-    flex-shrink: 1;
+    cursor: pointer;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     overflow: hidden;
   }
 
-  /* Header (banner + nume) și body — flux static, fără poziționare/scroll moștenit */
-  .rest-shell[data-view="list"] .rest-card__sticky-header {
+  .rest-shell[data-view="list"] .rest-list .rest-card__sticky-header {
     position: static;
     flex-shrink: 0;
   }
 
-  .rest-shell[data-view="list"] .rest-card__banner {
-    height: 150px;
+  .rest-shell[data-view="list"] .rest-list .rest-card__banner {
+    height: 130px;
     flex-shrink: 0;
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   }
 
-  .rest-shell[data-view="list"] .rest-card__name {
+  .rest-shell[data-view="list"] .rest-list .rest-card__name {
     font-size: 1rem;
     font-weight: 800;
+    padding: var(--space-md) var(--space-md) var(--space-sm);
   }
 
-  .rest-shell[data-view="list"] .rest-card__body {
+  .rest-shell[data-view="list"] .rest-list .rest-card__body {
     position: static;
     display: flex;
     flex-direction: column;
-    flex: 1 0 auto;
+    flex: 1;
     height: auto;
     max-height: none;
     overflow: visible;
+    padding: 0 var(--space-md) var(--space-md);
+    gap: 0;
+  }
+
+  /* Compact = doar poză + nume. Tot body-ul (ore, adresă, telefon...) e ascuns;
+     detaliile apar în panoul din stânga la click. */
+  .rest-shell[data-view="list"] .rest-list .rest-card__body {
+    display: none;
+  }
+
+  .rest-shell[data-view="list"] .rest-list .rest-card__name {
+    padding: var(--space-md);
   }
 
   @media (hover: hover) {
-    .rest-shell[data-view="list"] .rest-card:hover {
+    .rest-shell[data-view="list"] .rest-list .rest-card:hover {
       border-color: var(--color-primary);
-      box-shadow: 0 6px 20px -8px rgba(0, 0, 0, 0.4);
+      background: var(--color-surface);
+      box-shadow: none;
     }
+  }
+
+  /* Card selectat în grilă — contur roșu 1px + fundal mai gri */
+  .rest-shell[data-view="list"] .rest-list .rest-card.is-active {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-primary);
+    border-left: 1px solid var(--color-primary);
+    box-shadow: var(--shadow-sm);
   }
 
 }

@@ -19,8 +19,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
 
-  <link rel="stylesheet" href="css/layout.css?v=3">
-  <link rel="stylesheet" href="css/restaurante.css?v=3">
+  <link rel="stylesheet" href="css/layout.css?v=4">
+  <link rel="stylesheet" href="css/restaurante.css?v=4">
   <script>(function(){if(localStorage.getItem('theme')!=='dark')document.documentElement.dataset.theme='light';})()</script>
 
   <style>
@@ -155,17 +155,17 @@
         </button>
       </div>
 
-      <!-- Lista -->
+      <!-- Lista (mobile/tablet: aici; desktop: mutată vizual în dreapta prin CSS order) -->
       <div class="rest-list" id="restList" role="list">
         <!-- Generat dinamic din JS -->
       </div>
 
-      <!-- Panou detaliu (desktop, mod Hartă) -->
+      <!-- Panou detaliu (desktop) -->
       <div class="rest-detail" id="restDetail" aria-live="polite">
         <div class="rest-detail__placeholder">
           <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
-          <span>Alege o locație de pe hartă</span>
-          <span class="rest-detail__placeholder-hint">Apasă pe un pin ca să vezi detaliile restaurantului.</span>
+          <span>Alege o locație</span>
+          <span class="rest-detail__placeholder-hint">Apasă pe un restaurant ca să vezi detaliile.</span>
         </div>
       </div>
 
@@ -307,8 +307,8 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-  <script src="js/main.js?v=3"></script>
-  <script src="js/restaurante.js?v=3"></script>
+  <script src="js/main.js?v=4"></script>
+  <script src="js/restaurante.js?v=4"></script>
 
   <nav class="nav-bottom" id="navBottom" aria-label="Navigare principală">
     <a href="index.html"      class="nav-bottom__item"><i class="fa-solid fa-house"></i><span>Acasă</span></a>
