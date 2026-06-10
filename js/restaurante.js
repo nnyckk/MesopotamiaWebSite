@@ -605,7 +605,7 @@
     if (markers[id]) {
       setMarkerActive(markers[id], true);
       if (panMap) {
-        const r = allRestaurants.find(function (x) { return x.id === id; });
+        const r = getRestaurantById(id);
         if (r) {
           markerCluster.zoomToShowLayer(markers[id], function () {
             // Pinul tocmai a fost scos din cluster și randat → re-aplică starea activă
@@ -628,9 +628,14 @@
 
     // Desktop: umple panoul de detaliu cu restaurantul activ.
     if (isDesktop()) {
-      const r = allRestaurants.find(function (x) { return x.id === id; });
+      const r = getRestaurantById(id);
       if (r) renderDetail(r);
     }
+  }
+
+  /* Găsește un restaurant după id în lista încărcată. */
+  function getRestaurantById(id) {
+    return allRestaurants.find(function (x) { return x.id === id; });
   }
 
   /* Scroll-ează lista până la cardul cu id-ul dat (desktop/tablet). */
@@ -918,9 +923,7 @@
           }, 320);
         } else {
           // Mod Listă: sincronizează panoul de detaliu cu selecția curentă.
-          var ar = activeId != null
-            ? allRestaurants.find(function (x) { return x.id === activeId; })
-            : null;
+          var ar = activeId != null ? getRestaurantById(activeId) : null;
           renderDetail(ar || null);
         }
       });
