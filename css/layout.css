@@ -1115,15 +1115,30 @@ strong {
 /* ================================================
    9. SCROLL REVEAL
    ================================================ */
+/* Reveal folosește `animation` (nu `transition`) ca să NU intre în conflict
+   cu eventualul transition de hover al elementului (ex. carduri). */
 .reveal {
   opacity: 0;
-  transform: translateY(36px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+  animation: revealIn 0.6s ease forwards;
+}
+
+@keyframes revealIn {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; }
+  .reveal.is-visible { animation: none; }
 }
 
 .sr-only {
@@ -1376,7 +1391,7 @@ strong {
   }
 
   /* Padding de jos pe pagini ca conținutul să nu fie acoperit */
-  body:not(.page-restaurante) {
+  body:not(.page-locatii) {
     padding-bottom: calc(var(--nav-bottom-h) + env(safe-area-inset-bottom, 0px));
   }
 

@@ -19,6 +19,10 @@ ready(function () {
   initThemeToggle();
   initHeroSlider();
   initScrollReveal();
+  /* Produsele din meniu sunt randate asincron — pornește reveal și pe ele după render */
+  document.addEventListener('products:rendered', function () {
+    initScrollReveal();
+  });
 });
 
 /*
@@ -183,18 +187,28 @@ function initScrollReveal(root) {
     return;
   }
 
+  var STAGGER_STEP = 0.1;  // secunde între elementele dintr-un val
+  var STAGGER_MAX  = 5;    // cap: max câte elemente primesc delay crescut
+
   var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        var el = entry.target;
-        var delay = el.dataset.delay || 0;
-        el.style.transitionDelay = delay + 's';
-        el.classList.add('is-visible');
-        observer.unobserve(el);
-        setTimeout(function () {
-          el.style.transitionDelay = '0s';
-        }, (parseFloat(delay) + 0.65) * 1000);
-      }
+    /* Doar elementele care intră acum, în ordinea lor din pagină → stagger automat */
+    var revealed = entries
+      .filter(function (e) { return e.isIntersecting; })
+      .map(function (e) { return e.target; })
+      .sort(function (a, b) {
+        var pos = a.compareDocumentPosition(b);
+        return (pos & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1;
+      });
+
+    revealed.forEach(function (el, i) {
+      /* data-delay explicit are prioritate; altfel calculăm din ordine */
+      var delay = el.dataset.delay !== undefined
+        ? parseFloat(el.dataset.delay)
+        : Math.min(i, STAGGER_MAX) * STAGGER_STEP;
+
+      el.style.animationDelay = delay + 's';
+      el.classList.add('is-visible');
+      observer.unobserve(el);
     });
   }, { threshold: 0.1 });
 

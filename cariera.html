@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="description" content="Carieră Mesopotamia – alătură-te echipei. Job stabil, salariu motivant, training și avansare rapidă. Aplică acum.">
+  <title>Carieră – Mesopotamia®</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/layout.css?v=6">
+  <link rel="stylesheet" href="css/contact.css?v=6">
+  <link rel="stylesheet" href="css/cariera.css?v=6">
+  <script>(function(){if(localStorage.getItem('theme')!=='dark')document.documentElement.dataset.theme='light';})()</script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav" aria-label="Navigatie principala">
+        <a href="index.html" class="nav__logo" aria-label="Mesopotamia – pagina principala">
+          <img src="images/icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="nav__logo-img nav__logo--dark">
+          <img src="images/icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="nav__logo-img nav__logo--light">
+        </a>
+        <ul class="nav__links" id="navLinks" role="list">
+          <li><a href="index.html"       class="nav__link">Acasă</a></li>
+          <li><a href="meniu.html"       class="nav__link">Meniu</a></li>
+          <li><a href="locatii.html" class="nav__link">Locații</a></li>
+          <li><a href="contact.html"     class="nav__link">Contact</a></li>
+          <li class="nav__actions-mobile">
+            <button class="nav__theme" data-theme-toggle aria-label="Schimbă tema">
+              <i class="fa-solid fa-moon" aria-hidden="true"></i>
+            </button>
+            <a href="cariera-en.html" class="nav__lang" aria-label="Switch to English">
+              <i class="fa-solid fa-globe" aria-hidden="true"></i>
+              <span>English</span>
+            </a>
+          </li>
+        </ul>
+        <div class="nav__actions">
+          <button class="nav__theme" id="navTheme" data-theme-toggle aria-label="Schimbă tema">
+            <i class="fa-solid fa-moon" aria-hidden="true"></i>
+          </button>
+          <a href="cariera-en.html" class="nav__lang" aria-label="Switch to English">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <span>English</span>
+          </a>
+          <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="career-hero">
+    <div class="career-hero__media" aria-hidden="true">
+      <!-- TODO poză: înlocuiește cu o imagine cu echipa / restaurant (ex. images/cariera/hero.jpg) -->
+      <img src="images/promo/joburi.jpg" alt="" class="career-hero__img">
+      <div class="career-hero__scrim"></div>
+    </div>
+    <div class="container">
+      <div class="career-hero__content">
+        <p class="career-hero__tagline">Cariere la Mesopotamia</p>
+        <h1 class="career-hero__title">Fii parte a echipei Mesopotamia! Dezvoltă-te împreună cu noi!</h1>
+        <p class="career-hero__subtitle">
+          Mesopotamia este singurul restaurant de tip fast food din România ce îmbină gustul
+          curcanului și vițel rotisat într-un amestec unic. Cu peste 70 de restaurante și 1000 de
+          angajați, ne găsești ușor în principalele orașe din România.
+        </p>
+        <a href="#aplica" class="btn btn--primary career-hero__cta">Aplică acum</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- BENEFICII -->
+  <section class="career-benefits" aria-label="Beneficii">
+    <div class="container">
+      <div class="career-benefits__grid">
+
+        <div class="career-benefit reveal">
+          <span class="career-benefit__icon"><i class="fa-solid fa-briefcase" aria-hidden="true"></i></span>
+          <h2 class="career-benefit__title">Ai parte de un job stabil</h2>
+          <p class="career-benefit__desc">
+            Mesopotamia este într-o continuă dezvoltare și caută angajați care doresc să se
+            dezvolte profesional, pe termen lung.
+          </p>
+        </div>
+
+        <div class="career-benefit reveal">
+          <span class="career-benefit__icon"><i class="fa-solid fa-sack-dollar" aria-hidden="true"></i></span>
+          <h2 class="career-benefit__title">Salariu motivant și beneficii</h2>
+          <p class="career-benefit__desc">
+            Pe lângă suma agreată la interviu, vei primi și cea de-a doua masă pe zi, plus bonusuri
+            sau alte beneficii.
+          </p>
+        </div>
+
+        <div class="career-benefit reveal">
+          <span class="career-benefit__icon"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i></span>
+          <h2 class="career-benefit__title">Posibilitatea de a avansa rapid</h2>
+          <p class="career-benefit__desc">
+            Avem mereu joburi noi pentru tine. Îți oferim pregătire specială și posibilitatea de a
+            avansa în cadrul echipei.
+          </p>
+        </div>
+
+        <div class="career-benefit reveal">
+          <span class="career-benefit__icon"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></span>
+          <h2 class="career-benefit__title">Training pentru orice funcție</h2>
+          <p class="career-benefit__desc">
+            Nu ai experiență? Fără griji. Fiecare nou angajat este pregătit pentru funcția pe care
+            o va avea — te învățăm noi tot ce trebuie să faci.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- GALERIE MOZAIC -->
+  <section class="career-gallery" aria-label="Viața la Mesopotamia">
+    <div class="container">
+
+      <div class="career-gallery__head">
+        <p class="career-gallery__eyebrow">Viața la Mesopotamia</p>
+        <h2 class="career-gallery__title">Îți place să interacționezi cu oamenii și să lucrezi într-o echipă tânără și dinamică?</h2>
+        <p class="career-gallery__body">
+          Atunci alătură-te echipei Mesopotamia. Aici găsești mediul perfect pentru a te dezvolta.
+          <strong>Nu ai experiență?</strong> Fără griji, e nevoie doar să îți dorești — te învățăm
+          noi tot ce trebuie să faci.
+        </p>
+      </div>
+
+      <!-- TODO poze: înlocuiește cu fotografii reale cu echipa în images/cariera/ (team-1 … team-5) -->
+      <div class="career-gallery__mosaic">
+        <figure class="career-gallery__item career-gallery__item--1 reveal">
+          <img src="images/promo/joburi.jpg" alt="Echipa Mesopotamia la lucru" loading="lazy">
+        </figure>
+        <figure class="career-gallery__item career-gallery__item--2 reveal">
+          <img src="images/promo/mesocafe.jpg" alt="Prepararea cafelei Mesopotamia" loading="lazy">
+        </figure>
+        <figure class="career-gallery__item career-gallery__item--3 reveal">
+          <img src="images/promo/kebab.jpg" alt="Pregătirea produselor Mesopotamia" loading="lazy">
+        </figure>
+        <figure class="career-gallery__item career-gallery__item--4 reveal">
+          <img src="images/promo/pizza.jpg" alt="Bucătăria Mesopotamia" loading="lazy">
+        </figure>
+        <figure class="career-gallery__item career-gallery__item--5 reveal">
+          <img src="images/promo/salate.jpg" alt="Atmosfera din restaurant Mesopotamia" loading="lazy">
+          <figcaption class="career-gallery__caption">
+            <span class="career-gallery__caption-title">Știai că la Mesopotamia</span>
+            fiecare nou angajat este pregătit pentru funcția pe care o va avea?
+          </figcaption>
+        </figure>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- FORMULAR APLICARE -->
+  <main class="career-apply" id="aplica" aria-label="Formular de aplicare">
+    <div class="container">
+
+      <div class="career-apply__head">
+        <h2 class="career-apply__title">Aplică aici</h2>
+        <p class="career-apply__subtitle">
+          Dacă îți dorești să lucrezi împreună cu noi, ai nevoie de mai multe detalii sau ai anumite
+          întrebări, completează formularul de mai jos. Te contactăm noi după.
+        </p>
+      </div>
+
+      <div class="career-form-panel">
+        <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <input type="hidden" name="access_key" value="fd678a10-e714-48d2-a684-920d8a63ed3d">
+          <input type="hidden" name="subject" value="Aplicare carieră – Mesopotamia">
+          <input type="checkbox" name="botcheck" class="contact-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="contact-form__row">
+            <div class="contact-field">
+              <label class="contact-field__label is-required" for="car-oras">În ce oraș ai vrea să te angajezi?</label>
+              <select class="contact-select" id="car-oras" name="oras" required>
+                <option value="" disabled selected>Selectează din lista de mai jos</option>
+                <option>Alba Iulia</option>
+                <option>Arad</option>
+                <option>Bacău</option>
+                <option>Baia Mare</option>
+                <option>Brașov</option>
+                <option>București</option>
+                <option>Buzău</option>
+                <option>Cluj-Napoca</option>
+                <option>Constanța</option>
+                <option>Craiova</option>
+                <option>Deva</option>
+                <option>Focșani</option>
+                <option>Galați</option>
+                <option>Iași</option>
+                <option>Oradea</option>
+                <option>Pitești</option>
+                <option>Ploiești</option>
+                <option>Râmnicu Vâlcea</option>
+                <option>Sibiu</option>
+                <option>Suceava</option>
+                <option>Timișoara</option>
+                <option>Târgu Mureș</option>
+              </select>
+              <span class="contact-field__error">Te rugăm să alegi un oraș.</span>
+            </div>
+          </div>
+
+          <div class="contact-form__row">
+            <div class="contact-field">
+              <label class="contact-field__label is-required" for="car-nume">Nume și prenume</label>
+              <input class="contact-input" type="text" id="car-nume" name="nume" required>
+              <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+            </div>
+          </div>
+
+          <div class="contact-form__row contact-form__row--2">
+            <div class="contact-field">
+              <label class="contact-field__label is-required" for="car-telefon">Număr telefon</label>
+              <input class="contact-input" type="tel" id="car-telefon" name="telefon" placeholder="07XX XXX XXX" required>
+              <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+            </div>
+            <div class="contact-field">
+              <label class="contact-field__label" for="car-email">E-mail</label>
+              <input class="contact-input" type="email" id="car-email" name="email">
+              <span class="contact-field__error">Introdu o adresă de e-mail validă.</span>
+            </div>
+          </div>
+
+          <div class="contact-form__row">
+            <div class="contact-field">
+              <label class="contact-field__label is-required" for="car-nastere">Data nașterii</label>
+              <input class="contact-input" type="date" id="car-nastere" name="data_nasterii" required>
+              <span class="contact-field__error">Acest câmp este obligatoriu.</span>
+            </div>
+          </div>
+
+          <div class="contact-form__row">
+            <div class="contact-field">
+              <span class="contact-field__label">Sunt interesat de următoarele posturi:</span>
+              <div class="career-jobs">
+                <label class="career-job"><input type="checkbox" name="posturi" value="Ospătar"><span>Ospătar</span></label>
+                <label class="career-job"><input type="checkbox" name="posturi" value="Pizzar"><span>Pizzar</span></label>
+                <label class="career-job"><input type="checkbox" name="posturi" value="Tăietor carne"><span>Tăietor carne</span></label>
+                <label class="career-job"><input type="checkbox" name="posturi" value="Preparator"><span>Preparator</span></label>
+                <label class="career-job"><input type="checkbox" name="posturi" value="Barista"><span>Barista</span></label>
+                <label class="career-job"><input type="checkbox" name="posturi" value="Casier"><span>Casier</span></label>
+                <label class="career-job"><input type="checkbox" name="posturi" value="Ajutor bucătărie"><span>Ajutor bucătărie</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form__row">
+            <label class="contact-file">
+              <span class="contact-field__label">Încarcă CV-ul tău</span>
+              <input type="file" name="cv" accept=".pdf,.doc,.docx,image/*" data-maxmb="5" hidden>
+              <span class="contact-file__zone">
+                <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
+                <span>Trage și plasează <strong>sau alege fișier</strong></span>
+                <span class="contact-file__hint">PDF, DOC sau imagine, maxim 5MB</span>
+              </span>
+              <span class="contact-file__list"></span>
+            </label>
+          </div>
+
+          <label class="contact-consent">
+            <input type="checkbox" name="consent" required>
+            <span class="contact-consent__box" aria-hidden="true"></span>
+            <span class="contact-consent__text is-required">
+              Am citit și sunt de acord cu
+              <a href="privacy.html" target="_blank">politica de confidențialitate</a>,
+              <a href="termeni.html" target="_blank">Termeni și condiții</a>,
+              <a href="cookies.html" target="_blank">Politica Cookies</a>.
+            </span>
+          </label>
+          <span class="contact-field__error contact-consent__error">Trebuie să accepți pentru a continua.</span>
+
+          <p class="contact-form__neterror" hidden>
+            <i class="fa-solid fa-circle-exclamation"></i>
+            A apărut o eroare la trimitere. Te rugăm să încerci din nou.
+          </p>
+          <p class="contact-form__success" hidden>
+            <i class="fa-solid fa-circle-check"></i>
+            Mulțumim! Aplicarea ta a fost trimisă. Te vom contacta cât mai curând.
+          </p>
+
+          <div class="contact-form__actions">
+            <button type="submit" class="btn btn--primary">Trimite</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Footer">
+    <div class="container">
+
+      <div class="footer__body">
+
+        <div class="footer__brand">
+          <img src="images/icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--dark">
+          <img src="images/icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--light">
+          <p class="footer__tagline">Gustul care nu se uită!</p>
+        </div>
+
+        <nav class="footer__nav" aria-label="Link-uri footer">
+          <ul class="footer__list">
+            <li><a href="nutritional.html" class="footer__link">Valori nutriționale</a></li>
+            <li><a href="contact.html?form=sesizari" class="footer__link">Sugestii și reclamații</a></li>
+            <li><a href="privacy.html"     class="footer__link">Politica de confidențialitate</a></li>
+            <li><a href="cookies.html"     class="footer__link">Politica fișiere Cookies</a></li>
+            <li><a href="termeni.html"     class="footer__link">Termeni și condiții</a></li>
+            <li><a href="contact.html"     class="footer__link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__social">
+          <p class="footer__social-title">Urmărește-ne</p>
+          <div class="footer__social-links">
+            <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__copy-wrap">
+          <p class="footer__copy">© 2026 Mesopotamia.ro – Toate drepturile rezervate.</p>
+          <p class="footer__company">SC SET-CORPORATION SRL J33/838/2011 RO 29084042</p>
+        </div>
+        <div class="footer__anpc">
+          <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sal.svg" alt="Solutionarea Alternativa a Litigiilor" class="footer__anpc-img">
+          </a>
+          <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sol.svg" alt="Solutionarea Online a Litigiilor" class="footer__anpc-img">
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=6"></script>
+  <script src="js/cariera.js?v=6"></script>
+
+  <nav class="nav-bottom" id="navBottom" aria-label="Navigare principală">
+    <a href="index.html"       class="nav-bottom__item"><i class="fa-solid fa-house"></i><span>Acasă</span></a>
+    <a href="meniu.html"       class="nav-bottom__item"><i class="fa-solid fa-utensils"></i><span>Meniu</span></a>
+    <a href="locatii.html" class="nav-bottom__item"><i class="fa-solid fa-location-dot"></i><span>Locații</span></a>
+    <a href="contact.html"     class="nav-bottom__item"><i class="fa-regular fa-envelope"></i><span>Contact</span></a>
+    <a href="more.html"        class="nav-bottom__item"><i class="fa-solid fa-ellipsis"></i><span>Mai mult</span></a>
+  </nav>
+
+</body>
+</html>

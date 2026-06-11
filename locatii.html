@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="description" content="Mesopotamia – Găsește cel mai apropiat restaurant. Peste 100 de locații în toată România.">
-  <title>Restaurante – Mesopotamia®</title>
+  <title>Locații – Mesopotamia®</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
 
   <link rel="stylesheet" href="css/layout.css?v=6">
-  <link rel="stylesheet" href="css/restaurante.css?v=6">
+  <link rel="stylesheet" href="css/locatii.css?v=6">
   <script>(function(){if(localStorage.getItem('theme')!=='dark')document.documentElement.dataset.theme='light';})()</script>
 
   <style>
@@ -42,7 +42,7 @@
     }
   </style>
 </head>
-<body class="page-restaurante">
+<body class="page-locatii">
 
   <!-- HEADER -->
   <header class="header" id="header">
@@ -55,13 +55,13 @@
         <ul class="nav__links" id="navLinks" role="list">
           <li><a href="index.html"       class="nav__link">Acasă</a></li>
           <li><a href="meniu.html"       class="nav__link">Meniu</a></li>
-          <li><a href="restaurante.html" class="nav__link nav__link--active">Locații</a></li>
+          <li><a href="locatii.html" class="nav__link nav__link--active">Locații</a></li>
           <li><a href="contact.html"     class="nav__link">Contact</a></li>
           <li class="nav__actions-mobile">
             <button class="nav__theme" data-theme-toggle aria-label="Schimbă tema">
               <i class="fa-solid fa-moon" aria-hidden="true"></i>
             </button>
-            <a href="restaurante-en.html" class="nav__lang" aria-label="Switch to English">
+            <a href="locatii-en.html" class="nav__lang" aria-label="Switch to English">
               <i class="fa-solid fa-globe" aria-hidden="true"></i>
               <span>English</span>
             </a>
@@ -72,7 +72,7 @@
           <button class="nav__theme" id="navTheme" data-theme-toggle aria-label="Schimbă tema">
             <i class="fa-solid fa-moon" aria-hidden="true"></i>
           </button>
-          <a href="restaurante-en.html" class="nav__lang" aria-label="Switch to English">
+          <a href="locatii-en.html" class="nav__lang" aria-label="Switch to English">
             <i class="fa-solid fa-globe" aria-hidden="true"></i>
             <span>English</span>
           </a>
@@ -301,12 +301,12 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script src="js/main.js?v=6"></script>
-  <script src="js/restaurante.js?v=6"></script>
+  <script src="js/locatii.js?v=6"></script>
 
   <nav class="nav-bottom" id="navBottom" aria-label="Navigare principală">
     <a href="index.html"      class="nav-bottom__item"><i class="fa-solid fa-house"></i><span>Acasă</span></a>
     <a href="meniu.html"      class="nav-bottom__item"><i class="fa-solid fa-utensils"></i><span>Meniu</span></a>
-    <a href="restaurante.html"class="nav-bottom__item"><i class="fa-solid fa-location-dot"></i><span>Locații</span></a>
+    <a href="locatii.html"class="nav-bottom__item"><i class="fa-solid fa-location-dot"></i><span>Locații</span></a>
     <a href="contact.html"    class="nav-bottom__item"><i class="fa-regular fa-envelope"></i><span>Contact</span></a>
     <a href="more.html" class="nav-bottom__item"><i class="fa-solid fa-ellipsis"></i><span>Mai mult</span></a>
   </nav>

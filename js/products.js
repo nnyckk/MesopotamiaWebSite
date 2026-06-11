@@ -53,7 +53,7 @@
       displayWeight = p.weight;
       displayPrice = p.price;
     }
-    return '<div class="product-card" data-cat="' + ci + '" data-prod="' + pi + '" role="button" tabindex="0" aria-label="' + esc(p.name) + '">' +
+    return '<div class="product-card reveal" data-cat="' + ci + '" data-prod="' + pi + '" role="button" tabindex="0" aria-label="' + esc(p.name) + '">' +
       '<div class="product-card__img-wrap">' +
       '<img src="' + esc(p.img) + '" alt="' + esc(p.name) + '" class="product-card__img" loading="lazy">' +
       (p.promotie ? '<span class="product-card__promo-tag">PROMOȚIE</span>' : '') +
