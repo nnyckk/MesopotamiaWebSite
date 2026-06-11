@@ -680,6 +680,11 @@ strong {
     display: none;
   }
 
+  /* Itemi doar-desktop (ex. Carieră) — pe mobil există în „Mai mult" */
+  .nav__item--desktop {
+    display: none;
+  }
+
   .nav__actions-mobile {
     display: flex;
     align-items: center;
