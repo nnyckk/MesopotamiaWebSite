@@ -349,14 +349,18 @@
   padding: calc(var(--header-h) + var(--space-lg)) var(--space-lg) var(--space-lg);
   visibility: hidden;
   pointer-events: none;
-  transition: background 0.3s ease, visibility 0s 0.3s;
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+  transition: background 0.3s ease, backdrop-filter 0.3s ease, visibility 0s 0.3s;
 }
 
 .product-modal-overlay.is-open {
   visibility: visible;
   pointer-events: auto;
   background: var(--color-overlay);
-  transition: background 0.3s ease, visibility 0s;
+  backdrop-filter: blur(var(--overlay-blur));
+  -webkit-backdrop-filter: blur(var(--overlay-blur));
+  transition: background 0.3s ease, backdrop-filter 0.3s ease, visibility 0s;
 }
 
 .product-modal {

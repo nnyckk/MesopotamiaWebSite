@@ -404,3 +404,49 @@
 
   ready(init);
 })();
+
+
+/* ================================================
+   FAQ — accordion animat (deschidere + închidere)
+   <details> nativ nu animează height; controlăm manual
+   atributul [open] și clasa .is-open pe care o animă CSS.
+   ================================================ */
+(function () {
+  'use strict';
+
+  function initFaq() {
+    var items = document.querySelectorAll('.faq__item');
+    if (!items.length) return;
+
+    items.forEach(function (item) {
+      var summary = item.querySelector('.faq__q');
+      if (!summary) return;
+
+      summary.addEventListener('click', function (e) {
+        e.preventDefault(); // preluăm controlul; nu lăsăm <details> să comute brusc
+
+        if (item.classList.contains('is-open')) {
+          // Închidere: animă întâi, scoate [open] la final
+          item.classList.remove('is-open');
+          item.addEventListener('transitionend', function onEnd(ev) {
+            if (ev.propertyName !== 'grid-template-rows') return;
+            item.removeEventListener('transitionend', onEnd);
+            if (!item.classList.contains('is-open')) item.open = false;
+          });
+        } else {
+          // Deschidere: pune [open] ca să fie vizibil, apoi animă pe frame-ul următor
+          item.open = true;
+          requestAnimationFrame(function () {
+            item.classList.add('is-open');
+          });
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFaq);
+  } else {
+    initFaq();
+  }
+})();

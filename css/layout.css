@@ -123,6 +123,9 @@
   --transition-fast:   150ms ease;
   --transition-normal: 300ms ease;
   --transition-slow:   500ms ease;
+
+  /* --- Backdrop --- */
+  --overlay-blur: 0.8px; /* blur aplicat pe toate overlay-urile de modal */
 }
 
 
