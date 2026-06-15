@@ -226,7 +226,6 @@ function initHeroSlider() {
   const slider    = document.getElementById('heroSlider');
   const btnPrev   = document.getElementById('heroPrev');
   const btnNext   = document.getElementById('heroNext');
-  const progressBar = document.getElementById('heroProgressBar');
   if (!slider) return;
 
   const slides    = Array.from(slider.querySelectorAll('.hero__slide'));
@@ -234,27 +233,10 @@ function initHeroSlider() {
   let autoTimer   = null;
   const INTERVAL  = 7000;
 
-  function resetProgress() {
-    if (!progressBar) return;
-    progressBar.classList.remove('is-running', 'is-paused');
-    progressBar.style.cssText = '--hero-duration:' + INTERVAL + 'ms';
-    void progressBar.offsetWidth;
-    progressBar.classList.add('is-running');
-  }
-
-  function pauseProgress() {
-    if (progressBar) progressBar.classList.add('is-paused');
-  }
-
-  function resumeProgress() {
-    if (progressBar) progressBar.classList.remove('is-paused');
-  }
-
   function goTo(index) {
     slides[current].classList.remove('is-active');
     current = (index + slides.length) % slides.length;
     slides[current].classList.add('is-active');
-    resetProgress();
   }
 
   function next() { goTo(current + 1); }
@@ -263,12 +245,10 @@ function initHeroSlider() {
   function startAuto() {
     stopAuto();
     autoTimer = setInterval(next, INTERVAL);
-    resumeProgress();
   }
 
   function stopAuto() {
     clearInterval(autoTimer);
-    pauseProgress();
   }
 
   if (btnPrev) btnPrev.addEventListener('click', function () { prev(); startAuto(); });
