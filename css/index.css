@@ -98,11 +98,62 @@
 
 
 /* ================================================
+   1b. INSTAGRAM MARQUEE
+   ================================================ */
+.ig-marquee {
+  overflow: hidden;
+  margin-top: var(--space-3xl); /* spațiu față de cardurile de calitate */
+  /* fundalul roșu vine din secțiunea .quality (părinte) */
+  /* fade pe margini, ca banda să nu se taie brusc */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.ig-marquee__track {
+  display: flex;
+  gap: var(--space-md);
+  width: max-content;
+  animation: ig-scroll 60s linear infinite;
+}
+
+@media (hover: hover) {
+  .ig-marquee:hover .ig-marquee__track {
+    animation-play-state: paused;
+  }
+}
+
+.ig-marquee__img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  flex-shrink: 0;
+}
+
+/* Track-ul e dublat în JS (2× setul), așa că -50% = exact o buclă completă */
+@keyframes ig-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ig-marquee__track { animation: none; }
+}
+
+@media (max-width: 768px) {
+  .ig-marquee__img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+
+/* ================================================
    2. MENIU – PRODUSE
    ================================================ */
 .menu {
   padding-block: var(--space-4xl);
-  background-color: var(--color-surface);
+  background-color: var(--color-bg);
 }
 
 .menu__header {
@@ -360,141 +411,138 @@
    ================================================ */
 .promo {
   padding-block: var(--space-4xl);
-  background-color: var(--color-surface);
+  background-color: var(--color-bg);
 }
 
-.promo__grid {
+/* Rând split: text + poză (jumătate-jumătate, ca Five Guys) */
+.promo-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-md);
-  height: 560px;
+  align-items: center; /* textul mai scund decât poza, centrat vertical */
+  margin-bottom: var(--space-2xl);
 }
 
-.promo__right {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-md);
+.promo-row:last-child {
+  margin-bottom: 0;
 }
 
-/* Card generic */
-.promo__card {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-lg);
-  display: flex;
-  cursor: pointer;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+/* Rând inversat: poza în stânga, textul în dreapta */
+.promo-row--reverse .promo-row__text {
+  order: 2;
 }
 
-@media (hover: hover) {
-  .promo__card:hover {
-    transform: scale(1.015);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-  }
-}
-
-.promo__card--large {
-  border-radius: var(--radius-lg);
-}
-
-/* Card care ocupa toata coloana din dreapta sus */
-.promo__card--wide {
-  grid-column: 1 / -1;
-}
-
-.promo__card-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.promo__card-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 65%, transparent 90%);
-}
-
-.promo__card-content {
-  position: relative;
-  z-index: 1;
+/* Panoul de text */
+.promo-row__text {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: var(--space-md);
-  width: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-2xl);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  /* rotunjit doar pe exterior (stânga); dreapta dreaptă, lipită de poză */
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  border-right: none;
 }
 
-.promo__card-title {
+/* La rândul inversat (poză stânga / text dreapta) — invers */
+.promo-row--reverse .promo-row__text {
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  border-right: 1px solid var(--color-border);
+  border-left: none;
+}
+
+.promo-row__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--color-primary-faint);
+  color: var(--color-primary);
+  font-size: 1.5rem;
+}
+
+.promo-row__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 2vw, 2rem);
-  font-weight: 800;
-  color: var(--color-white);
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  font-weight: 900;
   text-transform: uppercase;
-  margin-bottom: var(--space-xs);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  margin-bottom: var(--space-sm);
 }
 
-.promo__card-cta {
+.promo-row__desc {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-lg);
+  max-width: 42ch;
+}
+
+.promo-row__btn {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
   background: var(--color-primary);
   color: var(--color-white);
   font-family: var(--font-heading);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 0.4rem 1rem;
+  padding: 0.75rem 1.6rem;
   border-radius: var(--radius-full);
-  width: fit-content;
-  transition: all var(--transition-fast);
+  transition: background var(--transition-fast), transform var(--transition-fast);
 }
 
 @media (hover: hover) {
-  .promo__card:hover .promo__card-cta {
-    background: var(--color-accent);
-    color: var(--color-black);
+  .promo-row__btn:hover {
+    background: var(--color-primary-dark, #8a0105);
     transform: translateX(3px);
   }
 }
 
-/* Responsive promo */
-@media (max-width: 900px) {
-  .promo__grid {
-    grid-template-columns: 1fr;
-    height: auto;
-  }
-
-  .promo__card--large {
-    height: 300px;
-  }
-
-  .promo__right {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-  }
-
-  .promo__card--wide {
-    grid-column: 1 / -1;
-    height: 200px;
-  }
-
-  .promo__right .promo__card:not(.promo__card--wide) {
-    height: 200px;
-  }
+/* Poza — rotunjită pe toate colțurile */
+.promo-row__media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  min-height: 400px;
 }
 
-@media (max-width: 520px) {
-  .promo__right {
+.promo-row__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive: stivuit pe mobil, poza sus + text jos, lipite ca un bloc */
+@media (max-width: 768px) {
+  .promo-row,
+  .promo-row--reverse {
     grid-template-columns: 1fr;
+    margin-bottom: var(--space-xl);
   }
 
-  .promo__card--wide {
-    grid-column: auto;
+  /* Poza deasupra, rotunjită doar sus */
+  .promo-row__media,
+  .promo-row--reverse .promo-row__media {
+    min-height: 220px;
+    order: 1;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  /* Textul dedesubt, lipit de poză, rotunjit doar jos */
+  .promo-row__text,
+  .promo-row--reverse .promo-row__text {
+    order: 2;
+    padding: var(--space-xl);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    border: 1px solid var(--color-border);
+    border-top: none;
   }
 }
 

@@ -189,54 +189,74 @@
 
       </div>
     </div>
+
+    <!-- Marquee Instagram — aliniat la container, în secțiunea roșie -->
+    <div class="container">
+      <div class="ig-marquee" aria-label="Galerie Instagram">
+        <div class="ig-marquee__track" id="igTrack">
+          <img src="images/instagram/insta-1.jpg"  alt="" class="ig-marquee__img" loading="lazy">
+          <img src="images/instagram/insta-2.jpg"  alt="" class="ig-marquee__img" loading="lazy">
+          <img src="images/instagram/insta-3.jpg"  alt="" class="ig-marquee__img" loading="lazy">
+          <img src="images/instagram/insta-4.jpg"  alt="" class="ig-marquee__img" loading="lazy">
+          <img src="images/instagram/insta-5.jpg"  alt="" class="ig-marquee__img" loading="lazy">
+          <img src="images/instagram/insta-6.jpg"  alt="" class="ig-marquee__img" loading="lazy">
+          <img src="images/instagram/insta-7.jpg"  alt="" class="ig-marquee__img" loading="lazy">
+          <img src="images/instagram/insta-8.jpg"  alt="" class="ig-marquee__img" loading="lazy">
+          <img src="images/instagram/insta-9.jpg"  alt="" class="ig-marquee__img" loading="lazy">
+          <img src="images/instagram/insta-10.jpg" alt="" class="ig-marquee__img" loading="lazy">
+          <img src="images/instagram/insta-11.jpg" alt="" class="ig-marquee__img" loading="lazy">
+          <img src="images/instagram/insta-12.jpg" alt="" class="ig-marquee__img" loading="lazy">
+          <img src="images/instagram/insta-13.jpg" alt="" class="ig-marquee__img" loading="lazy">
+          <img src="images/instagram/insta-14.jpg" alt="" class="ig-marquee__img" loading="lazy">
+        </div>
+      </div>
+    </div>
   </section>
 
 
-  <!-- PROMO GRID -->
-  <section class="promo" aria-label="Sectiuni promotionale">
+  <!-- PROMO SPLIT -->
+  <section class="promo" aria-label="Descoperă Mesopotamia">
     <div class="container">
-      <div class="promo__grid">
 
-        <a href="locatii.html" class="promo__card promo__card--large reveal">
-          <img src="images/promo/locatii.jpg" alt="Locațiile noastre din toată România" class="promo__card-img">
-          <div class="promo__card-overlay" aria-hidden="true"></div>
-          <div class="promo__card-content">
-            <h2 class="promo__card-title">Locațiile Noastre</h2>
-            <span class="promo__card-cta">Descoperă &#8594;</span>
-          </div>
-        </a>
-
-        <div class="promo__right">
-          <a href="cariera.html" class="promo__card promo__card--wide reveal">
-            <img src="images/promo/joburi.jpg" alt="Joburi Mesopotamia" class="promo__card-img">
-            <div class="promo__card-overlay" aria-hidden="true"></div>
-            <div class="promo__card-content">
-              <h3 class="promo__card-title">Joburi</h3>
-              <span class="promo__card-cta">Descoperă &#8594;</span>
-            </div>
-          </a>
-
-          <a href="https://www.mesopotamia.ro/wp-content/uploads/2026/02/2026-mesopotamia-valorinutritionale.pdf" target="_blank" rel="noopener" class="promo__card reveal">
-            <img src="images/promo/valori-nutritionale.jpg" alt="Informații Nutriționale" class="promo__card-img">
-            <div class="promo__card-overlay" aria-hidden="true"></div>
-            <div class="promo__card-content">
-              <h3 class="promo__card-title">Informații Nutriționale</h3>
-              <span class="promo__card-cta">Descoperă &#8594;</span>
-            </div>
-          </a>
-
-          <a href="istoria.html" class="promo__card reveal">
-            <img src="images/promo/istorie.jpg" alt="Istoria Mesopotamia" class="promo__card-img">
-            <div class="promo__card-overlay" aria-hidden="true"></div>
-            <div class="promo__card-content">
-              <h3 class="promo__card-title">Istoria noastră</h3>
-              <span class="promo__card-cta">Descoperă &#8594;</span>
-            </div>
-          </a>
-
+      <!-- Locații (text stânga / poză dreapta) -->
+      <article class="promo-row reveal">
+        <div class="promo-row__text">
+          <span class="promo-row__icon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></span>
+          <h2 class="promo-row__title">Găsește un restaurant</h2>
+          <p class="promo-row__desc">Peste 70 de locații Mesopotamia în toată România. Găsește-o pe cea mai apropiată de tine.</p>
+          <a href="locatii.html" class="promo-row__btn">Vezi locațiile</a>
         </div>
+        <div class="promo-row__media">
+          <img src="images/promo/locatii.jpg" alt="Locațiile Mesopotamia din toată România" loading="lazy">
+        </div>
+      </article>
 
-      </div>
+      <!-- Joburi (poză stânga / text dreapta) -->
+      <article class="promo-row promo-row--reverse reveal">
+        <div class="promo-row__text">
+          <span class="promo-row__icon" aria-hidden="true"><i class="fa-solid fa-handshake"></i></span>
+          <h2 class="promo-row__title">Hai în echipă</h2>
+          <p class="promo-row__desc">Job stabil, salariu motivant și avansare rapidă. Nu ai experiență? Te învățăm noi tot.</p>
+          <a href="cariera.html" class="promo-row__btn">Aplică acum</a>
+        </div>
+        <div class="promo-row__media">
+          <img src="images/promo/joburi.jpg" alt="Echipa Mesopotamia" loading="lazy">
+        </div>
+      </article>
+
+      <!-- Istoria (text stânga / poză dreapta) -->
+      <article class="promo-row reveal">
+        <div class="promo-row__text">
+          <span class="promo-row__icon" aria-hidden="true"><i class="fa-solid fa-clock-rotate-left"></i></span>
+          <h2 class="promo-row__title">Istoria noastră</h2>
+          <p class="promo-row__desc">Povestea Mesopotamia — gustul autentic care a cucerit România, de la primul restaurant până azi.</p>
+          <a href="istoria.html" class="promo-row__btn">Descoperă povestea</a>
+        </div>
+        <div class="promo-row__media">
+          <img src="images/promo/istorie.jpg" alt="Istoria Mesopotamia" loading="lazy">
+        </div>
+      </article>
+
     </div>
   </section>
 

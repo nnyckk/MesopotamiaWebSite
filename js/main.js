@@ -18,6 +18,7 @@ ready(function () {
   initSidebarOffset();
   initThemeToggle();
   initHeroSlider();
+  initInstaMarquee();
   initScrollReveal();
   /* Produsele din meniu sunt randate asincron — pornește reveal și pe ele după render */
   document.addEventListener('products:rendered', function () {
@@ -278,6 +279,29 @@ function initHeroSlider() {
 
   goTo(0);
   startAuto();
+}
+
+
+/* ------------------------------------------------
+   3b. INSTAGRAM MARQUEE
+   Dublează imaginile (2× setul) ca bucla CSS (-50%)
+   să fie continuă, fără salt vizibil.
+   Sursa e locală acum; la trecerea pe Behold se va
+   popula #igTrack din feed înainte de duplicare.
+------------------------------------------------ */
+function initInstaMarquee() {
+  const track = document.getElementById('igTrack');
+  if (!track) return;
+
+  const items = Array.from(track.children);
+  if (!items.length) return;
+
+  // Clonează setul o dată pentru bucla infinită
+  items.forEach(function (el) {
+    const clone = el.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone);
+  });
 }
 
 
