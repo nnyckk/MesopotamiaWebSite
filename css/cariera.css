@@ -115,26 +115,34 @@
   }
 }
 
+.career-benefit__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
 .career-benefit__icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-md);
-  background: var(--color-primary-faint);
+  flex-shrink: 0;
   color: var(--color-primary);
   font-size: 1.4rem;
-  margin-bottom: var(--space-md);
+}
+
+.career-benefit__svg {
+  width: 52px;
+  height: 52px;
+  display: block;
 }
 
 .career-benefit__title {
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.25;
   color: var(--color-text);
-  margin-bottom: var(--space-sm);
 }
 
 .career-benefit__desc {

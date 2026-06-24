@@ -148,6 +148,13 @@
   color: var(--color-white);
 }
 
+/* Steaua SVG urmează font-size-ul wrapper-ului (responsive) și culoarea via currentColor */
+.sidebar-cat__star {
+  width: 1.2em;
+  height: 1.2em;
+  display: block;
+}
+
 @media (hover: hover) {
   .sidebar-cat:not(.is-active):hover .sidebar-cat__icon-wrap {
     color: var(--color-accent);

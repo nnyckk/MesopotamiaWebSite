@@ -135,15 +135,17 @@
 
 .contact-card__icon {
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-md);
-  background: var(--color-surface-2);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   color: var(--color-primary);
+}
+
+.contact-card__svg {
+  width: 56px;
+  height: 56px;
+  display: block;
 }
 
 .contact-card__title {
@@ -543,8 +545,10 @@
   margin-top: var(--space-sm);
 }
 
-.contact-form__actions .btn {
+.contact-form__actions .btn,
+.contact-form__actions .btn-meso {
   width: 100%;
+  justify-content: center;
 }
 
 .contact-form__success {

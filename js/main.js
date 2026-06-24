@@ -87,7 +87,10 @@ function initThemeToggle() {
     }
     localStorage.setItem('theme', theme);
     btns.forEach(function(b) {
-      b.querySelector('i').className = theme === 'light' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      /* Butoanele cu iconiță Font Awesome (<i>) — comută clasa.
+         Butonul din footer folosește SVG-uri moon/sun comutate din CSS, deci sărim. */
+      var icon = b.querySelector('i');
+      if (icon) icon.className = theme === 'light' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
       var span = b.querySelector('span');
       if (span) span.textContent = theme === 'light' ? 'Dark Mode' : 'Light Mode';
     });

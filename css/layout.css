@@ -875,6 +875,18 @@ strong {
   }
 }
 
+/* Iconițe temă: moon în dark (default), sun în light */
+.footer__theme-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.footer__theme-icon--sun { display: none; }
+
+[data-theme="light"] .footer__theme-icon--moon { display: none; }
+[data-theme="light"] .footer__theme-icon--sun  { display: block; }
+
 .footer__copy-wrap {
   text-align: left;
 }
@@ -946,6 +958,12 @@ strong {
     color: var(--color-white);
     transform: translateY(-2px);
   }
+}
+
+.footer__social-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 /* Responsive footer */
@@ -1134,6 +1152,50 @@ strong {
 
 .font-heading { font-family: var(--font-heading); }
 .font-bold    { font-weight: 700; }
+
+/* ================================================
+   BUTON MESO — clasă reutilizabilă
+   .btn-meso            → roșu plin + text alb
+   .btn-meso--duotone   → roșu pal + text roșu (hover → plin)
+   ================================================ */
+.btn-meso {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: 3px solid var(--color-primary);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.6rem;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+@media (hover: hover) {
+  .btn-meso:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+  }
+}
+
+.btn-meso--duotone {
+  background: var(--color-primary-faint);
+  color: var(--color-primary);
+}
+
+@media (hover: hover) {
+  .btn-meso--duotone:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+  }
+}
 
 .d-flex       { display: flex; }
 .d-grid       { display: grid; }
