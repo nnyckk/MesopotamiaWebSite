@@ -1,0 +1,439 @@
+/* ================================================
+   MESOPOTAMIA — oferta.css
+   Landing page campanie „Alege-ți favoritele"
+   (se încarcă DUPĂ layout.css)
+   ================================================ */
+
+
+/* ================================================
+   1. HERO — imagine campanie (statică, fără slider)
+   ================================================ */
+.oferta-hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1920 / 550;
+  overflow: hidden;
+  margin-top: var(--header-h);
+  background: var(--color-bg);
+}
+
+.oferta-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 768px) {
+  .oferta-hero {
+    aspect-ratio: 4 / 5;
+  }
+
+  .oferta-hero__img {
+    object-fit: contain;
+  }
+}
+
+
+/* ================================================
+   2. GAMA DE PIZZA — carusel orizontal
+   ================================================ */
+.pizza {
+  padding-block: var(--space-4xl);
+  background-color: var(--color-bg);
+}
+
+/* Antet aliniat la stânga (peste carusel), mai apropiat de carduri */
+.pizza__header {
+  align-items: flex-start;
+  text-align: left;
+  margin-bottom: var(--space-lg);
+}
+
+.pizza-carousel {
+  position: relative;
+}
+
+/* Cardurile din carusel sunt pur informative — fără cursor de link,
+   dar păstrează un hover subtil (ridicare + umbră), fără zoom pe imagine */
+.pizza-carousel__track .pizza-card {
+  cursor: default;
+}
+
+@media (hover: hover) {
+  .pizza-carousel__track .pizza-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    border-color: rgba(176, 1, 6, 0.45);
+  }
+
+  .pizza-carousel__track .pizza-card:hover .product-card__img {
+    transform: none;
+  }
+}
+
+.pizza-carousel__track {
+  display: flex;
+  gap: var(--space-md);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: var(--space-lg) var(--space-md);
+  scroll-padding-inline: var(--space-md);
+}
+
+.pizza-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Cardul refolosește vizual .product-card; aici doar dimensiunea în strip */
+.pizza-carousel__track .product-card {
+  flex: 0 0 clamp(220px, 24vw, 280px);
+  scroll-snap-align: start;
+}
+
+@media (max-width: 768px) {
+  .pizza-carousel__track {
+    scroll-padding-inline: var(--container-pad);
+  }
+}
+
+/* Săgeți — stil preluat din .hero__arrow */
+.pizza-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.pizza-carousel__arrow-icon {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+@media (hover: hover) {
+  .pizza-carousel__arrow:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    transform: translateY(-50%) scale(1.08);
+  }
+}
+
+.pizza-carousel__arrow--prev { left: -0.5rem; }
+.pizza-carousel__arrow--next { right: -0.5rem; }
+
+.pizza-carousel__arrow[hidden] { display: none; }
+
+/* Pe mobil scroll cu degetul → ascunde săgețile */
+@media (max-width: 768px) {
+  .pizza-carousel__arrow {
+    display: none;
+  }
+}
+
+/* Card ca link — moștenește stilul .product-card, dar fără cursor de modal */
+.pizza-card {
+  text-decoration: none;
+  color: inherit;
+}
+
+.pizza__more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-2xl);
+}
+
+
+/* ================================================
+   4. DESERT — bandă galbenă full-width (gradient)
+   ================================================ */
+.dessert {
+  /* iese din .container ca să fie dintr-un capăt în altul */
+  padding-block: var(--space-4xl);
+  background: linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-accent) 45%, var(--color-accent-dark) 100%);
+}
+
+.dessert__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: var(--space-2xl);
+}
+
+.dessert__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dessert__media img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 24px rgba(56, 1, 3, 0.25));
+}
+
+.dessert__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.dessert__head {
+  margin-bottom: var(--space-sm);
+}
+
+.dessert__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-maroon);
+}
+
+.dessert__desc {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--color-maroon);
+  margin-bottom: var(--space-lg);
+  max-width: 42ch;
+}
+
+/* Buton întunecat pe fundal galben pentru contrast */
+.dessert__btn {
+  background: var(--color-maroon);
+  border-color: var(--color-maroon);
+  color: var(--color-white);
+}
+
+@media (hover: hover) {
+  .dessert__btn:hover {
+    background: #250102;
+    border-color: #250102;
+  }
+}
+
+@media (max-width: 768px) {
+  .dessert__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    text-align: center;
+  }
+
+  .dessert__media {
+    order: 1;
+  }
+
+  .dessert__text {
+    order: 2;
+    align-items: center;
+  }
+
+  .dessert__desc {
+    text-align: center;
+  }
+}
+
+
+/* ================================================
+   5. FAQ — accordion animat (identic cu contact.css)
+   Animație height controlată din JS (.is-open) — vezi oferta.js
+   ================================================ */
+.faq {
+  padding-block: var(--space-4xl);
+  background-color: var(--color-bg);
+}
+
+.faq__head {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.faq__tagline {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-xs);
+}
+
+.faq__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text);
+}
+
+.faq__list {
+  max-width: 760px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.faq__item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.faq__item[open] {
+  border-color: var(--color-primary);
+}
+
+.faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.3;
+}
+
+.faq__q::-webkit-details-marker {
+  display: none;
+}
+
+.faq__q:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+@media (hover: hover) {
+  .faq__item:not([open]) .faq__q:hover {
+    color: var(--color-primary);
+  }
+}
+
+.faq__icon {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  color: var(--color-text-dim);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.faq__item[open] .faq__icon {
+  transform: rotate(180deg);
+  color: var(--color-primary);
+}
+
+/* Animație deschidere/închidere: grila colapsează 0fr → 1fr.
+   JS adaugă/scoate .is-open și ține [open] pe durata închiderii. */
+.faq__a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-normal);
+}
+
+.faq__item.is-open .faq__a {
+  grid-template-rows: 1fr;
+}
+
+.faq__a-inner {
+  overflow: hidden;
+  min-height: 0;
+  padding: 0 var(--space-lg);
+  transition: padding-bottom var(--transition-normal);
+}
+
+.faq__item.is-open .faq__a-inner {
+  padding-bottom: var(--space-lg);
+}
+
+.faq__a p {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.faq__a strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+
+/* ================================================
+   6. SOCIAL — bandă „Urmărește-ne" (fundal roșu)
+   ================================================ */
+.offer-social {
+  padding-block: var(--space-4xl);
+  background: linear-gradient(135deg, #500106 0%, #B00106 50%, #500106 100%);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.offer-social__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-white);
+  margin-bottom: var(--space-sm);
+}
+
+.offer-social__sub {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: var(--space-xl);
+}
+
+.offer-social__links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.offer-social__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--color-white);
+  transition: all var(--transition-fast);
+}
+
+@media (hover: hover) {
+  .offer-social__link:hover {
+    background: var(--color-white);
+    color: var(--color-primary);
+    transform: translateY(-3px);
+  }
+}
+
+.offer-social__icon {
+  width: 26px;
+  height: 26px;
+  display: block;
+}

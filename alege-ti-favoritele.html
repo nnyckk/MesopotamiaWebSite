@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="description" content="Alege-ți favoritele la Mesopotamia! A doua pizza medie -50%, de la 68.99 lei, cu 2× Coca-Cola incluse. Ofertă valabilă 20 iulie – 02 august.">
+  <title>Alege-ți favoritele – Ofertă Pizza | Mesopotamia®</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/layout.css?v=6">
+  <link rel="stylesheet" href="css/index.css?v=6">
+  <link rel="stylesheet" href="css/meniu.css?v=6">
+  <link rel="stylesheet" href="css/oferta.css?v=6">
+  <script>(function(){if(localStorage.getItem('theme')!=='dark')document.documentElement.dataset.theme='light';})()</script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav" aria-label="Navigatie principala">
+        <a href="index.html" class="nav__logo" aria-label="Mesopotamia – pagina principala">
+          <img src="icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="nav__logo-img nav__logo--dark">
+          <img src="icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="nav__logo-img nav__logo--light">
+        </a>
+        <ul class="nav__links" id="navLinks" role="list">
+          <li><a href="index.html"      class="nav__link">Acasă</a></li>
+          <li><a href="meniu.html"       class="nav__link nav__link--active">Meniu</a></li>
+          <li><a href="locatii.html" class="nav__link">Locații</a></li>
+          <li class="nav__item--desktop"><a href="cariera.html" class="nav__link">Carieră</a></li>
+          <li><a href="contact.html"     class="nav__link">Contact</a></li>
+          <li class="nav__actions-mobile">
+            <button class="nav__theme" data-theme-toggle aria-label="Schimbă tema">
+              <i class="fa-solid fa-moon" aria-hidden="true"></i>
+            </button>
+            <a href="index-en.html" class="nav__lang" aria-label="Switch to English">
+              <i class="fa-solid fa-globe" aria-hidden="true"></i>
+              <span>English</span>
+            </a>
+          </li>
+
+        </ul>
+        <div class="nav__actions">
+          <a href="index-en.html" class="nav__lang" aria-label="Switch to English">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <span>English</span>
+          </a>
+          <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- HERO — imagine campanie -->
+  <section class="oferta-hero" aria-label="Ofertă Alege-ți favoritele">
+    <picture>
+      <source media="(max-width: 768px)" srcset="images/hero/mobile/Alege-tiFavoritele_cover-mobile.jpg">
+      <source media="(max-width: 1680px)" srcset="images/hero/desktopLittle/Alege-tiFavoritele_cover-desktopLittle.jpg">
+      <img src="images/hero/desktopBig/Alege-tiFavoritele_cover-desktopBig.jpg" alt="Alege-ți favoritele – a doua pizza medie -50%, de la 68.99 lei cu 2× Coca-Cola incluse" class="oferta-hero__img">
+    </picture>
+  </section>
+
+
+  <!-- GAMA DE PIZZA — carusel -->
+  <section class="pizza" aria-labelledby="pizza-title">
+    <div class="container">
+      <div class="menu__header pizza__header">
+        <h2 class="menu__title" id="pizza-title">Descoperă gama de pizza Meso</h2>
+      </div>
+
+      <div class="pizza-carousel">
+        <button class="pizza-carousel__arrow pizza-carousel__arrow--prev" id="pizzaPrev" aria-label="Pizza anterioară" hidden>
+          <svg class="pizza-carousel__arrow-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM149.66,93.66,115.31,128l34.35,34.34a8,8,0,0,1-11.32,11.32l-40-40a8,8,0,0,1,0-11.32l40-40a8,8,0,0,1,11.32,11.32Z"></path></svg>
+        </button>
+
+        <div class="pizza-carousel__track" id="pizzaTrack" aria-live="polite">
+          <!-- cardurile de pizza sunt randate din data/products.json de js/oferta.js -->
+        </div>
+
+        <button class="pizza-carousel__arrow pizza-carousel__arrow--next" id="pizzaNext" aria-label="Pizza următoare" hidden>
+          <svg class="pizza-carousel__arrow-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm29.66-93.66a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32L140.69,128,106.34,93.66a8,8,0,0,1,11.32-11.32Z"></path></svg>
+        </button>
+      </div>
+
+      <div class="pizza__more-wrap reveal">
+        <a href="meniu.html#pizza" class="btn-meso">Vezi tot meniul de pizza</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- DESERT / clătite — bandă galbenă full-width -->
+  <section class="dessert" aria-label="Desert Mesopotamia">
+    <div class="container">
+      <div class="dessert__inner reveal">
+        <div class="dessert__media">
+          <img src="images/promo/3crepes.png" alt="Clătitele Mesopotamia" loading="lazy">
+        </div>
+        <div class="dessert__text">
+          <div class="dessert__head">
+            <h2 class="dessert__title">Nu uita de desert</h2>
+          </div>
+          <p class="dessert__desc">Pentru o masă copioasă, completează comanda cu clătitele noastre: Nutella, ciocolată albă cu fistic sau dulceață de casă.</p>
+          <a href="meniu.html#crepes" class="btn-meso dessert__btn">Detalii aici</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FAQ -->
+  <section class="faq" aria-label="Întrebări frecvente">
+    <div class="container">
+      <div class="faq__head">
+        <p class="faq__tagline">Bine de știut</p>
+        <h2 class="faq__title">Întrebări frecvente</h2>
+      </div>
+
+      <div class="faq__list">
+
+        <details class="faq__item">
+          <summary class="faq__q">
+            <span>Cât timp este valabilă oferta?</span>
+            <i class="fa-solid fa-chevron-down faq__icon" aria-hidden="true"></i>
+          </summary>
+          <div class="faq__a">
+            <div class="faq__a-inner">
+              <p>Oferta „Alege-ți favoritele" este valabilă în perioada 20 iulie – 02 august, în limita stocului disponibil.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">
+            <span>Ce pizza intră în promoție?</span>
+            <i class="fa-solid fa-chevron-down faq__icon" aria-hidden="true"></i>
+          </summary>
+          <div class="faq__a">
+            <div class="faq__a-inner">
+              <p>Reducerea de <strong>-50%</strong> la a doua pizza se aplică pentru pizza medie, la orice sortiment din gama noastră. A doua pizza (cea cu reducere) trebuie să fie de valoare egală sau mai mică.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">
+            <span>Băuturile sunt incluse?</span>
+            <i class="fa-solid fa-chevron-down faq__icon" aria-hidden="true"></i>
+          </summary>
+          <div class="faq__a">
+            <div class="faq__a-inner">
+              <p>Da. La această ofertă primești <strong>2× Coca-Cola de 330ml</strong> incluse în preț, fără cost suplimentar.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">
+            <span>Oferta este valabilă și la livrare?</span>
+            <i class="fa-solid fa-chevron-down faq__icon" aria-hidden="true"></i>
+          </summary>
+          <div class="faq__a">
+            <div class="faq__a-inner">
+              <p>Oferta este valabilă în restaurantele participante. Pentru comenzi la domiciliu, verifică disponibilitatea în aplicația de livrare sau contactează restaurantul cel mai apropiat.</p>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- GĂSEȘTE O LOCAȚIE -->
+  <section class="promo" aria-label="Locații Mesopotamia">
+    <div class="container">
+      <article class="promo-row reveal">
+        <div class="promo-row__text">
+          <div class="promo-row__head">
+            <span class="promo-row__icon" aria-hidden="true">
+              <svg class="promo-row__svg" xmlns="http://www.w3.org/2000/svg" fill="#af1f23" viewBox="0 0 256 256">
+                <path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"></path>
+                <path d="M200,224H150.54A266.56,266.56,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25a88,88,0,0,0-176,0c0,31.4,14.51,64.68,42,96.25A266.56,266.56,0,0,0,105.46,224H56a8,8,0,0,0,0,16H200a8,8,0,0,0,0-16ZM56,104a72,72,0,0,1,144,0c0,57.23-55.47,105-72,118C111.47,209,56,161.23,56,104Zm112,0a40,40,0,1,0-40,40A40,40,0,0,0,168,104Zm-64,0a24,24,0,1,1,24,24A24,24,0,0,1,104,104Z"></path>
+              </svg>
+            </span>
+            <h2 class="promo-row__title">Găsește un restaurant</h2>
+          </div>
+          <p class="promo-row__desc">Peste 70 de locații Mesopotamia în toată România. Găsește-o pe cea mai apropiată de tine și profită de ofertă.</p>
+          <a href="locatii.html" class="btn-meso">Vezi locațiile</a>
+        </div>
+        <div class="promo-row__media">
+          <img src="images/promo/locatii.jpg" alt="Locațiile Mesopotamia din toată România" loading="lazy">
+        </div>
+      </article>
+    </div>
+  </section>
+
+
+  <!-- SOCIAL -->
+  <section class="offer-social" aria-label="Urmărește-ne pe rețelele sociale">
+    <div class="container">
+      <h2 class="offer-social__title">Urmărește-ne</h2>
+      <p class="offer-social__sub">Fii primul care află de fiecare ofertă nouă Mesopotamia.</p>
+      <div class="offer-social__links">
+        <a href="#" class="offer-social__link" aria-label="Facebook"><svg class="offer-social__icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"></path></svg></a>
+        <a href="#" class="offer-social__link" aria-label="Instagram"><svg class="offer-social__icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"></path></svg></a>
+        <a href="#" class="offer-social__link" aria-label="TikTok"><svg class="offer-social__icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M224,72a48.05,48.05,0,0,1-48-48,8,8,0,0,0-8-8H128a8,8,0,0,0-8,8V156a20,20,0,1,1-28.57-18.08A8,8,0,0,0,96,130.69V88a8,8,0,0,0-9.4-7.88C50.91,86.48,24,119.1,24,156a76,76,0,0,0,152,0V116.29A103.25,103.25,0,0,0,224,128a8,8,0,0,0,8-8V80A8,8,0,0,0,224,72Zm-8,39.64a87.19,87.19,0,0,1-43.33-16.15A8,8,0,0,0,160,102v54a60,60,0,0,1-120,0c0-25.9,16.64-49.13,40-57.6v27.67A36,36,0,1,0,136,156V32h24.5A64.14,64.14,0,0,0,216,87.5Z"></path></svg></a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Footer">
+<div class="container">
+
+      <div class="footer__body">
+
+        <div class="footer__brand">
+          <img src="icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--dark">
+          <img src="icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--light">
+          <p class="footer__tagline">Gustul care nu se uită!</p>
+        </div>
+
+        <nav class="footer__nav" aria-label="Link-uri footer">
+          <ul class="footer__list">
+            <li><a href="https://www.mesopotamia.ro/wp-content/uploads/2026/02/2026-mesopotamia-valorinutritionale.pdf" target="_blank" rel="noopener" class="footer__link">Valori nutriționale</a></li>
+            <li><a href="contact.html?form=sesizari" class="footer__link">Sugestii și reclamații</a></li>
+            <li><a href="privacy.html"     class="footer__link">Politica de confidențialitate</a></li>
+            <li><a href="cookies.html"     class="footer__link">Politica fișiere Cookies</a></li>
+            <li><a href="termeni.html"     class="footer__link">Termeni și condiții</a></li>
+            <li><a href="contact.html"     class="footer__link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__social">
+          <p class="footer__social-title">Urmărește-ne</p>
+          <div class="footer__social-links">
+            <a href="#" class="footer__social-link" aria-label="Facebook"><svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"></path></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"></path></svg></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M224,72a48.05,48.05,0,0,1-48-48,8,8,0,0,0-8-8H128a8,8,0,0,0-8,8V156a20,20,0,1,1-28.57-18.08A8,8,0,0,0,96,130.69V88a8,8,0,0,0-9.4-7.88C50.91,86.48,24,119.1,24,156a76,76,0,0,0,152,0V116.29A103.25,103.25,0,0,0,224,128a8,8,0,0,0,8-8V80A8,8,0,0,0,224,72Zm-8,39.64a87.19,87.19,0,0,1-43.33-16.15A8,8,0,0,0,160,102v54a60,60,0,0,1-120,0c0-25.9,16.64-49.13,40-57.6v27.67A36,36,0,1,0,136,156V32h24.5A64.14,64.14,0,0,0,216,87.5Z"></path></svg></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__copy-wrap">
+          <p class="footer__copy">© 2026 Mesopotamia.ro – Toate drepturile rezervate.</p>
+          <p class="footer__company">SC SET-CORPORATION SRL J33/838/2011 RO 29084042</p>
+        </div>
+        <div class="footer__anpc">
+          <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sal.svg" alt="Solutionarea Alternativa a Litigiilor" class="footer__anpc-img">
+          </a>
+          <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sol.svg" alt="Solutionarea Online a Litigiilor" class="footer__anpc-img">
+          </a>
+        </div>
+
+        <button class="footer__theme" data-theme-toggle aria-label="Schimbă tema">
+          <svg class="footer__theme-icon footer__theme-icon--moon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M235.54,150.21a104.84,104.84,0,0,1-37,52.91A104,104,0,0,1,32,120,103.09,103.09,0,0,1,52.88,57.48a104.84,104.84,0,0,1,52.91-37,8,8,0,0,1,10,10,88.08,88.08,0,0,0,109.8,109.8,8,8,0,0,1,10,10Z"></path></svg>
+          <svg class="footer__theme-icon footer__theme-icon--sun" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm8,24a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path></svg>
+        </button>
+
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=6"></script>
+  <script src="js/oferta.js?v=6"></script>
+
+  <nav class="nav-bottom" id="navBottom" aria-label="Navigare principală">
+    <a href="index.html"      class="nav-bottom__item"><i class="fa-solid fa-house"></i><span>Acasă</span></a>
+    <a href="meniu.html"      class="nav-bottom__item"><i class="fa-solid fa-utensils"></i><span>Meniu</span></a>
+    <a href="locatii.html"class="nav-bottom__item"><i class="fa-solid fa-location-dot"></i><span>Locații</span></a>
+    <a href="contact.html"    class="nav-bottom__item"><i class="fa-regular fa-envelope"></i><span>Contact</span></a>
+    <a href="more.html" class="nav-bottom__item"><i class="fa-solid fa-ellipsis"></i><span>Mai mult</span></a>
+  </nav>
+
+</body>
+</html>
