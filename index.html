@@ -36,7 +36,7 @@
           <li class="nav__actions-mobile">
             <a href="index-en.html" class="nav__lang" aria-label="Switch to English">
               <i class="ph-bold ph-globe" aria-hidden="true"></i>
-              <span>English</span>
+              <span>EN</span>
             </a>
           </li>
 
@@ -44,7 +44,7 @@
         <div class="nav__actions">
           <a href="index-en.html" class="nav__lang" aria-label="Switch to English">
             <i class="ph-bold ph-globe" aria-hidden="true"></i>
-            <span>English</span>
+            <span>EN</span>
           </a>
           <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
             <span aria-hidden="true"></span>
@@ -61,45 +61,21 @@
   <section class="hero" aria-label="Slider promotional">
     <div class="hero__slider" id="heroSlider">
 
-      <a href="alege-ti-favoritele.html" class="hero__slide is-active" role="group" aria-label="Slide 1 din 4">
-        <picture>
-          <source media="(max-width: 768px)" srcset="images/hero/mobile/Alege-tiFavoritele_cover-mobile.jpg">
-          <source media="(max-width: 1680px)" srcset="images/hero/desktopLittle/Alege-tiFavoritele_cover-desktopLittle.jpg">
-          <img src="images/hero/desktopBig/Alege-tiFavoritele_cover-desktopBig.jpg" alt="Alege-ți favoritele Mesopotamia" class="hero__slide-img">
-        </picture>
+      <a href="alege-ti-favoritele.html" class="hero__slide is-active" role="group" aria-label="Slide 1 din 2">
+        <img src="images/hero/desktopBig/PiattoMare_desktopBig.jpg" alt="Piatto Mare Mesopotamia" class="hero__slide-img">
       </a>
 
-      <a href="#" class="hero__slide" role="group" aria-label="Slide 2 din 4">
-        <picture>
-          <source media="(max-width: 768px)" srcset="images/hero/mobile/RoyalCheesy_cover-mobile.jpg">
-          <source media="(max-width: 1680px)" srcset="images/hero/desktopLittle/RoyalCheesy_cover-desktopLittle.jpg">
-          <img src="images/hero/desktopBig/RoyalCheesy_cover-desktopBig.jpg" alt="Royal Cheesy Mesopotamia" class="hero__slide-img">
-        </picture>
-      </a>
-
-      <a href="#" class="hero__slide" role="group" aria-label="Slide 3 din 4">
-        <picture>
-          <source media="(max-width: 768px)" srcset="images/hero/mobile/Twister_mobile.jpg">
-          <source media="(max-width: 1680px)" srcset="images/hero/desktopLittle/Twister_desktopLittle.jpg">
-          <img src="images/hero/desktopBig/Twister_desktopBig.jpg" alt="Twister Mesopotamia" class="hero__slide-img">
-        </picture>
-      </a>
-
-      <a href="#" class="hero__slide" role="group" aria-label="Slide 4 din 4">
-        <picture>
-          <source media="(max-width: 768px)" srcset="images/hero/mobile/SmartDoner_mobile.jpg">
-          <source media="(max-width: 1680px)" srcset="images/hero/desktopLittle/SmartDoner_desktopLittle.jpg">
-          <img src="images/hero/desktopBig/SmartDoner_desktopBig.jpg" alt="Smart Doner Mesopotamia" class="hero__slide-img">
-        </picture>
+      <a href="#" class="hero__slide" role="group" aria-label="Slide 2 din 2">
+        <img src="images/hero/desktopBig/FuzeTeaCrepes_desktopBig.jpg" alt="Fuze Tea și crepes Mesopotamia" class="hero__slide-img" loading="lazy">
       </a>
 
     </div>
 
     <button class="hero__arrow hero__arrow--prev" id="heroPrev" aria-label="Slide anterior">
-      <svg class="hero__arrow-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM149.66,93.66,115.31,128l34.35,34.34a8,8,0,0,1-11.32,11.32l-40-40a8,8,0,0,1,0-11.32l40-40a8,8,0,0,1,11.32,11.32Z"></path></svg>
+      <i class="ph-bold ph-caret-left" aria-hidden="true"></i>
     </button>
     <button class="hero__arrow hero__arrow--next" id="heroNext" aria-label="Slide următor">
-      <svg class="hero__arrow-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm29.66-93.66a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32L140.69,128,106.34,93.66a8,8,0,0,1,11.32-11.32Z"></path></svg>
+      <i class="ph-bold ph-caret-right" aria-hidden="true"></i>
     </button>
 
   </section>
@@ -177,7 +153,7 @@
 
       <!-- Carusel infinit: poza din centru mai mare, vecinele mai mici,
            cele de la margini se topesc in fundal -->
-      <div class="bt-carousel reveal" id="btCarousel">
+      <div class="bt-carousel" id="btCarousel">
         <div class="bt-carousel__viewport">
           <div class="bt-carousel__track" id="btTrack">
             <figure class="bt-slide"><img src="images/img_carousel/portrait 2.webp"  alt="Client Mesopotamia cu kebab" loading="lazy"></figure>
