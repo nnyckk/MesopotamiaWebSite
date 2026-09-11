@@ -504,170 +504,180 @@
 }
 
 
-
-
 /* ================================================
-   4. PROMO GRID
+   4. LOC — banda cu orase care defileaza
    ================================================ */
-.promo {
-  padding-block: var(--space-4xl);
-  background-color: var(--color-bg);
-}
-
-/* Rand split: panou verde + poza, alaturate.
-   Poza ramane intreaga; textul are fundal propriu, cu contrast. */
-.promo-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: stretch;
-  gap: var(--space-md);
-  margin-bottom: var(--space-2xl);
-}
-
-.promo-row:last-child {
-  margin-bottom: 0;
-}
-
-/* Rand inversat: poza in stanga, textul in dreapta */
-.promo-row--reverse .promo-row__text {
-  order: 2;
-}
-
-/* Panoul de text — verde plin, ca posterele */
-.promo-row__text {
+/* Poza acopera tot viewportul; banda de orase sta in container */
+.loc {
   position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: var(--space-3xl) var(--space-2xl);
-  background: var(--brand-cream-pale);
-  border: 3px solid var(--brand-green-base);   /* verdele doar ca rama */
-  border-radius: 32px;   /* rama urmeaza colturile, ca o bula */
-}
-
-
-
-/* Icon + titlu pe același rând */
-.promo-row__head {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  margin-bottom: var(--space-md);
-}
-
-.promo-row__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  height: 80px;
-  flex-shrink: 0;
-  border-radius: var(--radius-md);
-  background: none;
-  color: var(--brand-green-base);
-  font-size: 2.8rem;
-}
-
-/* SVG custom (Phosphor) — mosteneste galbenul via currentColor */
-.promo-row__svg {
-  width: 68px;
-  height: 68px;
-  display: block;
-}
-
-.promo-row__title {
-  font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 3.6vw, 3.4rem);
-  font-weight: 900;
-  letter-spacing: 0.01em;
-  line-height: 1.05;
-  color: var(--brand-green-base);
-}
-
-/* Cuvantul-cheie scos in galben — ca "HAI LA COMBO" din postere.
-   Se foloseste cu <span class="hl"> in titlu. */
-.promo-row__title .hl {
-  color: var(--color-accent);
-}
-
-.promo-row__desc {
-  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
-  line-height: 1.6;
-  /* kraft e culoare fixa → si textul de pe el trebuie fix,
-     altfel in dark mode contrastul cade */
-  color: rgba(26, 23, 23, 0.78);
-  margin-bottom: var(--space-xl);
-  max-width: 40ch;
-}
-
-/* Butoanele promo sunt rosii (CTA), cu corp VERDE dedesubt —
-   inversul butonului verde din layout.css. */
-.promo-row__text .btn-meso {
-  background: var(--color-cta);
-  border-color: var(--color-cta);
-  color: var(--color-white);
-}
-
-@media (hover: hover) {
-  .promo-row__text .btn-meso:hover {
-    background: var(--color-cta);
-    border-color: var(--brand-green-base);
-    color: var(--color-white);
-    box-shadow: 0 7px 0 0 var(--brand-green-base);
-  }
-
-  .promo-row__text .btn-meso:active {
-    box-shadow: 0 1px 0 0 var(--brand-green-base);
-  }
-}
-
-/* Poza — intreaga, langa panou */
-.promo-row__media {
+  isolation: isolate;
   overflow: hidden;
-  min-height: 420px;
-  border-radius: 32px;
+  padding-block: var(--space-4xl) 0;
 }
 
-.promo-row__media img {
+/* video sau imagine — acelasi tratament */
+.loc__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  display: block;
+  pointer-events: none;
 }
 
-/* Responsive: stivuit pe mobil — poza sus, panoul verde dedesubt */
+/* daca userul a cerut miscare redusa, arata doar poster-ul */
+@media (prefers-reduced-motion: reduce) {
+  video.loc__bg {
+    display: none;
+  }
+
+  .loc {
+    background: var(--brand-green-base) url('../images/promo/locatii.jpg') center / cover no-repeat;
+  }
+}
+
+/* doar un val intunecat, ca textul sa fie lizibil — fara verde */
+.loc::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.loc__inner {
+  text-align: center;
+  padding-bottom: var(--space-3xl);
+}
+
+.loc__title {
+  font-family: var(--font-heading);
+  font-size: clamp(3.4rem, 8vw, 7rem);
+  line-height: 1.02;
+  color: var(--color-white);
+  margin-bottom: var(--space-md);
+}
+
+.loc__title .hl {
+  color: var(--brand-yellow);
+}
+
+/* CTA-ul sta pe fundal verde → devine rosu, cu placa VERDE dedesubt.
+   Verdele din .btn-meso s-ar pierde pe fundalul sectiunii. */
+/* Galben, colturi rotunjite. Urmareste mouse-ul ca .cat-card
+   (--tx/--ty vin din initTiltCards). */
+.loc__cta {
+  background: var(--brand-yellow);
+  border-color: var(--brand-yellow);
+  color: var(--brand-green-night);
+  font-size: 1rem;
+  padding: 1.05rem 2.6rem;
+  border-radius: 16px;
+  --tx: 0px;
+  --ty: 0px;
+  --sc: 1;
+  transform: translate3d(var(--tx), var(--ty), 0) scale(var(--sc));
+  transition: background var(--transition-fast),
+              border-color var(--transition-fast),
+              transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (hover: hover) {
+  /* IMPORTANT: .btn-meso:hover pune transform fix, care ar anula
+     urmarirea mouse-ului. Il rescriem prin variabile. */
+  .loc__cta:hover,
+  .loc__cta:active {
+    background: var(--brand-yellow-dark);
+    border-color: var(--brand-yellow-dark);
+    color: var(--brand-green-night);
+    box-shadow: none;
+    --sc: 1.04;
+    transform: translate3d(var(--tx), var(--ty), 0) scale(var(--sc));
+  }
+
+  /* cat timp mouse-ul se misca, urmarirea e aproape instantanee */
+  .loc__cta.is-tracking {
+    transition: transform 0.12s linear,
+                background var(--transition-fast),
+                border-color var(--transition-fast);
+  }
+}
+
+/* "80 de locații" — bold, subliniat cu galben ca trasat cu marker */
+.loc__mark {
+  font-weight: 800;
+  color: var(--color-white);
+  padding-bottom: 2px;
+  border-bottom: 4px solid var(--brand-yellow);
+}
+
+.loc__desc {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.3vw, 1.18rem);
+  font-weight: 500;
+  line-height: 1.65;
+  color: rgba(247, 243, 232, 0.88);
+  max-width: 46ch;
+  margin-inline: auto;
+  margin-bottom: var(--space-xl);
+}
+
+/* ---- Banda de orase ---- */
+.loc__marquee {
+  overflow: hidden;
+  padding-block: var(--space-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  -webkit-mask-image: linear-gradient(to right,
+    transparent 0%, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(to right,
+    transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+
+.loc__track {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  width: max-content;
+  animation: loc-scroll 90s linear infinite;
+}
+
+.loc__city {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+  line-height: 1;
+  color: var(--color-white);
+  white-space: nowrap;
+}
+
+.loc__dot {
+  font-size: 1.1rem;
+  color: var(--brand-yellow);
+  flex-shrink: 0;
+}
+
+/* Track-ul e dublat in JS → -50% e exact o bucla */
+@keyframes loc-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loc__track { animation: none; }
+}
+
 @media (max-width: 768px) {
-  .promo-row,
-  .promo-row--reverse {
-    grid-template-columns: 1fr;
-    margin-bottom: var(--space-xl);
+  .loc {
+    padding-top: var(--space-3xl);
   }
 
-  .promo-row__media,
-  .promo-row--reverse .promo-row__media {
-    min-height: 240px;
-    order: 1;
-    border-radius: 24px;
+  .loc__inner {
+    padding-bottom: var(--space-2xl);
   }
 
-  .promo-row__text,
-  .promo-row--reverse .promo-row__text {
-    order: 2;
-    padding: var(--space-xl);
-    border-radius: 24px;
-  }
-
-
-  .promo-row__icon {
-    height: 56px;
-  }
-
-  .promo-row__svg {
-    width: 40px;
-    height: 40px;
+  .loc__city {
+    font-size: 1.4rem;
   }
 }
 

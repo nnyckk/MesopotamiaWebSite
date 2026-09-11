@@ -20,6 +20,7 @@ ready(function () {
   initHeroSlider();
   initInstaMarquee();
   initBtCarousel();
+  initLocMarquee();
   initTiltCards();
   initTogetherAlbum();
   initScrollReveal();
@@ -397,12 +398,31 @@ function initBtCarousel() {
 
 
 /* ------------------------------------------------
+   2c. BANDA DE ORASE — dubleaza setul pentru bucla continua
+------------------------------------------------ */
+function initLocMarquee() {
+  var track = document.getElementById('locTrack');
+  if (!track) return;
+
+  var items = Array.prototype.slice.call(track.children);
+  if (!items.length) return;
+
+  items.forEach(function (el) {
+    var clone = el.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone);
+  });
+}
+
+
+/* ------------------------------------------------
    2a. CARDURI CARE URMARESC MOUSE-UL
    Cardul se deplaseaza cu cativa px spre cursor,
    ca si cum s-ar lipi usor de el.
 ------------------------------------------------ */
 function initTiltCards() {
-  var cards = document.querySelectorAll('.cat-card');
+  /* cardurile de categorii + CTA-ul din secțiunea de locatii */
+  var cards = document.querySelectorAll('.cat-card, .loc__cta');
   if (!cards.length) return;
 
   /* doar pe pointer fin (mouse), nu pe touch */
