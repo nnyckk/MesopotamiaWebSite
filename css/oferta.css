@@ -64,7 +64,7 @@
   .pizza-carousel__track .pizza-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    border-color: rgba(176, 1, 6, 0.45);
+    border-color: var(--color-primary-faint);
   }
 
   .pizza-carousel__track .pizza-card:hover .product-card__img {
@@ -385,7 +385,7 @@
    ================================================ */
 .offer-social {
   padding-block: var(--space-4xl);
-  background: linear-gradient(135deg, #500106 0%, #B00106 50%, #500106 100%);
+  background: linear-gradient(135deg, var(--brand-green-dark) 0%, var(--brand-green) 50%, var(--brand-green-dark) 100%);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
   text-align: center;

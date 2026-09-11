@@ -268,7 +268,7 @@
           map.scrollWheelZoom.enable();
         } else {
           map.scrollWheelZoom.disable();
-          showHint('fa-solid fa-computer-mouse', 'Folosește ' + (isMac ? '⌘ Cmd' : 'Ctrl') + ' + Scroll pentru zoom pe hartă');
+          showHint('ph-bold ph-mouse', 'Folosește ' + (isMac ? '⌘ Cmd' : 'Ctrl') + ' + Scroll pentru zoom pe hartă');
         }
       }, { passive: false });
 
@@ -282,7 +282,7 @@
             overlayEl && overlayEl.classList.remove('is-visible');
           } else {
             map.dragging.disable();
-            showHint('fa-solid fa-hand-pointer', 'Folosește 2 degete pentru a muta harta');
+            showHint('ph-bold ph-hand-pointing', 'Folosește 2 degete pentru a muta harta');
           }
         }, { passive: true });
         mapEl.addEventListener('touchend', function (e) {
@@ -455,7 +455,7 @@
       return '<span class="rest-card__hours-line">' + seg + '</span>';
     });
     return '<div class="rest-card__meta rest-card__hours">' +
-      '<i class="fa-regular fa-clock"></i>' +
+      '<i class="ph ph-clock"></i>' +
       '<span class="rest-card__hours-lines">' + lines.join('') + badge + '</span>' +
     '</div>';
   }
@@ -467,9 +467,9 @@
      și de panoul de detaliu desktop). */
   function buildCardHTML(r) {
     let featureBadges = '';
-    if (r.features.mesoCafe) featureBadges += '<span class="rest-badge rest-badge--cafe"><i class="fa-solid fa-mug-hot"></i> Meso Cafe</span>';
-    if (r.features.mesoKids) featureBadges += '<span class="rest-badge rest-badge--kids"><i class="fa-solid fa-child"></i> Meso Kids</span>';
-    if (r.features.terasa)   featureBadges += '<span class="rest-badge rest-badge--terasa"><i class="fa-solid fa-umbrella-beach"></i> Terasă</span>';
+    if (r.features.mesoCafe) featureBadges += '<span class="rest-badge rest-badge--cafe"><i class="ph-bold ph-coffee"></i> Meso Cafe</span>';
+    if (r.features.mesoKids) featureBadges += '<span class="rest-badge rest-badge--kids"><i class="ph-bold ph-baby"></i> Meso Kids</span>';
+    if (r.features.terasa)   featureBadges += '<span class="rest-badge rest-badge--terasa"><i class="ph-bold ph-umbrella"></i> Terasă</span>';
 
     let deliveryBadges = '';
     deliveryBadges += deliveryBadge(r.delivery.glovo,    'glovo', 'Glovo');
@@ -478,7 +478,7 @@
 
     var bannerContent = r.image
       ? '<img class="rest-card__img" src="' + r.image + '" alt="' + r.name + '" loading="lazy">'
-      : '<div class="rest-card__img-placeholder" style="background:' + getBannerStyle(r.id) + '"><i class="fa-solid fa-store"></i></div>';
+      : '<div class="rest-card__img-placeholder" style="background:' + getBannerStyle(r.id) + '"><i class="ph-bold ph-storefront"></i></div>';
 
     var dirUrl  = 'https://www.google.com/maps/dir/?api=1&destination=' +
       (r.lat != null && r.lng != null ? r.lat + ',' + r.lng : encodeURIComponent(r.address));
@@ -489,9 +489,9 @@
       '</div>' +
       '<div class="rest-card__body">' +
         renderHours(r.hours) +
-        '<a class="rest-card__meta rest-card__address" href="' + dirUrl + '" target="_blank" rel="noopener" aria-label="Direcții către ' + r.name + ' – ' + r.address + '"><i class="fa-solid fa-location-dot"></i><span>' + r.address + '</span><i class="fa-solid fa-diamond-turn-right rest-card__address-go" aria-hidden="true"></i></a>' +
-        '<a class="rest-card__meta rest-card__tel" href="tel:' + r.phone.replace(/\s/g, '') + '"><i class="fa-solid fa-phone"></i>' + r.phone + '</a>' +
-        (r.email ? '<a class="rest-card__meta rest-card__email" href="mailto:' + r.email + '"><i class="fa-regular fa-envelope"></i>' + r.email + '</a>' : '') +
+        '<a class="rest-card__meta rest-card__address" href="' + dirUrl + '" target="_blank" rel="noopener" aria-label="Direcții către ' + r.name + ' – ' + r.address + '"><i class="ph-bold ph-map-pin"></i><span>' + r.address + '</span><i class="ph-bold ph-navigation-arrow rest-card__address-go" aria-hidden="true"></i></a>' +
+        '<a class="rest-card__meta rest-card__tel" href="tel:' + r.phone.replace(/\s/g, '') + '"><i class="ph-bold ph-phone"></i>' + r.phone + '</a>' +
+        (r.email ? '<a class="rest-card__meta rest-card__email" href="mailto:' + r.email + '"><i class="ph ph-envelope"></i>' + r.email + '</a>' : '') +
         (featureBadges || deliveryBadges
           ? '<div class="rest-card__badge-groups">' +
               (featureBadges ? '<div class="rest-card__badge-row"><span class="rest-card__badge-label">Facilități</span><div class="rest-card__badge-wrap">' + featureBadges + '</div></div>' : '') +
@@ -507,7 +507,7 @@
     countEl.textContent = restaurants.length + ' locații';
 
     if (!restaurants.length) {
-      listEl.innerHTML = '<div class="rest-empty"><i class="fa-solid fa-store-slash"></i><span>Nicio locație găsită.</span><span>Încearcă un alt termen de căutare.</span></div>';
+      listEl.innerHTML = '<div class="rest-empty"><i class="ph-bold ph-storefront"></i><span>Nicio locație găsită.</span><span>Încearcă un alt termen de căutare.</span></div>';
       return;
     }
 
@@ -545,13 +545,13 @@
   /* Construiește HTML-ul placeholderului „Alege o locație" (după mod). */
   function detailPlaceholderHTML() {
     var listMode = shellEl && shellEl.dataset.view === 'list';
-    var icon  = listMode ? 'fa-store' : 'fa-map-location-dot';
+    var icon  = listMode ? 'ph ph-storefront' : 'ph ph-map-trifold';
     var title = listMode ? 'Alege un restaurant' : 'Alege o locație de pe hartă';
     var hint  = listMode
       ? 'Apasă pe un card ca să vezi detaliile restaurantului.'
       : 'Apasă pe un pin ca să vezi detaliile restaurantului.';
     return '<div class="rest-detail__placeholder">' +
-      '<i class="fa-solid ' + icon + '" aria-hidden="true"></i>' +
+      '<i class="ph-bold ' + icon + '" aria-hidden="true"></i>' +
       '<span>' + title + '</span>' +
       '<span class="rest-detail__placeholder-hint">' + hint + '</span>' +
     '</div>';
@@ -593,7 +593,7 @@
       var closeDetail = document.createElement('button');
       closeDetail.className = 'rest-detail__close';
       closeDetail.setAttribute('aria-label', 'Închide');
-      closeDetail.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+      closeDetail.innerHTML = '<i class="ph-bold ph-x" aria-hidden="true"></i>';
       closeDetail.addEventListener('click', clearActive);
       card.innerHTML = '';
       card.appendChild(banner);
@@ -801,7 +801,7 @@
         if (userMarker) map.removeLayer(userMarker);
         userMarker = L.marker([userLocation.lat, userLocation.lng], {
           icon: L.divIcon({
-            html: '<div class="rest-user-marker"><i class="fa-solid fa-person"></i></div>',
+            html: '<div class="rest-user-marker"><i class="ph-bold ph-person"></i></div>',
             className: '',
             iconSize: [32, 32],
             iconAnchor: [16, 16],
@@ -1006,7 +1006,7 @@
     })
     .catch(function (err) {
       console.error('Eroare la încărcarea restaurantelor:', err);
-      listEl.innerHTML = '<div class="rest-empty"><i class="fa-solid fa-triangle-exclamation"></i><span>Eroare la încărcarea locațiilor.</span></div>';
+      listEl.innerHTML = '<div class="rest-empty"><i class="ph-bold ph-warning"></i><span>Eroare la încărcarea locațiilor.</span></div>';
     });
 
 })();

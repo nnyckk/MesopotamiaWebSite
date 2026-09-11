@@ -8,11 +8,11 @@
   <meta name="description" content="Contact Mesopotamia – trimite o sesizare, o reclamație, solicită o factură sau scrie-ne un mesaj.">
   <title>Contact – Mesopotamia®</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css">
   <link rel="stylesheet" href="css/layout.css?v=6">
   <link rel="stylesheet" href="css/contact.css?v=6">
   <script>(function(){if(localStorage.getItem('theme')!=='dark')document.documentElement.dataset.theme='light';})()</script>
@@ -34,18 +34,15 @@
           <li class="nav__item--desktop"><a href="cariera.html" class="nav__link">Carieră</a></li>
           <li><a href="contact.html"     class="nav__link nav__link--active">Contact</a></li>
           <li class="nav__actions-mobile">
-            <button class="nav__theme" data-theme-toggle aria-label="Schimbă tema">
-              <i class="fa-solid fa-moon" aria-hidden="true"></i>
-            </button>
             <a href="contact-en.html" class="nav__lang" aria-label="Switch to English">
-              <i class="fa-solid fa-globe" aria-hidden="true"></i>
+              <i class="ph-bold ph-globe" aria-hidden="true"></i>
               <span>English</span>
             </a>
           </li>
         </ul>
         <div class="nav__actions">
           <a href="contact-en.html" class="nav__lang" aria-label="Switch to English">
-            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <i class="ph-bold ph-globe" aria-hidden="true"></i>
             <span>English</span>
           </a>
           <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
@@ -77,38 +74,38 @@
       <div class="contact-grid">
 
         <button type="button" class="contact-card" data-form="sesizari">
-          <span class="contact-card__icon"><svg class="contact-card__svg" xmlns="http://www.w3.org/2000/svg" fill="#b00106" viewBox="0 0 256 256" aria-hidden="true"><path d="M224,64V192a8,8,0,0,1-8,8H80L45.15,230.11A8,8,0,0,1,32,224V64a8,8,0,0,1,8-8H216A8,8,0,0,1,224,64Z" opacity="0.2"></path><path d="M216,48H40A16,16,0,0,0,24,64V224a15.85,15.85,0,0,0,9.24,14.5A16.13,16.13,0,0,0,40,240a15.89,15.89,0,0,0,10.25-3.78l.09-.07L83,208H216a16,16,0,0,0,16-16V64A16,16,0,0,0,216,48ZM40,224h0ZM216,192H80a8,8,0,0,0-5.23,1.95L40,224V64H216ZM88,112a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm0,32a8,8,0,0,1,8-8h64a8,8,0,1,1,0,16H96A8,8,0,0,1,88,144Z"></path></svg></span>
+          <span class="contact-card__icon"><svg class="contact-card__svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M224,64V192a8,8,0,0,1-8,8H80L45.15,230.11A8,8,0,0,1,32,224V64a8,8,0,0,1,8-8H216A8,8,0,0,1,224,64Z" opacity="0.2"></path><path d="M216,48H40A16,16,0,0,0,24,64V224a15.85,15.85,0,0,0,9.24,14.5A16.13,16.13,0,0,0,40,240a15.89,15.89,0,0,0,10.25-3.78l.09-.07L83,208H216a16,16,0,0,0,16-16V64A16,16,0,0,0,216,48ZM40,224h0ZM216,192H80a8,8,0,0,0-5.23,1.95L40,224V64H216ZM88,112a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm0,32a8,8,0,0,1,8-8h64a8,8,0,1,1,0,16H96A8,8,0,0,1,88,144Z"></path></svg></span>
           <span class="contact-card__title">Sugestii și Reclamații</span>
           <span class="contact-card__desc">Spune-ne cum ne putem îmbunătăți</span>
-          <i class="fa-solid fa-chevron-right contact-card__arrow" aria-hidden="true"></i>
+          <i class="ph-bold ph-caret-right contact-card__arrow" aria-hidden="true"></i>
         </button>
 
         <button type="button" class="contact-card" data-form="contact">
-          <span class="contact-card__icon"><svg class="contact-card__svg" xmlns="http://www.w3.org/2000/svg" fill="#b00106" viewBox="0 0 256 256" aria-hidden="true"><path d="M224,56l-96,88L32,56Z" opacity="0.2"></path><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z"></path></svg></span>
+          <span class="contact-card__icon"><svg class="contact-card__svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M224,56l-96,88L32,56Z" opacity="0.2"></path><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z"></path></svg></span>
           <span class="contact-card__title">Formular Contact</span>
           <span class="contact-card__desc">Ai o întrebare? Scrie-ne</span>
-          <i class="fa-solid fa-chevron-right contact-card__arrow" aria-hidden="true"></i>
+          <i class="ph-bold ph-caret-right contact-card__arrow" aria-hidden="true"></i>
         </button>
 
         <button type="button" class="contact-card" data-form="factura">
-          <span class="contact-card__icon"><svg class="contact-card__svg" xmlns="http://www.w3.org/2000/svg" fill="#b00106" viewBox="0 0 256 256" aria-hidden="true"><path d="M224,56V208l-32-16-32,16-32-16L96,208,64,192,32,208V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"></path><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"></path></svg></span>
+          <span class="contact-card__icon"><svg class="contact-card__svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M224,56V208l-32-16-32,16-32-16L96,208,64,192,32,208V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"></path><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"></path></svg></span>
           <span class="contact-card__title">Solicitare Factură</span>
           <span class="contact-card__desc">Cere factura pentru comanda ta</span>
-          <i class="fa-solid fa-chevron-right contact-card__arrow" aria-hidden="true"></i>
+          <i class="ph-bold ph-caret-right contact-card__arrow" aria-hidden="true"></i>
         </button>
 
         <button type="button" class="contact-card" data-form="delivery">
-          <span class="contact-card__icon"><svg class="contact-card__svg" xmlns="http://www.w3.org/2000/svg" fill="#b00106" viewBox="0 0 256 256" aria-hidden="true"><path d="M131,168H8a48,48,0,0,1,32-45.27V96h64Z" opacity="0.2"></path><path d="M216,128a39.3,39.3,0,0,0-6.27.5L175.49,37.19A8,8,0,0,0,168,32H136a8,8,0,0,0,0,16h26.46l32.3,86.13a40.13,40.13,0,0,0-18,25.87H136.54l-25-66.81A8,8,0,0,0,104,88H24a8,8,0,0,0,0,16h8v13.39A56.12,56.12,0,0,0,0,168a8,8,0,0,0,8,8h8.8a40,40,0,0,0,78.4,0h81.6A40,40,0,1,0,216,128ZM56,192a24,24,0,0,1-22.62-16H78.62A24,24,0,0,1,56,192ZM16.81,160a40.07,40.07,0,0,1,25.86-29.73A8,8,0,0,0,48,122.73V104H98.46l21,56ZM216,192a24,24,0,0,1-15.43-42.36l7.94,21.17a8,8,0,0,0,15-5.62L215.55,144H216a24,24,0,0,1,0,48Z"></path></svg></span>
+          <span class="contact-card__icon"><svg class="contact-card__svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M131,168H8a48,48,0,0,1,32-45.27V96h64Z" opacity="0.2"></path><path d="M216,128a39.3,39.3,0,0,0-6.27.5L175.49,37.19A8,8,0,0,0,168,32H136a8,8,0,0,0,0,16h26.46l32.3,86.13a40.13,40.13,0,0,0-18,25.87H136.54l-25-66.81A8,8,0,0,0,104,88H24a8,8,0,0,0,0,16h8v13.39A56.12,56.12,0,0,0,0,168a8,8,0,0,0,8,8h8.8a40,40,0,0,0,78.4,0h81.6A40,40,0,1,0,216,128ZM56,192a24,24,0,0,1-22.62-16H78.62A24,24,0,0,1,56,192ZM16.81,160a40.07,40.07,0,0,1,25.86-29.73A8,8,0,0,0,48,122.73V104H98.46l21,56ZM216,192a24,24,0,0,1-15.43-42.36l7.94,21.17a8,8,0,0,0,15-5.62L215.55,144H216a24,24,0,0,1,0,48Z"></path></svg></span>
           <span class="contact-card__title">Probleme Delivery</span>
           <span class="contact-card__desc">Glovo, Bolt, Wolt</span>
-          <i class="fa-solid fa-chevron-right contact-card__arrow" aria-hidden="true"></i>
+          <i class="ph-bold ph-caret-right contact-card__arrow" aria-hidden="true"></i>
         </button>
 
         <button type="button" class="contact-card" data-form="cariera">
-          <span class="contact-card__icon"><svg class="contact-card__svg" xmlns="http://www.w3.org/2000/svg" fill="#b00106" viewBox="0 0 256 256" aria-hidden="true"><path d="M224,118.31V200a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V118.31h0A191.14,191.14,0,0,0,128,144,191.08,191.08,0,0,0,224,118.31Z" opacity="0.2"></path><path d="M104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112ZM232,72V200a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56H80V48a24,24,0,0,1,24-24h48a24,24,0,0,1,24,24v8h40A16,16,0,0,1,232,72ZM96,56h64V48a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8ZM40,72v41.62A184.07,184.07,0,0,0,128,136a184,184,0,0,0,88-22.39V72ZM216,200V131.63A200.25,200.25,0,0,1,128,152a200.19,200.19,0,0,1-88-20.36V200H216Z"></path></svg></span>
+          <span class="contact-card__icon"><svg class="contact-card__svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M224,118.31V200a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V118.31h0A191.14,191.14,0,0,0,128,144,191.08,191.08,0,0,0,224,118.31Z" opacity="0.2"></path><path d="M104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112ZM232,72V200a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56H80V48a24,24,0,0,1,24-24h48a24,24,0,0,1,24,24v8h40A16,16,0,0,1,232,72ZM96,56h64V48a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8ZM40,72v41.62A184.07,184.07,0,0,0,128,136a184,184,0,0,0,88-22.39V72ZM216,200V131.63A200.25,200.25,0,0,1,128,152a200.19,200.19,0,0,1-88-20.36V200H216Z"></path></svg></span>
           <span class="contact-card__title">Carieră Meso</span>
           <span class="contact-card__desc">Alătură-te echipei Mesopotamia</span>
-          <i class="fa-solid fa-chevron-right contact-card__arrow" aria-hidden="true"></i>
+          <i class="ph-bold ph-caret-right contact-card__arrow" aria-hidden="true"></i>
         </button>
 
       </div>
@@ -129,7 +126,7 @@
         <details class="faq__item">
           <summary class="faq__q">
             <span>Cât durează până primesc un răspuns?</span>
-            <i class="fa-solid fa-chevron-down faq__icon" aria-hidden="true"></i>
+            <i class="ph-bold ph-caret-down faq__icon" aria-hidden="true"></i>
           </summary>
           <div class="faq__a">
             <div class="faq__a-inner">
@@ -144,7 +141,7 @@
         <details class="faq__item">
           <summary class="faq__q">
             <span>Cum solicit o factură pentru comanda mea?</span>
-            <i class="fa-solid fa-chevron-down faq__icon" aria-hidden="true"></i>
+            <i class="ph-bold ph-caret-down faq__icon" aria-hidden="true"></i>
           </summary>
           <div class="faq__a">
             <div class="faq__a-inner">
@@ -159,7 +156,7 @@
         <details class="faq__item">
           <summary class="faq__q">
             <span>Am o problemă cu o comandă prin Glovo, Bolt sau Wolt. Ce fac?</span>
-            <i class="fa-solid fa-chevron-down faq__icon" aria-hidden="true"></i>
+            <i class="ph-bold ph-caret-down faq__icon" aria-hidden="true"></i>
           </summary>
           <div class="faq__a">
             <div class="faq__a-inner">
@@ -175,7 +172,7 @@
         <details class="faq__item">
           <summary class="faq__q">
             <span>Cum mă pot alătura echipei Mesopotamia?</span>
-            <i class="fa-solid fa-chevron-down faq__icon" aria-hidden="true"></i>
+            <i class="ph-bold ph-caret-down faq__icon" aria-hidden="true"></i>
           </summary>
           <div class="faq__a">
             <div class="faq__a-inner">
@@ -199,7 +196,7 @@
       <div class="contact-modal__handle" aria-hidden="true"></div>
 
       <button class="contact-modal__close" id="contactModalClose" aria-label="Închide">
-        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        <i class="ph-bold ph-x" aria-hidden="true"></i>
       </button>
 
       <div class="contact-modal__header">
@@ -266,7 +263,7 @@
                 <span class="contact-field__label">Încarcă fișiere</span>
                 <input type="file" name="fisier" accept="image/*,.pdf" data-maxmb="5" hidden>
                 <span class="contact-file__zone">
-                  <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
+                  <i class="ph-bold ph-cloud-arrow-up" aria-hidden="true"></i>
                   <span>Trage și plasează <strong>sau alege fișiere</strong></span>
                   <span class="contact-file__hint">maxim 5MB</span>
                 </span>
@@ -285,11 +282,11 @@
             </label>
             <span class="contact-field__error contact-consent__error">Trebuie să accepți pentru a continua.</span>
             <p class="contact-form__neterror" hidden>
-              <i class="fa-solid fa-circle-exclamation"></i>
+              <i class="ph-bold ph-warning-circle"></i>
               A apărut o eroare la trimitere. Te rugăm să încerci din nou.
             </p>
             <p class="contact-form__success" hidden>
-              <i class="fa-solid fa-circle-check"></i>
+              <i class="ph-bold ph-check-circle"></i>
               Mulțumim! Mesajul tău a fost trimis. Te vom contacta cât mai curând.
             </p>
             <div class="contact-form__actions">
@@ -352,11 +349,11 @@
             </label>
             <span class="contact-field__error contact-consent__error">Trebuie să accepți pentru a continua.</span>
             <p class="contact-form__neterror" hidden>
-              <i class="fa-solid fa-circle-exclamation"></i>
+              <i class="ph-bold ph-warning-circle"></i>
               A apărut o eroare la trimitere. Te rugăm să încerci din nou.
             </p>
             <p class="contact-form__success" hidden>
-              <i class="fa-solid fa-circle-check"></i>
+              <i class="ph-bold ph-check-circle"></i>
               Mulțumim! Mesajul tău a fost trimis.
             </p>
             <div class="contact-form__actions">
@@ -437,7 +434,7 @@
                 <span class="contact-field__label is-required">Poză bon fiscal</span>
                 <input type="file" name="bon_fiscal" accept="image/*" data-maxmb="5" data-required="true" hidden>
                 <span class="contact-file__zone">
-                  <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
+                  <i class="ph-bold ph-cloud-arrow-up" aria-hidden="true"></i>
                   <span>Trage și plasează <strong>sau alege fișiere</strong></span>
                   <span class="contact-file__hint">maxim 5MB</span>
                 </span>
@@ -457,11 +454,11 @@
             </label>
             <span class="contact-field__error contact-consent__error">Trebuie să accepți pentru a continua.</span>
             <p class="contact-form__neterror" hidden>
-              <i class="fa-solid fa-circle-exclamation"></i>
+              <i class="ph-bold ph-warning-circle"></i>
               A apărut o eroare la trimitere. Te rugăm să încerci din nou.
             </p>
             <p class="contact-form__success" hidden>
-              <i class="fa-solid fa-circle-check"></i>
+              <i class="ph-bold ph-check-circle"></i>
               Mulțumim! Solicitarea de factură a fost trimisă. O vei primi în cel mai scurt timp.
             </p>
             <div class="contact-form__actions">
@@ -485,13 +482,13 @@
             <p>Îți mulțumim pentru înțelegere și pentru că urmezi procedura corectă de raportare.</p>
             <div class="contact-info__links">
               <a href="https://glovoapp.com" target="_blank" rel="noopener" class="contact-info__link">
-                <i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>Glovo</span>
+                <i class="ph-bold ph-map-pin" aria-hidden="true"></i><span>Glovo</span>
               </a>
               <a href="https://food.bolt.eu" target="_blank" rel="noopener" class="contact-info__link">
-                <i class="fa-solid fa-bolt" aria-hidden="true"></i><span>Bolt Food</span>
+                <i class="ph-bold ph-lightning" aria-hidden="true"></i><span>Bolt Food</span>
               </a>
               <a href="https://wolt.com" target="_blank" rel="noopener" class="contact-info__link">
-                <i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Wolt</span>
+                <i class="ph-bold ph-fork-knife" aria-hidden="true"></i><span>Wolt</span>
               </a>
             </div>
           </div>
@@ -530,7 +527,6 @@
         <div class="footer__brand">
           <img src="icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--dark">
           <img src="icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--light">
-          <p class="footer__tagline">Gustul care nu se uită!</p>
         </div>
 
         <nav class="footer__nav" aria-label="Link-uri footer">
@@ -569,10 +565,6 @@
           </a>
         </div>
 
-        <button class="footer__theme" data-theme-toggle aria-label="Schimbă tema">
-          <svg class="footer__theme-icon footer__theme-icon--moon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M235.54,150.21a104.84,104.84,0,0,1-37,52.91A104,104,0,0,1,32,120,103.09,103.09,0,0,1,52.88,57.48a104.84,104.84,0,0,1,52.91-37,8,8,0,0,1,10,10,88.08,88.08,0,0,0,109.8,109.8,8,8,0,0,1,10,10Z"></path></svg>
-          <svg class="footer__theme-icon footer__theme-icon--sun" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm8,24a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path></svg>
-        </button>
       </div>
 
     </div>
@@ -582,11 +574,11 @@
   <script src="js/contact.js?v=6"></script>
 
   <nav class="nav-bottom" id="navBottom" aria-label="Navigare principală">
-    <a href="index.html"       class="nav-bottom__item"><i class="fa-solid fa-house"></i><span>Acasă</span></a>
-    <a href="meniu.html"       class="nav-bottom__item"><i class="fa-solid fa-utensils"></i><span>Meniu</span></a>
-    <a href="locatii.html" class="nav-bottom__item"><i class="fa-solid fa-location-dot"></i><span>Locații</span></a>
-    <a href="contact.html"     class="nav-bottom__item"><i class="fa-regular fa-envelope"></i><span>Contact</span></a>
-    <a href="more.html"        class="nav-bottom__item"><i class="fa-solid fa-ellipsis"></i><span>Mai mult</span></a>
+    <a href="index.html"       class="nav-bottom__item"><i class="ph-bold ph-house"></i><span>Acasă</span></a>
+    <a href="meniu.html"       class="nav-bottom__item"><i class="ph-bold ph-fork-knife"></i><span>Meniu</span></a>
+    <a href="locatii.html" class="nav-bottom__item"><i class="ph-bold ph-map-pin"></i><span>Locații</span></a>
+    <a href="contact.html"     class="nav-bottom__item"><i class="ph ph-envelope"></i><span>Contact</span></a>
+    <a href="more.html"        class="nav-bottom__item"><i class="ph-bold ph-dots-three"></i><span>Mai mult</span></a>
   </nav>
 
 </body>

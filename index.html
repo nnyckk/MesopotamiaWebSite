@@ -8,11 +8,11 @@
   <meta name="description" content="Mesopotamia – Fast food cu gust autentic. Descoperă produsele noastre, locațiile din toată România și comenzile la domiciliu.">
   <title>Mesopotamia® – Gustul care nu se uită!</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css">
   <link rel="stylesheet" href="css/layout.css?v=6">
   <link rel="stylesheet" href="css/index.css?v=6">
   <script>(function(){if(localStorage.getItem('theme')!=='dark')document.documentElement.dataset.theme='light';})()</script>
@@ -34,11 +34,8 @@
           <li class="nav__item--desktop"><a href="cariera.html" class="nav__link">Carieră</a></li>
           <li><a href="contact.html"     class="nav__link">Contact</a></li>
           <li class="nav__actions-mobile">
-            <button class="nav__theme" data-theme-toggle aria-label="Schimbă tema">
-              <i class="fa-solid fa-moon" aria-hidden="true"></i>
-            </button>
             <a href="index-en.html" class="nav__lang" aria-label="Switch to English">
-              <i class="fa-solid fa-globe" aria-hidden="true"></i>
+              <i class="ph-bold ph-globe" aria-hidden="true"></i>
               <span>English</span>
             </a>
           </li>
@@ -46,7 +43,7 @@
         </ul>
         <div class="nav__actions">
           <a href="index-en.html" class="nav__lang" aria-label="Switch to English">
-            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <i class="ph-bold ph-globe" aria-hidden="true"></i>
             <span>English</span>
           </a>
           <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
@@ -112,7 +109,6 @@
   <section class="menu" aria-labelledby="menu-title">
     <div class="container">
       <div class="menu__header">
-        <p class="menu__tagline">Gustul unic, care nu se uită!</p>
         <h2 class="menu__title" id="menu-title">Descoperă varietatea de produse Mesopotamia</h2>
       </div>
 
@@ -123,8 +119,7 @@
             <img src="images/promo/kebab.jpg" alt="Kebab" class="cat-card__img">
           </div>
           <div class="cat-card__label">
-            <h3 class="cat-card__title">Kebab</h3>
-            <span class="cat-card__cta">Descoperă <svg class="cat-card__cta-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z"></path></svg></span>
+            <h3 class="cat-card__title">Regele Kebab</h3>
           </div>
         </a>
 
@@ -133,8 +128,7 @@
             <img src="images/promo/pizza.jpg" alt="Pizza" class="cat-card__img">
           </div>
           <div class="cat-card__label">
-            <h3 class="cat-card__title">Pizza</h3>
-            <span class="cat-card__cta">Descoperă <svg class="cat-card__cta-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z"></path></svg></span>
+            <h3 class="cat-card__title">Pizza? Evident.</h3>
           </div>
         </a>
 
@@ -143,8 +137,7 @@
             <img src="images/promo/mesocafe.jpg" alt="MesoCafe" class="cat-card__img">
           </div>
           <div class="cat-card__label">
-            <h3 class="cat-card__title">Sweets</h3>
-            <span class="cat-card__cta">Descoperă <svg class="cat-card__cta-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z"></path></svg></span>
+            <h3 class="cat-card__title">MesoCafe</h3>
           </div>
         </a>
 
@@ -154,14 +147,58 @@
           </div>
           <div class="cat-card__label">
             <h3 class="cat-card__title">Salate</h3>
-            <span class="cat-card__cta">Descoperă <svg class="cat-card__cta-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M237.66,133.66l-96,96A8,8,0,0,1,128,224V184H48a16,16,0,0,1-16-16V88A16,16,0,0,1,48,72h80V32a8,8,0,0,1,13.66-5.66l96,96A8,8,0,0,1,237.66,133.66Z"></path></svg></span>
           </div>
         </a>
 
+        <!-- Card CTA — fara poza, trimite la meniul complet -->
+        <a href="meniu.html" class="cat-card cat-card--cta reveal">
+          <div class="cat-card__label">
+            <h3 class="cat-card__title">Vezi<br>tot meniul!</h3>
+          </div>
+          <img src="images/promo/mascota.png" alt="" class="cat-card__mascot" loading="lazy">
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- BETTER TOGETHER — text centrat + banda lata cu poza -->
+  <section class="bt" aria-labelledby="bt-title">
+    <div class="container">
+      <div class="bt__head reveal">
+        <h2 class="bt__title" id="bt-title">Better <span class="hl">Together</span></h2>
+        <p class="bt__desc">
+          De ce să alegi mereu Mesopotamia? Pentru că de 15 ani
+          facem același lucru: mâncare bună, făcută pe loc, în jurul căreia
+          oamenii se adună. Tu vii cu pofta și cu oamenii dragi, iar noi punem masa.
+        </p>
       </div>
 
-      <div class="menu__more-wrap reveal">
-        <a href="meniu.html" class="btn-meso menu__show-more">Descoperă toate produsele Meso</a>
+      <!-- Carusel infinit: poza din centru mai mare, vecinele mai mici,
+           cele de la margini se topesc in fundal -->
+      <div class="bt-carousel reveal" id="btCarousel">
+        <div class="bt-carousel__viewport">
+          <div class="bt-carousel__track" id="btTrack">
+            <figure class="bt-slide"><img src="images/img_carousel/portrait 2.webp"  alt="Client Mesopotamia cu kebab" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="images/img_carousel/portrait 9.webp"  alt="Moment Mesopotamia" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="images/img_carousel/portrait 15.webp" alt="Moment Mesopotamia" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="images/img_carousel/portrait 22.webp" alt="Moment Mesopotamia" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="images/img_carousel/portrait 40.webp" alt="Moment Mesopotamia" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="images/img_carousel/portrait 45.webp" alt="Moment Mesopotamia" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="images/img_carousel/portrait 46.webp" alt="Moment Mesopotamia" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="images/img_carousel/portrait 48.webp" alt="Moment Mesopotamia" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="images/img_carousel/portrait 52.webp" alt="Moment Mesopotamia" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="images/img_carousel/portrait 54.webp" alt="Moment Mesopotamia" loading="lazy"></figure>
+          </div>
+        </div>
+
+        <button class="bt-carousel__btn bt-carousel__btn--prev" id="btPrev" aria-label="Poza anterioară">
+          <i class="ph-bold ph-caret-left" aria-hidden="true"></i>
+        </button>
+        <button class="bt-carousel__btn bt-carousel__btn--next" id="btNext" aria-label="Poza următoare">
+          <i class="ph-bold ph-caret-right" aria-hidden="true"></i>
+        </button>
       </div>
     </div>
   </section>
@@ -171,35 +208,41 @@
   <section class="quality" aria-label="De ce Mesopotamia?">
     <div class="container">
 
-      <div class="quality__header">
-        <p class="quality__tagline">Standardele noastre</p>
-        <h2 class="quality__title">De ce Mesopotamia?</h2>
+      <!-- Album "Better Together" — pozele cad una cate una la scroll -->
+      <div class="together" id="together">
+        <div class="together__album-col">
+        <div class="together__album">
+          <figure class="together__photo together__photo--1">
+            <img src="images/instagram/insta-7.jpg" alt="Limonadă Meso Cafe" loading="lazy">
+          </figure>
+          <figure class="together__photo together__photo--2">
+            <img src="images/instagram/insta-2.jpg" alt="Cafea la Mesopotamia" loading="lazy">
+          </figure>
+          <figure class="together__photo together__photo--3">
+            <img src="images/instagram/insta-10.jpg" alt="La masă cu Meso" loading="lazy">
+          </figure>
+          <figure class="together__photo together__photo--4">
+            <img src="images/instagram/insta-4.jpg" alt="Kebab Mesopotamia" loading="lazy">
+          </figure>
+        </div>
+        </div>
+
+        <div class="together__text">
+          <p class="together__eyebrow">De ce Mesopotamia?</p>
+          <h3 class="together__title">Better <span class="hl">Together</span></h3>
+          <p class="together__desc">
+            Meso e despre timpul petrecut împreună — cu prietenii, cu familia,
+            cu colegii. Despre pauza de prânz care se lungește, despre cafeaua
+            de dimineață luată în doi și despre masa de după meci.
+          </p>
+          <p class="together__desc">
+            De 15 ani, în peste 70 de locații, facem același lucru:
+            mâncare bună, făcută pe loc, în jurul căreia oamenii se adună.
+            Noi doar punem masa — restul vine de la voi.
+          </p>
+        </div>
       </div>
 
-      <div class="quality__cards">
-
-        <div class="quality__card reveal">
-          <img src="icons/legume.png" alt="Legume proaspete" class="quality__card-img">
-        </div>
-
-        <div class="quality__card reveal">
-          <img src="icons/sos-unic.png" alt="Sosuri unice" class="quality__card-img">
-        </div>
-
-        <div class="quality__card quality__card--large reveal">
-          <img src="icons/DLG.png" alt="Medalii de aur DLG" class="quality__card-img quality__card-img--desktop">
-          <img src="icons/DLG_mobil.png" alt="Medalii de aur DLG" class="quality__card-img quality__card-img--mobile">
-        </div>
-
-        <div class="quality__card reveal">
-          <img src="icons/panini.png" alt="Panini pe vatră" class="quality__card-img">
-        </div>
-
-        <div class="quality__card reveal">
-          <img src="icons/cartofi.png" alt="Cartofi calitatea I" class="quality__card-img">
-        </div>
-
-      </div>
     </div>
 
     <!-- Marquee Instagram — aliniat la container, în secțiunea roșie -->
@@ -235,7 +278,7 @@
         <div class="promo-row__text">
           <div class="promo-row__head">
             <span class="promo-row__icon" aria-hidden="true">
-              <svg class="promo-row__svg" xmlns="http://www.w3.org/2000/svg" fill="#af1f23" viewBox="0 0 256 256">
+              <svg class="promo-row__svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256">
                 <path d="M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" opacity="0.2"></path>
                 <path d="M200,224H150.54A266.56,266.56,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25a88,88,0,0,0-176,0c0,31.4,14.51,64.68,42,96.25A266.56,266.56,0,0,0,105.46,224H56a8,8,0,0,0,0,16H200a8,8,0,0,0,0-16ZM56,104a72,72,0,0,1,144,0c0,57.23-55.47,105-72,118C111.47,209,56,161.23,56,104Zm112,0a40,40,0,1,0-40,40A40,40,0,0,0,168,104Zm-64,0a24,24,0,1,1,24,24A24,24,0,0,1,104,104Z"></path>
               </svg>
@@ -255,7 +298,7 @@
         <div class="promo-row__text">
           <div class="promo-row__head">
             <span class="promo-row__icon" aria-hidden="true">
-              <svg class="promo-row__svg" xmlns="http://www.w3.org/2000/svg" fill="#af1f23" viewBox="0 0 256 256">
+              <svg class="promo-row__svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256">
                 <path d="M200,152l-40,40L96,176,40,136,72.68,70.63,128,56l55.32,14.63L183.6,72H144L98.34,116.29a8,8,0,0,0,1.38,12.42C117.23,139.9,141,139.13,160,120Z" opacity="0.2"></path>
                 <path d="M254.3,107.91,228.78,56.85a16,16,0,0,0-21.47-7.15L182.44,62.13,130.05,48.27a8.14,8.14,0,0,0-4.1,0L73.56,62.13,48.69,49.7a16,16,0,0,0-21.47,7.15L1.7,107.9a16,16,0,0,0,7.15,21.47l27,13.51,55.49,39.63a8.06,8.06,0,0,0,2.71,1.25l64,16a8,8,0,0,0,7.6-2.1l55.07-55.08,26.42-13.21a16,16,0,0,0,7.15-21.46Zm-54.89,33.37L165,113.72a8,8,0,0,0-10.68.61C136.51,132.27,116.66,130,104,122L147.24,80h31.81l27.21,54.41ZM41.53,64,62,74.22,36.43,125.27,16,115.06Zm116,119.13L99.42,168.61l-49.2-35.14,28-56L128,64.28l9.8,2.59-45,43.68-.08.09a16,16,0,0,0,2.72,24.81c20.56,13.13,45.37,11,64.91-5L188,152.66Zm62-57.87-25.52-51L214.47,64,240,115.06Zm-87.75,92.67a8,8,0,0,1-7.75,6.06,8.13,8.13,0,0,1-1.95-.24L80.41,213.33a7.89,7.89,0,0,1-2.71-1.25L51.35,193.26a8,8,0,0,1,9.3-13l25.11,17.94L126,208.24A8,8,0,0,1,131.82,217.94Z"></path>
               </svg>
@@ -275,7 +318,7 @@
         <div class="promo-row__text">
           <div class="promo-row__head">
             <span class="promo-row__icon" aria-hidden="true">
-              <svg class="promo-row__svg" xmlns="http://www.w3.org/2000/svg" fill="#af1f23" viewBox="0 0 256 256">
+              <svg class="promo-row__svg" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256">
                 <path d="M216,128a88,88,0,1,1-88-88A88,88,0,0,1,216,128Z" opacity="0.2"></path>
                 <path d="M136,80v43.47l36.12,21.67a8,8,0,0,1-8.24,13.72l-40-24A8,8,0,0,1,120,128V80a8,8,0,0,1,16,0Zm-8-48A95.44,95.44,0,0,0,60.08,60.15C52.81,67.51,46.35,74.59,40,82V64a8,8,0,0,0-16,0v40a8,8,0,0,0,8,8H72a8,8,0,0,0,0-16H49c7.15-8.42,14.27-16.35,22.39-24.57a80,80,0,1,1,1.66,114.75,8,8,0,1,0-11,11.64A96,96,0,1,0,128,32Z"></path>
               </svg>
@@ -303,7 +346,6 @@
         <div class="footer__brand">
           <img src="icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--dark">
           <img src="icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--light">
-          <p class="footer__tagline">Gustul care nu se uită!</p>
         </div>
 
         <nav class="footer__nav" aria-label="Link-uri footer">
@@ -342,10 +384,6 @@
           </a>
         </div>
 
-        <button class="footer__theme" data-theme-toggle aria-label="Schimbă tema">
-          <svg class="footer__theme-icon footer__theme-icon--moon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M235.54,150.21a104.84,104.84,0,0,1-37,52.91A104,104,0,0,1,32,120,103.09,103.09,0,0,1,52.88,57.48a104.84,104.84,0,0,1,52.91-37,8,8,0,0,1,10,10,88.08,88.08,0,0,0,109.8,109.8,8,8,0,0,1,10,10Z"></path></svg>
-          <svg class="footer__theme-icon footer__theme-icon--sun" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm8,24a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path></svg>
-        </button>
 
       </div>
 
@@ -355,11 +393,11 @@
   <script src="js/main.js?v=6"></script>
 
   <nav class="nav-bottom" id="navBottom" aria-label="Navigare principală">
-    <a href="index.html"      class="nav-bottom__item"><i class="fa-solid fa-house"></i><span>Acasă</span></a>
-    <a href="meniu.html"      class="nav-bottom__item"><i class="fa-solid fa-utensils"></i><span>Meniu</span></a>
-    <a href="locatii.html"class="nav-bottom__item"><i class="fa-solid fa-location-dot"></i><span>Locații</span></a>
-    <a href="contact.html"    class="nav-bottom__item"><i class="fa-regular fa-envelope"></i><span>Contact</span></a>
-    <a href="more.html" class="nav-bottom__item"><i class="fa-solid fa-ellipsis"></i><span>Mai mult</span></a>
+    <a href="index.html"      class="nav-bottom__item"><i class="ph-bold ph-house"></i><span>Acasă</span></a>
+    <a href="meniu.html"      class="nav-bottom__item"><i class="ph-bold ph-fork-knife"></i><span>Meniu</span></a>
+    <a href="locatii.html"class="nav-bottom__item"><i class="ph-bold ph-map-pin"></i><span>Locații</span></a>
+    <a href="contact.html"    class="nav-bottom__item"><i class="ph ph-envelope"></i><span>Contact</span></a>
+    <a href="more.html" class="nav-bottom__item"><i class="ph-bold ph-dots-three"></i><span>Mai mult</span></a>
   </nav>
 
 </body>

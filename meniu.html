@@ -8,11 +8,11 @@
   <meta name="description" content="Mesopotamia – Descoperă toate produsele noastre: Kebab, Pizza, Salate, Cafea, Crepes și Limonada.">
   <title>Meniu – Mesopotamia®</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css">
   <link rel="stylesheet" href="css/layout.css?v=6">
   <link rel="stylesheet" href="css/meniu.css?v=6">
   <script>(function(){if(localStorage.getItem('theme')!=='dark')document.documentElement.dataset.theme='light';})()</script>
@@ -34,11 +34,8 @@
           <li class="nav__item--desktop"><a href="cariera.html" class="nav__link">Carieră</a></li>
           <li><a href="contact.html"     class="nav__link">Contact</a></li>
           <li class="nav__actions-mobile">
-            <button class="nav__theme" data-theme-toggle aria-label="Schimbă tema">
-              <i class="fa-solid fa-moon" aria-hidden="true"></i>
-            </button>
             <a href="meniu-en.html" class="nav__lang" aria-label="Switch to English">
-              <i class="fa-solid fa-globe" aria-hidden="true"></i>
+              <i class="ph-bold ph-globe" aria-hidden="true"></i>
               <span>English</span>
             </a>
           </li>
@@ -46,7 +43,7 @@
         </ul>
         <div class="nav__actions">
           <a href="meniu-en.html" class="nav__lang" aria-label="Switch to English">
-            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <i class="ph-bold ph-globe" aria-hidden="true"></i>
             <span>English</span>
           </a>
           <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
@@ -170,7 +167,6 @@
         <div class="footer__brand">
           <img src="icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--dark">
           <img src="icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--light">
-          <p class="footer__tagline">Gustul care nu se uită!</p>
         </div>
 
         <nav class="footer__nav" aria-label="Link-uri footer">
@@ -209,10 +205,6 @@
           </a>
         </div>
 
-        <button class="footer__theme" data-theme-toggle aria-label="Schimbă tema">
-          <svg class="footer__theme-icon footer__theme-icon--moon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M235.54,150.21a104.84,104.84,0,0,1-37,52.91A104,104,0,0,1,32,120,103.09,103.09,0,0,1,52.88,57.48a104.84,104.84,0,0,1,52.91-37,8,8,0,0,1,10,10,88.08,88.08,0,0,0,109.8,109.8,8,8,0,0,1,10,10Z"></path></svg>
-          <svg class="footer__theme-icon footer__theme-icon--sun" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm8,24a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path></svg>
-        </button>
       </div>
 
     </div>
@@ -225,7 +217,7 @@
       <div class="product-modal__handle" aria-hidden="true"></div>
 
       <button class="product-modal__close" id="modalClose" aria-label="Închide">
-        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        <i class="ph-bold ph-x" aria-hidden="true"></i>
       </button>
 
       <div class="product-modal__img-wrap">
@@ -266,7 +258,7 @@
         <a href="https://www.mesopotamia.ro/wp-content/uploads/2026/02/2026-mesopotamia-valorinutritionale.pdf"
            target="_blank" rel="noopener"
            class="product-modal__nutri-link">
-          <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+          <i class="ph-bold ph-file-text" aria-hidden="true"></i>
           Informații nutriționale complete
         </a>
 
@@ -279,11 +271,11 @@
   <script src="js/products.js?v=6"></script>
 
   <nav class="nav-bottom" id="navBottom" aria-label="Navigare principală">
-    <a href="index.html"      class="nav-bottom__item"><i class="fa-solid fa-house"></i><span>Acasă</span></a>
-    <a href="meniu.html"      class="nav-bottom__item"><i class="fa-solid fa-utensils"></i><span>Meniu</span></a>
-    <a href="locatii.html"class="nav-bottom__item"><i class="fa-solid fa-location-dot"></i><span>Locații</span></a>
-    <a href="contact.html"    class="nav-bottom__item"><i class="fa-regular fa-envelope"></i><span>Contact</span></a>
-    <a href="more.html" class="nav-bottom__item"><i class="fa-solid fa-ellipsis"></i><span>Mai mult</span></a>
+    <a href="index.html"      class="nav-bottom__item"><i class="ph-bold ph-house"></i><span>Acasă</span></a>
+    <a href="meniu.html"      class="nav-bottom__item"><i class="ph-bold ph-fork-knife"></i><span>Meniu</span></a>
+    <a href="locatii.html"class="nav-bottom__item"><i class="ph-bold ph-map-pin"></i><span>Locații</span></a>
+    <a href="contact.html"    class="nav-bottom__item"><i class="ph ph-envelope"></i><span>Contact</span></a>
+    <a href="more.html" class="nav-bottom__item"><i class="ph-bold ph-dots-three"></i><span>Mai mult</span></a>
   </nav>
 
 </body>

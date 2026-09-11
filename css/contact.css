@@ -20,7 +20,7 @@
 .page-hero {
   padding-block: var(--space-3xl) var(--space-2xl);
   margin-top: var(--header-h); /* overridden by JS on mobile */
-  background: linear-gradient(135deg, #500106 0%, #B00106 50%, #500106 100%);
+  background: linear-gradient(135deg, var(--brand-green-dark) 0%, var(--brand-green) 50%, var(--brand-green-dark) 100%);
   text-align: center;
 }
 

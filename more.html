@@ -7,11 +7,11 @@
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <title>Mai mult – Mesopotamia®</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css">
   <link rel="stylesheet" href="css/layout.css?v=6">
   <script>(function(){if(localStorage.getItem('theme')!=='dark')document.documentElement.dataset.theme='light';})()</script>
 </head>
@@ -32,21 +32,15 @@
           <li class="nav__item--desktop"><a href="cariera.html" class="nav__link">Carieră</a></li>
           <li><a href="contact.html"     class="nav__link">Contact</a></li>
           <li class="nav__actions-mobile">
-            <button class="nav__theme" data-theme-toggle aria-label="Schimbă tema">
-              <i class="fa-solid fa-moon" aria-hidden="true"></i>
-            </button>
             <a href="index-en.html" class="nav__lang" aria-label="Switch to English">
-              <i class="fa-solid fa-globe" aria-hidden="true"></i>
+              <i class="ph-bold ph-globe" aria-hidden="true"></i>
               <span>English</span>
             </a>
           </li>
         </ul>
         <div class="nav__actions">
-          <button class="nav__theme" id="navTheme" data-theme-toggle aria-label="Schimbă tema">
-            <i class="fa-solid fa-moon" aria-hidden="true"></i>
-          </button>
           <a href="index-en.html" class="nav__lang" aria-label="Switch to English">
-            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <i class="ph-bold ph-globe" aria-hidden="true"></i>
             <span>English</span>
           </a>
           <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
@@ -65,23 +59,20 @@
     <!-- Tema + Limbă -->
     <div class="more-page__pills">
       <a href="index-en.html" class="more-page__pill">
-        <i class="fa-solid fa-globe"></i>
+        <i class="ph-bold ph-globe"></i>
         <span>English</span>
       </a>
-      <button class="more-page__pill" data-theme-toggle aria-label="Schimbă tema">
-        <i class="fa-solid fa-moon"></i>
-      </button>
     </div>
 
     <!-- Linkuri principale -->
     <div class="more-page__section">
       <a href="despre-noi.html" class="more-page__item">
         <span>Despre noi</span>
-        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+        <i class="ph-bold ph-caret-right more-page__chevron"></i>
       </a>
       <a href="cariera.html" class="more-page__item">
         <span>Carieră</span>
-        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+        <i class="ph-bold ph-caret-right more-page__chevron"></i>
       </a>
     </div>
 
@@ -89,9 +80,9 @@
     <div class="footer__social more-page__social-wrap">
       <p class="footer__social-title">Urmărește-ne</p>
       <div class="footer__social-links">
-        <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#" class="footer__social-link" aria-label="Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+        <a href="#" class="footer__social-link" aria-label="Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+        <a href="#" class="footer__social-link" aria-label="TikTok"><i class="ph-fill ph-tiktok-logo"></i></a>
       </div>
     </div>
 
@@ -99,27 +90,27 @@
     <div class="more-page__section">
       <a href="https://www.mesopotamia.ro/wp-content/uploads/2026/02/2026-mesopotamia-valorinutritionale.pdf" target="_blank" rel="noopener" class="more-page__item more-page__item--legal">
         <span>Valori nutriționale</span>
-        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+        <i class="ph-bold ph-caret-right more-page__chevron"></i>
       </a>
       <a href="contact.html?form=sesizari" class="more-page__item more-page__item--legal">
         <span>Sugestii și reclamații</span>
-        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+        <i class="ph-bold ph-caret-right more-page__chevron"></i>
       </a>
       <a href="privacy.html" class="more-page__item more-page__item--legal">
         <span>Politica de confidențialitate</span>
-        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+        <i class="ph-bold ph-caret-right more-page__chevron"></i>
       </a>
       <a href="cookies.html" class="more-page__item more-page__item--legal">
         <span>Politica Cookies</span>
-        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+        <i class="ph-bold ph-caret-right more-page__chevron"></i>
       </a>
       <a href="termeni.html" class="more-page__item more-page__item--legal">
         <span>Termeni și condiții</span>
-        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+        <i class="ph-bold ph-caret-right more-page__chevron"></i>
       </a>
       <a href="https://anpc.ro/" target="_blank" rel="noopener nofollow" class="more-page__item more-page__item--legal">
         <span>Autoritatea Națională pentru Protecția Consumatorilor</span>
-        <i class="fa-solid fa-chevron-right more-page__chevron"></i>
+        <i class="ph-bold ph-caret-right more-page__chevron"></i>
       </a>
     </div>
 
@@ -142,11 +133,11 @@
   <script src="js/main.js?v=6"></script>
 
   <nav class="nav-bottom" id="navBottom" aria-label="Navigare principală">
-    <a href="index.html"       class="nav-bottom__item"><i class="fa-solid fa-house"></i><span>Acasă</span></a>
-    <a href="meniu.html"       class="nav-bottom__item"><i class="fa-solid fa-utensils"></i><span>Meniu</span></a>
-    <a href="locatii.html" class="nav-bottom__item"><i class="fa-solid fa-location-dot"></i><span>Locații</span></a>
-    <a href="contact.html"     class="nav-bottom__item"><i class="fa-regular fa-envelope"></i><span>Contact</span></a>
-    <a href="more.html"        class="nav-bottom__item is-active"><i class="fa-solid fa-ellipsis"></i><span>Mai mult</span></a>
+    <a href="index.html"       class="nav-bottom__item"><i class="ph-bold ph-house"></i><span>Acasă</span></a>
+    <a href="meniu.html"       class="nav-bottom__item"><i class="ph-bold ph-fork-knife"></i><span>Meniu</span></a>
+    <a href="locatii.html" class="nav-bottom__item"><i class="ph-bold ph-map-pin"></i><span>Locații</span></a>
+    <a href="contact.html"     class="nav-bottom__item"><i class="ph ph-envelope"></i><span>Contact</span></a>
+    <a href="more.html"        class="nav-bottom__item is-active"><i class="ph-bold ph-dots-three"></i><span>Mai mult</span></a>
   </nav>
 
 </body>

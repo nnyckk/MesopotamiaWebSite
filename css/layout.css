@@ -5,91 +5,196 @@
    ================================================ */
 
 /* ================================================
+   0. FONTURI LOCALE
+   ================================================ */
+@font-face {
+  font-family: 'True Story';
+  src: url('../assets/font/TrueStory-RO.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Mont — fontul de interfata (inlocuieste Montserrat).
+   Doar greutatile folosite in CSS: 400, 500, 600, 700, 800/900. */
+@font-face {
+  font-family: 'Mont';
+  src: url('../assets/font/MONT/Mont-Regular.woff2') format('woff2'),
+       url('../assets/font/MONT/Mont-Regular.woff')  format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mont';
+  src: url('../assets/font/MONT/Mont-SemiBold.woff2') format('woff2'),
+       url('../assets/font/MONT/Mont-SemiBold.woff')  format('woff');
+  font-weight: 500 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mont';
+  src: url('../assets/font/MONT/Mont-Bold.woff2') format('woff2'),
+       url('../assets/font/MONT/Mont-Bold.woff')  format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mont';
+  src: url('../assets/font/MONT/Mont-Heavy.woff2') format('woff2'),
+       url('../assets/font/MONT/Mont-Heavy.woff')  format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mont';
+  src: url('../assets/font/MONT/Mont-Black.woff2') format('woff2'),
+       url('../assets/font/MONT/Mont-Black.woff')  format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ================================================
    1. CSS CUSTOM PROPERTIES
    !! Actualizeaza culorile brandului aici !!
    ================================================ */
 :root {
   /* -----------------------------------------------
      Culorile brute ale brandului Mesopotamia
+     (brand book 2026 — ponderi: verde 50%, rosu 30%,
+      cream 20%, negru 10%, galben 5%, kraft 5%)
   ----------------------------------------------- */
-  --brand-red:        #B00106;   /* rosu — culoare principala */
-  --brand-green:      #0E6F44;   /* verde — culoare secundara */
-  --brand-yellow:     #FABD02;   /* galben — accent */
-  --brand-maroon:     #500106;   /* visiniu/maro — accent inchis */
+  --brand-green:      #0f442c;   /* verde inchis — culoare PRINCIPALA */
+  --brand-red:        #e6262b;   /* rosu viu — CTA / conversie */
+  --brand-cream:      #ffe58a;   /* cream deschis */
+  --brand-black:      #1a1717;   /* negru cald */
+  --brand-yellow:     #f6d807;   /* galben — accent */
+  --brand-kraft:      #dba76e;   /* kraft — neutru cald */
 
   /* -----------------------------------------------
      Variante generate (hover, dark, light)
   ----------------------------------------------- */
-  /* Rosu */
-  --brand-red-dark:   #870104;   /* hover / apasare */
-  --brand-red-light:  #d4010b;   /* stare focus / highlight */
-  --brand-red-faint:  rgba(176, 1, 6, 0.12);  /* fundal subtil */
-
   /* Verde */
-  --brand-green-dark:  #0a5433;  /* hover / apasare */
-  --brand-green-light: #12894f;  /* stare focus / highlight */
-  --brand-green-faint: rgba(14, 111, 68, 0.12);
+  --brand-green-dark:  #0a2f1e;  /* hover / apasare */
+  --brand-green-light: #17603e;  /* stare focus / highlight */
+  --brand-green-faint: rgba(15, 68, 44, 0.12);
+
+  /* Rosu */
+  --brand-red-dark:   #c41419;   /* hover / apasare */
+  --brand-red-light:  #f04448;   /* stare focus / highlight */
+  --brand-red-faint:  rgba(230, 38, 43, 0.12);
+
+  /* Nuante pentru gradientele de fundal rosu (ca pe pozele de produs) */
+  --brand-red-bright: #e8342f;   /* centrul gradientului */
+  --brand-red-mid:    #c9201d;
+  --brand-red-deep:   #b81a18;
+  --brand-red-edge:   #8e120f;   /* colturile */
+
+  /* Cream */
+  --brand-cream-dark:  #f0d264;  /* hover pe suprafete cream */
+  --brand-cream-light: #fff2c4;  /* si mai deschis */
+  --brand-cream-pale:  #fdf3d7;  /* diluat — fundal de panou/card */
+  --brand-cream-faint: rgba(255, 229, 138, 0.12);
 
   /* Galben */
-  --brand-yellow-dark:  #c99500; /* hover / apasare */
-  --brand-yellow-light: #ffd240; /* stare focus / highlight */
-  --brand-yellow-faint: rgba(250, 189, 2, 0.12);
+  --brand-yellow-dark:  #d4ba00; /* hover / apasare */
+  --brand-yellow-light: #ffe945; /* stare focus / highlight */
+  --brand-yellow-faint: rgba(246, 216, 7, 0.12);
 
-  /* Visiniu / maro */
-  --brand-maroon-dark:  #380103; /* hover */
-  --brand-maroon-light: #6e0108; /* mai deschis */
+  /* Kraft */
+  --brand-kraft-dark:  #c08d52;  /* hover */
+  --brand-kraft-light: #e8c294;  /* mai deschis */
+  --brand-kraft-faint: rgba(219, 167, 110, 0.12);
+
+  /* Negru cald */
+  --brand-black-light: #2a2525;  /* suprafete peste negru */
+
+  /* Verde smarald — nuantele din posterul de brand,
+     folosite pentru gradientele de sectiune */
+  --brand-green-emerald: #1a7346;  /* cel mai deschis, centrul gradientului */
+  --brand-green-mid:     #14603a;
+  --brand-green-deep:    #125636;
+  --brand-green-base:    #0d4a2c;
+  --brand-green-edge:    #0a3a22;  /* colturile, cel mai inchis */
+  --brand-green-night:   #02120a;  /* cel mai inchis — nav, suprafete adanci */
 
   /* -----------------------------------------------
      Roluri semantice (folosite in toata aplicatia)
   ----------------------------------------------- */
-  --color-primary:        var(--brand-red);
-  --color-primary-dark:   var(--brand-red-dark);
-  --color-primary-light:  var(--brand-red-light);
-  --color-primary-faint:  var(--brand-red-faint);
+  /* PRIMARY = verde (50% din brand) — butoane principale,
+     linkuri active, accente de interfata */
+  --color-primary:        var(--brand-green);
+  --color-primary-dark:   var(--brand-green-dark);
+  --color-primary-light:  var(--brand-green-light);
+  --color-primary-faint:  var(--brand-green-faint);
 
-  --color-secondary:       var(--brand-green);
-  --color-secondary-dark:  var(--brand-green-dark);
-  --color-secondary-light: var(--brand-green-light);
-  --color-secondary-faint: var(--brand-green-faint);
+  /* CTA = rosu (30%) — doar conversie: Comanda, Rezerva, Aplica */
+  --color-cta:        var(--brand-red);
+  --color-cta-dark:   var(--brand-red-dark);
+  --color-cta-light:  var(--brand-red-light);
+  --color-cta-faint:  var(--brand-red-faint);
+
+  /* SECONDARY = rosu, alias pentru compatibilitate cu CSS-ul existent */
+  --color-secondary:       var(--brand-red);
+  --color-secondary-dark:  var(--brand-red-dark);
+  --color-secondary-light: var(--brand-red-light);
+  --color-secondary-faint: var(--brand-red-faint);
 
   --color-accent:       var(--brand-yellow);
   --color-accent-dark:  var(--brand-yellow-dark);
   --color-accent-light: var(--brand-yellow-light);
   --color-accent-faint: var(--brand-yellow-faint);
 
-  --color-maroon:       var(--brand-maroon);
-  --color-maroon-dark:  var(--brand-maroon-dark);
-  --color-maroon-light: var(--brand-maroon-light);
+  --color-cream:       var(--brand-cream);
+  --color-cream-dark:  var(--brand-cream-dark);
+  --color-cream-light: var(--brand-cream-light);
+
+  --color-kraft:       var(--brand-kraft);
+  --color-kraft-dark:  var(--brand-kraft-dark);
+  --color-kraft-light: var(--brand-kraft-light);
+
+  /* Alias vechi (maroon a disparut din brand book) → verde inchis */
+  --color-maroon:       var(--brand-green-dark);
+  --color-maroon-dark:  #061c12;
+  --color-maroon-light: var(--brand-green);
 
   /* --- UI tokens (se schimba automat intre teme) --- */
   --color-price:       var(--color-accent);   /* galben dark, rosu light */
   --color-modal-label: var(--color-white);    /* alb dark, rosu light */
 
   /* -----------------------------------------------
-     Fundal si suprafete (dark mode)
+     Fundal si suprafete (dark mode = verde inchis)
   ----------------------------------------------- */
-  --color-bg:        #181818;    /* fundal global */
-  --color-surface:   #222222;    /* carduri, sectiuni */
-  --color-surface-2: #2a2a2a;    /* carduri secundare, hover state */
+  --color-bg:        #0b2e1e;    /* fundal global — verde foarte inchis */
+  --color-surface:   #12402a;    /* carduri, sectiuni */
+  --color-surface-2: #1a4d34;    /* carduri secundare, hover state */
 
   /* -----------------------------------------------
      Text
   ----------------------------------------------- */
-  --color-text:       #f2f0ec;   /* text principal */
-  --color-text-muted: #8a8a7e;   /* text secundar */
-  --color-text-dim:   #5a5a52;   /* text dezactivat */
+  --color-text:       #f7f3e8;   /* text principal — cald, spre cream */
+  --color-text-muted: #a8bfae;   /* text secundar — verde desaturat */
+  --color-text-dim:   #6d8a78;   /* text dezactivat */
 
   /* -----------------------------------------------
      Altele
   ----------------------------------------------- */
-  --color-border:  rgba(255, 255, 255, 0.07);
-  --color-overlay: rgba(0, 0, 0, 0.6);
+  --color-border:  rgba(255, 255, 255, 0.09);
+  --color-overlay: rgba(6, 28, 18, 0.65);
   --color-white:   #ffffff;
-  --color-black:   #000000;
+  --color-black:   var(--brand-black);
 
   /* --- Tipografie --- */
-  --font-heading: 'Poppins', sans-serif;
-  --font-body:    'Inter', sans-serif;
+  --font-heading: 'True Story', 'Mont', sans-serif;
+  --font-body:    'Mont', sans-serif;
 
   /* --- Spatiere --- */
   --space-xs:  0.25rem;   /*  4px */
@@ -133,15 +238,15 @@
    1b. LIGHT THEME
    ================================================ */
 [data-theme="light"] {
-  --color-bg:        #f6f6f6;
+  --color-bg:        #fdf8ec;    /* cream diluat — nu galbenul plin */
   --color-surface:   #ffffff;
-  --color-surface-2: #f5f5f5;
-  --color-text:      #1a1818;
+  --color-surface-2: #fbf3e0;    /* cream ceva mai saturat */
+  --color-text:      var(--brand-black);
   --color-text-muted:#5c5650;
   --color-text-dim:  #9a9590;
-  --color-border:    rgba(0, 0, 0, 0.1);
-  --color-overlay:   rgba(0, 0, 0, 0.4);
-  --color-price:       var(--color-primary);
+  --color-border:    rgba(26, 23, 23, 0.12);
+  --color-overlay:   rgba(26, 23, 23, 0.45);
+  --color-price:       var(--color-cta);
   --color-modal-label: var(--color-text);
 }
 
@@ -149,77 +254,30 @@
 .nav__logo--light,
 .footer__logo--light { display: none; }
 
-[data-theme="light"] .nav__logo--dark,
-[data-theme="light"] .footer__logo--dark { display: none; }
+/* Nav-ul SI footer-ul sunt negre in ambele teme →
+   logo-ul de dark ramane peste tot, fara swap. */
 
-[data-theme="light"] .nav__logo--light,
-[data-theme="light"] .footer__logo--light { display: block; }
-
-[data-theme="light"] .header {
-  background: rgba(251, 251, 251, 0.92);
-}
-
+/* Nav-ul ramane verde inchis si in tema light — acelasi ca in dark */
+[data-theme="light"] .header,
 [data-theme="light"] .header.is-scrolled {
-  background: rgba(251, 251, 251, 0.98);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--brand-green-night);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
 }
 
 @media (max-width: 899px) {
+  /* meniul mobil se deschide din nav → aceeasi culoare */
   [data-theme="light"] .nav__links {
-    background: #fbfbfb;
+    background: var(--brand-green-night);
   }
 }
 
-@media (hover: hover) {
-  [data-theme="light"] .nav__link:hover {
-    color: var(--color-text);
-    background: rgba(0, 0, 0, 0.06);
-  }
-}
 
-[data-theme="light"] .nav__link--active {
-  color: var(--color-primary);
-  background: rgba(176, 1, 6, 0.08);
-}
 
-@media (max-width: 899px) {
-  [data-theme="light"] .nav__link--active {
-    background: none;
-  }
-  @media (hover: hover) {
-    [data-theme="light"] .nav__link:hover {
-      color: var(--color-text);
-      background: none;
-    }
-  }
-}
-
-@media (hover: hover) {
-  [data-theme="light"] .nav__lang:hover {
-    color: var(--color-text);
-    border-color: rgba(0, 0, 0, 0.3);
-  }
-}
-
-[data-theme="light"] .nav__hamburger span {
-  background-color: var(--color-text);
-}
-
-@media (hover: hover) {
-  [data-theme="light"] .nav__hamburger:hover {
-    background: rgba(0, 0, 0, 0.06);
-  }
-}
-
+/* Footerul ramane verde foarte inchis si in tema light — la fel ca nav-ul */
 [data-theme="light"] .footer {
-  background-color: #fbfbfb;
+  background-color: var(--brand-green-night);
 }
 
-@media (hover: hover) {
-  [data-theme="light"] .footer__link:hover {
-    color: var(--color-text);
-  }
-}
 
 /* --- Texte pe fundaluri de suprafata (index.css) --- */
 [data-theme="light"] .menu__title {
@@ -239,15 +297,6 @@
   color: var(--color-primary);
 }
 
-[data-theme="light"] .menu__tagline,
-[data-theme="light"] .footer__tagline {
-  color: var(--color-primary);
-}
-
-[data-theme="light"] .menu__tagline::before,
-[data-theme="light"] .menu__tagline::after {
-  background: var(--color-primary);
-}
 
 [data-theme="light"] .product-card__desc {
   color: var(--color-text-muted);
@@ -273,7 +322,7 @@
 
 /* --- Sidebar active icon ramane alb (pe fundal colorat) --- */
 [data-theme="light"] .sidebar-cat.is-active {
-  background: rgba(176, 1, 6, 0.1);
+  background: var(--color-primary-faint);
   border-color: var(--color-primary);
 }
 
@@ -378,7 +427,7 @@ strong {
   gap: var(--space-sm);
   padding: 0.7rem 1.75rem;
   border-radius: var(--radius-full);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 0.85rem;
   letter-spacing: 0.06em;
@@ -400,7 +449,7 @@ strong {
     background-color: var(--color-primary-dark);
     border-color: var(--color-primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(176, 1, 6, 0.45);
+    box-shadow: 0 6px 20px rgba(15, 68, 44, 0.45);
   }
 }
 
@@ -470,7 +519,7 @@ strong {
   right: 0;
   z-index: 1000;
   height: var(--header-h);
-  background: rgba(24, 24, 24, 0.88);
+  background: var(--brand-green-night);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--color-border);
@@ -480,7 +529,7 @@ strong {
 }
 
 .header.is-scrolled {
-  background: rgba(24, 24, 24, 0.97);
+  background: var(--brand-green-night);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -509,35 +558,60 @@ strong {
 .nav__links {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: var(--space-md);
   flex: 1;
   justify-content: center;
 }
 
 .nav__link {
-  padding: 0.55rem 1rem;
-  font-size: 1rem;
-  font-family: var(--font-heading);
+  padding: 0.7rem 1.25rem;
+  /* Mont e mai lat decat True Story → font mai mic la aceeasi prezenta */
+  font-size: 0.95rem;
+  font-family: var(--font-body);
   font-weight: 800;
-  color: var(--color-text-muted);
-  border-radius: var(--radius-sm);
-  transition: color var(--transition-fast),
-              background var(--transition-fast);
+  /* alb usor stins — pe verde-noapte, muted-ul dispare */
+  color: rgba(255, 255, 255, 0.82);
+  position: relative;
+  background: none;
+  transition: color var(--transition-fast);
   white-space: nowrap;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
+/* Linia de sub link — groasa, ca trasa cu marker.
+   Fara pastila: forma perfect rotunda e prea sterila pentru food. */
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0.9rem;
+  right: 0.9rem;
+  bottom: 0.25rem;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--brand-yellow);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.32s cubic-bezier(0.34, 1.45, 0.5, 1);
+}
+
 @media (hover: hover) {
   .nav__link:hover {
     color: var(--color-white);
-    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .nav__link:hover::after {
+    transform: scaleX(1);
   }
 }
 
+/* Pagina curenta — linia e mereu acolo */
 .nav__link--active {
-  color: var(--color-accent);
-  background: rgba(200, 169, 110, 0.1);
+  color: var(--color-white);
+}
+
+.nav__link--active::after {
+  transform: scaleX(1);
 }
 
 /* Actiuni dreapta */
@@ -589,8 +663,8 @@ strong {
     border-color: rgba(255, 255, 255, 0.3);
   }
   [data-theme="light"] .nav__theme:hover {
-    color: var(--color-text);
-    border-color: rgba(0, 0, 0, 0.3);
+    color: var(--color-white);
+    border-color: rgba(255, 255, 255, 0.4);
   }
 }
 
@@ -598,24 +672,29 @@ strong {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  padding: 0.35rem 0.8rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-full);
+  /* acelasi tratament ca .nav__link, doar mai mic —
+     ca sa nu concureze cu navigatia principala */
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.5rem 0.9rem;
+  border: none;
+  border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
 }
 
 @media (hover: hover) {
   .nav__lang:hover {
     color: var(--color-white);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
   }
 }
 
 .nav__lang i {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
 }
 
 /* Mobile-only actions row (theme + lang) — hidden on desktop */
@@ -701,7 +780,7 @@ strong {
     width: 100%;
     height: 100dvh;
     z-index: 999;
-    background: #181818;
+    background: var(--brand-green-night);
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
@@ -724,9 +803,9 @@ strong {
   }
 
   .nav__link {
-    font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 6vw, 2.5rem);
-    font-weight: 800;
+    font-family: var(--font-body);
+    font-size: clamp(1.3rem, 4.5vw, 1.7rem);
+    font-weight: 700;
     text-align: left;
     width: auto;
     padding: 0.3rem 0;
@@ -742,8 +821,17 @@ strong {
   }
 
   .nav__link--active {
-    color: var(--color-accent);
+    color: var(--color-white);
     background: none;
+  }
+
+  /* pe mobil linia urmeaza textul mare, aliniata la stanga */
+  .nav__link::after {
+    left: 0;
+    right: auto;
+    width: 2.2rem;
+    bottom: 0;
+    height: 5px;
   }
 
   .nav__lang-mobile .nav__link {
@@ -769,8 +857,8 @@ strong {
    7. FOOTER
    ================================================ */
 .footer {
-  background-color: #161616;
-  border-top: 1px solid var(--color-border);
+  background-color: var(--brand-green-night);   /* la fel ca nav-ul */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-block: var(--space-3xl) var(--space-2xl);
 }
 
@@ -778,56 +866,56 @@ strong {
 /* Body: logo stanga + 2 col linkuri */
 .footer__body {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2xl);
+  /* flex-start, nu center — altfel coloana de social (mai scunda)
+     se centreaza si titlul ei nu mai e pe linie cu linkurile */
+  align-items: flex-start;
+  /* grupate spre dreapta; logo-ul ramane la stanga */
+  justify-content: flex-end;
+  gap: var(--space-4xl);
   padding-bottom: var(--space-2xl);
   margin-bottom: var(--space-xl);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer__brand {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-sm);
+  align-items: flex-start;
+  gap: var(--space-xs);
+  /* logo-ul rămâne lipit la stânga, restul se grupează la dreapta */
+  margin-right: auto;
 }
 
 .footer__logo {
-  height: 36px;
+  height: 52px;
   width: auto;
 }
 
-.footer__tagline {
-  font-family: var(--font-heading);
-  font-size: 0.95rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-accent);
-}
-
 /* Nav: 2 coloane */
+/* fara flex: 1 — altfel se intinde si impinge social la margine */
 .footer__nav {
-  flex: 1;
+  flex: 0 1 auto;
 }
 
+/* auto, nu 1fr — coloanele ocupa cat au nevoie, nu se intind */
 .footer__list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-xs) var(--space-xl);
+  grid-template-columns: auto auto;
+  gap: var(--space-xs) var(--space-2xl);
 }
 
+/* Linkuri secundare — doar alb mai luminos la hover.
+   Fara linie galbena: pe 6 linkuri devine zgomot (aceea e doar in nav). */
 .footer__link {
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.58);
   display: inline-block;
-  padding: 0.1rem 0;
+  padding: 0.15rem 0;
   transition: color var(--transition-fast);
 }
 
@@ -854,24 +942,22 @@ strong {
   gap: 0.5rem;
   width: 40px;
   height: 40px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  border: none;
   background: none;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 1rem;
   cursor: pointer;
   flex-shrink: 0;
-  transition: color var(--transition-fast), border-color var(--transition-fast);
+  transition: color var(--transition-fast),
+              border-color var(--transition-fast),
+              background var(--transition-fast);
 }
 
 @media (hover: hover) {
   .footer__theme:hover {
     color: var(--color-white);
-    border-color: rgba(255, 255, 255, 0.3);
-  }
-  [data-theme="light"] .footer__theme:hover {
-    color: var(--color-text);
-    border-color: rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -892,8 +978,9 @@ strong {
 }
 
 .footer__copy {
+  font-family: var(--font-body);
   font-size: 0.75rem;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .footer__company {
@@ -923,47 +1010,47 @@ strong {
   flex-shrink: 0;
 }
 
+/* Acelasi tratament ca .footer__link */
 .footer__social-title {
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.58);
 }
 
 .footer__social-links {
   display: flex;
-  gap: var(--space-sm);
+  gap: 2px;
 }
 
+/* Culori fixe, nu de tema — footerul e verde-noapte in ambele teme */
 .footer__social-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  background: var(--color-surface-2);
-  border: 1px solid var(--color-border);
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
+  width: 38px;
+  height: 38px;
+  /* ca butonul English: gol in repaus, fundal doar la hover */
+  border-radius: var(--radius-sm);
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
   transition: all var(--transition-fast);
+}
+
+.footer__social-icon {
+  width: 30px;
+  height: 30px;
+  display: block;
 }
 
 @media (hover: hover) {
   .footer__social-link:hover {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.1);
     color: var(--color-white);
-    transform: translateY(-2px);
   }
-}
-
-.footer__social-icon {
-  width: 20px;
-  height: 20px;
-  display: block;
 }
 
 /* Responsive footer */
@@ -1118,7 +1205,7 @@ strong {
   gap: var(--space-xs);
   background: var(--color-primary);
   color: var(--color-white);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -1165,22 +1252,34 @@ strong {
   background: var(--color-primary);
   color: var(--color-white);
   border: 3px solid var(--color-primary);
-  font-family: var(--font-heading);
-  font-size: 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: 0.75rem 1.6rem;
-  border-radius: var(--radius-lg);
+  padding: 0.95rem 2.2rem;
+  border-radius: var(--radius-full);   /* pastila, ca in postere */
   text-decoration: none;
   cursor: pointer;
-  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+  /* corpul rosu apare doar la hover (vezi mai jos) */
+  box-shadow: 0 0 0 0 transparent;
+  transition: background var(--transition-fast),
+              color var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              transform 0.5s cubic-bezier(0.34, 1.85, 0.5, 1);
 }
 
 @media (hover: hover) {
   .btn-meso:hover {
-    background: var(--color-primary-dark);
-    border-color: var(--color-primary-dark);
+    border-color: var(--color-cta);
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 7px 0 0 var(--color-cta);   /* corpul rosu iese mai mult */
+  }
+
+  .btn-meso:active {
+    transform: translateY(2px) scale(1);
+    box-shadow: 0 1px 0 0 var(--color-cta);   /* se afunda in placa rosie */
   }
 }
 
@@ -1211,14 +1310,22 @@ strong {
 /* ================================================
    9. SCROLL REVEAL
    ================================================ */
-/* Reveal folosește `animation` (nu `transition`) ca să NU intre în conflict
-   cu eventualul transition de hover al elementului (ex. carduri). */
+/* Reveal folosește `animation`, nu `transition`.
+   ATENTIE: `forwards` tine valoarea finala a lui `transform` pe element,
+   iar o animatie bate orice transform din regula normala — inclusiv la
+   hover. De aceea JS adauga `.reveal-done` la animationend, care opreste
+   animatia si elibereaza `transform` pentru hover. */
 .reveal {
   opacity: 0;
 }
 
 .reveal.is-visible {
   animation: revealIn 0.6s ease forwards;
+}
+
+.reveal.reveal-done {
+  animation: none;
+  opacity: 1;
 }
 
 @keyframes revealIn {
@@ -1321,7 +1428,7 @@ strong {
   }
 
   .nav__more-label {
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -1463,7 +1570,7 @@ strong {
     color: var(--color-text-dim);
     text-decoration: none;
     font-size: 0.6rem;
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;

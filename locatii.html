@@ -8,11 +8,11 @@
   <meta name="description" content="Mesopotamia – Găsește cel mai apropiat restaurant. Peste 100 de locații în toată România.">
   <title>Locații – Mesopotamia®</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css">
 
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -59,11 +59,8 @@
           <li class="nav__item--desktop"><a href="cariera.html" class="nav__link">Carieră</a></li>
           <li><a href="contact.html"     class="nav__link">Contact</a></li>
           <li class="nav__actions-mobile">
-            <button class="nav__theme" data-theme-toggle aria-label="Schimbă tema">
-              <i class="fa-solid fa-moon" aria-hidden="true"></i>
-            </button>
             <a href="locatii-en.html" class="nav__lang" aria-label="Switch to English">
-              <i class="fa-solid fa-globe" aria-hidden="true"></i>
+              <i class="ph-bold ph-globe" aria-hidden="true"></i>
               <span>English</span>
             </a>
           </li>
@@ -71,7 +68,7 @@
         </ul>
         <div class="nav__actions">
           <a href="locatii-en.html" class="nav__lang" aria-label="Switch to English">
-            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <i class="ph-bold ph-globe" aria-hidden="true"></i>
             <span>English</span>
           </a>
           <button class="nav__hamburger" id="navHamburger" aria-label="Deschide meniu" aria-expanded="false" aria-controls="navLinks">
@@ -95,7 +92,7 @@
   <div class="rest-toolbar">
     <p class="rest-count" id="restCount" aria-live="polite">Se încarcă...</p>
     <div class="rest-toolbar__search">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <i class="ph-bold ph-magnifying-glass" aria-hidden="true"></i>
       <input
         type="search"
         id="restSearch"
@@ -104,26 +101,26 @@
         autocomplete="off"
       >
       <button class="rest-search-clear" id="restSearchClear" aria-label="Șterge căutarea" hidden>
-        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        <i class="ph-bold ph-x" aria-hidden="true"></i>
       </button>
       <button class="rest-filter-btn" id="restFilterBtn" aria-label="Deschide filtre">
-        <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+        <i class="ph-bold ph-sliders-horizontal" aria-hidden="true"></i>
         <span>Filtrare</span>
         <span class="rest-filter-count" id="restFilterCount" hidden></span>
       </button>
     </div>
 
     <button class="rest-location-btn" id="restLocationBtn" aria-label="Restaurante lângă mine">
-      <i class="fa-solid fa-person"></i>
+      <i class="ph-bold ph-person"></i>
     </button>
 
     <!-- Comutator Hartă / Listă (desktop only) -->
     <div class="rest-viewtoggle" role="tablist" aria-label="Mod afișare">
       <button class="rest-viewtoggle__btn is-active" data-view="map" role="tab" aria-selected="true">
-        <i class="fa-solid fa-map" aria-hidden="true"></i><span>Hartă</span>
+        <i class="ph-bold ph-map-trifold" aria-hidden="true"></i><span>Hartă</span>
       </button>
       <button class="rest-viewtoggle__btn" data-view="list" role="tab" aria-selected="false">
-        <i class="fa-solid fa-list" aria-hidden="true"></i><span>Listă</span>
+        <i class="ph-bold ph-list" aria-hidden="true"></i><span>Listă</span>
       </button>
     </div>
   </div>
@@ -139,7 +136,7 @@
       <div class="rest-sheet-handle" id="restSheetHandle">
         <div class="rest-sheet-handle__bar"></div>
         <button class="rest-sheet-close" id="restSheetClose" aria-label="Închide">
-          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          <i class="ph-bold ph-x" aria-hidden="true"></i>
         </button>
       </div>
 
@@ -151,7 +148,7 @@
       <!-- Panou detaliu (desktop) -->
       <div class="rest-detail" id="restDetail" aria-live="polite">
         <div class="rest-detail__placeholder">
-          <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+          <i class="ph-bold ph-map-trifold" aria-hidden="true"></i>
           <span>Alege o locație</span>
           <span class="rest-detail__placeholder-hint">Apasă pe un restaurant ca să vezi detaliile.</span>
         </div>
@@ -164,7 +161,7 @@
 
     <!-- Buton locație floating (mobile) -->
     <button class="rest-location-btn-map" id="restLocationBtnMap" aria-label="Restaurante lângă mine">
-      <i class="fa-solid fa-person"></i>
+      <i class="ph-bold ph-person"></i>
       <span>Locația<br>mea</span>
     </button>
 
@@ -173,7 +170,7 @@
       <div id="restMap" aria-label="Harta restaurante Mesopotamia"></div>
       <div class="map-lock-overlay" id="mapLockOverlay">
         <div class="map-lock-hint">
-          <i class="fa-solid fa-computer-mouse" id="mapHintIcon"></i>
+          <i class="ph-bold ph-mouse" id="mapHintIcon"></i>
           <span id="mapScrollHint"></span>
         </div>
       </div>
@@ -192,7 +189,6 @@
         <div class="footer__brand">
           <img src="icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--dark">
           <img src="icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--light">
-          <p class="footer__tagline">Gustul care nu se uită!</p>
         </div>
         <nav class="footer__nav" aria-label="Link-uri footer">
           <ul class="footer__list">
@@ -228,10 +224,6 @@
           </a>
         </div>
 
-        <button class="footer__theme" data-theme-toggle aria-label="Schimbă tema">
-          <svg class="footer__theme-icon footer__theme-icon--moon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M235.54,150.21a104.84,104.84,0,0,1-37,52.91A104,104,0,0,1,32,120,103.09,103.09,0,0,1,52.88,57.48a104.84,104.84,0,0,1,52.91-37,8,8,0,0,1,10,10,88.08,88.08,0,0,0,109.8,109.8,8,8,0,0,1,10,10Z"></path></svg>
-          <svg class="footer__theme-icon footer__theme-icon--sun" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm8,24a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path></svg>
-        </button>
       </div>
 
     </div>
@@ -245,7 +237,7 @@
       <div class="rest-filter-modal__header">
         <span class="rest-filter-modal__title">Filtrare</span>
         <button class="rest-filter-modal__close" id="restFilterClose" aria-label="Închide filtre">
-          <i class="fa-solid fa-xmark"></i>
+          <i class="ph-bold ph-x"></i>
         </button>
       </div>
       <div class="rest-filter-modal__body">
@@ -253,45 +245,45 @@
         <label class="rest-filter-check">
           <input type="checkbox" value="openNow">
           <span class="rest-filter-check__box"></span>
-          <i class="fa-regular fa-clock" aria-hidden="true"></i>
+          <i class="ph ph-clock" aria-hidden="true"></i>
           <span>Deschis acum</span>
         </label>
         <p class="rest-filter-modal__section-label">Facilități</p>
         <label class="rest-filter-check">
           <input type="checkbox" value="mesoCafe">
           <span class="rest-filter-check__box"></span>
-          <i class="fa-solid fa-mug-hot" aria-hidden="true"></i>
+          <i class="ph-bold ph-coffee" aria-hidden="true"></i>
           <span>Meso Cafe</span>
         </label>
         <label class="rest-filter-check">
           <input type="checkbox" value="mesoKids">
           <span class="rest-filter-check__box"></span>
-          <i class="fa-solid fa-child" aria-hidden="true"></i>
+          <i class="ph-bold ph-baby" aria-hidden="true"></i>
           <span>Meso Kids</span>
         </label>
         <label class="rest-filter-check">
           <input type="checkbox" value="terasa">
           <span class="rest-filter-check__box"></span>
-          <i class="fa-solid fa-umbrella-beach" aria-hidden="true"></i>
+          <i class="ph-bold ph-umbrella" aria-hidden="true"></i>
           <span>Terasă</span>
         </label>
         <p class="rest-filter-modal__section-label">Livrare</p>
         <label class="rest-filter-check">
           <input type="checkbox" value="glovo">
           <span class="rest-filter-check__box"></span>
-          <i class="fa-solid fa-bag-shopping rest-filter-check__icon--glovo" aria-hidden="true"></i>
+          <i class="ph-bold ph-shopping-bag rest-filter-check__icon--glovo" aria-hidden="true"></i>
           <span>Glovo</span>
         </label>
         <label class="rest-filter-check">
           <input type="checkbox" value="boltFood">
           <span class="rest-filter-check__box"></span>
-          <i class="fa-solid fa-bolt rest-filter-check__icon--bolt" aria-hidden="true"></i>
+          <i class="ph-bold ph-lightning rest-filter-check__icon--bolt" aria-hidden="true"></i>
           <span>Bolt Food</span>
         </label>
         <label class="rest-filter-check">
           <input type="checkbox" value="wolt">
           <span class="rest-filter-check__box"></span>
-          <i class="fa-solid fa-utensils rest-filter-check__icon--wolt" aria-hidden="true"></i>
+          <i class="ph-bold ph-fork-knife rest-filter-check__icon--wolt" aria-hidden="true"></i>
           <span>Wolt</span>
         </label>
       </div>
@@ -307,11 +299,11 @@
   <script src="js/locatii.js?v=6"></script>
 
   <nav class="nav-bottom" id="navBottom" aria-label="Navigare principală">
-    <a href="index.html"      class="nav-bottom__item"><i class="fa-solid fa-house"></i><span>Acasă</span></a>
-    <a href="meniu.html"      class="nav-bottom__item"><i class="fa-solid fa-utensils"></i><span>Meniu</span></a>
-    <a href="locatii.html"class="nav-bottom__item"><i class="fa-solid fa-location-dot"></i><span>Locații</span></a>
-    <a href="contact.html"    class="nav-bottom__item"><i class="fa-regular fa-envelope"></i><span>Contact</span></a>
-    <a href="more.html" class="nav-bottom__item"><i class="fa-solid fa-ellipsis"></i><span>Mai mult</span></a>
+    <a href="index.html"      class="nav-bottom__item"><i class="ph-bold ph-house"></i><span>Acasă</span></a>
+    <a href="meniu.html"      class="nav-bottom__item"><i class="ph-bold ph-fork-knife"></i><span>Meniu</span></a>
+    <a href="locatii.html"class="nav-bottom__item"><i class="ph-bold ph-map-pin"></i><span>Locații</span></a>
+    <a href="contact.html"    class="nav-bottom__item"><i class="ph ph-envelope"></i><span>Contact</span></a>
+    <a href="more.html" class="nav-bottom__item"><i class="ph-bold ph-dots-three"></i><span>Mai mult</span></a>
   </nav>
 
 </body>

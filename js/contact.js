@@ -262,12 +262,12 @@
         }
         if (list) {
           list.classList.add('is-active');
-          list.innerHTML = '<i class="fa-solid fa-paperclip" aria-hidden="true"></i> <span>' +
+          list.innerHTML = '<i class="ph-bold ph-paperclip" aria-hidden="true"></i> <span>' +
             escapeHtml(file.name) + '</span>';
           var rm = document.createElement('button');
           rm.type = 'button';
           rm.setAttribute('aria-label', 'Elimină fișierul');
-          rm.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+          rm.innerHTML = '<i class="ph-bold ph-x"></i>';
           rm.addEventListener('click', function (e) {
             e.preventDefault();
             input.value = '';

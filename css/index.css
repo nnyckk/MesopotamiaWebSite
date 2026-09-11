@@ -108,7 +108,7 @@
    ================================================ */
 .ig-marquee {
   overflow: hidden;
-  margin-top: var(--space-3xl); /* spațiu față de cardurile de calitate */
+  margin-top: var(--space-md); /* spatiu fata de albumul de deasupra */
   /* fundalul roșu vine din secțiunea .quality (părinte) */
   /* fade pe margini, ca banda să nu se taie brusc */
   -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
@@ -167,28 +167,6 @@
   margin-bottom: var(--space-2xl);
 }
 
-.menu__tagline {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-md);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--color-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  margin-bottom: var(--space-sm);
-}
-
-.menu__tagline::before,
-.menu__tagline::after {
-  content: '';
-  display: block;
-  width: 50px;
-  height: 2px;
-  background: var(--color-accent);
-  flex-shrink: 0;
-}
-
 .menu__header {
   display: flex;
   flex-direction: column;
@@ -196,21 +174,35 @@
 }
 
 .menu__title {
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  line-height: 1.08;
   color: var(--color-white);
 }
 
-/* Grid categorii */
+/* Bento: sus 2 carduri late, jos 3 carduri.
+   6 coloane → 3+3 sus, 2+2+2 jos. */
 .cat-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: var(--space-lg);
   margin-bottom: var(--space-2xl);
 }
 
+.cat-card:nth-child(1),
+.cat-card:nth-child(2) {
+  grid-column: span 3;
+}
+
+.cat-card:nth-child(3),
+.cat-card:nth-child(4),
+.cat-card:nth-child(5) {
+  grid-column: span 2;
+  height: 340px;
+}
+
 .cat-card {
   position: relative;
-  height: 360px;
+  height: 460px;
   background: var(--color-surface-2);
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-border);
@@ -221,14 +213,79 @@
   justify-content: center;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  /* --tx/--ty = deplasarea spre cursor, setate din JS (initTiltCards) */
+  --tx: 0px;
+  --ty: 0px;
+  --sc: 1;
+  transform: translate3d(var(--tx), var(--ty), 0) scale(var(--sc));
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+              box-shadow 0.35s ease,
+              border-color 0.3s ease;
+  will-change: transform;
 }
 
 @media (hover: hover) {
   .cat-card:hover {
-    transform: scale(1.015);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    --sc: 1.022;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
   }
+
+  /* cat timp mouse-ul se misca, urmarirea e aproape instantanee;
+     la ieșire revine cu tranzitia lunga de mai sus */
+  .cat-card.is-tracking {
+    transition: transform 0.12s linear,
+                box-shadow 0.35s ease,
+                border-color 0.3s ease;
+  }
+}
+
+/* Cardul CTA — fara poza, gradient rosu ca fundalul de la pizza */
+.cat-card--cta {
+  background:
+    radial-gradient(ellipse 85% 75% at 35% 30%,
+      var(--brand-red-bright) 0%,
+      var(--brand-red-mid) 45%,
+      transparent 80%),
+    linear-gradient(150deg,
+      var(--brand-red-deep) 0%,
+      var(--brand-red-edge) 100%);
+  border-color: transparent;
+}
+
+/* Textul centrat in card, pe doua randuri */
+.cat-card--cta .cat-card__label {
+  height: 100%;
+  background: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Mascota — urca de jos, din mijlocul cardului,
+   PESTE text, cu o usoara inclinare. */
+.cat-card__mascot {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 72%;
+  max-width: 300px;
+  z-index: 3;
+  pointer-events: none;
+  transform-origin: center bottom;
+  /* ascunsa sub card */
+  transform: translate(-50%, 100%) rotate(-5deg);
+  transition: transform 0.6s cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+
+@media (hover: hover) {
+  /* urca doar cat sa se vada capul si putin din bust */
+  .cat-card--cta:hover .cat-card__mascot {
+    transform: translate(-50%, 58%) rotate(2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat-card__mascot { transition: none; }
 }
 
 .cat-card__img-wrap {
@@ -244,13 +301,21 @@
 }
 
 
+/* Gradientul e mereu la intensitatea de dinainte de hover —
+   urca mai sus in card si e mai opac jos. */
 .cat-card__label {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: var(--space-md);
-  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 65%, transparent 90%);
+  height: 42%;
+  justify-content: flex-end;
+  padding: var(--space-lg) var(--space-md);
+  /* concentrat jos, sub text — nu pune val pe toata poza */
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.72) 0%,
+    rgba(0,0,0,0.4) 34%,
+    transparent 100%);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -258,57 +323,226 @@
 }
 
 .cat-card__title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-family: var(--font-body);
+  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
   font-weight: 800;
   text-transform: uppercase;
   color: var(--color-white);
   text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-}
-
-.cat-card__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-xs);
-  background: rgba(176, 1, 6, 0.55);
-  color: var(--color-white);
-  border: 2px solid rgba(255, 255, 255, 0.25);
-  font-family: var(--font-heading);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 0.4rem 1rem;
-  border-radius: var(--radius-md);
-  backdrop-filter: blur(2px);
-  transition: background var(--transition-fast), border-color var(--transition-fast);
-}
-
-.cat-card__cta-icon {
-  width: 1.5em;
-  height: 1.5em;
-  flex-shrink: 0;
+  transform-origin: left bottom;
+  /* Bounce simetric la intrare si iesire.
+     transition (nu @keyframes) ca revenirea sa fie animata la fel —
+     bounce-ul vine din curba, care depaseste 1 inainte sa se aseze.
+     Nu intra in conflict cu .reveal: aceea ruleaza pe .cat-card, parintele. */
+  transition: transform 0.5s cubic-bezier(0.34, 1.85, 0.5, 1);
 }
 
 @media (hover: hover) {
-  .cat-card:hover .cat-card__cta {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
+  .cat-card:hover .cat-card__title {
+    transform: scale(1.25);
   }
 }
 
-/* Buton "Vezi toate" */
-.menu__more-wrap {
-  display: flex;
-  justify-content: center;
-  margin-top: var(--space-2xl);
+/* Cardul CTA: titlul e centrat, nu aliniat jos-stanga.
+   Regula vine DUPA .cat-card__title, ca sa suprascrie transform-origin. */
+.cat-card--cta .cat-card__title {
+  transform-origin: center;
+  line-height: 1.02;
+  position: relative;
+  z-index: 2;
+  /* mic delay: mascota pleaca prima, textul urca dupa ea */
+  transition: transform 0.5s cubic-bezier(0.34, 1.85, 0.5, 1) 0.08s;
 }
 
-/* „Descoperă toate produsele" folosește .btn-meso (vezi layout.css);
-   doar puțin padding/font în plus pentru emfază */
-.menu__show-more {
-  padding: 0.85rem 2.5rem;
-  font-size: 0.9rem;
+@media (hover: hover) {
+  /* se ridica ca sa faca loc mascotei, plus marirea */
+  .cat-card--cta:hover .cat-card__title {
+    transform: translateY(-26px) scale(1.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat-card__title { transition: none; }
+}
+
+
+/* ================================================
+   2b. BETTER TOGETHER — text centrat + banda lata
+   ================================================ */
+.bt {
+  padding-block: var(--space-4xl);
+  /* gradient verde, ca fundalul de pe poza de salate */
+  background:
+    radial-gradient(ellipse 90% 80% at 50% 35%,
+      var(--brand-green-emerald) 0%,
+      var(--brand-green-mid) 45%,
+      transparent 80%),
+    linear-gradient(150deg,
+      var(--brand-green-base) 0%,
+      var(--brand-green-deep) 45%,
+      var(--brand-green-edge) 100%);
+}
+
+.bt__head {
+  max-width: 900px;
+  margin-inline: auto;
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+}
+
+/* Titlul mare, True Story */
+.bt__title {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 1;
+  color: var(--color-white);
+  margin-bottom: var(--space-lg);
+}
+
+.bt__title .hl {
+  color: var(--brand-yellow);
+}
+
+/* Textul de sub titlu, Mont */
+.bt__desc {
+  font-family: var(--font-body);
+  font-size: clamp(1.02rem, 1.35vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.7;
+  color: rgba(247, 243, 232, 0.88);   /* cream, fix — fundalul e mereu verde */
+  max-width: 62ch;
+  margin-inline: auto;
+}
+
+/* ---- Carusel ---- */
+.bt-carousel {
+  position: relative;
+}
+
+/* Viewport-ul topeste pozele de la margini in fundal.
+   Padding vertical ca poza activa (scale 1.16) sa nu fie tăiată. */
+.bt-carousel__viewport {
+  overflow: hidden;
+  /* loc pentru poza activa (scale 1.16) si pentru umbra ei */
+  padding-block: 58px;
+  -webkit-mask-image: linear-gradient(to right,
+    transparent 0%, #000 18%, #000 82%, transparent 100%);
+          mask-image: linear-gradient(to right,
+    transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+
+.bt-carousel__track {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  /* JS seteaza --shift ca sa centreze poza activa.
+     Curba ease-out: click-urile repetate se interpoleaza din poziția
+     curenta, deci miscarea rămâne continua, nu in pasi. */
+  transform: translateX(var(--shift, 0px));
+  transition: transform 0.5s cubic-bezier(0.25, 0.9, 0.3, 1);
+  will-change: transform;
+}
+
+/* Poza — patrata, usor mai inalta decat lata */
+.bt-slide {
+  flex: 0 0 auto;
+  width: clamp(180px, 20vw, 300px);
+  aspect-ratio: 4 / 5;
+  margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  /* vecinele sunt mai mici si usor stinse; click pe ele le aduce in centru */
+  cursor: pointer;
+  transform: scale(0.88);
+  opacity: 0.82;
+  transition: transform 0.6s cubic-bezier(0.3, 0.8, 0.35, 1),
+              opacity 0.5s ease-out;
+}
+
+/* Poza din mijloc — mai mare si la opacitate plina */
+.bt-slide.is-active {
+  cursor: default;
+  transform: scale(1.16);
+  opacity: 1;
+  z-index: 2;
+  box-shadow: 0 10px 24px rgba(2, 18, 10, 0.35);
+}
+
+.bt-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Butoane rotunde */
+.bt-carousel__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--brand-green-base);
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(2, 18, 10, 0.35);
+  transition: background var(--transition-fast),
+              color var(--transition-fast),
+              transform 0.35s cubic-bezier(0.34, 1.45, 0.5, 1);
+}
+
+.bt-carousel__btn--prev { left: 0; }
+.bt-carousel__btn--next { right: 0; }
+
+@media (hover: hover) {
+  .bt-carousel__btn:hover {
+    background: var(--brand-yellow);
+    color: var(--color-white);
+  }
+
+  .bt-carousel__btn--prev:hover { transform: translateY(-50%) translateX(-3px) scale(1.08); }
+  .bt-carousel__btn--next:hover { transform: translateY(-50%) translateX(3px)  scale(1.08); }
+}
+
+/* apasare — galben mai inchis */
+.bt-carousel__btn:active {
+  background: var(--brand-yellow-dark);
+  color: var(--color-white);
+}
+
+.bt-carousel__btn--prev:active { transform: translateY(-50%) translateX(-1px) scale(0.98); }
+.bt-carousel__btn--next:active { transform: translateY(-50%) translateX(1px)  scale(0.98); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bt-carousel__track,
+  .bt-slide { transition: none; }
+}
+
+@media (max-width: 768px) {
+  .bt {
+    padding-top: var(--space-3xl);
+  }
+
+  .bt__head {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .bt-carousel__btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+
+  .bt-slide {
+    width: clamp(150px, 46vw, 220px);
+  }
 }
 
 
@@ -316,88 +550,258 @@
    3. QUALITY — CARDS
    ================================================ */
 .quality {
-  padding-block: var(--space-4xl);
-  background: linear-gradient(135deg, #500106 0%, #B00106 50%, #500106 100%);
+  position: relative;
+  /* padding mic sus: albumul sticky trebuie sa se prinda imediat */
+  padding-block: var(--space-lg) var(--space-4xl);
+  background: var(--brand-green-deep);   /* verde plat, fara gradient */
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
+  /* fara overflow: hidden — ar anula position:sticky din album */
 }
 
-.quality__header {
-  text-align: center;
-  margin-bottom: var(--space-3xl);
+/* ================================================
+   BETTER TOGETHER — album de poze decalate
+   ================================================ */
+/* Sectiune inalta: textul ramane sticky cat timp pozele cad una cate una */
+.together {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  /* stretch (nu start) — altfel coloana textului are inaltimea
+     continutului si sticky nu are pe ce sa alunece */
+  align-items: stretch;
+  gap: var(--space-3xl);
+  /* fara margine sus — altfel se vede verde gol inainte sa se prinda sticky */
+  margin-block: 0;
+}
+
+/* Coloana textului: la fel de inalta ca albumul, ca sticky sa functioneze */
+.together__text {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  position: sticky;
+  /* acelasi punct de lipire ca albumul, ca sa fie pe aceeasi linie */
+  top: 12vh;
+  /* aceeasi inaltime ca albumul, cu textul centrat vertical in ea */
+  height: 76vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-sm);
+  justify-content: center;
 }
 
-.quality__tagline {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-md);
+/* Coloana inalta = spatiul pe care se deruleaza.
+   Cu cat e mai inalta, cu atat scrollul dureaza mai mult. */
+.together__album-col {
+  grid-column: 1;
+  grid-row: 1;
+  height: 240vh;
+}
+
+/* Albumul ramane lipit in ecran cat cad pozele.
+   Inaltime = tot viewportul sub header, ca teancul sa fie centrat vertical. */
+.together__album {
+  position: sticky;
+  /* acelasi punct de lipire ca textul — pe la mijlocul viewportului */
+  top: 12vh;
+  height: 76vh;
+}
+
+/* Rotatia sta aici, pe poza. Miscarea de cadere o face transform-ul
+   de mai jos — NU printr-un @keyframes cu var(--rot): variabilele CSS
+   nu se pot interpola in keyframes, animatia ar esua silentios. */
+.together__photo {
+  position: absolute;
+  margin: 0;
+  /* Rama polaroid: subtire sus/lateral, lata jos.
+     Fara overflow:hidden — taia marginea de jos. */
+  background: var(--color-white);
+  padding: 12px 12px 52px;
+  border-radius: 3px;
+  /* Stare initiala: foaia e SUS si APROAPE de privitor (deci mare),
+     nu transparenta. Cade, se departeaza si se aseaza in teanc.
+     Fara fade — o foaie nu apare din transparenta. */
+  visibility: hidden;
+  transform:
+    translate(-50%, -50%)
+    translate(var(--dx), calc(var(--dy) - 120px))
+    rotate(calc(var(--rot) * 0.4))
+    scale(1.22);
+  /* umbra ampla: e departe de suprafata */
+  box-shadow: 0 40px 60px rgba(6, 28, 18, 0.32),
+              0 6px 14px rgba(6, 28, 18, 0.18);
+  /* La iesire: poza urca inapoi, iar visibility se schimba abia
+     DUPA ce miscarea s-a terminat (intarziere 0.45s) — altfel
+     ar disparea brusc in loc sa se ridice. */
+  transition:
+    transform   0.25s cubic-bezier(0.4, 0, 0.7, 0.4),
+    box-shadow  0.25s ease-in,
+    visibility  0s linear 0.25s;
+}
+
+/* Aterizare: ajunge la locul ei, umbra se strange sub ea */
+.together__photo.is-visible {
+  visibility: visible;
+  transition:
+    transform   0.5s cubic-bezier(0.3, 0.8, 0.4, 1),
+    box-shadow  0.5s ease-out,
+    visibility  0s;
+  transform:
+    translate(-50%, -50%)
+    translate(var(--dx), var(--dy))
+    rotate(var(--rot))
+    scale(1);
+  box-shadow: 0 14px 34px rgba(6, 28, 18, 0.4),
+              0 2px 6px rgba(6, 28, 18, 0.25);
+}
+
+/* Fotografia dintr-un polaroid e aproape patrata */
+.together__photo img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 1px;
+}
+
+/* Teanc rasfirat: pozele stau una peste alta, dar decalate destul
+   cat sa se vada din fiecare. --dx/--dy = decalajul fata de centru. */
+.together__photo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 62%;
+  margin: 0;
+}
+
+/* Prima e dreapta, mare si centrata — e cea care se vede la intrare */
+.together__photo--1 {
+  --rot: 0deg;
+  --dx: 0%;
+  --dy: 0%;
+  width: 66%;
+  z-index: 1;
+}
+
+/* Marimi variate — ca un teanc real, nu toate la fel */
+.together__photo--2 { --rot:  5deg; --dx:  34%; --dy: -26%; width: 52%; z-index: 2; }
+.together__photo--3 { --rot: -5deg; --dx: -30%; --dy:  26%; width: 56%; z-index: 3; }
+
+/* Ultima cade peste toate, aproape in mijlocul teancului */
+.together__photo--4 { --rot:  2deg; --dx:   6%; --dy:   2%; width: 60%; z-index: 4; }
+
+/* Cand ultima aterizeaza, celelalte se misca putin — impactul.
+   Fiecare in alta directie, ca si cum au fost atinse.
+   Miscare lenta si moale, cu mica intarziere dupa aterizare. */
+.together__album.is-settled .together__photo--1,
+.together__album.is-settled .together__photo--2,
+.together__album.is-settled .together__photo--3 {
+  transition: transform 0.9s cubic-bezier(0.25, 0.9, 0.35, 1) 0.12s,
+              box-shadow 0.5s ease-out;
+}
+
+.together__album.is-settled .together__photo--1 {
+  --rot: -6deg;
+  --dx: -14%;
+  --dy: -6%;
+}
+
+.together__album.is-settled .together__photo--2 {
+  --rot: 9deg;
+  --dx: 40%;
+  --dy: -30%;
+}
+
+.together__album.is-settled .together__photo--3 {
+  --rot: -9deg;
+  --dx: -36%;
+  --dy: 31%;
+}
+
+/* Supratitlu mic, Mont — ca in postere */
+.together__eyebrow {
+  font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--color-accent);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  color: var(--color-accent);
+  margin-bottom: var(--space-sm);
 }
 
-.quality__tagline::before,
-.quality__tagline::after {
-  content: '';
-  display: block;
-  width: 32px;
-  height: 2px;
-  background: var(--color-accent);
-  flex-shrink: 0;
-}
-
-.quality__title {
+/* Textul de langa album */
+.together__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  font-weight: 800;
+  font-size: clamp(3.2rem, 6.5vw, 5.6rem);
+  font-weight: 900;
+  line-height: 1.05;
   color: var(--color-white);
-  line-height: 1.15;
+  margin-bottom: var(--space-md);
 }
 
-.quality__cards {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: var(--space-md);
+.together__title .hl {
+  color: var(--color-accent);
 }
 
-.quality__card {
-  overflow: hidden;
-  border-radius: var(--radius-lg);
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+.together__desc {
+  font-size: clamp(1.02rem, 1.25vw, 1.18rem);
+  line-height: 1.7;
+  color: rgba(247, 243, 232, 0.88);
+  max-width: 42ch;
 }
 
-@media (hover: hover) {
-  .quality__card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+.together__desc + .together__desc {
+  margin-top: var(--space-md);
+}
+
+@media (max-width: 900px) {
+  .together {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    margin-block: var(--space-2xl) var(--space-3xl);
+  }
+
+  .together__album-col {
+    height: 200vh;   /* scroll mai scurt pe mobil */
+    order: 2;
+  }
+
+  .together__album {
+    height: min(560px, calc(100vh - var(--header-h) - 4rem));
+    order: 2;
+    /* 2 coloane pe mobil, nu 3 */
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .together__text {
+    position: static;   /* fara sticky pe mobil */
+    order: 1;
+    text-align: center;
+    padding-block: 0;
+  }
+
+  .together__desc {
+    margin-inline: auto;
   }
 }
 
-.quality__card-img {
-  width: 100%;
-  height: auto;
-  display: block;
+@media (max-width: 520px) {
+  .together__album { height: 440px; }
+  .together__photo { border-width: 4px; }
 }
 
-.quality__card-img--mobile {
-  display: none;
-}
-
-@media (max-width: 640px) {
-  .quality__card-img--desktop {
-    display: none;
-  }
-
-  .quality__card-img--mobile {
-    display: block;
+@media (prefers-reduced-motion: reduce) {
+  .together__photo {
+    transition: none;
+    visibility: visible;
+    transform:
+      translate(-50%, -50%)
+      translate(var(--dx), var(--dy))
+      rotate(var(--rot));
   }
 }
+
 
 
 /* ================================================
@@ -408,11 +812,13 @@
   background-color: var(--color-bg);
 }
 
-/* Rând split: text + poză (jumătate-jumătate, ca Five Guys) */
+/* Rand split: panou verde + poza, alaturate.
+   Poza ramane intreaga; textul are fundal propriu, cu contrast. */
 .promo-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center; /* textul mai scund decât poza, centrat vertical */
+  align-items: stretch;
+  gap: var(--space-md);
   margin-bottom: var(--space-2xl);
 }
 
@@ -420,38 +826,33 @@
   margin-bottom: 0;
 }
 
-/* Rând inversat: poza în stânga, textul în dreapta */
+/* Rand inversat: poza in stanga, textul in dreapta */
 .promo-row--reverse .promo-row__text {
   order: 2;
 }
 
-/* Panoul de text */
+/* Panoul de text — verde plin, ca posterele */
 .promo-row__text {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: var(--space-xl) var(--space-2xl);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  /* rotunjit doar pe exterior (stânga); dreapta dreaptă, lipită de poză */
-  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
-  border-right: none;
+  padding: var(--space-3xl) var(--space-2xl);
+  background: var(--brand-cream-pale);
+  border: 3px solid var(--brand-green-base);   /* verdele doar ca rama */
+  border-radius: 32px;   /* rama urmeaza colturile, ca o bula */
 }
 
-/* La rândul inversat (poză stânga / text dreapta) — invers */
-.promo-row--reverse .promo-row__text {
-  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-  border-right: 1px solid var(--color-border);
-  border-left: none;
-}
+
 
 /* Icon + titlu pe același rând */
 .promo-row__head {
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
 }
 
 .promo-row__icon {
@@ -462,51 +863,80 @@
   height: 80px;
   flex-shrink: 0;
   border-radius: var(--radius-md);
-  background: var(--color-surface);
-  color: var(--color-primary);
+  background: none;
+  color: var(--brand-green-base);
   font-size: 2.8rem;
 }
 
-/* SVG custom (Phosphor) — moștenește roșul via currentColor */
+/* SVG custom (Phosphor) — mosteneste galbenul via currentColor */
 .promo-row__svg {
-  width: 56px;
-  height: 56px;
+  width: 68px;
+  height: 68px;
   display: block;
 }
 
 .promo-row__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  font-size: clamp(2.2rem, 3.6vw, 3.4rem);
   font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: var(--color-text);
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  color: var(--brand-green-base);
+}
+
+/* Cuvantul-cheie scos in galben — ca "HAI LA COMBO" din postere.
+   Se foloseste cu <span class="hl"> in titlu. */
+.promo-row__title .hl {
+  color: var(--color-accent);
 }
 
 .promo-row__desc {
-  font-size: 0.98rem;
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
   line-height: 1.6;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-lg);
-  max-width: 42ch;
+  /* kraft e culoare fixa → si textul de pe el trebuie fix,
+     altfel in dark mode contrastul cade */
+  color: rgba(26, 23, 23, 0.78);
+  margin-bottom: var(--space-xl);
+  max-width: 40ch;
 }
 
-/* Butoanele promo folosesc clasa globală .btn-meso (vezi layout.css) */
+/* Butoanele promo sunt rosii (CTA), cu corp VERDE dedesubt —
+   inversul butonului verde din layout.css. */
+.promo-row__text .btn-meso {
+  background: var(--color-cta);
+  border-color: var(--color-cta);
+  color: var(--color-white);
+}
 
-/* Poza — rotunjită pe toate colțurile */
+@media (hover: hover) {
+  .promo-row__text .btn-meso:hover {
+    background: var(--color-cta);
+    border-color: var(--brand-green-base);
+    color: var(--color-white);
+    box-shadow: 0 7px 0 0 var(--brand-green-base);
+  }
+
+  .promo-row__text .btn-meso:active {
+    box-shadow: 0 1px 0 0 var(--brand-green-base);
+  }
+}
+
+/* Poza — intreaga, langa panou */
 .promo-row__media {
-  border-radius: var(--radius-lg);
   overflow: hidden;
-  min-height: 400px;
+  min-height: 420px;
+  border-radius: 32px;
 }
 
 .promo-row__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
-/* Responsive: stivuit pe mobil, poza sus + text jos, lipite ca un bloc */
+/* Responsive: stivuit pe mobil — poza sus, panoul verde dedesubt */
 @media (max-width: 768px) {
   .promo-row,
   .promo-row--reverse {
@@ -514,22 +944,28 @@
     margin-bottom: var(--space-xl);
   }
 
-  /* Poza deasupra, rotunjită doar sus */
   .promo-row__media,
   .promo-row--reverse .promo-row__media {
-    min-height: 220px;
+    min-height: 240px;
     order: 1;
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    border-radius: 24px;
   }
 
-  /* Textul dedesubt, lipit de poză, rotunjit doar jos */
   .promo-row__text,
   .promo-row--reverse .promo-row__text {
     order: 2;
     padding: var(--space-xl);
-    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-    border: 1px solid var(--color-border);
-    border-top: none;
+    border-radius: 24px;
+  }
+
+
+  .promo-row__icon {
+    height: 56px;
+  }
+
+  .promo-row__svg {
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -538,10 +974,27 @@
    RESPONSIVE — MOBILE
    ================================================ */
 
-/* Tablet */
+/* Tableta: bento devine 2 coloane; CTA-ul ocupa tot randul */
 @media (max-width: 900px) {
-  .quality__cards {
-    grid-template-columns: repeat(3, 1fr);
+  .cat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cat-card:nth-child(1),
+  .cat-card:nth-child(2),
+  .cat-card:nth-child(3),
+  .cat-card:nth-child(4) {
+    grid-column: span 1;
+  }
+
+  .cat-card:nth-child(3),
+  .cat-card:nth-child(4) {
+    height: 340px;
+  }
+
+  .cat-card:nth-child(5) {
+    grid-column: span 2;
+    height: 200px;
   }
 }
 
@@ -551,50 +1004,26 @@
     grid-template-columns: 1fr;
   }
 
-  .cat-card {
-    height: 260px;
+  /* toate cardurile pe o coloana, la aceeasi inaltime */
+  .cat-card,
+  .cat-card:nth-child(1),
+  .cat-card:nth-child(2),
+  .cat-card:nth-child(3),
+  .cat-card:nth-child(4),
+  .cat-card:nth-child(5) {
+    grid-column: span 1;
+    height: 400px;
   }
 
   .cat-card__title {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 5.5vw, 2rem);
   }
 
-  .quality__cards {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .quality__card--large {
-    grid-column: 1 / -1;
-    justify-self: center;
-    width: 80%;
-  }
-
-  .quality__title {
-    font-size: 1.6rem;
-  }
-
-  .quality__tagline {
-    font-size: 0.72rem;
-  }
 
   .menu__title {
-    font-size: 1.6rem;
+    font-size: clamp(1.9rem, 6vw, 2.6rem);
   }
 
-  .menu__tagline {
-    font-size: 0.72rem;
-  }
-
-  .menu__tagline::before,
-  .menu__tagline::after {
-    width: 28px;
-  }
-
-  .menu__show-more {
-    width: auto;
-    padding: 0.7rem 1.8rem;
-    font-size: 0.8rem;
-  }
 
   .promo__card-title {
     font-size: clamp(1.6rem, 5vw, 2.2rem);
@@ -613,12 +1042,6 @@
   }
 
   .cat-card {
-    height: 220px;
+    height: 340px;
   }
-
-  .quality__cards {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-sm);
-  }
-
 }
