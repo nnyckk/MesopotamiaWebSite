@@ -505,6 +505,204 @@
 
 
 /* ================================================
+   3b. APP — aplicatia Meso, in curand
+   Singura sectiune pe fundal deschis: da respiro intre
+   verdele de la Better Together si videoul de la locatii.
+   ================================================ */
+.app {
+  padding-block: var(--space-4xl);
+  background: #fdf8ec;
+  overflow: hidden;
+}
+
+.app__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: var(--space-2xl);
+}
+
+/* ---- Pastila "Nou!" ---- */
+.app__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.45rem 1rem 0.45rem 0.45rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(15, 68, 44, 0.18);
+  background: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--brand-green-base);
+  margin-bottom: var(--space-lg);
+}
+
+.app__pill-tag {
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--radius-full);
+  background: var(--color-cta);
+  color: var(--color-white);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.app__pill i {
+  font-size: 0.9rem;
+  color: var(--brand-green-base);
+}
+
+/* ---- Titlu mare ---- */
+.app__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.8rem, 6vw, 5.4rem);
+  line-height: 1;
+  color: var(--brand-green-base);
+  margin-bottom: var(--space-lg);
+}
+
+.app__title .hl {
+  color: var(--color-cta);
+}
+
+.app__desc {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  font-weight: 500;
+  line-height: 1.65;
+  color: rgba(26, 23, 23, 0.7);
+  max-width: 42ch;
+  margin-bottom: var(--space-xl);
+}
+
+/* ---- Badge-uri magazine (inactive) ---- */
+.app__stores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-2xl);
+}
+
+.app__store {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.7rem 1.3rem;
+  border-radius: 12px;
+  background: var(--brand-green-night);
+  color: var(--color-white);
+}
+
+.app__store.is-soon {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.app__store i {
+  font-size: 1.7rem;
+}
+
+.app__store-txt {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  font-family: var(--font-body);
+}
+
+.app__store-txt small {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+
+.app__store-txt strong {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+/* ---- Dovada sociala ---- */
+.app__proof {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(15, 68, 44, 0.15);
+}
+
+.app__stat {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  line-height: 1;
+  color: var(--brand-green-base);
+  flex-shrink: 0;
+}
+
+.app__plus {
+  color: var(--color-cta);
+  font-size: 0.6em;
+  vertical-align: super;
+}
+
+.app__proof-txt {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgba(26, 23, 23, 0.6);
+}
+
+/* ---- Vizual: patrat de placeholder ---- */
+.app__visual {
+  display: flex;
+  justify-content: center;
+}
+
+/* PLACEHOLDER — de inlocuit cu <img> cand vine poza */
+.app__ph {
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1 / 1;
+  border-radius: 28px;
+  background: var(--brand-green-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app__ph-label {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 900px) {
+  .app__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .app__visual {
+    order: -1;
+  }
+
+  .app__ph {
+    max-width: 400px;
+  }
+
+  .app__proof { justify-content: flex-start; }
+}
+
+@media (max-width: 560px) {
+  .app__store { padding: 0.6rem 1rem; }
+  .app__store i { font-size: 1.4rem; }
+}
+
+
+/* ================================================
    4. LOC — banda cu orase care defileaza
    ================================================ */
 /* Poza acopera tot viewportul; banda de orase sta in container */
