@@ -112,6 +112,7 @@
   /* Kraft */
   --brand-kraft-dark:  #c08d52;  /* hover */
   --brand-kraft-light: #e8c294;  /* mai deschis */
+  --brand-kraft-pale:  #f2dcbf;  /* diluat — varful gradientului */
   --brand-kraft-faint: rgba(219, 167, 110, 0.12);
 
   /* Negru cald */
@@ -160,6 +161,7 @@
   --color-kraft:       var(--brand-kraft);
   --color-kraft-dark:  var(--brand-kraft-dark);
   --color-kraft-light: var(--brand-kraft-light);
+  --color-kraft-pale:  var(--brand-kraft-pale);
 
   /* Alias vechi (maroon a disparut din brand book) → verde inchis */
   --color-maroon:       var(--brand-green-dark);
@@ -1244,6 +1246,15 @@ strong {
    BUTON MESO — clasă reutilizabilă
    .btn-meso            → roșu plin + text alb
    .btn-meso--duotone   → roșu pal + text roșu (hover → plin)
+
+   REGULA DE BAZA: transform-ul se exprima DOAR prin variabile
+   (--tx/--ty/--sc), niciodata cu valori fixe. Asa, butoanele care
+   urmaresc mouse-ul (initTiltCards scrie --tx/--ty inline) moștenesc
+   hover-ul si press-ul fara sa rescrie nimic. Un `transform` fix
+   aici ar anula urmarirea si ar trebui rescris in fiecare varianta.
+
+   --tx/--ty = deplasarea spre cursor (px, din JS; 0 daca nu urmareste)
+   --sc      = scara; --press-y = afundarea la apasare
    ================================================ */
 .btn-meso {
   display: inline-flex;
@@ -1261,6 +1272,10 @@ strong {
   border-radius: var(--radius-full);   /* pastila, ca in postere */
   text-decoration: none;
   cursor: pointer;
+  --tx: 0px;
+  --ty: 0px;
+  --sc: 1;
+  transform: translate3d(var(--tx), var(--ty), 0) scale(var(--sc));
   /* corpul rosu apare doar la hover (vezi mai jos) */
   box-shadow: 0 0 0 0 transparent;
   transition: background var(--transition-fast),
@@ -1271,15 +1286,43 @@ strong {
 }
 
 @media (hover: hover) {
+  /* Ridicare de 3px: pe butoanele care urmaresc mouse-ul se adauga
+     peste --ty, deci hover-ul si urmarirea coexista. */
   .btn-meso:hover {
     border-color: var(--color-cta);
-    transform: translateY(-3px) scale(1.04);
+    --sc: 1.04;
+    transform: translate3d(var(--tx), calc(var(--ty) - 3px), 0) scale(var(--sc));
     box-shadow: 0 7px 0 0 var(--color-cta);   /* corpul rosu iese mai mult */
   }
 
-  .btn-meso:active {
-    transform: translateY(2px) scale(1);
+  /* `.is-pressed` vine din JS: pe linkuri navigarea taie `:active`
+     prea repede ca sa se vada apasarea. */
+  .btn-meso:active,
+  .btn-meso.is-pressed {
+    --sc: 0.96;
+    transform: translate3d(var(--tx), calc(var(--ty) + 2px), 0) scale(var(--sc));
     box-shadow: 0 1px 0 0 var(--color-cta);   /* se afunda in placa rosie */
+    transition: transform 0.08s ease-out,
+                background var(--transition-fast),
+                border-color var(--transition-fast),
+                box-shadow 0.08s ease-out;
+  }
+
+  /* cat timp mouse-ul se misca, urmarirea e aproape instantanee */
+  .btn-meso.is-tracking {
+    transition: transform 0.12s linear,
+                background var(--transition-fast),
+                border-color var(--transition-fast),
+                box-shadow var(--transition-fast);
+  }
+
+  /* press-ul bate urmarirea rapida cat timp butonul e apasat */
+  .btn-meso.is-tracking:active,
+  .btn-meso.is-tracking.is-pressed {
+    transition: transform 0.08s ease-out,
+                background var(--transition-fast),
+                border-color var(--transition-fast),
+                box-shadow 0.08s ease-out;
   }
 }
 

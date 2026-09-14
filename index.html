@@ -185,53 +185,45 @@
     <div class="container app__inner">
 
       <div class="app__text">
-        <span class="app__pill">
-          <span class="app__pill-tag">Nou!</span>
-          Aplicația Meso <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
-        </span>
-
         <h2 class="app__title" id="app-title">
-          Comanzi mai <span class="hl">ușor</span>
+          <span class="hl">Meso App</span> în curând <br> pe telefonul tău!
         </h2>
 
         <p class="app__desc">
-          Comenzi în câteva secunde, puncte de fidelitate la fiecare masă
-          și oferte care există doar în aplicație.
+          Strânge puncte de fidelitate și bucură-te de oferte și reduceri
+          exclusive. Descoperă noutățile din restaurantele Mesopotamia,
+          află primul despre anunțuri speciale și fă precomenzi direct
+          din aplicație.
         </p>
 
         <!-- Badge-uri magazine — inactive pana la lansare -->
         <div class="app__stores">
-          <span class="app__store is-soon">
-            <i class="ph-fill ph-apple-logo" aria-hidden="true"></i>
-            <span class="app__store-txt">
-              <small>În curând pe</small>
-              <strong>App Store</strong>
+          <span class="app__stores-label">În curând pe</span>
+          <div class="app__stores-row">
+            <span class="app__store is-soon">
+              <img src="images/promo/AppStore.png" alt="App Store" class="app__store-img" loading="lazy">
             </span>
-          </span>
-          <span class="app__store is-soon">
-            <i class="ph-fill ph-google-play-logo" aria-hidden="true"></i>
-            <span class="app__store-txt">
-              <small>În curând pe</small>
-              <strong>Google Play</strong>
+            <span class="app__store is-soon">
+              <img src="images/promo/GooglePlay.png" alt="Google Play" class="app__store-img" loading="lazy">
             </span>
-          </span>
+          </div>
         </div>
 
-        <!-- Dovada sociala -->
-        <div class="app__proof">
-          <span class="app__stat">80<span class="app__plus">+</span></span>
-          <p class="app__proof-txt">
-            locații în toată România.<br>
-            Aceeași mâncare, acum și în telefon.
-          </p>
+        <!-- Formular: vizual deocamdata, nu trimite nimic.
+             De conectat la backend / serviciu de newsletter la lansare. -->
+        <div class="app__signup">
+          <p class="app__signup-txt">Fii primul care află când se lansează.</p>
+          <form class="app__form" onsubmit="return false;">
+            <label class="sr-only" for="appEmail">Adresa ta de email</label>
+            <input type="email" id="appEmail" name="email" class="app__input"
+                   placeholder="adresa@email.ro" autocomplete="email">
+            <button type="submit" class="btn-meso app__btn">Anunță-mă</button>
+          </form>
         </div>
       </div>
 
-      <div class="app__visual" aria-hidden="true">
-        <!-- PLACEHOLDER: aici vine poza cu aplicatia -->
-        <div class="app__ph">
-          <span class="app__ph-label">Poza aplicație</span>
-        </div>
+      <div class="app__visual reveal">
+        <img src="images/promo/AppMockup_3D.png" alt="Iconița aplicației Mesopotamia" class="app__img" loading="lazy">
       </div>
 
     </div>
@@ -279,6 +271,30 @@
         <span class="loc__city">Râmnicu Vâlcea</span><span class="loc__dot">•</span>
       </div>
     </div>
+    </div>
+  </section>
+
+  <!-- ECHIPA — trimite spre cariera.html, care face munca grea -->
+  <section class="team" aria-labelledby="team-title">
+    <div class="container team__inner">
+      <!-- TODO poza: doar cea din dreapta-jos e inca un portret din
+           caruselul Better Together — de inlocuit cand apare una noua. -->
+      <div class="team__floats" aria-hidden="true">
+        <img src="images/promo/Cariera_01.png" alt="" class="team__float team__float--l1" loading="lazy">
+        <img src="images/img_carousel/portrait 48.webp" alt="" class="team__float team__float--l2" loading="lazy">
+        <img src="images/promo/Cariera_02.png" alt="" class="team__float team__float--r1" loading="lazy">
+        <img src="images/promo/joburi.jpg" alt="" class="team__float team__float--r2" loading="lazy">
+      </div>
+
+      <h2 class="team__title reveal" id="team-title">
+        <span class="hl">Echipa te cheamă!</span>
+      </h2>
+      <p class="team__desc reveal">
+        Alătură-te echipei Mesopotamia. Aici găsești mediul perfect
+        pentru a te dezvolta. <strong>Nu ai experiență?</strong> Fără griji,
+        e nevoie doar să îți dorești, te învățăm noi tot ce trebuie să faci.
+      </p>
+      <a href="cariera.html" class="btn-meso team__cta reveal">Aplică acum</a>
     </div>
   </section>
 

@@ -367,7 +367,7 @@
   font-size: clamp(1.02rem, 1.35vw, 1.25rem);
   font-weight: 500;
   line-height: 1.7;
-  color: rgba(247, 243, 232, 0.88);   /* cream, fix — fundalul e mereu verde */
+  color: var(--color-white);
   max-width: 62ch;
   margin-inline: auto;
 }
@@ -517,50 +517,31 @@
 
 .app__inner {
   display: grid;
+  /* coloane egale: poza si textul impart spatiul la fel */
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: var(--space-2xl);
 }
 
+/* Poza in stanga, textul in dreapta. Facem swap-ul din CSS, nu din HTML,
+   ca ordinea din markup sa rămână logica pentru cititoarele de ecran. */
+.app__visual { order: 1; }
+.app__text   { order: 2; }
+
 /* ---- Pastila "Nou!" ---- */
-.app__pill {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: 0.45rem 1rem 0.45rem 0.45rem;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(15, 68, 44, 0.18);
-  background: var(--color-white);
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--brand-green-base);
-  margin-bottom: var(--space-lg);
-}
-
-.app__pill-tag {
-  padding: 0.25rem 0.7rem;
-  border-radius: var(--radius-full);
-  background: var(--color-cta);
-  color: var(--color-white);
-  font-size: 0.75rem;
-  font-weight: 800;
-}
-
-.app__pill i {
-  font-size: 0.9rem;
-  color: var(--brand-green-base);
-}
-
 /* ---- Titlu mare ---- */
 .app__title {
-  font-family: var(--font-heading);
-  font-size: clamp(2.8rem, 6vw, 5.4rem);
-  line-height: 1;
-  color: var(--brand-green-base);
+  /* Mont pe fraza; True Story doar pe "Mesopotamia" (vezi .hl mai jos).
+     Mont e mai lat, deci font-size mai mic decat la True Story. */
+  font-family: var(--font-body);
+  font-size: clamp(1.9rem, 3.2vw, 2.9rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--brand-black);
   margin-bottom: var(--space-lg);
 }
 
+/* Tot titlul e in Mont — .hl schimba doar culoarea */
 .app__title .hl {
   color: var(--color-cta);
 }
@@ -569,28 +550,38 @@
   font-family: var(--font-body);
   font-size: clamp(1rem, 1.25vw, 1.15rem);
   font-weight: 500;
-  line-height: 1.65;
+  line-height: 1.45;
   color: rgba(26, 23, 23, 0.7);
-  max-width: 42ch;
+  max-width: 58ch;
   margin-bottom: var(--space-xl);
 }
 
 /* ---- Badge-uri magazine (inactive) ---- */
 .app__stores {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-md);
   margin-bottom: var(--space-2xl);
 }
 
+.app__stores-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(26, 23, 23, 0.55);
+  margin-bottom: var(--space-sm);
+}
+
+.app__stores-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+/* Badge-urile oficiale vin ca imagini — fundalul si textul sunt in poza */
 .app__store {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-sm);
-  padding: 0.7rem 1.3rem;
-  border-radius: 12px;
-  background: var(--brand-green-night);
-  color: var(--color-white);
 }
 
 .app__store.is-soon {
@@ -598,85 +589,111 @@
   cursor: default;
 }
 
-.app__store i {
-  font-size: 1.7rem;
-}
-
-.app__store-txt {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.15;
-  font-family: var(--font-body);
-}
-
-.app__store-txt small {
-  font-size: 0.62rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  opacity: 0.8;
-}
-
-.app__store-txt strong {
-  font-size: 1rem;
-  font-weight: 800;
+.app__store-img {
+  height: 52px;
+  width: auto;
+  display: block;
 }
 
 /* ---- Dovada sociala ---- */
-.app__proof {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
+/* ---- Formular de inscriere (vizual, nu trimite) ---- */
+.app__signup {
   padding-top: var(--space-lg);
   border-top: 1px solid rgba(15, 68, 44, 0.15);
 }
 
-.app__stat {
-  font-family: var(--font-heading);
-  font-size: clamp(2.4rem, 4vw, 3.4rem);
-  line-height: 1;
-  color: var(--brand-green-base);
-  flex-shrink: 0;
-}
-
-.app__plus {
-  color: var(--color-cta);
-  font-size: 0.6em;
-  vertical-align: super;
-}
-
-.app__proof-txt {
+.app__signup-txt {
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-weight: 500;
-  line-height: 1.45;
-  color: rgba(26, 23, 23, 0.6);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--brand-green-base);
+  margin-bottom: var(--space-md);
 }
 
-/* ---- Vizual: patrat de placeholder ---- */
-.app__visual {
-  display: flex;
-  justify-content: center;
-}
-
-/* PLACEHOLDER — de inlocuit cu <img> cand vine poza */
-.app__ph {
-  width: 100%;
-  max-width: 520px;
-  aspect-ratio: 1 / 1;
-  border-radius: 28px;
-  background: var(--brand-green-base);
+.app__form {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: var(--space-sm);
+  max-width: 480px;
 }
 
-.app__ph-label {
+.app__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.95rem 1.2rem;
+  border: 2px solid rgba(15, 68, 44, 0.2);
+  border-radius: 12px;
+  background: var(--color-white);
+  color: var(--brand-green-night);
   font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.98rem;
+  font-weight: 500;
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.app__input::placeholder {
+  color: rgba(26, 23, 23, 0.38);
+}
+
+.app__input:focus {
+  outline: none;
+  border-color: var(--color-cta);
+  box-shadow: 0 0 0 4px var(--color-cta-faint);
+}
+
+/* Doar culoarea si forma — miscarea vine din .btn-meso */
+.app__btn {
+  flex: 0 0 auto;
+  background: var(--color-cta);
+  border-color: var(--color-cta);
+  border-radius: 12px;
+  padding: 0.95rem 1.8rem;
+  font-size: 0.9rem;
+}
+
+@media (hover: hover) {
+  .app__btn:hover,
+  .app__btn:active,
+  .app__btn.is-pressed {
+    background: var(--color-cta-dark);
+    border-color: var(--color-cta-dark);
+    box-shadow: none;
+  }
+}
+
+@media (hover: hover) {
+  /* cat timp mouse-ul se misca, urmarirea e aproape instantanee */
+  .app__btn.is-tracking {
+    transition: transform 0.12s linear,
+                background var(--transition-fast),
+                border-color var(--transition-fast);
+  }
+}
+
+/* ---- Vizual: mockup-ul aplicatiei ---- */
+/* Coloana vizualului: lasa poza sa iasa din container spre dreapta,
+   ca telefonul sa nu para taiat la marginea conținutului. */
+.app__visual {
+  min-width: 0;
+}
+
+/* Panoul: gradient kraft, rotunjit. Poza umple panoul si e decupata
+   de colturile lui — overflow:hidden face clipping mask.
+   Kraft, nu verde — verdele s-ar bate cu ecranul telefonului. */
+/* Doar poza, fara card si fara decupare — isi pastreaza proportia reala.
+   Plafon de latime: e o iconita, nu un mockup de ecran. */
+.app__img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  display: block;
+  /* PNG-ul are o umbra difuza pe ~20% din inaltime, jos, si puțin gol sus.
+     Grid-ul centreaza caseta cu tot cu umbra, deci iconita vizibila iese
+     mai sus decat textul. Compensam cu jumatate din umbra.
+     Nota: de-aia `.reveal` sta pe .app__visual, nu aici — revealIn se
+     termina cu translateY(0) si ar sterge alinierea asta. */
+  transform: translateY(6%);
 }
 
 @media (max-width: 900px) {
@@ -685,20 +702,18 @@
     gap: var(--space-2xl);
   }
 
+  /* pe mobil poza trece deasupra textului */
   .app__visual {
     order: -1;
   }
 
-  .app__ph {
-    max-width: 400px;
+  .app__img {
+    max-width: 440px;
   }
-
-  .app__proof { justify-content: flex-start; }
 }
 
 @media (max-width: 560px) {
-  .app__store { padding: 0.6rem 1rem; }
-  .app__store i { font-size: 1.4rem; }
+  .app__store-img { height: 42px; }
 }
 
 
@@ -766,6 +781,7 @@
    Verdele din .btn-meso s-ar pierde pe fundalul sectiunii. */
 /* Galben, colturi rotunjite. Urmareste mouse-ul ca .cat-card
    (--tx/--ty vin din initTiltCards). */
+/* Doar culoarea si forma — miscarea vine din .btn-meso */
 .loc__cta {
   background: var(--brand-yellow);
   border-color: var(--brand-yellow);
@@ -773,35 +789,183 @@
   font-size: 1rem;
   padding: 1.05rem 2.6rem;
   border-radius: 16px;
-  --tx: 0px;
-  --ty: 0px;
-  --sc: 1;
-  transform: translate3d(var(--tx), var(--ty), 0) scale(var(--sc));
-  transition: background var(--transition-fast),
-              border-color var(--transition-fast),
-              transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 @media (hover: hover) {
-  /* IMPORTANT: .btn-meso:hover pune transform fix, care ar anula
-     urmarirea mouse-ului. Il rescriem prin variabile. */
   .loc__cta:hover,
-  .loc__cta:active {
+  .loc__cta:active,
+  .loc__cta.is-pressed {
     background: var(--brand-yellow-dark);
     border-color: var(--brand-yellow-dark);
     color: var(--brand-green-night);
     box-shadow: none;
-    --sc: 1.04;
-    transform: translate3d(var(--tx), var(--ty), 0) scale(var(--sc));
-  }
-
-  /* cat timp mouse-ul se misca, urmarirea e aproape instantanee */
-  .loc__cta.is-tracking {
-    transition: transform 0.12s linear,
-                background var(--transition-fast),
-                border-color var(--transition-fast);
   }
 }
+
+/* ================================================
+   5. TEAM — recrutare, trimite spre cariera.html
+   Kraft, nu verde: separa de cremul secțiunii de app
+   si nu mai adauga un al treilea verde pe pagina.
+   ================================================ */
+.team {
+  /* Padding normal de secțiune. Pozele sunt ancorate sus/jos, deci
+     min-height le lasa loc pe verticala — dar cu 2 poze pe parte
+     (nu 3) nu mai e nevoie de inaltimea mare de dinainte. */
+  padding-block: var(--space-4xl);
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  /* Invers: centrul rămâne crem, kraft-ul se aduna spre margini.
+     Kraft-ul e pus prin rgba, nu prin tokeni, ca sa poata porni
+     din transparent. */
+  background:
+    radial-gradient(ellipse 85% 90% at 50% 45%,
+      transparent 15%,
+      rgba(219, 167, 110, 0.10) 35%,
+      rgba(219, 167, 110, 0.28) 60%,
+      rgba(219, 167, 110, 0.55) 100%),
+    var(--color-bg);
+}
+
+.team__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ---- Poze: 2 stanga, 2 dreapta ----
+   Stau in spatele textului, drepte si nemiscate; se deplaseaza
+   spre cursor cat timp mouse-ul e pe buton (initTeamFloats).
+
+   Zona e lata (pozele stau in afara coloanei de text) si are un mic
+   inset lateral, ca pozele sa nu fie lipite de marginea ecranului.
+   Suprapunerea dintre ele vine din apropierea pe verticala, nu din
+   tragerea spre centru — aceea le-ar duce peste text. */
+.team__floats {
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  translate: -50% 0;
+  width: min(calc(100% - 5rem), 1420px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.team__float {
+  position: absolute;
+  width: 190px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(26, 23, 23, 0.16);
+  /* --fx/--fy = deplasarea spre cursor, scrise din JS (initTeamFloats) */
+  --fx: 0px;
+  --fy: 0px;
+  transform: translate3d(var(--fx), var(--fy), 0);
+  transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* cat timp mouse-ul e pe buton, urmarirea e aproape instantanee */
+.team__float.is-tracking {
+  transition: transform 0.18s ease-out;
+}
+
+/* Pozitionare in px, nu in %: procentele se raportau la inaltimea
+   containerului (dictata de text, deci mica) si pozele se calcau.
+   Toate valorile sunt pozitive — pozele stau in interiorul secțiunii,
+   nu ies peste margini. */
+
+/* Pe fiecare parte: poza exterioara lipita de marginea zonei, iar a
+   doua coborata si trasa spre interior atat cat sa se atinga doar cu
+   un colt — suprapunere mica, in diagonala.
+
+   Ancorate cu top/bottom la 0, nu cu procente: procentele lasau poza
+   de jos sa treaca sub marginea containerului, adica peste padding-ul
+   secțiunii. Asa, toate patru stau in zona de conținut. */
+
+/* Stanga */
+.team__float--l1 {
+  left: 0;
+  top: 0;
+}
+
+.team__float--l2 {
+  left: 150px;   /* mai spre interior → se ating doar cu un colt mic */
+  bottom: 0;
+  width: 165px;
+}
+
+/* Dreapta — oglinda stangii */
+.team__float--r1 {
+  right: 0;
+  top: 0;
+  width: 179px;
+}
+
+.team__float--r2 {
+  right: 110px;
+  bottom: 0;
+  width: 175px;
+}
+
+/* Textul si butonul stau peste poze */
+.team__title,
+.team__desc,
+.team__cta {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* Aceeasi scara ca .loc__title — titlurile mari de secțiune */
+.team__title {
+  font-family: var(--font-heading);
+  font-size: clamp(3.4rem, 8vw, 7rem);
+  line-height: 1.02;
+  color: var(--brand-black);
+  margin-bottom: var(--space-lg);
+}
+
+/* Partea a doua a titlului, in verde — accentul de brand */
+.team__title .hl {
+  color: var(--brand-green);
+}
+
+.team__desc {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: rgba(26, 23, 23, 0.75);
+  max-width: 56ch;
+  margin-bottom: var(--space-xl);
+}
+
+/* Verde plin pe kraft; urmareste mouse-ul ca restul CTA-urilor */
+/* Doar culoarea si forma — miscarea vine din .btn-meso */
+.team__cta {
+  background: var(--brand-green);
+  border-color: var(--brand-green);
+  color: var(--color-white);
+  border-radius: 16px;
+  padding: 1.05rem 2.6rem;
+  font-size: 1rem;
+}
+
+@media (hover: hover) {
+  .team__cta:hover,
+  .team__cta:active,
+  .team__cta.is-pressed {
+    background: var(--brand-green-emerald);
+    border-color: var(--brand-green-emerald);
+    color: var(--color-white);
+    box-shadow: none;
+  }
+}
+
 
 /* "80 de locații" — bold, subliniat cu galben ca trasat cu marker */
 .loc__mark {

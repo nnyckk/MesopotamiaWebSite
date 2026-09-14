@@ -22,6 +22,7 @@ ready(function () {
   initBtCarousel();
   initLocMarquee();
   initTiltCards();
+  initTeamFloats();
   initTogetherAlbum();
   initScrollReveal();
   /* Produsele din meniu sunt randate asincron — pornește reveal și pe ele după render */
@@ -416,13 +417,64 @@ function initLocMarquee() {
 
 
 /* ------------------------------------------------
+   2a-bis. POZELE DIN "ECHIPA TE CHEAMA"
+   Cat timp mouse-ul e pe butonul de aplicare, pozele
+   se deplaseaza spre cursor. Atractia scade cu distanta,
+   deci cele apropiate reactioneaza mai mult — pare atragere,
+   nu cinci poze care aluneca la unison.
+------------------------------------------------ */
+function initTeamFloats() {
+  var btn    = document.querySelector('.team__cta');
+  var floats = document.querySelectorAll('.team__float');
+  if (!btn || !floats.length) return;
+
+  /* doar pe pointer fin (mouse), nu pe touch */
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var PULL  = 42;    /* cati px se deplaseaza poza cea mai apropiata */
+  var RANGE = 620;   /* peste distanta asta atractia e aproape zero */
+  var frame = null;
+
+  btn.addEventListener('pointermove', function (e) {
+    if (frame) return;
+    frame = requestAnimationFrame(function () {
+      frame = null;
+      floats.forEach(function (img) {
+        var r  = img.getBoundingClientRect();
+        var cx = r.left + r.width  / 2;
+        var cy = r.top  + r.height / 2;
+        var dx = e.clientX - cx;
+        var dy = e.clientY - cy;
+        var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        /* 1 lipit de cursor → 0 la marginea razei */
+        var force = Math.max(0, 1 - dist / RANGE);
+        img.classList.add('is-tracking');
+        img.style.setProperty('--fx', (dx / dist * PULL * force).toFixed(2) + 'px');
+        img.style.setProperty('--fy', (dy / dist * PULL * force).toFixed(2) + 'px');
+      });
+    });
+  });
+
+  btn.addEventListener('pointerleave', function () {
+    if (frame) { cancelAnimationFrame(frame); frame = null; }
+    floats.forEach(function (img) {
+      img.classList.remove('is-tracking');
+      img.style.setProperty('--fx', '0px');
+      img.style.setProperty('--fy', '0px');
+    });
+  });
+}
+
+
+/* ------------------------------------------------
    2a. CARDURI CARE URMARESC MOUSE-UL
    Cardul se deplaseaza cu cativa px spre cursor,
    ca si cum s-ar lipi usor de el.
 ------------------------------------------------ */
 function initTiltCards() {
-  /* cardurile de categorii + CTA-ul din secțiunea de locatii */
-  var cards = document.querySelectorAll('.cat-card, .loc__cta');
+  /* cardurile de categorii + CTA-urile care urmaresc mouse-ul */
+  var cards = document.querySelectorAll('.cat-card, .loc__cta, .app__btn, .team__cta');
   if (!cards.length) return;
 
   /* doar pe pointer fin (mouse), nu pe touch */
@@ -451,8 +503,19 @@ function initTiltCards() {
     card.addEventListener('pointerleave', function () {
       if (frame) { cancelAnimationFrame(frame); frame = null; }
       card.classList.remove('is-tracking');
+      card.classList.remove('is-pressed');
       card.style.setProperty('--tx', '0px');
       card.style.setProperty('--ty', '0px');
+    });
+
+    /* Pe linkuri, navigarea taie `:active` aproape instant. Marcam apasarea
+       cu o clasa, ca efectul sa se vada cat timp butonul e tinut apasat. */
+    card.addEventListener('pointerdown', function () {
+      card.classList.add('is-pressed');
+    });
+
+    card.addEventListener('pointerup', function () {
+      card.classList.remove('is-pressed');
     });
   });
 }
