@@ -31,6 +31,13 @@
   pointer-events: none;
 }
 
+/* <picture> e inline by default si n-ar umple slide-ul */
+.hero__slide picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 /* Slide activ */
 .hero__slide.is-active {
   opacity: 1;
@@ -97,12 +104,16 @@
 @media (max-width: 768px) {
   .hero {
     height: auto;
+    /* 4:5 = exact proportia pozelor de mobil (1080x1350) */
     aspect-ratio: 4 / 5;
     margin-top: var(--header-h);
   }
 
+  /* cover, nu contain: poza de mobil are deja proportia corecta, deci
+     umple cadrul fara sa taie nimic. `contain` era workaround pentru
+     crop-ul desktop de 1920x550 si ar lasa acum benzi goale. */
   .hero__slide-img {
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
   }
 
@@ -239,6 +250,21 @@
   /* urca doar cat sa se vada capul si putin din bust */
   .cat-card--cta:hover .cat-card__mascot {
     transform: translate(-50%, 58%) rotate(2deg);
+  }
+}
+
+/* Pe touch nu exista hover, deci mascota n-ar urca niciodata (sta
+   parcata sub card la translate 100%). Acolo o lasam mereu vizibila,
+   in poziția in care desktop-ul o aduce la hover. */
+@media (hover: none) {
+  .cat-card--cta .cat-card__mascot {
+    transform: translate(-50%, 58%) rotate(2deg);
+  }
+
+  /* titlul urca, ca sa faca loc curcanului, si e mai mare — ca la
+     hover-ul de desktop. Doar pe cardul CTA, nu pe celelalte. */
+  .cat-card--cta .cat-card__title {
+    transform: translateY(-26px) scale(1.25);
   }
 }
 
@@ -484,18 +510,35 @@
 }
 
 @media (max-width: 768px) {
+  /* doar sus: jos rămâne --space-4xl din regula de baza */
   .bt {
-    padding-top: var(--space-3xl);
+    padding-top: var(--space-4xl);
   }
 
+  /* mic: peste el se adauga si padding-ul de sus al viewportului (42px) */
   .bt__head {
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-xs);
+  }
+
+  /* mai strans decat cei 58px de desktop (pozele sunt mai mici aici),
+     dar nu sub umbra pozei active: box-shadow 0 10px 24px se intinde
+     ~34px sub ea si overflow:hidden o taia. */
+  .bt-carousel__viewport {
+    padding-block: 42px;
   }
 
   .bt-carousel__btn {
     width: 44px;
     height: 44px;
     font-size: 1.2rem;
+  }
+
+  /* Pe touch sagetile dispar — navigarea se face prin swipe
+     (vezi initBtCarousel). Pe un desktop ingustat rămân. */
+  @media (hover: none) {
+    .bt-carousel__btn {
+      display: none;
+    }
   }
 
   .bt-slide {
@@ -702,9 +745,15 @@
     gap: var(--space-2xl);
   }
 
-  /* pe mobil poza trece deasupra textului */
+  /* pe mobil textul vine primul, poza dupa el — anuleaza ordinea
+     de desktop (.app__visual: 1 / .app__text: 2), care pe o coloana
+     devine ordine verticala si punea poza deasupra. */
   .app__visual {
-    order: -1;
+    order: 2;
+  }
+
+  .app__text {
+    order: 1;
   }
 
   .app__img {
@@ -938,6 +987,51 @@
   z-index: 1;
 }
 
+/* Mobil: offseturile interioare sunt in px (left: 150px / right: 110px),
+   calibrate pe desktop — sub 768px pozele s-ar calca intre ele si peste
+   titlu. Pastram doar perechea din colturi opuse, mai mica si lipita de
+   margini; celelalte doua dispar (sunt aria-hidden, doar ornament). */
+@media (max-width: 768px) {
+  /* Pozitionarea absoluta nu are loc pe ecran ingust — pozele ajungeau
+     peste titlu si text. Aici ies din `absolute` si intra in flux, sub
+     buton, doua una langa alta. */
+  .team__floats {
+    position: static;
+    translate: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-2xl);
+    /* in markup sunt primele, iar .team__inner e column — fara order
+       ar aparea deasupra titlului, nu sub buton */
+    order: 1;
+  }
+
+  /* pastram perechea din colturi opuse; celelalte doua dispar */
+  .team__float--l2,
+  .team__float--r1 {
+    display: none;
+  }
+
+  .team__float--l1,
+  .team__float--r2 {
+    /* anuleaza ancorarea din regulile de desktop */
+    position: static;
+    inset: auto;
+    width: auto;
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 160px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .team {
+    min-height: 0;
+  }
+}
+
 
 /* Aceeasi scara ca .loc__title — titlurile mari de secțiune */
 .team__title {
@@ -1040,6 +1134,33 @@
     border-color: var(--brand-yellow-dark);
     color: var(--brand-green-night);
     box-shadow: none;
+  }
+}
+
+/* Mobil: butonul trece sub text — pe un rand, titlul se strivea pe
+   trei linii si butonul lua jumatate din latime. */
+@media (max-width: 768px) {
+  .contact-cta__inner {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  /* titlul se rupe pe doua linii — centrate si ele, nu doar blocul */
+  .contact-cta__title {
+    text-align: center;
+  }
+}
+
+/* Scara de mobil pentru butoanele mari de secțiune — aceeasi pentru
+   toate trei, ca sa ramana identice intre ele. Pe ~390px latime,
+   2.6rem padding lateral facea butonul cat tot ecranul. */
+@media (max-width: 768px) {
+  .loc__cta,
+  .team__cta,
+  .contact-cta__btn {
+    padding: 0.9rem 2rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -1163,16 +1284,16 @@
   .cat-card:nth-child(4),
   .cat-card:nth-child(5) {
     grid-column: span 1;
-    height: 400px;
+    height: 300px;
   }
 
   .cat-card__title {
-    font-size: clamp(1.5rem, 5.5vw, 2rem);
+    font-size: clamp(1.7rem, 6.2vw, 2.3rem);
   }
 
 
   .menu__title {
-    font-size: clamp(1.9rem, 6vw, 2.6rem);
+    font-size: clamp(2.4rem, 7.5vw, 3.2rem);
   }
 
 
@@ -1180,8 +1301,14 @@
     font-size: clamp(1.6rem, 5vw, 2.2rem);
   }
 
+  /* Ordinea de mobil: cardurile 3 si 4 fac schimb intre ele, iar CTA-ul
+     ramane ultimul. Fara order explicit pe el, `order: 0` implicit l-ar
+     urca inaintea celor doua de mai sus. */
+  .cat-card:nth-child(1) { order: 1; }
+  .cat-card:nth-child(2) { order: 2; }
   .cat-card:nth-child(3) { order: 4; }
   .cat-card:nth-child(4) { order: 3; }
+  .cat-card--cta         { order: 5; }
 
 }
 
@@ -1193,6 +1320,6 @@
   }
 
   .cat-card {
-    height: 340px;
+    height: 260px;
   }
 }

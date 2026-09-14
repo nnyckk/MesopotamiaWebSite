@@ -12,7 +12,6 @@ function ready(fn) {
 }
 
 ready(function () {
-  initNavScroll();
   initNavHamburger();
   initBottomNav();
   initSidebarOffset();
@@ -114,21 +113,8 @@ function initThemeToggle() {
 
 
 /* ------------------------------------------------
-   1. NAV — clasa scrolled + hamburger
+   1. NAV — hamburger
 ------------------------------------------------ */
-function initNavScroll() {
-  const header = document.getElementById('header');
-  if (!header) return;
-
-  function onScroll() {
-    const y = window.scrollY;
-    header.classList.toggle('is-scrolled', y > 20);
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-}
-
 function initNavHamburger() {
   const btn   = document.getElementById('navHamburger');
   const links = document.getElementById('navLinks');
@@ -380,6 +366,30 @@ function initBtCarousel() {
 
     nudge(clicked - active);
   });
+
+  /* Swipe pe mobil — acolo sagetile sunt ascunse (hover: none).
+     Trece prin nudge, deci pasul si cronometrul rămân la fel ca la click. */
+  var touchStartX = 0;
+  var touchStartY = 0;
+
+  track.addEventListener('touchstart', function (e) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    stopAuto();
+  }, { passive: true });
+
+  track.addEventListener('touchend', function (e) {
+    var dx = touchStartX - e.changedTouches[0].clientX;
+    var dy = touchStartY - e.changedTouches[0].clientY;
+
+    /* doar gesturi mai orizontale decat verticale, ca sa nu prindem
+       scroll-ul paginii */
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
+      nudge(dx > 0 ? 1 : -1);
+    } else {
+      startAuto();
+    }
+  }, { passive: true });
 
   /* pauza cat timp mouse-ul e pe carusel */
   root.addEventListener('pointerenter', stopAuto);

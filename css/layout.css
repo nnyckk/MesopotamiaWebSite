@@ -260,8 +260,7 @@
    logo-ul de dark ramane peste tot, fara swap. */
 
 /* Nav-ul ramane verde inchis si in tema light — acelasi ca in dark */
-[data-theme="light"] .header,
-[data-theme="light"] .header.is-scrolled {
+[data-theme="light"] .header {
   background: var(--brand-green-night);
   border-bottom: 1px solid rgba(255, 255, 255, 0.09);
 }
@@ -522,18 +521,15 @@ strong {
   z-index: 1000;
   height: var(--header-h);
   background: var(--brand-green-night);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--color-border);
+  /* Fara backdrop-filter: fundalul e opac, deci nu era nimic de estompat,
+     dar crea un strat de compunere care se repicta decalat la scroll —
+     nav-ul parea ca sare cativa px. Fara `transform` in transition:
+     nimic nu mai miscă header-ul (clasa .is-scrolled a fost eliminata). */
   transition: background var(--transition-normal),
-              box-shadow var(--transition-normal),
-              transform 0.35s ease;
+              box-shadow var(--transition-normal);
 }
 
-.header.is-scrolled {
-  background: var(--brand-green-night);
-  border-bottom: 1px solid var(--color-border);
-}
 
 /* Nav wrapper */
 .nav {
@@ -1582,6 +1578,9 @@ strong {
     right: 0;
     z-index: 1100;
     height: calc(var(--nav-bottom-h) + env(safe-area-inset-bottom, 0px));
+    /* itemii au flex: 1 1 0, deci fara padding aici primul si ultimul
+       label ating marginea ecranului */
+    padding-inline: var(--space-sm);
     padding-bottom: env(safe-area-inset-bottom, 0px);
     background: var(--color-surface);
     border-top: 1px solid var(--color-border);

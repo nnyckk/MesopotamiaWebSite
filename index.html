@@ -61,12 +61,21 @@
   <section class="hero" aria-label="Slider promotional">
     <div class="hero__slider" id="heroSlider">
 
-      <a href="alege-ti-favoritele.html" class="hero__slide is-active" role="group" aria-label="Slide 1 din 2">
-        <img src="images/hero/desktopBig/PiattoMare_desktopBig.jpg" alt="Piatto Mare Mesopotamia" class="hero__slide-img">
+      <!-- Pe mobil se incarca varianta 4:5 (1080x1350), nu crop-ul
+           desktop de 1920x550. <picture> lasa browserul sa aleaga:
+           descarca doar fisierul potrivit, nu pe amandoua. -->
+      <a href="#" class="hero__slide is-active" role="group" aria-label="Slide 1 din 2">
+        <picture>
+          <source media="(max-width: 768px)" srcset="images/hero/mobile/PiattoMare_cover-mobile.jpg">
+          <img src="images/hero/desktopBig/PiattoMare_desktopBig.jpg" alt="Piatto Mare Mesopotamia" class="hero__slide-img">
+        </picture>
       </a>
 
       <a href="#" class="hero__slide" role="group" aria-label="Slide 2 din 2">
-        <img src="images/hero/desktopBig/FuzeTeaCrepes_desktopBig.jpg" alt="Fuze Tea și crepes Mesopotamia" class="hero__slide-img" loading="lazy">
+        <picture>
+          <source media="(max-width: 768px)" srcset="images/hero/mobile/FuzeTeaCrepes_cover-mobile.jpg">
+          <img src="images/hero/desktopBig/FuzeTeaCrepes_desktopBig.jpg" alt="Fuze Tea și crepes Mesopotamia" class="hero__slide-img" loading="lazy">
+        </picture>
       </a>
 
     </div>
