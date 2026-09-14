@@ -199,7 +199,7 @@ function initScrollReveal(root) {
   var STAGGER_STEP = 0.1;  // secunde între elementele dintr-un val
   var STAGGER_MAX  = 5;    // cap: max câte elemente primesc delay crescut
 
-  var observer = new IntersectionObserver(function (entries) {
+  function reveal(entries, obs) {
     /* Doar elementele care intră acum, în ordinea lor din pagină → stagger automat */
     var revealed = entries
       .filter(function (e) { return e.isIntersecting; })
@@ -226,9 +226,17 @@ function initScrollReveal(root) {
         el.removeEventListener('animationend', onEnd);
       });
 
-      observer.unobserve(el);
+      obs.unobserve(el);
     });
-  }, { threshold: 0.1 });
+  }
+
+  /* rootMargin negativ strange banda de detectie la mijlocul ecranului:
+     elementele apar cand ajung spre centrul viewport-ului, nu imediat ce
+     se ivesc de jos. Se aplica la tot ce are .reveal, pe toate paginile. */
+  var observer = new IntersectionObserver(reveal, {
+    threshold: 0,
+    rootMargin: '-48% 0px -40% 0px'
+  });
 
   elements.forEach(function (el) {
     el.classList.add('is-observed');
@@ -474,7 +482,7 @@ function initTeamFloats() {
 ------------------------------------------------ */
 function initTiltCards() {
   /* cardurile de categorii + CTA-urile care urmaresc mouse-ul */
-  var cards = document.querySelectorAll('.cat-card, .loc__cta, .app__btn, .team__cta');
+  var cards = document.querySelectorAll('.cat-card, .loc__cta, .app__btn, .team__cta, .contact-cta__btn');
   if (!cards.length) return;
 
   /* doar pe pointer fin (mouse), nu pe touch */

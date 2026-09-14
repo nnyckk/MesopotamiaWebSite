@@ -873,6 +873,25 @@
   transition: transform 0.18s ease-out;
 }
 
+/* Fade in la scroll, cu stagger dat de initScrollReveal.
+   Animatia misca `translate`, nu `transform`, fiindca transform-ul e
+   folosit de urmarirea mouse-ului — daca ar anima transform, `forwards`
+   l-ar tine blocat si pozele n-ar mai urmari cursorul. */
+.team__float.reveal.is-visible {
+  animation: revealFloat 0.6s ease forwards;
+}
+
+@keyframes revealFloat {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
 /* Pozitionare in px, nu in %: procentele se raportau la inaltimea
    containerului (dictata de text, deci mica) si pozele se calcau.
    Toate valorile sunt pozitive — pozele stau in interiorul secțiunii,
@@ -962,6 +981,64 @@
     background: var(--brand-green-emerald);
     border-color: var(--brand-green-emerald);
     color: var(--color-white);
+    box-shadow: none;
+  }
+}
+
+
+/* ================================================
+   6. CONTACT CTA — prelungire a footer-ului
+   Acelasi fundal ca .footer (--brand-green-night) si fara
+   bordura intre ele: separarea o face border-top-ul footer-ului.
+   ================================================ */
+.contact-cta {
+  background-color: var(--brand-green-night);
+  padding-block: var(--space-3xl) var(--space-2xl);
+}
+
+/* flex, nu grid 1fr 1fr: coloanele egale impingeau titlul si butonul
+   la extremele secțiunii. Acum ocupa doar cat au nevoie, grupate la
+   mijloc, cu un gap intre ele. */
+.contact-cta__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xl);
+}
+
+.contact-cta__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1.05;
+  color: var(--color-white);
+}
+
+.contact-cta__title .hl {
+  color: var(--brand-yellow);
+}
+
+.contact-cta__action {
+  flex-shrink: 0;
+}
+
+/* Galben pe fundal verde-noapte, ca .loc__cta — rosul s-ar pierde aici.
+   Doar culoarea si forma; miscarea vine din .btn-meso. */
+.contact-cta__btn {
+  background: var(--brand-yellow);
+  border-color: var(--brand-yellow);
+  color: var(--brand-green-night);
+  border-radius: 16px;
+  padding: 1.05rem 2.6rem;
+  font-size: 1rem;
+}
+
+@media (hover: hover) {
+  .contact-cta__btn:hover,
+  .contact-cta__btn:active,
+  .contact-cta__btn.is-pressed {
+    background: var(--brand-yellow-dark);
+    border-color: var(--brand-yellow-dark);
+    color: var(--brand-green-night);
     box-shadow: none;
   }
 }

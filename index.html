@@ -279,22 +279,42 @@
     <div class="container team__inner">
       <!-- TODO poza: doar cea din dreapta-jos e inca un portret din
            caruselul Better Together — de inlocuit cand apare una noua. -->
+      <!-- .reveal pe fiecare poza → stagger automat din initScrollReveal.
+           Animatia lor (revealFloat) miscă `translate`, nu `transform`:
+           transform-ul rămâne liber pentru urmarirea mouse-ului. -->
       <div class="team__floats" aria-hidden="true">
-        <img src="images/promo/Cariera_01.png" alt="" class="team__float team__float--l1" loading="lazy">
-        <img src="images/img_carousel/portrait 48.webp" alt="" class="team__float team__float--l2" loading="lazy">
-        <img src="images/promo/Cariera_02.png" alt="" class="team__float team__float--r1" loading="lazy">
-        <img src="images/promo/joburi.jpg" alt="" class="team__float team__float--r2" loading="lazy">
+        <img src="images/promo/Cariera_01.png" alt="" class="team__float team__float--l1 reveal" loading="lazy">
+        <img src="images/img_carousel/portrait 48.webp" alt="" class="team__float team__float--l2 reveal" loading="lazy">
+        <img src="images/promo/Cariera_02.png" alt="" class="team__float team__float--r1 reveal" loading="lazy">
+        <img src="images/promo/joburi.jpg" alt="" class="team__float team__float--r2 reveal" loading="lazy">
       </div>
 
-      <h2 class="team__title reveal" id="team-title">
+      <h2 class="team__title" id="team-title">
         <span class="hl">Echipa te cheamă!</span>
       </h2>
-      <p class="team__desc reveal">
+      <p class="team__desc">
         Alătură-te echipei Mesopotamia. Aici găsești mediul perfect
         pentru a te dezvolta. <strong>Nu ai experiență?</strong> Fără griji,
         e nevoie doar să îți dorești, te învățăm noi tot ce trebuie să faci.
       </p>
-      <a href="cariera.html" class="btn-meso team__cta reveal">Aplică acum</a>
+      <a href="cariera.html" class="btn-meso team__cta">Aplică acum</a>
+    </div>
+  </section>
+
+  <!-- CONTACT — acelasi fundal ca footer-ul, ca sa para o prelungire a lui -->
+  <section class="contact-cta" aria-labelledby="contact-cta-title">
+    <div class="container contact-cta__inner">
+
+      <div class="contact-cta__head">
+        <h2 class="contact-cta__title" id="contact-cta-title">
+          Ai o întrebare? <span class="hl">Scrie-ne!</span>
+        </h2>
+      </div>
+
+      <div class="contact-cta__action">
+        <a href="contact.html" class="btn-meso contact-cta__btn">Contactează-ne</a>
+      </div>
+
     </div>
   </section>
 
