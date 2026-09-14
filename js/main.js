@@ -1,11 +1,5 @@
-/* ================================================
-   MESOPOTAMIA — main.js
-   Hero slider + Products slider + Nav scroll
-   ================================================ */
+/* Mesopotamia — shared behaviour for all pages */
 
-/* ------------------------------------------------
-   Utilitar: ruleaza dupa DOM gata
------------------------------------------------- */
 function ready(fn) {
   if (document.readyState !== 'loading') fn();
   else document.addEventListener('DOMContentLoaded', fn);
@@ -17,14 +11,12 @@ ready(function () {
   initSidebarOffset();
   initThemeToggle();
   initHeroSlider();
-  initInstaMarquee();
   initBtCarousel();
   initLocMarquee();
   initTiltCards();
   initTeamFloats();
-  initTogetherAlbum();
   initScrollReveal();
-  /* Produsele din meniu sunt randate asincron — pornește reveal și pe ele după render */
+  /* Menu products render async, so reveal must run again on their markup. */
   document.addEventListener('products:rendered', function () {
     initScrollReveal();
   });
@@ -91,8 +83,8 @@ function initThemeToggle() {
     }
     localStorage.setItem('theme', theme);
     btns.forEach(function(b) {
-      /* Butoanele cu iconiță Font Awesome (<i>) — comută clasa.
-         Butonul din footer folosește SVG-uri moon/sun comutate din CSS, deci sărim. */
+      /* Icon buttons (<i>) swap their class here. The footer button uses
+         moon/sun SVGs toggled from CSS, so it has no <i> and is skipped. */
       var icon = b.querySelector('i');
       if (icon) icon.className = theme === 'light' ? 'ph-bold ph-sun' : 'ph-bold ph-moon';
       var span = b.querySelector('span');
@@ -127,7 +119,7 @@ function initNavHamburger() {
     document.body.style.overflow = open ? 'hidden' : '';
   });
 
-  /* Inchide meniul la click pe link */
+  /* Close the menu when a link is followed */
   links.querySelectorAll('.nav__link').forEach(function (link) {
     link.addEventListener('click', function () {
       links.classList.remove('is-open');
@@ -142,24 +134,25 @@ function initBottomNav() {
   var nav = document.getElementById('navBottom');
   if (!nav) return;
 
-  /* Marcheaza tab-ul activ dupa URL */
+  /* Mark the active tab from the URL */
   var page = window.location.pathname.split('/').pop() || 'index.html';
   nav.querySelectorAll('a.nav-bottom__item').forEach(function (item) {
     if (item.getAttribute('href') === page) item.classList.add('is-active');
   });
 
-  /* Ascunde bara cand apare tastatura (altfel urca deasupra ei pe Android) */
+  /* Hide the bar when the keyboard opens; on Android it would otherwise
+     sit on top of it. */
   if (window.visualViewport) {
     var vv = window.visualViewport;
     var baseH = vv.height;
     vv.addEventListener('resize', function () {
-      /* daca viewportul s-a micsorat semnificativ => tastatura deschisa */
+      /* A large viewport shrink means the keyboard is open */
       var keyboardOpen = vv.height < baseH - 120;
       nav.classList.toggle('is-hidden', keyboardOpen);
       if (!keyboardOpen) baseH = vv.height;
     });
   } else {
-    /* Fallback: focus/blur pe campuri text */
+    /* Fallback for browsers without visualViewport */
     document.addEventListener('focusin', function (e) {
       if (e.target.matches('input, textarea, select')) nav.classList.add('is-hidden');
     });
@@ -186,7 +179,7 @@ function initScrollReveal(root) {
   var STAGGER_MAX  = 5;    // cap: max câte elemente primesc delay crescut
 
   function reveal(entries, obs) {
-    /* Doar elementele care intră acum, în ordinea lor din pagină → stagger automat */
+    /* Only elements entering now, in document order, so stagger is automatic. */
     var revealed = entries
       .filter(function (e) { return e.isIntersecting; })
       .map(function (e) { return e.target; })
@@ -196,7 +189,7 @@ function initScrollReveal(root) {
       });
 
     revealed.forEach(function (el, i) {
-      /* data-delay explicit are prioritate; altfel calculăm din ordine */
+      /* Explicit data-delay wins; otherwise derive it from position. */
       var delay = el.dataset.delay !== undefined
         ? parseFloat(el.dataset.delay)
         : Math.min(i, STAGGER_MAX) * STAGGER_STEP;
@@ -204,8 +197,8 @@ function initScrollReveal(root) {
       el.style.animationDelay = delay + 's';
       el.classList.add('is-visible');
 
-      /* Cand animatia se termina, o oprim: altfel `forwards` tine
-         `transform` blocat si hover-ul elementului nu mai are efect. */
+      /* Stop the animation once done: `forwards` would otherwise pin
+         `transform` and kill the element's hover effect. */
       el.addEventListener('animationend', function onEnd(ev) {
         if (ev.animationName !== 'revealIn') return;
         el.classList.add('reveal-done');
@@ -216,12 +209,13 @@ function initScrollReveal(root) {
     });
   }
 
-  /* rootMargin negativ strange banda de detectie la mijlocul ecranului:
-     elementele apar cand ajung spre centrul viewport-ului, nu imediat ce
-     se ivesc de jos. Se aplica la tot ce are .reveal, pe toate paginile. */
+  /* Negative rootMargin narrows detection toward mid-screen so elements
+     don't fire the instant they peek in from below. The bottom margin is
+     the smaller one: it triggers once the element is properly on screen
+     but before it reaches the centre. */
   var observer = new IntersectionObserver(reveal, {
     threshold: 0,
-    rootMargin: '-48% 0px -40% 0px'
+    rootMargin: '-30% 0px -15% 0px'
   });
 
   elements.forEach(function (el) {
@@ -245,27 +239,27 @@ function initBtCarousel() {
   var prevBtn = document.getElementById('btPrev');
   var nextBtn = document.getElementById('btNext');
 
-  var N       = track.children.length;    /* numarul de poze */
-  var pos     = 0;                        /* indexul logic al pozei active */
+  var N       = track.children.length;
+  var pos     = 0;    /* logical index of the active slide */
   var slides  = [];
-  var W       = 0;                        /* latimea unui pas (poza + gap) */
+  var W       = 0;    /* one step: slide width + gap */
   var settle  = null;
 
-  /* Cloneaza setul de doua ori, ca sa existe mereu poze si in stanga si in
-     dreapta. Randarea se face prin transform, nu prin mutari in DOM —
-     asa miscarea nu se mai intrerupe intre pasi. */
+  /* Clone the set on both sides so there are always slides left and right.
+     Rendering moves a transform rather than DOM nodes, which keeps the
+     motion continuous between steps. */
   function build() {
     var originals = Array.prototype.slice.call(track.children);
 
-    /* Setul dinainte: inserat in ORDINE, inaintea primului original.
-       (insertBefore(firstChild) intr-un forEach ar inversa ordinea
-       si ar face ca aceeași poza sa apara de doua ori langa original.) */
+    /* Leading set, inserted in order before the first original.
+       insertBefore(firstChild) inside a forEach would reverse the order and
+       place the same image twice next to its original. */
     var first = originals[0];
     originals.forEach(function (el) {
       track.insertBefore(el.cloneNode(true), first);
     });
 
-    /* Setul de dupa: adaugat la final, tot in ordine */
+    /* Trailing set, appended in order */
     originals.forEach(function (el) {
       track.appendChild(el.cloneNode(true));
     });
@@ -280,14 +274,14 @@ function initBtCarousel() {
     W = b ? (b.left - a.left) : a.width;
   }
 
-  /* Redeseneaza: centreaza poza de la indexul logic `pos`.
-     `pos` NU se normalizeaza aici — altfel trecerea de la ultima
-     la prima poza ar sari inapoi in loc sa continue inainte. */
+  /* Centre the slide at logical index `pos`. `pos` is deliberately NOT
+     normalised here: doing so would make the last-to-first transition jump
+     backwards instead of continuing forward. */
   function render(animate) {
     if (!W) measure();
 
-    /* pornim din setul din mijloc si ne deplasam cu pos (poate fi negativ
-       sau mai mare decat N — de-aia avem seturi clonate de o parte si de alta) */
+    /* Start from the middle set and offset by pos, which may be negative or
+       exceed N — that is what the cloned sides are for. */
     var idx = N + pos;
     var vp  = track.parentNode.offsetWidth;
     var el  = slides[idx];
@@ -304,11 +298,11 @@ function initBtCarousel() {
     });
   }
 
-  /* Un pas. Click-urile repetate schimba doar `pos`, iar tranzitia
-     CSS interpoleaza din poziția curenta — deci nu sacadeaza. */
+  /* One step. Repeated clicks only change `pos`; the CSS transition
+     interpolates from the current position, so motion stays smooth. */
   function step(dir) {
-    /* Setul clonat are N poze in fiecare parte. Daca s-au adunat prea multe
-       click-uri, normalizam din mers ca sa nu ieșim din lista. */
+    /* Each cloned side holds N slides; normalise mid-flight if enough
+       clicks piled up to run past them. */
     if (pos + dir >= N - 1 || pos + dir <= -(N - 1)) {
       pos = ((pos % N) + N) % N;
       render(false);
@@ -317,9 +311,9 @@ function initBtCarousel() {
     pos += dir;
     render(true);
 
-    /* Dupa ce miscarea s-a oprit, readucem pos in [0, N) si redesenam
-       instant. Setul e triplat, deci poza centrata arata identic —
-       saltul e invizibil, iar bucla poate continua la infinit. */
+    /* Once motion settles, bring pos back into [0, N) and redraw instantly.
+       The set is tripled, so the centred slide looks identical — the jump is
+       invisible and the loop can run forever. */
     clearTimeout(settle);
     settle = setTimeout(function () {
       var norm = ((pos % N) + N) % N;
@@ -330,7 +324,6 @@ function initBtCarousel() {
     }, 620);
   }
 
-  /* ---- Avans automat ---- */
   var AUTO_MS = 5000;
   var timer   = null;
 
@@ -343,8 +336,8 @@ function initBtCarousel() {
     if (timer) { clearInterval(timer); timer = null; }
   }
 
-  /* orice interactiune reporneste cronometrul, ca sa nu sara
-     imediat dupa ce userul a dat click */
+  /* Any interaction restarts the timer so it doesn't advance right after
+     the user acted. */
   function nudge(dir) {
     step(dir);
     startAuto();
@@ -353,8 +346,8 @@ function initBtCarousel() {
   if (nextBtn) nextBtn.addEventListener('click', function () { nudge(1); });
   if (prevBtn) prevBtn.addEventListener('click', function () { nudge(-1); });
 
-  /* Click pe o poza secundara → o aducem in centru.
-     Delegare pe track, ca sa functioneze si pe clone. */
+  /* Click a side slide to centre it. Delegated on the track so clones
+     work too. */
   track.addEventListener('click', function (e) {
     var slide = e.target.closest('.bt-slide');
     if (!slide || slide.classList.contains('is-active')) return;
@@ -367,8 +360,8 @@ function initBtCarousel() {
     nudge(clicked - active);
   });
 
-  /* Swipe pe mobil — acolo sagetile sunt ascunse (hover: none).
-     Trece prin nudge, deci pasul si cronometrul rămân la fel ca la click. */
+  /* Swipe on touch, where the arrows are hidden (hover: none). Goes through
+     nudge, so step and timer behave exactly as on click. */
   var touchStartX = 0;
   var touchStartY = 0;
 
@@ -382,8 +375,8 @@ function initBtCarousel() {
     var dx = touchStartX - e.changedTouches[0].clientX;
     var dy = touchStartY - e.changedTouches[0].clientY;
 
-    /* doar gesturi mai orizontale decat verticale, ca sa nu prindem
-       scroll-ul paginii */
+    /* Only gestures more horizontal than vertical, so page scrolling
+       isn't hijacked. */
     if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
       nudge(dx > 0 ? 1 : -1);
     } else {
@@ -391,7 +384,7 @@ function initBtCarousel() {
     }
   }, { passive: true });
 
-  /* pauza cat timp mouse-ul e pe carusel */
+  /* Pause while the mouse rests on the carousel */
   root.addEventListener('pointerenter', stopAuto);
   root.addEventListener('pointerleave', startAuto);
 
@@ -409,7 +402,7 @@ function initBtCarousel() {
   measure();
   render(false);
 
-  /* pornim avansul automat, daca userul nu a cerut miscare redusa */
+  /* Auto-advance unless the user asked for reduced motion */
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     startAuto();
   }
@@ -446,12 +439,12 @@ function initTeamFloats() {
   var floats = document.querySelectorAll('.team__float');
   if (!btn || !floats.length) return;
 
-  /* doar pe pointer fin (mouse), nu pe touch */
+  /* Fine pointer (mouse) only, never touch */
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  var PULL  = 42;    /* cati px se deplaseaza poza cea mai apropiata */
-  var RANGE = 620;   /* peste distanta asta atractia e aproape zero */
+  var PULL  = 42;    /* px the nearest image travels */
+  var RANGE = 620;   /* beyond this distance the pull is ~zero */
   var frame = null;
 
   btn.addEventListener('pointermove', function (e) {
@@ -465,7 +458,7 @@ function initTeamFloats() {
         var dx = e.clientX - cx;
         var dy = e.clientY - cy;
         var dist = Math.sqrt(dx * dx + dy * dy) || 1;
-        /* 1 lipit de cursor → 0 la marginea razei */
+        /* 1 at the cursor, 0 at the edge of RANGE */
         var force = Math.max(0, 1 - dist / RANGE);
         img.classList.add('is-tracking');
         img.style.setProperty('--fx', (dx / dist * PULL * force).toFixed(2) + 'px');
@@ -491,15 +484,15 @@ function initTeamFloats() {
    ca si cum s-ar lipi usor de el.
 ------------------------------------------------ */
 function initTiltCards() {
-  /* cardurile de categorii + CTA-urile care urmaresc mouse-ul */
+  /* Category cards plus the CTAs that follow the mouse */
   var cards = document.querySelectorAll('.cat-card, .loc__cta, .app__btn, .team__cta, .contact-cta__btn');
   if (!cards.length) return;
 
-  /* doar pe pointer fin (mouse), nu pe touch */
+  /* Fine pointer (mouse) only, never touch */
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  var PULL = 10;   /* cati px maxim se deplaseaza spre cursor */
+  var PULL = 10;   /* max px of travel toward the cursor */
 
   cards.forEach(function (card) {
     var frame = null;
@@ -509,7 +502,7 @@ function initTiltCards() {
       frame = requestAnimationFrame(function () {
         frame = null;
         var r = card.getBoundingClientRect();
-        /* -1 .. 1 fata de centrul cardului */
+        /* -1 .. 1 relative to the card centre */
         var dx = (e.clientX - r.left) / r.width  * 2 - 1;
         var dy = (e.clientY - r.top)  / r.height * 2 - 1;
         card.classList.add('is-tracking');
@@ -526,8 +519,8 @@ function initTiltCards() {
       card.style.setProperty('--ty', '0px');
     });
 
-    /* Pe linkuri, navigarea taie `:active` aproape instant. Marcam apasarea
-       cu o clasa, ca efectul sa se vada cat timp butonul e tinut apasat. */
+    /* On links, navigation cuts `:active` almost instantly. A class marks the
+       press so the effect lasts while the button is held. */
     card.addEventListener('pointerdown', function () {
       card.classList.add('is-pressed');
     });
@@ -536,66 +529,6 @@ function initTiltCards() {
       card.classList.remove('is-pressed');
     });
   });
-}
-
-
-/* ------------------------------------------------
-   2b. ALBUM "BETTER TOGETHER"
-   Pozele cad una cate una, pe masura ce se deruleaza
-   prin coloana inalta care tine albumul sticky.
------------------------------------------------- */
-function initTogetherAlbum() {
-  var col    = document.querySelector('.together__album-col');
-  var photos = document.querySelectorAll('.together__photo');
-  if (!col || !photos.length) return;
-
-  /* Fara animatie daca userul a cerut miscare redusa */
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    photos.forEach(function (p) { p.classList.add('is-visible'); });
-    return;
-  }
-
-  var ticking = false;
-
-  function update() {
-    ticking = false;
-
-    var rect = col.getBoundingClientRect();
-    var vh   = window.innerHeight;
-
-    /* Cat s-a derulat prin coloana, de la 0 (sus) la 1 (jos) */
-    var total    = rect.height - vh;
-    var scrolled = -rect.top;
-    var progress = total > 0 ? scrolled / total : 0;
-    progress = Math.max(0, Math.min(1, progress));   /* limitat la [0, 1] */
-
-    /* Prima poza e deja asezata la intrare (dreapta, in centru);
-       celelalte cad peste ea pe masura ce se deruleaza. */
-    var END = 0.85;
-    var t = progress / END;
-    var shown = Math.floor(t * (photos.length - 1)) + 1;
-
-    photos.forEach(function (photo, i) {
-      if (i < shown) photo.classList.add('is-visible');
-      else           photo.classList.remove('is-visible');
-    });
-
-    /* Cand a cazut si ultima, celelalte se misca putin — impactul */
-    var album = photos[0].parentNode;
-    if (shown >= photos.length) album.classList.add('is-settled');
-    else                        album.classList.remove('is-settled');
-  }
-
-  function onScroll() {
-    if (!ticking) {
-      ticking = true;
-      window.requestAnimationFrame(update);
-    }
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll, { passive: true });
-  update();
 }
 
 
@@ -658,29 +591,6 @@ function initHeroSlider() {
 
   goTo(0);
   startAuto();
-}
-
-
-/* ------------------------------------------------
-   3b. INSTAGRAM MARQUEE
-   Dublează imaginile (2× setul) ca bucla CSS (-50%)
-   să fie continuă, fără salt vizibil.
-   Sursa e locală acum; la trecerea pe Behold se va
-   popula #igTrack din feed înainte de duplicare.
------------------------------------------------- */
-function initInstaMarquee() {
-  const track = document.getElementById('igTrack');
-  if (!track) return;
-
-  const items = Array.from(track.children);
-  if (!items.length) return;
-
-  // Clonează setul o dată pentru bucla infinită
-  items.forEach(function (el) {
-    const clone = el.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    track.appendChild(clone);
-  });
 }
 
 
