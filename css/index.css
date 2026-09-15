@@ -389,9 +389,10 @@
   /* initBtCarousel writes --shift to centre the active slide. The ease-out
      curve lets repeated clicks interpolate from the current position, so
      the motion stays continuous rather than stepping. */
-  transform: translateX(var(--shift, 0px));
+  /* translate3d, not translateX: forces GPU compositing without a permanent
+     will-change, which would keep a layer allocated even while idle. */
+  transform: translate3d(var(--shift, 0px), 0, 0);
   transition: transform 0.5s cubic-bezier(0.25, 0.9, 0.3, 1);
-  will-change: transform;
 }
 
 .bt-slide {
@@ -711,6 +712,19 @@
 
 @media (max-width: 560px) {
   .app__store-img { height: 42px; }
+
+  /* Stacked: on one row the email field was too narrow to read what you
+     typed. Full-width button also gives a comfortable tap target. */
+  .app__form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-md);
+    max-width: none;
+  }
+
+  .app__btn {
+    justify-content: center;
+  }
 }
 
 
@@ -915,8 +929,10 @@
     position: static;
     translate: none;
     width: 100%;
-    display: flex;
-    justify-content: center;
+    max-width: 420px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-md);
     margin-top: var(--space-2xl);
     /* They come first in the markup and .team__inner is a column, so
@@ -924,20 +940,18 @@
     order: 1;
   }
 
-  .team__float--l2,
-  .team__float--r1 {
-    display: none;
-  }
-
+  /* All four show here, as a 2x2 gallery. The modifiers are listed too
+     because their desktop px widths are more specific than .team__float
+     and would otherwise break the equal columns. */
+  .team__float,
   .team__float--l1,
+  .team__float--l2,
+  .team__float--r1,
   .team__float--r2 {
     /* undo the desktop anchoring */
     position: static;
     inset: auto;
-    width: auto;
-    flex: 1 1 0;
-    min-width: 0;
-    max-width: 160px;
+    width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
   }

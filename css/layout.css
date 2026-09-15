@@ -1582,8 +1582,9 @@ strong {
        label ating marginea ecranului */
     padding-inline: var(--space-sm);
     padding-bottom: env(safe-area-inset-bottom, 0px);
-    background: var(--color-surface);
-    border-top: 1px solid var(--color-border);
+    /* Same dark green as the header and footer, in both themes */
+    background: var(--brand-green-night);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     box-shadow: none;
@@ -1591,7 +1592,7 @@ strong {
   }
 
   .nav-bottom.has-sheet {
-    box-shadow: 0 -12px 24px 8px var(--color-surface);
+    box-shadow: 0 -12px 24px 8px var(--brand-green-night);
   }
 
   .nav-bottom.is-hidden {
@@ -1609,7 +1610,8 @@ strong {
     justify-content: center;
     gap: 4px;
     padding: 0;
-    color: var(--color-text-dim);
+    /* fixed values, not theme tokens: the bar is dark in both themes */
+    color: rgba(247, 243, 232, 0.65);
     text-decoration: none;
     font-size: 0.6rem;
     font-family: var(--font-body);
@@ -1626,8 +1628,10 @@ strong {
     font-size: 1.25rem;
   }
 
+  /* Yellow, like the active link in the header: --color-primary is the dark
+     green and would disappear against this background. */
   .nav-bottom__item.is-active {
-    color: var(--color-primary);
+    color: var(--brand-yellow);
   }
 
   /* Hamburger ascuns pe mobile — înlocuit de butonul More */

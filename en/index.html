@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="description" content="Mesopotamia – Fast food with authentic taste. Discover our products, our locations across Romania and home delivery.">
+  <title>Mesopotamia® – The taste you won't forget!</title>
+
+
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css">
+  <link rel="stylesheet" href="../css/layout.css?v=6">
+  <link rel="stylesheet" href="../css/index.css?v=6">
+  <script>(function(){if(localStorage.getItem('theme')!=='dark')document.documentElement.dataset.theme='light';})()</script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html" class="nav__logo" aria-label="Mesopotamia – home page">
+          <img src="../icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="nav__logo-img nav__logo--dark">
+          <img src="../icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="nav__logo-img nav__logo--light">
+        </a>
+        <ul class="nav__links" id="navLinks" role="list">
+          <li><a href="index.html"        class="nav__link nav__link--active">Home</a></li>
+          <li><a href="../meniu.html"     class="nav__link">Menu</a></li>
+          <li><a href="../locatii.html"   class="nav__link">Locations</a></li>
+          <li class="nav__item--desktop"><a href="../cariera.html" class="nav__link">Careers</a></li>
+          <li><a href="../contact.html"   class="nav__link">Contact</a></li>
+          <li class="nav__actions-mobile">
+            <a href="../index.html" class="nav__lang" aria-label="Treci la română">
+              <i class="ph-bold ph-globe" aria-hidden="true"></i>
+              <span>RO</span>
+            </a>
+          </li>
+
+        </ul>
+        <div class="nav__actions">
+          <a href="../index.html" class="nav__lang" aria-label="Treci la română">
+            <i class="ph-bold ph-globe" aria-hidden="true"></i>
+            <span>RO</span>
+          </a>
+          <button class="nav__hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- HERO SLIDER -->
+  <section class="hero" aria-label="Promotional slider">
+    <div class="hero__slider" id="heroSlider">
+
+      <a href="#" class="hero__slide is-active" role="group" aria-label="Slide 1 of 2">
+        <picture>
+          <source media="(max-width: 768px)" srcset="../images/hero/mobile/PiattoMare_cover-mobile.jpg">
+          <img src="../images/hero/desktopBig/PiattoMare_desktopBig.jpg" alt="Mesopotamia Piatto Mare" class="hero__slide-img">
+        </picture>
+      </a>
+
+      <a href="#" class="hero__slide" role="group" aria-label="Slide 2 of 2">
+        <picture>
+          <source media="(max-width: 768px)" srcset="../images/hero/mobile/FuzeTeaCrepes_cover-mobile.jpg">
+          <img src="../images/hero/desktopBig/FuzeTeaCrepes_desktopBig.jpg" alt="Mesopotamia Fuze Tea and crepes" class="hero__slide-img" loading="lazy">
+        </picture>
+      </a>
+
+    </div>
+
+    <button class="hero__arrow hero__arrow--prev" id="heroPrev" aria-label="Previous slide">
+      <i class="ph-bold ph-caret-left" aria-hidden="true"></i>
+    </button>
+    <button class="hero__arrow hero__arrow--next" id="heroNext" aria-label="Next slide">
+      <i class="ph-bold ph-caret-right" aria-hidden="true"></i>
+    </button>
+
+  </section>
+
+
+  <!-- MENU – CATEGORIES -->
+  <section class="menu" aria-labelledby="menu-title">
+    <div class="container">
+      <div class="menu__header">
+        <h2 class="menu__title" id="menu-title">Discover the full range of Mesopotamia products</h2>
+      </div>
+
+      <div class="cat-grid">
+
+        <a href="../meniu.html#kebab" class="cat-card reveal">
+          <div class="cat-card__img-wrap">
+            <img src="../images/promo/menu-cards/kebab.jpg" alt="Kebab" class="cat-card__img">
+          </div>
+          <div class="cat-card__label">
+            <h3 class="cat-card__title">The King of Kebab</h3>
+          </div>
+        </a>
+
+        <a href="../meniu.html#pizza" class="cat-card reveal">
+          <div class="cat-card__img-wrap">
+            <img src="../images/promo/menu-cards/pizza.jpg" alt="Pizza" class="cat-card__img">
+          </div>
+          <div class="cat-card__label">
+            <h3 class="cat-card__title">Pizza? Obviously.</h3>
+          </div>
+        </a>
+
+        <a href="../meniu.html#crepes" class="cat-card reveal">
+          <div class="cat-card__img-wrap">
+            <img src="../images/promo/menu-cards/mesocafe.jpg" alt="MesoCafe" class="cat-card__img">
+          </div>
+          <div class="cat-card__label">
+            <h3 class="cat-card__title">MesoCafe</h3>
+          </div>
+        </a>
+
+        <a href="../meniu.html#salate" class="cat-card reveal">
+          <div class="cat-card__img-wrap">
+            <img src="../images/promo/menu-cards/salate.jpg" alt="Salads" class="cat-card__img">
+          </div>
+          <div class="cat-card__label">
+            <h3 class="cat-card__title">Salads</h3>
+          </div>
+        </a>
+
+        <!-- Card CTA — fara poza, trimite la meniul complet -->
+        <a href="../meniu.html" class="cat-card cat-card--cta reveal">
+          <div class="cat-card__label">
+            <h3 class="cat-card__title">See the<br>full menu!</h3>
+          </div>
+          <img src="../images/promo/menu-cards/mascota.png" alt="" class="cat-card__mascot" loading="lazy">
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- BETTER TOGETHER -->
+  <section class="bt" aria-labelledby="bt-title">
+    <div class="container">
+      <div class="bt__head reveal">
+        <h2 class="bt__title" id="bt-title">Better <span class="hl">Together</span></h2>
+        <p class="bt__desc">
+          Why choose Mesopotamia every time? Because for 15 years we have done
+          the same thing: good food, made on the spot, with people gathering
+          around it. You bring the appetite and the people you love — we set the table.
+        </p>
+      </div>
+
+      <!-- Carusel infinit: poza din centru mai mare, vecinele mai mici,
+           cele de la margini se topesc in fundal -->
+      <div class="bt-carousel" id="btCarousel">
+        <div class="bt-carousel__viewport">
+          <div class="bt-carousel__track" id="btTrack">
+            <figure class="bt-slide"><img src="../images/promo/bettertogether_carousel/BetterTogether_01.jpg" alt="Mesopotamia customers with kebab" width="700" height="875"></figure>
+            <figure class="bt-slide"><img src="../images/promo/bettertogether_carousel/BetterTogether_02.jpg" alt="A moment at Mesopotamia" width="700" height="875" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="../images/promo/bettertogether_carousel/BetterTogether_03.jpg" alt="A moment at Mesopotamia" width="700" height="875" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="../images/promo/bettertogether_carousel/BetterTogether_04.jpg" alt="A moment at Mesopotamia" width="700" height="875" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="../images/promo/bettertogether_carousel/BetterTogether_05.jpg" alt="A moment at Mesopotamia" width="700" height="875" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="../images/promo/bettertogether_carousel/BetterTogether_06.jpg" alt="A moment at Mesopotamia" width="700" height="875" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="../images/promo/bettertogether_carousel/BetterTogether_07.jpg" alt="A moment at Mesopotamia" width="700" height="875" loading="lazy"></figure>
+            <figure class="bt-slide"><img src="../images/promo/bettertogether_carousel/BetterTogether_08.jpg" alt="A moment at Mesopotamia" width="700" height="875" loading="lazy"></figure>
+          </div>
+        </div>
+
+        <button class="bt-carousel__btn bt-carousel__btn--prev" id="btPrev" aria-label="Previous photo">
+          <i class="ph-bold ph-caret-left" aria-hidden="true"></i>
+        </button>
+        <button class="bt-carousel__btn bt-carousel__btn--next" id="btNext" aria-label="Next photo">
+          <i class="ph-bold ph-caret-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- APLICATIA MESO — in curand, cu colectare de emailuri -->
+  <section class="app" aria-labelledby="app-title">
+    <div class="container app__inner">
+
+      <div class="app__text">
+        <h2 class="app__title" id="app-title">
+          <span class="hl">Meso App</span> coming soon <br> to your phone!
+        </h2>
+
+        <p class="app__desc">
+          Collect loyalty points and enjoy exclusive offers and discounts.
+          Discover what's new in Mesopotamia restaurants, be the first to hear
+          about special announcements and place pre-orders straight from the app.
+        </p>
+
+        <!-- Badge-uri magazine — inactive pana la lansare -->
+        <div class="app__stores">
+          <span class="app__stores-label">Coming soon on</span>
+          <div class="app__stores-row">
+            <span class="app__store is-soon">
+              <img src="../images/promo/meso-app/AppStore.png" alt="App Store" class="app__store-img" loading="lazy">
+            </span>
+            <span class="app__store is-soon">
+              <img src="../images/promo/meso-app/GooglePlay.png" alt="Google Play" class="app__store-img" loading="lazy">
+            </span>
+          </div>
+        </div>
+
+        <!-- Formular: vizual deocamdata, nu trimite nimic.
+             De conectat la backend / serviciu de newsletter la lansare. -->
+        <div class="app__signup">
+          <p class="app__signup-txt">Be the first to know when it launches.</p>
+          <form class="app__form" onsubmit="return false;">
+            <label class="sr-only" for="appEmail">Your email address</label>
+            <input type="email" id="appEmail" name="email" class="app__input"
+                   placeholder="name@email.com" autocomplete="email">
+            <button type="submit" class="btn-meso app__btn">Notify me</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="app__visual reveal">
+        <img src="../images/promo/meso-app/AppMockup_3D.png" alt="The Mesopotamia app icon" class="app__img" loading="lazy">
+      </div>
+
+    </div>
+  </section>
+  <!-- UNDE NE GASESTI — banda cu orase care defileaza -->
+  <section class="loc" aria-labelledby="loc-title">
+    <video class="loc__bg" autoplay muted loop playsinline aria-hidden="true">
+      <source src="../images/video/mesopotamia-add.mp4" type="video/mp4">
+    </video>
+
+    <div class="container loc__inner">
+      <h2 class="loc__title" id="loc-title">Where to find us</h2>
+      <p class="loc__desc">
+        Over <span class="loc__mark">80 locations</span> across Romania.
+        Find the one closest to you!
+      </p>
+      <a href="../locatii.html" class="btn-meso loc__cta">See locations</a>
+    </div>
+
+    <!-- Banda de orase, dublata in JS pentru bucla continua -->
+    <div class="container">
+    <div class="loc__marquee" aria-hidden="true">
+      <div class="loc__track" id="locTrack">
+        <span class="loc__city">Oradea</span><span class="loc__dot">•</span>
+        <span class="loc__city">Timișoara</span><span class="loc__dot">•</span>
+        <span class="loc__city">Cluj-Napoca</span><span class="loc__dot">•</span>
+        <span class="loc__city">București</span><span class="loc__dot">•</span>
+        <span class="loc__city">Iași</span><span class="loc__dot">•</span>
+        <span class="loc__city">Brașov</span><span class="loc__dot">•</span>
+        <span class="loc__city">Constanța</span><span class="loc__dot">•</span>
+        <span class="loc__city">Sibiu</span><span class="loc__dot">•</span>
+        <span class="loc__city">Arad</span><span class="loc__dot">•</span>
+        <span class="loc__city">Craiova</span><span class="loc__dot">•</span>
+        <span class="loc__city">Galați</span><span class="loc__dot">•</span>
+        <span class="loc__city">Ploiești</span><span class="loc__dot">•</span>
+        <span class="loc__city">Bacău</span><span class="loc__dot">•</span>
+        <span class="loc__city">Baia Mare</span><span class="loc__dot">•</span>
+        <span class="loc__city">Alba Iulia</span><span class="loc__dot">•</span>
+        <span class="loc__city">Suceava</span><span class="loc__dot">•</span>
+        <span class="loc__city">Târgu Mureș</span><span class="loc__dot">•</span>
+        <span class="loc__city">Pitești</span><span class="loc__dot">•</span>
+        <span class="loc__city">Deva</span><span class="loc__dot">•</span>
+        <span class="loc__city">Buzău</span><span class="loc__dot">•</span>
+        <span class="loc__city">Focșani</span><span class="loc__dot">•</span>
+        <span class="loc__city">Râmnicu Vâlcea</span><span class="loc__dot">•</span>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ECHIPA — trimite spre cariera.html, care face munca grea -->
+  <section class="team" aria-labelledby="team-title">
+    <div class="container team__inner">
+      <!-- .reveal pe fiecare poza → stagger automat din initScrollReveal.
+           Animatia lor (revealFloat) miscă `translate`, nu `transform`:
+           transform-ul rămâne liber pentru urmarirea mouse-ului. -->
+      <div class="team__floats" aria-hidden="true">
+        <img src="../images/promo/cariera/Cariera_01.jpg" alt="" class="team__float team__float--l1 reveal" width="380" height="475" loading="lazy">
+        <img src="../images/promo/cariera/Cariera_02.jpg" alt="" class="team__float team__float--l2 reveal" width="380" height="475" loading="lazy">
+        <img src="../images/promo/cariera/Cariera_03.jpg" alt="" class="team__float team__float--r1 reveal" width="380" height="475" loading="lazy">
+        <img src="../images/promo/cariera/Cariera_04.jpg" alt="" class="team__float team__float--r2 reveal" width="380" height="475" loading="lazy">
+      </div>
+
+      <h2 class="team__title" id="team-title">
+        <span class="hl">Join our team!</span>
+      </h2>
+      <p class="team__desc">
+        Come work with Mesopotamia. This is the right place to grow.
+        <strong>No experience?</strong> No worries, all you need is the will,
+        and we'll teach you everything else.
+      </p>
+      <a href="../cariera.html" class="btn-meso team__cta">Apply now</a>
+    </div>
+  </section>
+
+  <!-- CONTACT — acelasi fundal ca footer-ul, ca sa para o prelungire a lui -->
+  <section class="contact-cta" aria-labelledby="contact-cta-title">
+    <div class="container contact-cta__inner">
+
+      <div class="contact-cta__head">
+        <h2 class="contact-cta__title" id="contact-cta-title">
+          Got a question? <span class="hl">Write to us!</span>
+        </h2>
+      </div>
+
+      <div class="contact-cta__action">
+        <a href="../contact.html" class="btn-meso contact-cta__btn">Contact us</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Footer">
+<div class="container">
+
+      <div class="footer__body">
+
+        <div class="footer__brand">
+          <img src="../icons/LogoMesopotamia_darkmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--dark">
+          <img src="../icons/LogoMesopotamia_lightmode.svg" alt="Mesopotamia" class="footer__logo footer__logo--light">
+        </div>
+
+        <nav class="footer__nav" aria-label="Footer links">
+          <ul class="footer__list">
+            <li><a href="https://www.mesopotamia.ro/wp-content/uploads/2026/02/2026-mesopotamia-valorinutritionale.pdf" target="_blank" rel="noopener" class="footer__link">Nutritional values</a></li>
+            <li><a href="../contact.html?form=sesizari" class="footer__link">Suggestions and complaints</a></li>
+            <li><a href="../privacy.html"  class="footer__link">Privacy policy</a></li>
+            <li><a href="../cookies.html"  class="footer__link">Cookie policy</a></li>
+            <li><a href="../termeni.html"  class="footer__link">Terms and conditions</a></li>
+            <li><a href="../contact.html"  class="footer__link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__social">
+          <p class="footer__social-title">Follow us</p>
+          <div class="footer__social-links">
+            <a href="#" class="footer__social-link" aria-label="Facebook"><svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"></path></svg></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"></path></svg></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><svg class="footer__social-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M224,72a48.05,48.05,0,0,1-48-48,8,8,0,0,0-8-8H128a8,8,0,0,0-8,8V156a20,20,0,1,1-28.57-18.08A8,8,0,0,0,96,130.69V88a8,8,0,0,0-9.4-7.88C50.91,86.48,24,119.1,24,156a76,76,0,0,0,152,0V116.29A103.25,103.25,0,0,0,224,128a8,8,0,0,0,8-8V80A8,8,0,0,0,224,72Zm-8,39.64a87.19,87.19,0,0,1-43.33-16.15A8,8,0,0,0,160,102v54a60,60,0,0,1-120,0c0-25.9,16.64-49.13,40-57.6v27.67A36,36,0,1,0,136,156V32h24.5A64.14,64.14,0,0,0,216,87.5Z"></path></svg></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__copy-wrap">
+          <p class="footer__copy">© 2026 Mesopotamia.ro – All rights reserved.</p>
+          <p class="footer__company">SC SET-CORPORATION SRL J33/838/2011 RO 29084042</p>
+        </div>
+        <div class="footer__anpc">
+          <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sal.svg" alt="Alternative Dispute Resolution" class="footer__anpc-img">
+          </a>
+          <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="nofollow">
+            <img src="https://etamade-com.github.io/anpc-sal-sol-logo/anpc-sol.svg" alt="Online Dispute Resolution" class="footer__anpc-img">
+          </a>
+        </div>
+
+
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="../js/main.js?v=6"></script>
+
+  <nav class="nav-bottom" id="navBottom" aria-label="Main navigation">
+    <a href="index.html"      class="nav-bottom__item"><i class="ph-bold ph-house"></i><span>Home</span></a>
+    <a href="../meniu.html"   class="nav-bottom__item"><i class="ph-bold ph-fork-knife"></i><span>Menu</span></a>
+    <a href="../locatii.html" class="nav-bottom__item"><i class="ph-bold ph-map-pin"></i><span>Locations</span></a>
+    <a href="../contact.html" class="nav-bottom__item"><i class="ph ph-envelope"></i><span>Contact</span></a>
+    <a href="../more.html"    class="nav-bottom__item"><i class="ph-bold ph-dots-three"></i><span>More</span></a>
+  </nav>
+
+</body>
+</html>

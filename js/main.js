@@ -242,8 +242,10 @@ function initBtCarousel() {
   var N       = track.children.length;
   var pos     = 0;    /* logical index of the active slide */
   var slides  = [];
-  var W       = 0;    /* one step: slide width + gap */
+  var offsets = [];   /* each slide's centre, measured once per layout */
+  var vpHalf  = 0;    /* half the viewport width */
   var settle  = null;
+  var activeIdx = -1; /* which slide currently carries .is-active */
 
   /* Clone the set on both sides so there are always slides left and right.
      Rendering moves a transform rather than DOM nodes, which keeps the
@@ -267,35 +269,48 @@ function initBtCarousel() {
     slides = Array.prototype.slice.call(track.children);
   }
 
+  /* All layout reads happen here, batched, and never during a transition.
+     render() then only writes, so changing slides cannot force a reflow. */
   function measure() {
     if (!slides.length) return;
-    var a = slides[0].getBoundingClientRect();
-    var b = slides[1] ? slides[1].getBoundingClientRect() : null;
-    W = b ? (b.left - a.left) : a.width;
+    vpHalf = track.parentNode.offsetWidth / 2;
+    offsets = slides.map(function (el) {
+      return el.offsetLeft + el.offsetWidth / 2;
+    });
   }
 
   /* Centre the slide at logical index `pos`. `pos` is deliberately NOT
      normalised here: doing so would make the last-to-first transition jump
      backwards instead of continuing forward. */
   function render(animate) {
-    if (!W) measure();
+    if (!offsets.length) measure();
 
     /* Start from the middle set and offset by pos, which may be negative or
        exceed N — that is what the cloned sides are for. */
     var idx = N + pos;
-    var vp  = track.parentNode.offsetWidth;
-    var el  = slides[idx];
-    if (!el) return;
+    if (offsets[idx] === undefined) return;
 
-    var offset = vp / 2 - (el.offsetLeft + el.offsetWidth / 2);
+    track.style.setProperty('--shift', (vpHalf - offsets[idx]).toFixed(1) + 'px');
 
-    track.style.transition = animate ? '' : 'none';
-    track.style.setProperty('--shift', offset.toFixed(1) + 'px');
-    if (!animate) void track.offsetWidth;
+    if (animate) {
+      track.style.transition = '';
+    } else {
+      /* Suppress the transition for this frame only, then restore it: leaving
+         `none` in the inline style would make the next step jump without
+         animating. Reading offsetWidth commits the jump as its own frame. */
+      track.style.transition = 'none';
+      void track.offsetWidth;
+      track.style.transition = '';
+    }
 
-    slides.forEach(function (s, i) {
-      s.classList.toggle('is-active', i === idx);
-    });
+    /* Touch only the two slides that change, not all 24 */
+    if (activeIdx !== idx) {
+      if (activeIdx >= 0 && slides[activeIdx]) {
+        slides[activeIdx].classList.remove('is-active');
+      }
+      slides[idx].classList.add('is-active');
+      activeIdx = idx;
+    }
   }
 
   /* One step. Repeated clicks only change `pos`; the CSS transition
@@ -313,16 +328,24 @@ function initBtCarousel() {
 
     /* Once motion settles, bring pos back into [0, N) and redraw instantly.
        The set is tripled, so the centred slide looks identical — the jump is
-       invisible and the loop can run forever. */
+       invisible and the loop can run forever. Driven by transitionend rather
+       than a guessed timeout, so it can never land mid-animation. */
     clearTimeout(settle);
-    settle = setTimeout(function () {
-      var norm = ((pos % N) + N) % N;
-      if (norm !== pos) {
-        pos = norm;
-        render(false);
-      }
-    }, 620);
+    settle = setTimeout(normalise, 900);
   }
+
+  function normalise() {
+    clearTimeout(settle);
+    var norm = ((pos % N) + N) % N;
+    if (norm !== pos) {
+      pos = norm;
+      render(false);
+    }
+  }
+
+  track.addEventListener('transitionend', function (e) {
+    if (e.target === track && e.propertyName === 'transform') normalise();
+  });
 
   var AUTO_MS = 5000;
   var timer   = null;
@@ -352,12 +375,12 @@ function initBtCarousel() {
     var slide = e.target.closest('.bt-slide');
     if (!slide || slide.classList.contains('is-active')) return;
 
-    var items   = Array.prototype.slice.call(track.children);
-    var clicked = items.indexOf(slide);
-    var active  = items.indexOf(track.querySelector('.bt-slide.is-active'));
-    if (clicked < 0 || active < 0) return;
+    /* activeIdx is the source of truth: normalise() moves the active slide
+       without the DOM order changing, so re-querying could be stale. */
+    var clicked = slides.indexOf(slide);
+    if (clicked < 0 || activeIdx < 0) return;
 
-    nudge(clicked - active);
+    nudge(clicked - activeIdx);
   });
 
   /* Swipe on touch, where the arrows are hidden (hover: none). Goes through
@@ -388,14 +411,27 @@ function initBtCarousel() {
   root.addEventListener('pointerenter', stopAuto);
   root.addEventListener('pointerleave', startAuto);
 
+  /* Images now carry width/height, so layout is stable before they load and
+     a single re-measure on the last one is enough. */
+  var pending = 0;
   track.querySelectorAll('img').forEach(function (img) {
     if (img.complete) return;
-    img.addEventListener('load', function () { measure(); render(false); });
+    pending++;
+    img.addEventListener('load', function () {
+      if (--pending === 0) { measure(); render(false); }
+    }, { once: true });
   });
 
+  /* Throttled: measure() reads layout for every slide, so running it on each
+     resize event would thrash during a window drag or an orientation change. */
+  var resizeFrame = null;
   window.addEventListener('resize', function () {
-    measure();
-    render(false);
+    if (resizeFrame) return;
+    resizeFrame = requestAnimationFrame(function () {
+      resizeFrame = null;
+      measure();
+      render(false);
+    });
   }, { passive: true });
 
   build();
