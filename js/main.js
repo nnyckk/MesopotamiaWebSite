@@ -1,5 +1,17 @@
 /* Mesopotamia — shared behaviour for all pages */
 
+/* Service worker: offline shell plus a runtime cache. Registered after load so
+   it never competes with the page's own requests. Skipped on file:// and on
+   Live Server, where a stale cache would hide the edits you just made. */
+if ('serviceWorker' in navigator &&
+    location.protocol.indexOf('http') === 0 &&
+    location.hostname !== 'localhost' &&
+    location.hostname !== '127.0.0.1') {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function () {});
+  });
+}
+
 function ready(fn) {
   if (document.readyState !== 'loading') fn();
   else document.addEventListener('DOMContentLoaded', fn);

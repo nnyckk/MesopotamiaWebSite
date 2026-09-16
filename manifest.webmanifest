@@ -1,0 +1,14 @@
+{
+  "name": "Mesopotamia",
+  "short_name": "Mesopotamia",
+  "description": "Fast food cu gust autentic. Produse, locații și comenzi la domiciliu.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#02120a",
+  "theme_color": "#02120a",
+  "lang": "ro",
+  "dir": "ltr",
+  "icons": []
+}
